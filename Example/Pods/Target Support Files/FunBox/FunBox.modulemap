@@ -1,0 +1,6 @@
+framework module FunBox {
+  umbrella header "FunBox-umbrella.h"
+
+  export *
+  module * { export * }
+}

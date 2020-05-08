@@ -21,14 +21,14 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/xiaohua/FunBox'
+  s.homepage         = 'https://github.com/choarkinphe/FunBox'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'xiaohua' => 'choarkinphe@outlook.com' }
-  s.source           = { :git => 'https://github.com/xiaohua/FunBox.git', :tag => s.version.to_s }
+  s.author           = { 'choarkinphe' => 'choarkinphe@outlook.com' }
+  s.source           = { :git => 'https://github.com/choarkinphe/FunBox.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'FunBox/Classes/**/*'
   

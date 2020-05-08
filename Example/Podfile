@@ -4,6 +4,7 @@ target 'FunBox_Example' do
   pod 'FunBox', :path => '../'
 
   target 'FunBox_Tests' do
+    inhibit_all_warnings!
     inherit! :search_paths
 
     pod 'FBSnapshotTestCase' , '~> 2.1.4'
