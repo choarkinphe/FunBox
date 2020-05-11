@@ -91,7 +91,7 @@ public extension FunBox {
             
             config.completion = completion
             
-            let targetView = config.inView ?? FunBox.PublicTool.frontController.view ?? UIApplication.shared.currentWindow
+            let targetView = config.inView ?? UIApplication.shared.frontController.view ?? UIApplication.shared.currentWindow
             
             targetView?.makeToast(config: config)
             
@@ -100,13 +100,13 @@ public extension FunBox {
         public func showActivity(_ completion: ((Bool)->Void)? = nil) {
             config.completion = completion
             
-            let targetView = config.inView ?? FunBox.PublicTool.frontController.view ?? UIApplication.shared.currentWindow
+            let targetView = config.inView ?? UIApplication.shared.frontController.view ?? UIApplication.shared.currentWindow
             
             targetView?.makeToastActivity(config: config)
         }
         
         public func dismiss(inView: UIView? = nil) {
-            let targetView = inView ?? FunBox.PublicTool.frontController.view ?? UIApplication.shared.currentWindow
+            let targetView = inView ?? UIApplication.shared.frontController.view ?? UIApplication.shared.currentWindow
             
             targetView?.hideToast()
             targetView?.hideToastActivity()

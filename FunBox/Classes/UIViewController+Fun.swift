@@ -140,13 +140,10 @@ extension UIViewController: FunSwizz {
     
 }
 
+
 public extension FunBox {
     class FunController {
-//        private weak var observation_navigationBar: NSKeyValueObservation?
-//        private weak var observation_topView: NSKeyValueObservation?
-//        private weak var observation_bottomView: NSKeyValueObservation?
-//        lazy var observations = [NSKeyValueObservation]
-        
+
         lazy var observations: [NSKeyValueObservation] = {
             let observations = [NSKeyValueObservation]()
             
@@ -195,11 +192,6 @@ public extension FunBox {
                     navigationBar.frame = CGRect.init(x: 0, y: 0, width: viewController.view.frame.size.width, height: navigationBar.bounds.size.height)
                     viewController.view.addSubview(navigationBar)
                     // 监听hidden，方便后面调整frame
-//                    observation_navigationBar = navigationBar.observe(\UIView.isHidden) { (_, change) in
-//                        viewController.view.setNeedsLayout()
-//
-//                    }
-                    
                     observations.append(navigationBar.observe(\UIView.isHidden) { (_, change) in
                         viewController.view.setNeedsLayout()
                         
@@ -233,10 +225,6 @@ public extension FunBox {
                     topView.frame = CGRect.init(x: 0.0, y: topView_y, width: viewController.view.frame.size.width, height: topView.bounds.size.height)
                     viewController.view.addSubview(topView)
                     // 监听hidden，方便后面调整frame
-//                    observation_topView = topView.observe(\UIView.isHidden) { (_, change) in
-//                        viewController.view.setNeedsLayout()
-//
-//                    }
                     
                     observations.append(topView.observe(\UIView.isHidden) { (_, change) in
                         viewController.view.setNeedsLayout()
@@ -298,11 +286,7 @@ public extension FunBox {
                     bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height - bottomView.frame.size.height - safeAeraInsets.bottom, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
                     
                     viewController.view.addSubview(bottomView)
-                    
-//                    observation_bottomView = bottomView.observe(\UIView.isHidden) { (_, change) in
-//                        viewController.view.setNeedsLayout()
-//                    }
-                    
+
                     observations.append(bottomView.observe(\UIView.isHidden) { (_, change) in
                         viewController.view.setNeedsLayout()
                         
@@ -358,3 +342,5 @@ public extension FunBox {
     
     
 }
+
+

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//public typealias FunNetworkKit = FunBox.NetworkKit
 public typealias FunLocation = FunBox.Location
 public typealias FunToast = FunBox.Toast
 public typealias FunSheet = FunBox.Sheet
@@ -17,8 +16,6 @@ public typealias FunDrawingBoard = FunBox.DrawingBoard
 open class FunBox {
     
     private struct Static {
-        
-//        static var instance_networkManager: NetworkKit.Manager = NetworkKit.Manager()
         
         static var instance_device: Device = Device()
     }
@@ -70,17 +67,3 @@ public extension FunBox {
         return Static.instance_device
     }
 }
-
-//// MARK: - NetworkKit
-//public extension FunBox {
-//
-//    
-//    static var netwokKit: NetworkKit {
-//        
-//        return NetworkKit.default
-//    }
-//    
-//    static var networkManager: NetworkKit.Manager {
-//        return Static.instance_networkManager
-//    }
-//}

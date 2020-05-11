@@ -27,70 +27,70 @@ public extension UIApplication {
                 }
                 
             }
-            
-            
-            
+
         }
         
         return nil
         
     }
     
-}
-
-public extension FunBox {
-
-    class PublicTool {
+    // 获取当前控制器
+    var frontController: UIViewController {
         
-        // 获取当前控制器
-        public static var frontController: UIViewController {
-            
-            let rootViewController = UIApplication.shared.currentWindow?.rootViewController
-            
-            return findFrontViewController(rootViewController!)
-        }
+        let rootViewController = UIApplication.shared.currentWindow?.rootViewController
         
-        private static func findFrontViewController(_ currnet: UIViewController) -> UIViewController {
+        return findFrontViewController(rootViewController!)
+    }
+    
+    var projectName: String? {
+
+        return Bundle.main.infoDictionary?["CFBundleExecutable"] as? String
+    }
+    
+    private func findFrontViewController(_ currnet: UIViewController) -> UIViewController {
+        
+        if let presentedController = currnet.presentedViewController {
             
-            if let presentedController = currnet.presentedViewController {
+            return findFrontViewController(presentedController)
+            
+        } else if let svc = currnet as? UISplitViewController, let next = svc.viewControllers.last {
+            
+            
+            return findFrontViewController(next)
+            
+        } else if let nvc = currnet as? UINavigationController, let next = nvc.topViewController {
+            
+            return findFrontViewController(next)
+            
+        } else if let tvc = currnet as? UITabBarController, let next = tvc.selectedViewController {
+            
+            
+            return findFrontViewController(next)
+            
+            
+        } else if currnet.children.count > 0 {
+            
+            for child in currnet.children {
                 
-                return findFrontViewController(presentedController)
-                
-            } else if let svc = currnet as? UISplitViewController, let next = svc.viewControllers.last {
-                
+                if currnet.view.subviews.contains(child.view) {
                     
-                    return findFrontViewController(next)
-
-            } else if let nvc = currnet as? UINavigationController, let next = nvc.topViewController {
-                
-                    return findFrontViewController(next)
-                
-            } else if let tvc = currnet as? UITabBarController, let next = tvc.selectedViewController {
-                
-                
-                    return findFrontViewController(next)
-
-                
-            } else if currnet.children.count > 0 {
-                
-                for child in currnet.children {
-                    
-                    if currnet.view.subviews.contains(child.view) {
-                        
-                        return findFrontViewController(child)
-                    }
+                    return findFrontViewController(child)
                 }
-               
             }
             
-            return currnet
-            
         }
         
+        return currnet
         
     }
     
+}
+
+public extension FunBox {
+    
     struct Device {
+        
+        public var systemVersion: Float
         
         public var screenSize: CGSize
         
@@ -114,18 +114,15 @@ public extension FunBox {
             }
             
             screenSize = UIScreen.main.bounds.size
+            
+            if let version = Float(UIDevice.current.systemVersion) {
+                systemVersion = version
+            } else {
+                systemVersion = 10.0
+            }
         }
 
     }
-}
-
-//MARK: - findCurrentController
-public extension NSObject {
-    // 当前显示的控制器
-    class var frontController: UIViewController {
-        return FunBox.PublicTool.frontController
-    }
-
 }
 
 public protocol FunView: class {
