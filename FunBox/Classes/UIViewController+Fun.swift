@@ -10,19 +10,18 @@ import UIKit
 private var funControllerKey = "funControllerKey"
 extension UIViewController: FunSwizz {
     
-    public static func awake() {
-        swizzleMethod
+    fileprivate static func swizzleMethod() {
+        DispatchQueue.once {
+            
+//            swizzleMethod
+            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(swizzled_viewDidLoad))
+            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidAppear(_:)), swizzledSelector: #selector(swizzled_viewDidAppear(animated:)))
+            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidDisappear(_:)), swizzledSelector: #selector(swizzled_viewDidDisappear(animated:)))
+            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLayoutSubviews), swizzledSelector: #selector(swizzled_viewDidLayoutSubviews))
+        }
     }
     
-    private static let swizzleMethod: Void = {
-        
-        swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(swizzled_viewDidLoad))
-        swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidAppear(_:)), swizzledSelector: #selector(swizzled_viewDidAppear(animated:)))
-        swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidDisappear(_:)), swizzledSelector: #selector(swizzled_viewDidDisappear(animated:)))
-        swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLayoutSubviews), swizzledSelector: #selector(swizzled_viewDidLayoutSubviews))
-        
-    }()
-    
+
     @objc func swizzled_viewDidLoad() {
         swizzled_viewDidLoad()
         
@@ -152,10 +151,9 @@ public extension FunBox {
         private weak var viewController: UIViewController?
         
         init(target: UIViewController?) {
-            
+            UIViewController.swizzleMethod()
             if let target = target {
                 viewController = target
-                
             }
         }
         

@@ -8,7 +8,7 @@
 import Foundation
 
 public extension UIApplication {
-    
+
     // 获取当前的window
     var currentWindow: UIWindow? {
         
@@ -32,6 +32,10 @@ public extension UIApplication {
         
         return nil
         
+    }
+    
+    var canPush: Bool {
+        return frontController.navigationController != nil
     }
     
     // 获取当前控制器
@@ -193,11 +197,11 @@ public extension String {
     }
     
 }
+
 /*
     方法交换
  */
 public protocol FunSwizz: class {
-    static func awake()
     static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector)
 }
 
@@ -217,20 +221,25 @@ public extension FunSwizz {
     }
 }
 
-public extension UIApplication {
-    private static let runOnce: Void = {
-        let typeCount = Int(objc_getClassList(nil, 0))
-        let types = UnsafeMutablePointer<AnyClass>.allocate(capacity: typeCount)
-        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyClass>(types)
-        objc_getClassList(autoreleasingTypes, Int32(typeCount))
-        for index in 0 ..< typeCount {
-            (types[index] as? FunSwizz.Type)?.awake()
-        }
-        types.deallocate()
-    }()
-    override var next: UIResponder? {
-        UIApplication.runOnce
-        return super.next
+extension DispatchQueue {
+    private static var _onceTracker = [String]()
+    
+    public class func once(file: String = #file,
+                           function: String = #function,
+                           line: Int = #line,
+                           block: () -> Void) {
+        let token = "\(file):\(function):\(line)"
+        once(token: token, block: block)
     }
     
+    public class func once(token: String,
+                           block: () -> Void) {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        
+        guard !_onceTracker.contains(token) else { return }
+        
+        _onceTracker.append(token)
+        block()
+    }
 }

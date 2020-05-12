@@ -9,21 +9,6 @@
 import UIKit
 import FunBox
 
-extension TableViewController: FunRoutable {
-    func setParams(_ params: FunRouterParametable?) {
-//        print(params?.asParams())
-    }
-    
-//    func setParams(_ params: FunRouterPathable?) {
-//
-//    }
-    
-//    static func build(params: FunRouterPathable?) -> UIViewController {
-//        
-//        
-//        return self
-//    }
-}
 
 class TableViewController: UITableViewController {
 
@@ -37,7 +22,7 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         view.backgroundColor = UIColor.red
         
-//        print(rt_params)
+        print(rt.options?.params)
         
     }
 
