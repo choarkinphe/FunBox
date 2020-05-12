@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        FunBox.Router.default.registVC()
+        FunRouter.default.registVC()
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,7 +24,12 @@ class ViewController: UIViewController {
 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        FunBox.Router.default.push2(url: "zz://AAA?aaa=2&bbb=c")
+        
+        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
     }
+}
+
+struct AAModel: FunRouterParametable {
+    
 }
 

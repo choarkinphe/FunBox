@@ -7,6 +7,7 @@
 
 import Foundation
 
+public typealias FunRouter = FunBox.Router
 public typealias FunRouterParameter = [String: Any]
 public protocol FunRouterPathable {
     
@@ -16,81 +17,51 @@ public protocol FunRouterPathable {
 }
 
 public protocol FunRouterParametable {
-//    func asParams() -> [String: Any]?
-}
-
-//extension FunRouterParametable {
-//    func asParams() -> [String: Any]? {
-//        return nil
-//    }
-//}
-
-extension FunRouterParameter: FunRouterParametable {
-//    public func asParams() -> [String : Any]? {
-//
-//        return self as? [String : Any]
-//    }
-//    func asParams() -> [String: Any]? {
-//        return self as? [String : Any]
-//    }
-}
-
-extension FunRouterParametable {
-    
+    func asDictionary() -> FunRouterParameter?
 }
 
 public protocol FunRoutable: UIViewController {
-  /**
-   类的初始化方法
-   - params 传参字典
-   */
-    func setParams(_ params: FunRouterParametable?)
-//        -> UIViewController
-//    func setParams<T>(params: FunRouterPathable) -> T
     
+    func setParams(_ params: FunRouterParametable?)
 }
 
-//public protocol FunRouterURLConvertible {
-//
-//    func asURL() -> URL?
-//}
-
 public extension FunBox {
-    
+
     static var router: Router {
-        
+
         return Router.default
     }
     
-    fileprivate struct Static {
-        static var instance_router = Router()
-    }
     
     class Router {
+        
+        fileprivate struct Static {
+            static var instance_router = FunRouter()
+        }
         
         private var table_vc = [String: String]()
         private var table_params = [String: String]()
         
-        public static var `default`: Router {
+        public static var `default`: FunRouter {
             return Static.instance_router
         }
         
-        public func push2<T>(url: FunRouterPathable?, params: T? = nil, animated: Bool = true) where T: FunRouterParametable {
+        public func push2(url: FunRouterPathable?, params: FunRouterParametable? = nil, animated: Bool = true) {
 
             guard let vc = build(url: url, params: params) else { return }
 
             UIApplication.shared.frontController.navigationController?.pushViewController(vc, animated: animated)
         }
-//
-//        public func push2(url: FunRouterPathable?) {
-//
-//            guard let vc = getVC(url: url) else { return }
-//
-//            UIApplication.shared.frontController.present(vc, animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)?.pushViewController(vc, animated: true)
-//        }
+
+        public func present2(url: FunRouterPathable?, params: FunRouterParametable? = nil, animated: Bool = true, completion: (()->Void)?=nil) {
+
+            guard let vc = build(url: url, params: params) else { return }
+
+            UIApplication.shared.frontController.present(vc, animated: animated, completion: completion)
+        }
         
         
-        private func build<T>(url: FunRouterPathable?, params: T? = nil) -> UIViewController? where T: FunRouterParametable {
+        private func build(url: FunRouterPathable?, params: FunRouterParametable? = nil) -> UIViewController? {
             guard let identifier = url?.asURL()?.host, let projectName = UIApplication.shared.projectName, let vc_name = table_vc[identifier] else { return nil }
             let class_name = "\(projectName).\(vc_name)"
             
@@ -110,31 +81,6 @@ public extension FunBox {
     }
 
 }
-
-//fileprivate var FunRouterParamsKey = "com.FunBox.Router.paramsKey"
-//
-//public extension UIViewController {
-//    
-//    var rt_params: [String: Any]? {
-//        set {
-//            objc_setAssociatedObject(self, &FunRouterParamsKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-//        }
-//        get {
-//            
-//            return objc_getAssociatedObject(self, &FunRouterParamsKey) as? [String: Any]
-//        }
-//    }
-//    
-////    required convenience init(params: FunRouterProtocol?) {
-////        self.init()
-////
-////        rt_params = params?.asParams()
-////    }
-//    
-//}
-
-
-
 
 public extension FunRouterNamespaceWrapper where T == String {
     
@@ -169,6 +115,17 @@ public extension FunRouterNamespaceWrapper where T == URL {
 extension String: FunRouterNamespaceWrappable {}
 extension URL: FunRouterNamespaceWrappable {}
 
+extension FunRouterParametable {
+    public func asDictionary() -> FunRouterParameter? {
+        return nil
+    }
+}
+
+extension Dictionary: FunRouterParametable {
+    public func asDictionary() -> FunRouterParameter? {
+        return self as? FunRouterParameter
+    }
+}
 
 
 extension Dictionary: FunRouterPathable {
