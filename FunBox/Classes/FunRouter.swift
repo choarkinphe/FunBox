@@ -5,7 +5,7 @@
 //  Created by choarkinphe on 2020/5/11.
 //
 
-import Foundation
+import UIKit
 
 public typealias FunRouter = FunBox.Router
 public typealias FunRouterParameter = [String: Any]
@@ -34,7 +34,7 @@ public protocol FunRouterDelegate {
     
     func routerWillOpen(viewController: UIViewController, options: FunRouterOptions?)
     
-    func routerWillClose(viewController: UIViewController, options: FunRouterOptions?)
+//    func routerWillClose(viewController: UIViewController, options: FunRouterOptions?)
 }
 
 public protocol FunRouterPathable {
@@ -44,6 +44,7 @@ public protocol FunRouterPathable {
     func asURL() -> URL?
 }
 
+/*
 extension UIViewController {
     fileprivate static func swizzleMethod() {
         DispatchQueue.once {
@@ -103,7 +104,7 @@ extension UINavigationController {
         return swizzled_popToRootViewController(animated: animated)
     }
 }
-
+*/
 public extension FunBox {
     
     static var router: Router {
@@ -114,18 +115,34 @@ public extension FunBox {
     
     class Router {
         
+        init() {
+            NotificationCenter.default.addObserver(self, selector: #selector(memoryWarning), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+        }
+        
+        // MARK: - 内存报警时清除非前台页面参数
+        @objc func memoryWarning() {
+            
+            for item in table_params {
+                if item.key != "\(UIApplication.shared.frontController.hashValue)" {
+                    
+                    table_params.removeValue(forKey: item.key)
+                }
+            }
+            
+        }
+        
         fileprivate struct Static {
             static var instance_router = FunRouter()
         }
         
         private var table_vc = [String: UIViewController.Type]()
         fileprivate var table_params = [String: FunRouterOptions]()
-        private lazy var observations: [NSKeyValueObservation] = {
-            let observations = [NSKeyValueObservation]()
-            
-            return observations
-        }()
-        var observation: NSKeyValueObservation?
+//        private lazy var observations: [NSKeyValueObservation] = {
+//            let observations = [NSKeyValueObservation]()
+//
+//            return observations
+//        }()
+//        var observation: NSKeyValueObservation?
         public var scheme: String?
         
         public var delegate: FunRouterDelegate?
@@ -148,7 +165,7 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-            UINavigationController.swizzleMethod_navigation()
+//            UINavigationController.swizzleMethod_navigation()
             
             UIApplication.shared.frontController.navigationController?.pushViewController(vc, animated: animated)
             
@@ -159,7 +176,7 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-            UIViewController.swizzleMethod()
+//            UIViewController.swizzleMethod()
             
             UIApplication.shared.frontController.present(vc, animated: animated, completion: completion)
             
