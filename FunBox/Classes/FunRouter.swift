@@ -39,7 +39,7 @@ public extension FunBox {
             static var instance_router = FunRouter()
         }
         
-        private var table_vc = [String: String]()
+        private var table_vc = [String: FunRoutable.Type]()
         private var table_params = [String: String]()
         
         public static var `default`: FunRouter {
@@ -62,10 +62,12 @@ public extension FunBox {
         
         
         private func build(url: FunRouterPathable?, params: FunRouterParametable? = nil) -> UIViewController? {
-            guard let identifier = url?.asURL()?.host, let projectName = UIApplication.shared.projectName, let vc_name = table_vc[identifier] else { return nil }
-            let class_name = "\(projectName).\(vc_name)"
+//            guard let identifier = url?.asURL()?.host, let projectName = UIApplication.shared.projectName, let vc_name = table_vc[identifier] else { return nil }
+//            let class_name = "\(projectName).\(vc_name)"
+//
+//            guard let get_class = NSClassFromString(class_name), let VC = get_class as? FunRoutable.Type else { return nil }
             
-            guard let get_class = NSClassFromString(class_name), let VC = get_class as? FunRoutable.Type else { return nil }
+            guard let host = url?.asURL()?.host, let VC = table_vc[host] else { return nil }
             
             let vc = VC.init()
             
@@ -74,8 +76,16 @@ public extension FunBox {
             return vc
         }
         
-        public func registVC() {
-            table_vc["AAA"] = "TableViewController"
+        public func regist(host: String?, class_name: String?) {
+            guard let host = host, let class_name = class_name, let projectName = UIApplication.shared.projectName else { return }
+            
+            guard let get_class = NSClassFromString("\(projectName).\(class_name)") else { return }
+            
+            if get_class is FunRoutable.Type {
+                table_vc[host] = get_class as? FunRoutable.Type
+            }
+            
+//            table_vc["AAA"] = "TableViewController"
         }
         
     }

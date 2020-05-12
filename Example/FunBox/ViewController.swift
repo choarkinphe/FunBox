@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        FunRouter.default.registVC()
+        FunRouter.default.regist(host: "AAA", class_name: "TableViewController")
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +25,8 @@ class ViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
+//        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
+        FunBox.router.present2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel(), animated: true, completion: nil)
     }
 }
 
