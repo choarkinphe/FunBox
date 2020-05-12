@@ -172,12 +172,12 @@ public extension FunBox {
             
             let vc = VC.init()
             
-            let params = params ?? url?.asParams()
-            
             var options = FunRouterParameter()
             options[FunRouterParameterKey.URL] = URL
-            options[FunRouterParameterKey.params] = params
-//            [FunRouterParameterKey.URL:URL,FunRouterParameterKey.params:params]
+            if let option_params = (params ?? url?.asParams()) {
+                options[FunRouterParameterKey.params] = option_params
+            }
+
             table_params["\(vc.hashValue)"] = options
             
             if let delegate = delegate {
@@ -238,7 +238,7 @@ public extension FunRouterNamespaceWrapper where T == URL {
 
 public extension FunRouterNamespaceWrapper where T: UIViewController {
     
-    public var options: FunRouterOptions? {
+    var options: FunRouterOptions? {
         return FunRouter.default.table_params["\(wrappedValue.hashValue)"]
     }
     
