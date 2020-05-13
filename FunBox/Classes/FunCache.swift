@@ -212,7 +212,7 @@ public extension FunBox {
         // 将key进行一次md5，拼接最终储存路径（防止key过长与重复）
         private func cachePathForKey(key: String?) -> String? {
             
-            if let fileName = key?.md5, let cachePath = diskCachePath {
+            if let fileName = key?.fb.md5, let cachePath = diskCachePath {
                 
                 return cachePath + "/\(fileName)"
             }
@@ -222,49 +222,5 @@ public extension FunBox {
         
         
     }
-    
-}
-
-public extension String {
-    var md5: String {
-        
-        let utf8 = cString(using: .utf8)
-        var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        CC_MD5(utf8, CC_LONG(utf8!.count - 1), &digest)
-        return digest.reduce("") { $0 + String(format:"%02X", $1)
-            
-        }
-    }
-}
-
-public extension Data {
-    
-    var hexString: String {
-        var t = ""
-        let ts = [UInt8](self)
-        for one in ts {
-            t.append(String.init(format: "%02x", one))
-        }
-        return t
-    }
-
-}
-
-public extension URLRequest {
-    // 拼接默认的request标识
-    var identifier: String? {
-        
-        guard let urlString = url?.absoluteString else { return nil}
-        
-        var key = urlString.md5
-        
-        if let params_string = httpBody?.hexString.md5 {
-            key = key + params_string
-        }
-        
-        return key.md5
-        
-    }
-    
     
 }

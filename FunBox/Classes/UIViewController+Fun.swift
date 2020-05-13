@@ -12,8 +12,7 @@ extension UIViewController: FunSwizz {
     
     fileprivate static func swizzleMethod() {
         DispatchQueue.once {
-            
-//            swizzleMethod
+
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(swizzled_viewDidLoad))
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidAppear(_:)), swizzledSelector: #selector(swizzled_viewDidAppear(animated:)))
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidDisappear(_:)), swizzledSelector: #selector(swizzled_viewDidDisappear(animated:)))
@@ -109,7 +108,7 @@ extension UIViewController: FunSwizz {
                 
                 content_h = content_h - bottomView.frame.size.height - fb.safeAeraInsets.bottom;
                 
-                bottomView.frame = CGRect.init(x: 0, y: content_h, width: view.frame.size.width, height: bottomView.frame.size.height)
+                bottomView.frame = CGRect.init(x: 0, y: content_h + content_y, width: view.frame.size.width, height: bottomView.frame.size.height)
             }
         }
         
