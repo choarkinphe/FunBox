@@ -34,7 +34,6 @@ public protocol FunRouterDelegate {
     
     func routerWillOpen(viewController: UIViewController, options: FunRouterOptions?)
     
-//    func routerWillClose(viewController: UIViewController, options: FunRouterOptions?)
 }
 
 public protocol FunRouterPathable {
@@ -44,67 +43,6 @@ public protocol FunRouterPathable {
     func asURL() -> URL?
 }
 
-/*
-extension UIViewController {
-    fileprivate static func swizzleMethod() {
-        DispatchQueue.once {
-            
-            swizzlingForClass(UIViewController.self, originalSelector: #selector(dismiss(animated:completion:)), swizzledSelector: #selector(swizzled_dismiss(animated:completion:)))
-            
-        }
-    }
-    
-    @objc dynamic func swizzled_dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        if let delegate = FunRouter.default.delegate {
-            let vc = UIApplication.shared.frontController
-            delegate.routerWillClose(viewController: vc, options: FunRouter.default.table_params["\(vc.hashValue)"])
-        }
-        FunRouter.default.cleanParams()
-        
-        swizzled_dismiss(animated: flag, completion: completion)
-        
-    }
-    
-}
-
-extension UINavigationController {
-    fileprivate static func swizzleMethod_navigation() {
-        DispatchQueue.once {
-            
-            swizzlingForClass(UIViewController.self, originalSelector: #selector(popViewController(animated:)), swizzledSelector: #selector(swizzled_popViewController(animated:)))
-            swizzlingForClass(UIViewController.self, originalSelector: #selector(popToViewController(_:animated:)), swizzledSelector: #selector(swizzled_popToViewController(_:animated:)))
-            swizzlingForClass(UIViewController.self, originalSelector: #selector(popToRootViewController(animated:)), swizzledSelector: #selector(swizzled_popToRootViewController(animated:)))
-        }
-    }
-    
-    @objc func swizzled_popViewController(animated: Bool) -> UIViewController? {
-        if let delegate = FunRouter.default.delegate {
-            let vc = UIApplication.shared.frontController
-            delegate.routerWillClose(viewController: vc, options: FunRouter.default.table_params["\(vc.hashValue)"])
-        }
-        FunRouter.default.cleanParams()
-        return swizzled_popViewController(animated: animated)
-    }
-    
-    @objc func swizzled_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        if let delegate = FunRouter.default.delegate {
-            let vc = UIApplication.shared.frontController
-            delegate.routerWillClose(viewController: vc, options: FunRouter.default.table_params["\(vc.hashValue)"])
-        }
-        FunRouter.default.cleanParams()
-        return swizzled_popToViewController(viewController, animated: animated)
-    }
-    
-    @objc func swizzled_popToRootViewController(animated: Bool) -> [UIViewController]? {
-        if let delegate = FunRouter.default.delegate {
-            let vc = UIApplication.shared.frontController
-            delegate.routerWillClose(viewController: vc, options: FunRouter.default.table_params["\(vc.hashValue)"])
-        }
-        FunRouter.default.cleanParams()
-        return swizzled_popToRootViewController(animated: animated)
-    }
-}
-*/
 public extension FunBox {
     
     static var router: Router {
@@ -137,12 +75,7 @@ public extension FunBox {
         
         private var table_vc = [String: UIViewController.Type]()
         fileprivate var table_params = [String: FunRouterOptions]()
-//        private lazy var observations: [NSKeyValueObservation] = {
-//            let observations = [NSKeyValueObservation]()
-//
-//            return observations
-//        }()
-//        var observation: NSKeyValueObservation?
+
         public var scheme: String?
         
         public var delegate: FunRouterDelegate?
@@ -165,8 +98,6 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-//            UINavigationController.swizzleMethod_navigation()
-            
             UIApplication.shared.frontController.navigationController?.pushViewController(vc, animated: animated)
             
         }
@@ -175,8 +106,6 @@ public extension FunBox {
         public func present2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: (()->Void)?=nil) {
             
             guard let vc = build(url: url, params: params) else { return }
-            
-//            UIViewController.swizzleMethod()
             
             UIApplication.shared.frontController.present(vc, animated: animated, completion: completion)
             
@@ -238,7 +167,6 @@ public extension FunRouterNamespaceWrapper where T == String {
     
     
 }
-
 
 
 public extension FunRouterNamespaceWrapper where T == URL {
