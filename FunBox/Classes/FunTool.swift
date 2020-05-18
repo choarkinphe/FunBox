@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 public extension UIApplication {
 
     // 获取当前的window
@@ -129,74 +130,7 @@ public extension FunBox {
     }
 }
 
-public protocol FunView: class {
-    
-    var fitSize: CGSize { get }
-    
-}
 
-extension UIButton: FunView {
-    
-    public var fitSize: CGSize {
-        
-        var size = CGSize.zero
-        
-        if let image = imageView?.image {
-            size = image.size
-        }
-
-        if let titleLabel = titleLabel {
-            
-            size.width = size.width + titleLabel.fitSize.width + 8
-            
-            size.height = max(size.height, titleLabel.fitSize.height) + 8
-        }
-
-        return size
-        
-    }
-    
-}
-
-extension UILabel: FunView {
-    public var fitSize: CGSize {
-        if let attributedText = attributedText {
-            return attributedText.attributedSize(maxWidth: FunBox.device.screenSize.width)
-            
-            
-            
-        } else if let text = text {
-            
-            return text.textSize(font: font, maxWidth: FunBox.device.screenSize.width)
-            
-        }
-        
-        return .zero
-    }
-    
-    
-}
-
-extension NSAttributedString {
-    func attributedSize(maxWidth: CGFloat) -> CGSize {
-        
-        let rect = self.boundingRect(with: CGSize.init(width: maxWidth, height: CGFloat(MAXFLOAT)), options: [NSStringDrawingOptions.usesLineFragmentOrigin,NSStringDrawingOptions.usesFontLeading], context: nil)
-        
-        return rect.size
-    }
-    
-}
-
-public extension String {
-    func textSize(font: UIFont, maxWidth: CGFloat) -> CGSize {
-        return self.boundingRect(with: CGSize(width: maxWidth, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size
-    }
-    
-    var localized: String {
-        return NSLocalizedString(self, tableName: nil, bundle: .main, value: "", comment: "")
-    }
-    
-}
 
 /*
     方法交换
@@ -221,25 +155,7 @@ public extension FunSwizz {
     }
 }
 
-extension DispatchQueue {
-    private static var _onceTracker = [String]()
-    
-    public class func once(file: String = #file,
-                           function: String = #function,
-                           line: Int = #line,
-                           block: () -> Void) {
-        let token = "\(file):\(function):\(line)"
-        once(token: token, block: block)
-    }
-    
-    public class func once(token: String,
-                           block: () -> Void) {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
-        guard !_onceTracker.contains(token) else { return }
-        
-        _onceTracker.append(token)
-        block()
-    }
-}
+
+
+
+

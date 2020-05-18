@@ -11,7 +11,7 @@ private var funControllerKey = "funControllerKey"
 extension UIViewController: FunSwizz {
     
     fileprivate static func swizzleMethod() {
-        DispatchQueue.once {
+        DispatchQueue.fb.once {
 
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(swizzled_viewDidLoad))
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidAppear(_:)), swizzledSelector: #selector(swizzled_viewDidAppear(animated:)))
@@ -327,6 +327,22 @@ public extension FunBox {
                 viewController.view.layer.insertSublayer(gradientLayer, at: 0)
             }
         }
+        
+
+        
+            public func change2Child(_ childVC: UIViewController?) {
+                guard let childVC = childVC else { return }
+                guard let viewController = viewController else { return }
+                if !viewController.children.contains(childVC) {
+                    viewController.addChild(childVC)
+                }
+                childVC.beginAppearanceTransition(true, animated: true)
+                childVC.view.frame = viewController.view.frame
+                viewController.view.addSubview(childVC.view)
+                childVC.endAppearanceTransition()
+                childVC.didMove(toParent: viewController)
+            }
+        
         
         deinit {
             debugPrint("fun die")

@@ -198,8 +198,8 @@ public extension FunBox.Sheet {
         public var multiHandler: FunActionSheetMultiHandler? {
             didSet {
                 // 多选样式时，设置按钮标题
-                toolBar.doneButton.setTitle("Done".localized, for: .normal)
-                toolBar.cancelButton.setTitle("Cancel".localized, for: .normal)
+                toolBar.doneButton.setTitle("Done".fb.localized, for: .normal)
+                toolBar.cancelButton.setTitle("Cancel".fb.localized, for: .normal)
             }
         }
         // 选择结果
@@ -619,14 +619,14 @@ extension FunBox.Sheet {
         
         open override func layoutSubviews() {
             super.layoutSubviews()
-            cancelButton.frame = CGRect(x: 12, y: 4, width: cancelButton.fitSize.width, height: bounds.size.height - 8)
+            cancelButton.frame = CGRect(x: 12, y: 4, width: cancelButton.fb.fitSize.width, height: bounds.size.height - 8)
 //            cancelButton.frame = CGRect(origin: CGPoint(x: 12, y: 4), size: cancelButton.fitSize)
 //            cancelButton.center = CGPoint(x: 12.0 + cancelButton.fitSize.width / 2.0, y: center.y)
-            doneButton.frame = CGRect(x: bounds.size.width - 12 - doneButton.fitSize.width, y: 4, width: cancelButton.fitSize.width, height: bounds.size.height - 8)
+            doneButton.frame = CGRect(x: bounds.size.width - 12 - doneButton.fb.fitSize.width, y: 4, width: cancelButton.fb.fitSize.width, height: bounds.size.height - 8)
 //            doneButton.frame = CGRect(origin: CGPoint(x: bounds.size.width - 12 - doneButton.fitSize.width, y: 4), size: doneButton.fitSize)
 //            doneButton.center = CGPoint(x: bounds.size.width - 12 - doneButton.fitSize.width / 2.0, y: center.y)
             
-            tipLabel.bounds = CGRect(origin: .zero, size: tipLabel.fitSize)
+            tipLabel.bounds = CGRect(origin: .zero, size: tipLabel.fb.fitSize)
             tipLabel.center = center
         }
     }

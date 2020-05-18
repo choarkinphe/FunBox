@@ -138,7 +138,7 @@ extension FunBox.Location: CLLocationManagerDelegate {
             handler((location,nil))
         }
         
-        // 定位完成时，关闭师生更新
+        // 定位完成时，关闭适时更新
         manager.allowsBackgroundLocationUpdates = false
     }
 }

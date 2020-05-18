@@ -5,8 +5,19 @@
 //  Created by choarkinphe on 2019/10/21.
 //
 
-import Foundation
+import UIKit
 
+extension UIAlertController: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == UIAlertController {
+    
+    static var alert: FunBox.Alert {
+        return FunBox.Alert.default.style(.alert)
+    }
+    
+    static var sheet: FunBox.Alert {
+        return FunBox.Alert.default.style(.actionSheet)
+    }
+}
 
 public extension FunBox {
     private struct AlertConfig {
@@ -148,7 +159,7 @@ public extension FunBox {
             return self
         }
         
-        public func show(from: UIViewController? = nil) {
+        public func present(from: UIViewController? = nil) {
             
             let alertController = UIAlertController.init(title: config.title, message: config.message, preferredStyle: self.style)
             

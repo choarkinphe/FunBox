@@ -7,8 +7,35 @@
 
 import Foundation
 
-public typealias HandlerByDateStr = ((String)->Void)
-public typealias HandlerByDate = ((Date)->Void)
+extension UIDatePicker: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == UIDatePicker {
+    
+    static var picker: FunBox.DatePicker {
+        return FunBox.DatePicker.default
+    }
+    
+}
+
+public protocol FunDateConvertable {
+    func asDate(formatter: DateFormatter) -> Date?
+
+}
+
+extension Date: FunDateConvertable {
+    
+    public func asDate(formatter: DateFormatter) -> Date? {
+        return self
+    }
+}
+
+extension String: FunDateConvertable {
+    public func asDate(formatter: DateFormatter) -> Date? {
+        guard let date = formatter.date(from: self) else { return nil }
+        return date
+    }
+}
+//public typealias HandlerByDateStr = ((String)->Void)
+public typealias FunDateHandler = ((Date,Formatter)->Void)
 public extension FunBox {
     
     private struct DatePickerConfig {
@@ -19,8 +46,8 @@ public extension FunBox {
         
         var showAnimated: Bool = false
         
-        var dateHandler: HandlerByDate?
-        var dateStrHandler: HandlerByDateStr?
+        var dateHandler: FunDateHandler?
+//        var dateStrHandler: HandlerByDateStr?
     }
     
     class DatePicker: UIViewController {
@@ -148,12 +175,12 @@ public extension FunBox {
         @objc private func selectedAction(sender: Any) {
             
             if let dateHandler = config.dateHandler {
-                dateHandler(datePicker.date)
+                dateHandler(datePicker.date,formatter)
             }
             
-            if let dateStrHandler = config.dateStrHandler {
-                dateStrHandler(formatter.string(from: datePicker.date))
-            }
+//            if let dateStrHandler = config.dateStrHandler {
+//                dateStrHandler(formatter.string(from: datePicker.date))
+//            }
             
             dismiss(animated: true, completion: nil)
             
@@ -266,17 +293,17 @@ public extension FunBox.DatePicker {
         
     }
     
-    func handlerByDate(_ handlerByDate: @escaping HandlerByDate) -> Self {
-        config.dateHandler = handlerByDate
+    func dateHandler(_ dateHandler: @escaping FunDateHandler) -> Self {
+        config.dateHandler = dateHandler
         
         return self
     }
     
-    func handlerByDateStr(_ handlerByDateStr: @escaping HandlerByDateStr) -> Self {
-        config.dateStrHandler = handlerByDateStr
-        
-        return self
-    }
+//    func handlerByDateStr(_ handlerByDateStr: @escaping HandlerByDateStr) -> Self {
+//        config.dateStrHandler = handlerByDateStr
+//
+//        return self
+//    }
     
     func title(_ title: String) -> Self {
         toolBar.titleLabel.text = title
@@ -300,20 +327,20 @@ public extension FunBox.DatePicker {
         return self
     }
     
-    func setDate(dateStr a_dateStr: String?, animated a_animated: Bool? = nil) -> Self {
-        
-        if let dateStr = a_dateStr {
-            guard let date = formatter.date(from: dateStr) else { return self }
-            
-            return setDate(date: date, animated: a_animated)
-        }
-        
-        return self
-    }
+//    func setDate(dateStr a_dateStr: String?, animated a_animated: Bool? = nil) -> Self {
+//
+//        if let dateStr = a_dateStr {
+//            guard let date = formatter.date(from: dateStr) else { return self }
+//
+//            return setDate(date: date, animated: a_animated)
+//        }
+//
+//        return self
+//    }
     
-    func setDate(date a_date: Date?, animated a_animated: Bool? = nil) -> Self {
+    func setDate(date a_date: FunDateConvertable?, animated a_animated: Bool? = nil) -> Self {
         
-        config.showDate = a_date
+        config.showDate = a_date?.asDate(formatter: formatter)
         if let animated = a_animated {
             config.showAnimated = animated
         }

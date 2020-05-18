@@ -7,6 +7,101 @@
 
 import UIKit
 import CommonCrypto
+// MARK: - GCD
+extension DispatchQueue: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == DispatchQueue {
+    private static var _onceTracker = [String]()
+    
+    static func once(file: String = #file,
+                           function: String = #function,
+                           line: Int = #line,
+                           block: () -> Void) {
+        let token = "\(file):\(function):\(line)"
+        once(token: token, block: block)
+    }
+    
+    static func once(token: String,
+                           block: () -> Void) {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        
+        guard !_onceTracker.contains(token) else { return }
+        
+        _onceTracker.append(token)
+        block()
+    }
+}
+
+// MARK: - JSON
+extension JSONSerialization: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == JSONSerialization {
+    static func json(fileName: String?) -> [String: Any]? {
+        guard var fileName = fileName else { return nil }
+        if ![".JSON",".json",",Json"].contains(fileName.fb.subString(from: fileName.count - 5)) {
+            fileName = fileName + ".JSON"
+        }
+        guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else { return nil }
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            
+            let data = try Data(contentsOf: url)
+            let jsonData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
+            
+            if let json = jsonData as? [String: Any] {
+                
+                return json
+            }
+        }
+        catch {
+            print("读取本地数据出现错误!",error.localizedDescription)
+        }
+        
+        return nil
+    }
+    
+}
+
+// MARK: - TableView+Fun
+extension UITableView: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == UITableView {
+    func dequeueCell<T>(_ type: T.Type, reuseIdentifier: String) -> T where T: UITableViewCell {
+        
+        guard let cell = wrappedValue.dequeueReusableCell(withIdentifier: reuseIdentifier) else {
+            
+            return T.init(style: .default, reuseIdentifier: reuseIdentifier)
+            
+        }
+        
+        return cell as! T
+    }
+    
+    func dequeueHeaderFooterView<T>(_ type: T.Type, reuseIdentifier: String) -> T where T: UITableViewHeaderFooterView {
+        
+        guard let headerFooterView = wrappedValue.dequeueReusableHeaderFooterView(withIdentifier: reuseIdentifier) else {
+            
+            return T.init(reuseIdentifier: reuseIdentifier)
+            
+        }
+        
+        return headerFooterView as! T
+    }
+    
+}
+
+// MARK: - TableViewCell+Fun
+extension UITableViewCell: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == UITableViewCell {
+    var tableView: UITableView? {
+        for view in sequence(first: wrappedValue.superview, next: { $0?.superview }) {
+            if let tableView = view as? UITableView {
+                return tableView
+            }
+        }
+        
+        return nil
+    }
+}
 
 // MARK: - String+Fun
 extension String: FunNamespaceWrappable {}
@@ -57,6 +152,8 @@ public extension FunNamespaceWrapper where T == String {
         return wrappedValue.trimmingCharacters(in: .whitespaces)
     }
     
+
+
     //MARK:- 截取到任意位置
     func subString(to: Int) -> String? {
         if to < 0 {
@@ -115,6 +212,27 @@ public extension FunNamespaceWrapper where T == String {
             
         }
     }
+    
+    func textSize(font: UIFont, maxWidth: CGFloat) -> CGSize {
+        return wrappedValue.boundingRect(with: CGSize(width: maxWidth, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size
+    }
+    
+    var localized: String {
+        return NSLocalizedString(wrappedValue, tableName: nil, bundle: .main, value: "", comment: "")
+    }
+}
+
+// MARK: - AttributedString+Fun
+extension NSAttributedString: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: NSAttributedString {
+    
+    func attributedSize(maxWidth: CGFloat) -> CGSize {
+        
+        let rect = wrappedValue.boundingRect(with: CGSize.init(width: maxWidth, height: CGFloat(MAXFLOAT)), options: [NSStringDrawingOptions.usesLineFragmentOrigin,NSStringDrawingOptions.usesFontLeading], context: nil)
+        
+        return rect.size
+    }
+    
 }
 
 // MARK: - Data+Fun
@@ -128,6 +246,20 @@ public extension FunNamespaceWrapper where T == Data {
             t.append(String.init(format: "%02x", one))
         }
         return t
+    }
+    
+    /// Data to base64 String
+    var base64String: String {
+        return wrappedValue.base64EncodedString(options: NSData.Base64EncodingOptions())
+    }
+    
+    /// Array of UInt8
+    var arrayOfBytes: [UInt8] {
+//    public func arrayOfBytes() -> [UInt8] {
+        let count = wrappedValue.count / MemoryLayout<UInt8>.size
+        var bytesArray = [UInt8](repeating: 0, count: count)
+        (wrappedValue as NSData).getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
+        return bytesArray
     }
 
 }
@@ -185,6 +317,52 @@ public extension FunNamespaceWrapper where T: UIImage {
         
         return nil
     }
+}
+
+// MARK: - UIButton+Fun
+extension UIButton: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UIButton {
+    
+    var fitSize: CGSize {
+        
+        var size = CGSize.zero
+        
+        if let image = wrappedValue.imageView?.image {
+            size = image.size
+        }
+
+        if let titleLabel = wrappedValue.titleLabel {
+            
+            size.width = size.width + titleLabel.fb.fitSize.width + 8
+            
+            size.height = max(size.height, titleLabel.fb.fitSize.height) + 8
+        }
+
+        return size
+        
+    }
+    
+}
+
+// MARK: - UILabel+Fun
+extension UILabel: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UILabel {
+    var fitSize: CGSize {
+        if let attributedText = wrappedValue.attributedText {
+            return attributedText.fb.attributedSize(maxWidth: FunBox.device.screenSize.width)
+            
+            
+            
+        } else if let text = wrappedValue.text {
+            
+            return text.fb.textSize(font: wrappedValue.font, maxWidth: FunBox.device.screenSize.width)
+            
+        }
+        
+        return .zero
+    }
+    
+    
 }
 
 // MARK: - NameSpace

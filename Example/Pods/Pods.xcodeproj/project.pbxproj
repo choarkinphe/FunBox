@@ -14,6 +14,7 @@
 		2D020BE58F582D1552D1A660D4D7537A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */; };
 		318E95B0689A3507D9608B5948548910 /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */; };
 		40039E0AF0D764360B1D4FC4F7950D2E /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		49A518892472B71400D647CD /* FunSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A518882472B71400D647CD /* FunSecurity.swift */; };
 		4A39D78024695DF1002BD04D /* FunRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D77F24695DF1002BD04D /* FunRouter.swift */; };
 		4A3EEDA224653E180098C556 /* FunTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9624653E170098C556 /* FunTool.swift */; };
 		4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9724653E170098C556 /* UIViewController+Fun.swift */; };
@@ -90,6 +91,7 @@
 		4237F002EB45E907EF947222ABA1AA5B /* Pods-FunBox_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
 		465C22F21829F1F6B20DFC286D59BB63 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
+		49A518882472B71400D647CD /* FunSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunSecurity.swift; path = FunBox/Classes/FunSecurity.swift; sourceTree = "<group>"; };
 		4A39D77F24695DF1002BD04D /* FunRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunRouter.swift; path = FunBox/Classes/FunRouter.swift; sourceTree = "<group>"; };
 		4A3EED9624653E170098C556 /* FunTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunTool.swift; path = FunBox/Classes/FunTool.swift; sourceTree = "<group>"; };
 		4A3EED9724653E170098C556 /* UIViewController+Fun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Fun.swift"; path = "FunBox/Classes/UIViewController+Fun.swift"; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				4A3EED9D24653E170098C556 /* FunSheet.swift */,
 				4A3EED9924653E170098C556 /* FunToast.swift */,
 				4A3EED9624653E170098C556 /* FunTool.swift */,
+				49A518882472B71400D647CD /* FunSecurity.swift */,
 				4A39D77F24695DF1002BD04D /* FunRouter.swift */,
 				4A3EED9724653E170098C556 /* UIViewController+Fun.swift */,
 				4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */,
@@ -593,6 +596,7 @@
 				4A3EEDAA24653E180098C556 /* FunBox.swift in Sources */,
 				4A39D78024695DF1002BD04D /* FunRouter.swift in Sources */,
 				4A3EEDA424653E180098C556 /* FunLocation.swift in Sources */,
+				49A518892472B71400D647CD /* FunSecurity.swift in Sources */,
 				4A3EEDA724653E180098C556 /* FunDatePicker.swift in Sources */,
 				4A3EEDAB24653E180098C556 /* FunCache.swift in Sources */,
 				4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */,

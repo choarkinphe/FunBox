@@ -24,7 +24,7 @@ public extension FunBox {
             return Static.instance_cache
         }
         
-        init(path: String?) {
+        public init(path: String?) {
             if let path = path {
                 diskCachePath = path
             }
@@ -44,7 +44,7 @@ public extension FunBox {
         private var ioQueue = DispatchQueue.init(label: "com.FunBox.cache_io")
         private var fileManager = FileManager.default
         // 默认缓存时效为1周
-        var cacheTimeOut: TimeInterval = 604800
+        public var cacheTimeOut: TimeInterval = 604800
         
         private class CacheData: Codable {
             var data: Data? // 缓存数据
