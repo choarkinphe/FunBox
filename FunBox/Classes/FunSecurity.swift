@@ -104,9 +104,9 @@ extension FunBox {
                 return nil
             }
             
-            return Data(bytes: UnsafePointer<UInt8>(encryptBytes), count: outputSize)
+//            return Data(bytes: UnsafePointer<UInt8>(encryptBytes), count: outputSize)
 //            _ = encryptBytes.withUnsafeBufferPointer { $0 }
-//            return Data(bytes: encryptBytes, count: outputSize)
+            return Data(bytes: encryptBytes, count: outputSize)
         }
         
         /// rsa 解密字符串
@@ -157,7 +157,8 @@ extension FunBox {
                 return nil
             }
 
-            return Data(bytes: UnsafePointer<UInt8>(decryptBytes), count: outputSize)
+//            return Data(bytes: UnsafePointer<UInt8>(decryptBytes), count: outputSize)
+            return Data(bytes: decryptBytes, count: outputSize)
 
         }
     }
