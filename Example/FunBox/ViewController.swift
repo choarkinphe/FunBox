@@ -26,7 +26,8 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
 //        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
-        FunBox.router.present2(url: "zz://AAA?aaa=2&bbb=c", params: nil, animated: true, completion: nil)
+//        FunBox.router.present2(url: "zz://AAA?aaa=2&bbb=c", params: nil, animated: true, completion: nil)
+        FunBox.toast.message("哈哈").showActivity()
     }
 }
 

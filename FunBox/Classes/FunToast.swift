@@ -9,6 +9,10 @@ import UIKit
 
 public extension FunBox {
     
+    fileprivate enum ToastError: Error {
+        case missingParameters
+    }
+    
     class Toast {
         
         public struct Config {
@@ -21,9 +25,14 @@ public extension FunBox {
             var image: UIImage?
             var style: Style = Manager.shared.style
             var completion: ((_ didTap: Bool) -> Void)?
+            var activity_point: CGPoint?
         }
         
         fileprivate var config = Config()
+        
+        private var contentSize: CGSize {
+            return config.inView?.bounds.size ?? UIScreen.main.bounds.size
+        }
         
         public static var `default`: Toast {
             let toast = Toast()
@@ -32,106 +41,312 @@ public extension FunBox {
         }
         
         public init() {}
-        
-        public func title(_ title: String?) -> Self {
-            config.title = title
-            
-            return self
-        }
-        
-        public func message(_ message: String?) -> Self {
-            config.message = message
-            
-            return self
-        }
-        
-        public func inView(_ inView: UIView?) -> Self {
-            config.inView = inView
-            
-            return self
-        }
-        
-        public func duration(_ duration: TimeInterval) -> Self {
-            config.duration = duration
-            
-            return self
-        }
-        
-        public func position(_ position: Position) -> Self {
-            config.position = position
-            
-            return self
-        }
-        
-        public func point(_ point: CGPoint?) -> Self {
-            config.point = point
-            
-            return self
-        }
-        
-        public func image(_ image: UIImage?) -> Self {
-            config.image = image
-            
-            return self
-        }
-        
-        public func style(_ style: Style) -> Self {
-            config.style = style
-            
-            return self
-        }
-        
-        public func isTapToDismissEnabled(_ isTapToDismissEnabled: Bool) -> Self {
-            Manager.shared.isTapToDismissEnabled = isTapToDismissEnabled
-            
-            return self
-        }
-        
+
         public func showToast(_ completion: ((Bool)->Void)? = nil) {
             
             config.completion = completion
             
-            let targetView = config.inView ?? UIApplication.shared.frontController.view ?? UIApplication.shared.currentWindow
+            guard let targetView = config.inView ?? UIApplication.shared.currentWindow else { return }
             
-            targetView?.makeToast(config: config)
-            
+            makeToast(inView: targetView)
         }
         
         public func showActivity(_ completion: ((Bool)->Void)? = nil) {
             config.completion = completion
             
-            let targetView = config.inView ?? UIApplication.shared.frontController.view ?? UIApplication.shared.currentWindow
+            guard let targetView = config.inView ?? UIApplication.shared.currentWindow else { return }
             
-            targetView?.makeToastActivity(config: config)
+            makeActivity(inView: targetView)
         }
         
         public func dismiss(inView: UIView? = nil) {
-            let targetView = inView ?? UIApplication.shared.frontController.view ?? UIApplication.shared.currentWindow
+            let targetView = inView ?? UIApplication.shared.currentWindow
             
             targetView?.hideToast()
-            targetView?.hideToastActivity()
+            targetView?.hideActivity()
+        }
+        
+        func makeToast(inView: UIView, config: FunBox.Toast.Config?=nil) {
+            do {
+                let config = config ?? self.config
+                let toast = try buildToast(config: config)
+                var point = config.position.centerPoint(forToast: toast, inSuperview: inView)
+                if let a_point = config.point {
+                    point = a_point
+                }
+                inView.showToast(toast, duration: config.duration, point: point, completion: config.completion)
+            } catch ToastError.missingParameters {
+                print("Error: message, title, and image are all nil")
+            } catch {}
+        }
+        
+        func makeActivity(inView: UIView, config: FunBox.Toast.Config?=nil) {
+            
+            guard inView.activityView == nil else { return }
+            var config = config ?? self.config
+            let hasToast = config.title != nil || config.message != nil
+            
+            var activitySize = CGSize.init(width: 100, height: 100)
+            
+            var toast_config = config
+
+            if hasToast {
+                
+                activitySize = CGSize.init(width: 135, height: 135)
+                
+                toast_config.position = .bottom
+                toast_config.completion = nil
+                toast_config.duration = 500
+                toast_config.style.backgroundColor = .clear
+                //            toast_config.style.verticalPadding = 0
+                config.activity_point = CGPoint.init(x: activitySize.width / 2.0, y: activitySize.height / 2.0 - 18)
+            }
+            
+            FunBox.Toast.Manager.shared.style.activitySize = activitySize
+
+            let toast = buildActivity(config: config)
+            
+            var point = config.position.centerPoint(forToast: toast, inSuperview: inView)
+            
+            if let a_point = config.point {
+                point = a_point
+            }
+
+            inView.showActivity(toast, point: point)
+            if hasToast {
+                makeToast(inView: toast, config: toast_config)
+            }
+            
+        }
+
+        private func buildActivity(config: FunBox.Toast.Config) -> UIView {
+            let style = FunBox.Toast.Manager.shared.style
+            
+            let activityView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: style.activitySize.width, height: style.activitySize.height))
+            activityView.backgroundColor = style.activityBackgroundColor
+            activityView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+            activityView.layer.cornerRadius = style.cornerRadius
+            
+            if style.displayShadow {
+                activityView.layer.shadowColor = style.shadowColor.cgColor
+                activityView.layer.shadowOpacity = style.shadowOpacity
+                activityView.layer.shadowRadius = style.shadowRadius
+                activityView.layer.shadowOffset = style.shadowOffset
+            }
+            
+            let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+            activityIndicatorView.center = CGPoint(x: activityView.bounds.size.width / 2.0, y: activityView.bounds.size.height / 2.0)
+            if let point = config.activity_point {
+                activityIndicatorView.center = point
+            }
+            activityView.addSubview(activityIndicatorView)
+            activityIndicatorView.color = style.activityIndicatorColor
+            activityIndicatorView.startAnimating()
+            
+            return activityView
+        }
+        
+        
+        
+        private func buildToast(config: FunBox.Toast.Config) throws -> UIView {
+            // sanity
+            guard config.message != nil || config.title != nil || config.image != nil else {
+                throw ToastError.missingParameters
+            }
+            
+            var style = config.style
+            var messageLabel: UILabel?
+            var titleLabel: UILabel?
+            var imageView: UIImageView?
+            
+            let wrapperView = UIView()
+            wrapperView.backgroundColor = style.backgroundColor
+            wrapperView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+            wrapperView.layer.cornerRadius = style.cornerRadius
+            
+            if style.displayShadow {
+                wrapperView.layer.shadowColor = UIColor.black.cgColor
+                wrapperView.layer.shadowOpacity = style.shadowOpacity
+                wrapperView.layer.shadowRadius = style.shadowRadius
+                wrapperView.layer.shadowOffset = style.shadowOffset
+            }
+            
+            if let image = config.image {
+                style.verticalPadding = max(style.verticalPadding, 20)
+                imageView = UIImageView(image: image)
+                imageView?.contentMode = .scaleAspectFit
+                imageView?.frame = CGRect(x: style.verticalPadding, y: style.verticalPadding, width: style.imageSize.width, height: style.imageSize.height)
+            }
+            
+            var imageRect = CGRect.zero
+            
+            if let imageView = imageView {
+                imageRect.origin.x = style.verticalPadding
+                imageRect.origin.y = style.verticalPadding
+                imageRect.size.width = imageView.bounds.size.width
+                imageRect.size.height = imageView.bounds.size.height
+            }
+            
+            if let title = config.title {
+                titleLabel = UILabel()
+                titleLabel?.numberOfLines = style.titleNumberOfLines
+                titleLabel?.font = style.titleFont
+                titleLabel?.textAlignment = style.titleAlignment
+                titleLabel?.lineBreakMode = .byTruncatingTail
+                titleLabel?.textColor = style.titleColor
+                titleLabel?.backgroundColor = UIColor.clear
+                titleLabel?.text = title;
+                
+                let maxTitleSize = CGSize(width: (contentSize.width * style.maxWidthPercentage), height: contentSize.height * style.maxHeightPercentage)
+                let titleSize = titleLabel?.sizeThatFits(maxTitleSize)
+                if let titleSize = titleSize {
+                    titleLabel?.frame = CGRect(x: 0.0, y: 0.0, width: titleSize.width, height: titleSize.height)
+                }
+            }
+            
+            if let message = config.message {
+                messageLabel = UILabel()
+                messageLabel?.text = message
+                messageLabel?.numberOfLines = style.messageNumberOfLines
+                messageLabel?.font = style.messageFont
+                messageLabel?.textAlignment = style.messageAlignment
+                messageLabel?.lineBreakMode = .byTruncatingTail;
+                messageLabel?.textColor = style.messageColor
+                messageLabel?.backgroundColor = UIColor.clear
+                
+                let maxMessageSize = CGSize(width: (contentSize.width * style.maxWidthPercentage), height: contentSize.height * style.maxHeightPercentage)
+                let messageSize = messageLabel?.sizeThatFits(maxMessageSize)
+                if let messageSize = messageSize {
+                    let actualWidth = min(messageSize.width, maxMessageSize.width)
+                    let actualHeight = min(messageSize.height, maxMessageSize.height)
+                    messageLabel?.frame = CGRect(x: 0.0, y: 0.0, width: actualWidth, height: actualHeight)
+                }
+            }
+            
+            var titleRect = CGRect.zero
+            
+            if let titleLabel = titleLabel {
+                titleRect.origin.x = style.horizontalPadding
+                titleRect.origin.y = imageRect.origin.y + imageRect.size.height + style.margin
+                titleRect.size.width = titleLabel.bounds.size.width
+                titleRect.size.height = titleLabel.bounds.size.height
+            }
+            
+            var messageRect = CGRect.zero
+            
+            if let messageLabel = messageLabel {
+                messageRect.origin.x = style.horizontalPadding
+                messageRect.origin.y = imageRect.origin.y + imageRect.size.height + style.margin + titleRect.size.height + style.verticalPadding
+                messageRect.size.width = messageLabel.bounds.size.width
+                messageRect.size.height = messageLabel.bounds.size.height
+            }
+            
+            var longerWidth = max(titleRect.size.width, messageRect.size.width)
+            let longerX = max(titleRect.origin.x, messageRect.origin.x)
+            var wrapperWidth = max(imageRect.size.width, (longerX + longerWidth + style.horizontalPadding))
+            var wrapperHeight = messageRect.origin.y + messageRect.size.height + style.verticalPadding
+            
+            if let imageView = imageView {
+                wrapperWidth = max(wrapperWidth, 120)
+                wrapperHeight = max(wrapperHeight, 120)
+                longerWidth = wrapperWidth - style.horizontalPadding * 2
+                imageRect.origin.x = (wrapperWidth - imageView.bounds.size.width) / 2.0
+                messageRect.origin.y = wrapperHeight - style.verticalPadding - messageRect.size.height
+                titleRect.origin.y = wrapperHeight - style.verticalPadding * 2 - messageRect.size.height - titleRect.size.height
+                imageView.frame = imageRect
+                wrapperView.addSubview(imageView)
+            }
+            
+            if let titleLabel = titleLabel {
+                titleRect.size.width = longerWidth
+                titleLabel.frame = titleRect
+                wrapperView.addSubview(titleLabel)
+            }
+            
+            if let messageLabel = messageLabel {
+                messageRect.size.width = longerWidth
+                messageLabel.frame = messageRect
+                wrapperView.addSubview(messageLabel)
+            }
+
+            wrapperView.frame = CGRect(x: 0.0, y: 0.0, width: wrapperWidth, height: wrapperHeight)
+            
+            return wrapperView
         }
         
     }
     
 }
 
-import UIKit
+public extension FunBox.Toast {
+    func title(_ title: String?) -> Self {
+        config.title = title
+        
+        return self
+    }
+    
+    func message(_ message: String?) -> Self {
+        config.message = message
+        
+        return self
+    }
+    
+    func inView(_ inView: UIView?) -> Self {
+        config.inView = inView
+        
+        return self
+    }
+    
+    func duration(_ duration: TimeInterval) -> Self {
+        config.duration = duration
+        
+        return self
+    }
+    
+    func position(_ position: Position) -> Self {
+        config.position = position
+        
+        return self
+    }
+    
+    func point(_ point: CGPoint?) -> Self {
+        config.point = point
+        
+        return self
+    }
+    
+    func image(_ image: UIImage?) -> Self {
+        config.image = image
+        
+        return self
+    }
+    
+    func style(_ style: Style) -> Self {
+        config.style = style
+        
+        return self
+    }
+    
+    func isTapToDismissEnabled(_ isTapToDismissEnabled: Bool) -> Self {
+        Manager.shared.isTapToDismissEnabled = isTapToDismissEnabled
+        
+        return self
+    }
+}
+
+extension FunBox.Toast {
+    fileprivate struct Keys {
+        static var timer        = "com.funbox.toast.timer"
+        static var duration     = "com.funbox.toast.duration"
+        static var point        = "com.funbox.toast.point"
+        static var completion   = "com.funbox.toast.completion"
+        static var activeToasts = "com.funbox.toast.activeToasts"
+        static var activityView = "com.funbox.toast.activityView"
+        static var queue        = "com.funbox.toast.queue"
+    }
+}
 
 public extension UIView {
-    
-    /**
-     Keys used for associated objects.
-     */
-    private struct ToastKeys {
-        static var timer        = "com.toast-swift.timer"
-        static var duration     = "com.toast-swift.duration"
-        static var point        = "com.toast-swift.point"
-        static var completion   = "com.toast-swift.completion"
-        static var activeToasts = "com.toast-swift.activeToasts"
-        static var activityView = "com.toast-swift.activityView"
-        static var queue        = "com.toast-swift.queue"
-    }
     
     private class ToastCompletionWrapper {
         let completion: ((Bool) -> Void)?
@@ -141,17 +356,23 @@ public extension UIView {
         }
     }
     
-    private enum ToastError: Error {
-        case missingParameters
+    fileprivate var activityView: UIView? {
+        get {
+            return objc_getAssociatedObject(self, &FunBox.Toast.Keys.activityView) as? UIView
+            
+        }
+        set {
+            objc_setAssociatedObject(self, &FunBox.Toast.Keys.activityView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
     
     private var activeToasts: NSMutableArray {
         get {
-            if let activeToasts = objc_getAssociatedObject(self, &ToastKeys.activeToasts) as? NSMutableArray {
+            if let activeToasts = objc_getAssociatedObject(self, &FunBox.Toast.Keys.activeToasts) as? NSMutableArray {
                 return activeToasts
             } else {
                 let activeToasts = NSMutableArray()
-                objc_setAssociatedObject(self, &ToastKeys.activeToasts, activeToasts, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &FunBox.Toast.Keys.activeToasts, activeToasts, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 return activeToasts
             }
         }
@@ -159,168 +380,29 @@ public extension UIView {
     
     private var queue: NSMutableArray {
         get {
-            if let queue = objc_getAssociatedObject(self, &ToastKeys.queue) as? NSMutableArray {
+            if let queue = objc_getAssociatedObject(self, &FunBox.Toast.Keys.queue) as? NSMutableArray {
                 return queue
             } else {
                 let queue = NSMutableArray()
-                objc_setAssociatedObject(self, &ToastKeys.queue, queue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &FunBox.Toast.Keys.queue, queue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 return queue
             }
         }
     }
     
-    // MARK: - Make Toast Methods
-    
-    func makeToast(config: FunBox.Toast.Config) {
-        do {
-            let toast = try toastViewForMessage(config.message, title: config.title, image: config.image, style: config.style)
-            
-            var point = config.position.centerPoint(forToast: toast, inSuperview: self)
-            if let a_point = config.point {
-                point = a_point
-            }
-            showToast(toast, duration: config.duration, point: point, completion: config.completion)
-        } catch ToastError.missingParameters {
-            print("Error: message, title, and image are all nil")
-        } catch {}
-    }
-    
+    // MARK: - Toast
     func showToast(_ toast: UIView, duration: TimeInterval = FunBox.Toast.Manager.shared.duration, point: CGPoint, completion: ((_ didTap: Bool) -> Void)? = nil) {
-        objc_setAssociatedObject(toast, &ToastKeys.completion, ToastCompletionWrapper(completion), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(toast, &FunBox.Toast.Keys.completion, ToastCompletionWrapper(completion), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
         if FunBox.Toast.Manager.shared.isQueueEnabled, activeToasts.count > 0 {
-            objc_setAssociatedObject(toast, &ToastKeys.duration, NSNumber(value: duration), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            objc_setAssociatedObject(toast, &ToastKeys.point, NSValue(cgPoint: point), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(toast, &FunBox.Toast.Keys.duration, NSNumber(value: duration), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(toast, &FunBox.Toast.Keys.point, NSValue(cgPoint: point), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             
             queue.add(toast)
         } else {
             showToast(toast, duration: duration, point: point)
         }
     }
-    
-    // MARK: - Hide Toast Methods
-    
-    func hideToast() {
-        guard let activeToast = activeToasts.firstObject as? UIView else { return }
-        hideToast(activeToast)
-    }
-    
-    func hideToast(_ toast: UIView) {
-        guard activeToasts.contains(toast) else { return }
-        hideToast(toast, fromTap: false)
-    }
-    
-    func hideAllToasts(includeActivity: Bool = false, clearQueue: Bool = true) {
-        if clearQueue {
-            clearToastQueue()
-        }
-        
-        activeToasts.compactMap { $0 as? UIView }
-            .forEach { hideToast($0) }
-        
-        if includeActivity {
-            hideToastActivity()
-        }
-    }
-    
-    func clearToastQueue() {
-        queue.removeAllObjects()
-    }
-    
-    // MARK: - Activity Methods
-    func makeToastActivity(config: FunBox.Toast.Config) {
-        // sanity
-        guard objc_getAssociatedObject(self, &ToastKeys.activityView) as? UIView == nil else { return }
-        
-        let hasToast = config.title != nil || config.message != nil
-        
-        var activitySize = CGSize.init(width: 100, height: 100)
-        
-        var toast_config = config
-        var activity_point: CGPoint?
-        if hasToast {
-            
-            activitySize = CGSize.init(width: 135, height: 135)
-            
-            toast_config.position = .bottom
-            toast_config.completion = nil
-            toast_config.duration = 500
-            toast_config.style.backgroundColor = .clear
-            //            toast_config.style.verticalPadding = 0
-            activity_point = CGPoint.init(x: activitySize.width / 2.0, y: activitySize.height / 2.0 - 18)
-        }
-        
-        FunBox.Toast.Manager.shared.style.activitySize = activitySize
-        
-        let toast = createToastActivityView(point: activity_point)
-        
-        var point = config.position.centerPoint(forToast: toast, inSuperview: self)
-        
-        if let a_point = config.point {
-            point = a_point
-        }
-        
-        makeToastActivity(toast, point: point)
-        if hasToast {
-            toast.makeToast(config: toast_config)
-        }
-        
-    }
-    
-    func hideToastActivity() {
-        if let toast = objc_getAssociatedObject(self, &ToastKeys.activityView) as? UIView {
-            UIView.animate(withDuration: FunBox.Toast.Manager.shared.style.fadeDuration, delay: 0.0, options: [.curveEaseIn, .beginFromCurrentState], animations: {
-                toast.alpha = 0.0
-            }) { _ in
-                toast.removeFromSuperview()
-                objc_setAssociatedObject(self, &ToastKeys.activityView, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-        }
-    }
-    
-    // MARK: - Private Activity Methods
-    
-    private func makeToastActivity(_ toast: UIView, point: CGPoint) {
-        toast.alpha = 0.0
-        toast.center = point
-        
-        objc_setAssociatedObject(self, &ToastKeys.activityView, toast, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        
-        self.addSubview(toast)
-        
-        UIView.animate(withDuration: FunBox.Toast.Manager.shared.style.fadeDuration, delay: 0.0, options: .curveEaseOut, animations: {
-            toast.alpha = 1.0
-        })
-    }
-    
-    private func createToastActivityView(point: CGPoint?=nil) -> UIView {
-        let style = FunBox.Toast.Manager.shared.style
-        
-        let activityView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: style.activitySize.width, height: style.activitySize.height))
-        activityView.backgroundColor = style.activityBackgroundColor
-        activityView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        activityView.layer.cornerRadius = style.cornerRadius
-        
-        if style.displayShadow {
-            activityView.layer.shadowColor = style.shadowColor.cgColor
-            activityView.layer.shadowOpacity = style.shadowOpacity
-            activityView.layer.shadowRadius = style.shadowRadius
-            activityView.layer.shadowOffset = style.shadowOffset
-        }
-        
-        let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
-        activityIndicatorView.center = CGPoint(x: activityView.bounds.size.width / 2.0, y: activityView.bounds.size.height / 2.0)
-        if let point = point {
-            activityIndicatorView.center = point
-        }
-        activityView.addSubview(activityIndicatorView)
-        activityIndicatorView.color = style.activityIndicatorColor
-        activityIndicatorView.startAnimating()
-        
-        return activityView
-    }
-    
-    // MARK: - Private Show/Hide Methods
     
     private func showToast(_ toast: UIView, duration: TimeInterval, point: CGPoint) {
         toast.center = point
@@ -341,12 +423,68 @@ public extension UIView {
         }) { _ in
             let timer = Timer(timeInterval: duration, target: self, selector: #selector(UIView.toastTimerDidFinish(_:)), userInfo: toast, repeats: false)
             RunLoop.main.add(timer, forMode: .common)
-            objc_setAssociatedObject(toast, &ToastKeys.timer, timer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(toast, &FunBox.Toast.Keys.timer, timer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    
+    // MARK: - Activity
+    fileprivate func showActivity(_ toast: UIView, point: CGPoint) {
+        toast.alpha = 0.0
+        toast.center = point
+        
+        self.activityView = toast
+        
+        self.addSubview(toast)
+        
+        UIView.animate(withDuration: FunBox.Toast.Manager.shared.style.fadeDuration, delay: 0.0, options: .curveEaseOut, animations: {
+            toast.alpha = 1.0
+        })
+    }
+    
+    
+    // MARK: - Hide Toast
+    func hideToast(_ toast: UIView?=nil) {
+        if let toast = toast {
+            guard activeToasts.contains(toast) else { return }
+            hideToast(toast, fromTap: false)
+        } else {
+            guard let activeToast = activeToasts.firstObject as? UIView else { return }
+            hideToast(activeToast)
         }
     }
     
+    func hideActivity() {
+        if let toast = objc_getAssociatedObject(self, &FunBox.Toast.Keys.activityView) as? UIView {
+            UIView.animate(withDuration: FunBox.Toast.Manager.shared.style.fadeDuration, delay: 0.0, options: [.curveEaseIn, .beginFromCurrentState], animations: {
+                toast.alpha = 0.0
+            }) { _ in
+                toast.removeFromSuperview()
+                
+                self.activityView = nil
+            }
+        }
+    }
+    
+    func hideAllToasts(includeActivity: Bool = false, clearQueue: Bool = true) {
+        if clearQueue {
+            clearToastQueue()
+        }
+        
+        activeToasts.compactMap { $0 as? UIView }
+            .forEach { hideToast($0) }
+        
+        if includeActivity {
+            hideActivity()
+        }
+    }
+    
+    func clearToastQueue() {
+        queue.removeAllObjects()
+    }
+    
     private func hideToast(_ toast: UIView, fromTap: Bool) {
-        if let timer = objc_getAssociatedObject(toast, &ToastKeys.timer) as? Timer {
+        if let timer = objc_getAssociatedObject(toast, &FunBox.Toast.Keys.timer) as? Timer {
             timer.invalidate()
         }
         
@@ -356,18 +494,18 @@ public extension UIView {
             toast.removeFromSuperview()
             self.activeToasts.remove(toast)
             
-            if let wrapper = objc_getAssociatedObject(toast, &ToastKeys.completion) as? ToastCompletionWrapper, let completion = wrapper.completion {
+            if let wrapper = objc_getAssociatedObject(toast, &FunBox.Toast.Keys.completion) as? ToastCompletionWrapper, let completion = wrapper.completion {
                 completion(fromTap)
             }
             
-            if let nextToast = self.queue.firstObject as? UIView, let duration = objc_getAssociatedObject(nextToast, &ToastKeys.duration) as? NSNumber, let point = objc_getAssociatedObject(nextToast, &ToastKeys.point) as? NSValue {
+            if let nextToast = self.queue.firstObject as? UIView, let duration = objc_getAssociatedObject(nextToast, &FunBox.Toast.Keys.duration) as? NSNumber, let point = objc_getAssociatedObject(nextToast, &FunBox.Toast.Keys.point) as? NSValue {
                 self.queue.removeObject(at: 0)
                 self.showToast(nextToast, duration: duration.doubleValue, point: point.cgPointValue)
             }
         }
     }
     
-    // MARK: - Events
+
     
     @objc private func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
         guard let toast = recognizer.view else { return }
@@ -378,137 +516,7 @@ public extension UIView {
         guard let toast = timer.userInfo as? UIView else { return }
         hideToast(toast)
     }
-    
-    // MARK: - Toast Construction
-    
-    func toastViewForMessage(_ message: String?, title: String?, image: UIImage?, style:  FunBox.Toast.Style) throws -> UIView {
-        // sanity
-        guard message != nil || title != nil || image != nil else {
-            throw ToastError.missingParameters
-        }
-        
-        var style = style
-        var messageLabel: UILabel?
-        var titleLabel: UILabel?
-        var imageView: UIImageView?
-        
-        let wrapperView = UIView()
-        wrapperView.backgroundColor = style.backgroundColor
-        wrapperView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        wrapperView.layer.cornerRadius = style.cornerRadius
-        
-        if style.displayShadow {
-            wrapperView.layer.shadowColor = UIColor.black.cgColor
-            wrapperView.layer.shadowOpacity = style.shadowOpacity
-            wrapperView.layer.shadowRadius = style.shadowRadius
-            wrapperView.layer.shadowOffset = style.shadowOffset
-        }
-        
-        if let image = image {
-            style.verticalPadding = max(style.verticalPadding, 20)
-            imageView = UIImageView(image: image)
-            imageView?.contentMode = .scaleAspectFit
-            imageView?.frame = CGRect(x: style.verticalPadding, y: style.verticalPadding, width: style.imageSize.width, height: style.imageSize.height)
-        }
-        
-        var imageRect = CGRect.zero
-        
-        if let imageView = imageView {
-            imageRect.origin.x = style.verticalPadding
-            imageRect.origin.y = style.verticalPadding
-            imageRect.size.width = imageView.bounds.size.width
-            imageRect.size.height = imageView.bounds.size.height
-        }
-        
-        if let title = title {
-            titleLabel = UILabel()
-            titleLabel?.numberOfLines = style.titleNumberOfLines
-            titleLabel?.font = style.titleFont
-            titleLabel?.textAlignment = style.titleAlignment
-            titleLabel?.lineBreakMode = .byTruncatingTail
-            titleLabel?.textColor = style.titleColor
-            titleLabel?.backgroundColor = UIColor.clear
-            titleLabel?.text = title;
-            
-            let maxTitleSize = CGSize(width: (bounds.size.width * style.maxWidthPercentage), height: bounds.size.height * style.maxHeightPercentage)
-            let titleSize = titleLabel?.sizeThatFits(maxTitleSize)
-            if let titleSize = titleSize {
-                titleLabel?.frame = CGRect(x: 0.0, y: 0.0, width: titleSize.width, height: titleSize.height)
-            }
-        }
-        
-        if let message = message {
-            messageLabel = UILabel()
-            messageLabel?.text = message
-            messageLabel?.numberOfLines = style.messageNumberOfLines
-            messageLabel?.font = style.messageFont
-            messageLabel?.textAlignment = style.messageAlignment
-            messageLabel?.lineBreakMode = .byTruncatingTail;
-            messageLabel?.textColor = style.messageColor
-            messageLabel?.backgroundColor = UIColor.clear
-            
-            let maxMessageSize = CGSize(width: (bounds.size.width * style.maxWidthPercentage), height: bounds.size.height * style.maxHeightPercentage)
-            let messageSize = messageLabel?.sizeThatFits(maxMessageSize)
-            if let messageSize = messageSize {
-                let actualWidth = min(messageSize.width, maxMessageSize.width)
-                let actualHeight = min(messageSize.height, maxMessageSize.height)
-                messageLabel?.frame = CGRect(x: 0.0, y: 0.0, width: actualWidth, height: actualHeight)
-            }
-        }
-        
-        var titleRect = CGRect.zero
-        
-        if let titleLabel = titleLabel {
-            titleRect.origin.x = style.horizontalPadding
-            titleRect.origin.y = imageRect.origin.y + imageRect.size.height + style.margin
-            titleRect.size.width = titleLabel.bounds.size.width
-            titleRect.size.height = titleLabel.bounds.size.height
-        }
-        
-        var messageRect = CGRect.zero
-        
-        if let messageLabel = messageLabel {
-            messageRect.origin.x = style.horizontalPadding
-            messageRect.origin.y = imageRect.origin.y + imageRect.size.height + style.margin + titleRect.size.height + style.verticalPadding
-            messageRect.size.width = messageLabel.bounds.size.width
-            messageRect.size.height = messageLabel.bounds.size.height
-        }
-        
-        var longerWidth = max(titleRect.size.width, messageRect.size.width)
-        let longerX = max(titleRect.origin.x, messageRect.origin.x)
-        var wrapperWidth = max(imageRect.size.width, (longerX + longerWidth + style.horizontalPadding))
-        var wrapperHeight = messageRect.origin.y + messageRect.size.height + style.verticalPadding
-        
-        if let imageView = imageView {
-            wrapperWidth = max(wrapperWidth, 120)
-            wrapperHeight = max(wrapperHeight, 120)
-            longerWidth = wrapperWidth - style.horizontalPadding * 2
-            imageRect.origin.x = (wrapperWidth - imageView.bounds.size.width) / 2.0
-            messageRect.origin.y = wrapperHeight - style.verticalPadding - messageRect.size.height
-            titleRect.origin.y = wrapperHeight - style.verticalPadding * 2 - messageRect.size.height - titleRect.size.height
-            imageView.frame = imageRect
-            wrapperView.addSubview(imageView)
-        }
-        
-        if let titleLabel = titleLabel {
-            titleRect.size.width = longerWidth
-            titleLabel.frame = titleRect
-            wrapperView.addSubview(titleLabel)
-        }
-        
-        if let messageLabel = messageLabel {
-            messageRect.size.width = longerWidth
-            messageLabel.frame = messageRect
-            wrapperView.addSubview(messageLabel)
-        }
-        
-        
-        
-        wrapperView.frame = CGRect(x: 0.0, y: 0.0, width: wrapperWidth, height: wrapperHeight)
-        
-        return wrapperView
-    }
-    
+
 }
 
 public extension FunBox.Toast {
@@ -751,4 +759,5 @@ private extension UIView {
     }
     
 }
+
 

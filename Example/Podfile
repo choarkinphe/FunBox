@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'FunBox_Example' do
   pod 'FunBox', :path => '../'
+  pod 'Toast-swift'
 
   target 'FunBox_Tests' do
     inhibit_all_warnings!
