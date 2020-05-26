@@ -472,14 +472,19 @@ public extension FunBox.Sheet {
             
             if config.selectType == .single {
                 // 单选模式
-                if let action = actions?[indexPath.row] {
-
-                    if let actionHandler = handler {
-                        // 直接给出回调
-                        actionHandler(action)
+//                dismiss(animated: true) {
+                        
+                        if let action = self.actions?[indexPath.row] {
+                            
+                            if let actionHandler = self.handler {
+                                // 直接给出回调
+                                DispatchQueue.main.async {
+                                actionHandler(action)
+                            }
+                            
+                        }
                     }
-                    
-                }
+//                }
                 
                 dismiss(animated: true, completion: nil)
                 
@@ -597,13 +602,19 @@ extension FunBox.Sheet {
         
         @objc func cancelAction(sender: UIButton) {
             if let handler = cancelHandler {
-                handler()
+                DispatchQueue.main.async {
+                    
+                    handler()
+                }
             }
         }
         
         @objc func doneAction(sender: UIButton) {
             if let handler = doneHandler {
-                handler()
+                DispatchQueue.main.async {
+                    
+                    handler()
+                }
             }
         }
         
