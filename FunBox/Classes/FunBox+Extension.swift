@@ -7,8 +7,40 @@
 
 import UIKit
 import CommonCrypto
+
+// MARK: - NSObject
+fileprivate var objectIdentifierKey = "com.funbox.objectIdentifierKey"
+extension NSObject: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: NSObject {
+    var identifier: String? {
+
+        return objc_getAssociatedObject(self, &objectIdentifierKey) as? String
+    }
+    
+    func set(identifier: String?) {
+        objc_setAssociatedObject(self, &objectIdentifierKey, identifier, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+    }
+}
+
+// MARK: - UIBarButtonItem
+//extension UIBarButtonItem: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UIBarButtonItem {
+    static var spaceItem: UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
+    
+}
+
+// MARK: - UIScreen
+//extension UIScreen: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UIScreen {
+    static var size: CGSize {
+        return UIScreen.main.bounds.size
+    }
+}
+
 // MARK: - GCD
-extension DispatchQueue: FunNamespaceWrappable {}
+//extension DispatchQueue: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == DispatchQueue {
     private static var _onceTracker = [String]()
     
@@ -33,7 +65,7 @@ public extension FunNamespaceWrapper where T == DispatchQueue {
 }
 
 // MARK: - JSON
-extension JSONSerialization: FunNamespaceWrappable {}
+//extension JSONSerialization: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == JSONSerialization {
     static func json(fileName: String?) -> [String: Any]? {
         guard var fileName = fileName else { return nil }
@@ -63,7 +95,7 @@ public extension FunNamespaceWrapper where T == JSONSerialization {
 }
 
 // MARK: - TableView+Fun
-extension UITableView: FunNamespaceWrappable {}
+//extension UITableView: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UITableView {
     func dequeueCell<T>(_ type: T.Type, reuseIdentifier: String) -> T where T: UITableViewCell {
         
@@ -90,7 +122,7 @@ public extension FunNamespaceWrapper where T == UITableView {
 }
 
 // MARK: - TableViewCell+Fun
-extension UITableViewCell: FunNamespaceWrappable {}
+//extension UITableViewCell: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UITableViewCell {
     var tableView: UITableView? {
         for view in sequence(first: wrappedValue.superview, next: { $0?.superview }) {
@@ -223,7 +255,7 @@ public extension FunNamespaceWrapper where T == String {
 }
 
 // MARK: - AttributedString+Fun
-extension NSAttributedString: FunNamespaceWrappable {}
+//extension NSAttributedString: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: NSAttributedString {
     
     func attributedSize(maxWidth: CGFloat) -> CGSize {
@@ -283,7 +315,7 @@ extension CGSize {
 }
 
 // MARK: - UIImage+Fun
-extension UIImage: FunNamespaceWrappable {}
+//extension UIImage: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UIImage {
     static var launchImage: UIImage? {
         let viewSize = UIScreen.main.bounds.size
@@ -320,7 +352,7 @@ public extension FunNamespaceWrapper where T: UIImage {
 }
 
 // MARK: - UIButton+Fun
-extension UIButton: FunNamespaceWrappable {}
+//extension UIButton: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UIButton {
     
     var fitSize: CGSize {
@@ -345,17 +377,17 @@ public extension FunNamespaceWrapper where T: UIButton {
 }
 
 // MARK: - UILabel+Fun
-extension UILabel: FunNamespaceWrappable {}
+//extension UILabel: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UILabel {
     var fitSize: CGSize {
         if let attributedText = wrappedValue.attributedText {
-            return attributedText.fb.attributedSize(maxWidth: FunBox.device.screenSize.width)
+            return attributedText.fb.attributedSize(maxWidth: UIScreen.main.bounds.size.width)
             
             
             
         } else if let text = wrappedValue.text {
             
-            return text.fb.textSize(font: wrappedValue.font, maxWidth: FunBox.device.screenSize.width)
+            return text.fb.textSize(font: wrappedValue.font, maxWidth: UIScreen.main.bounds.size.width)
             
         }
         
@@ -365,26 +397,115 @@ public extension FunNamespaceWrapper where T: UILabel {
     
 }
 
-// MARK: - NameSpace
-public protocol FunNamespaceWrappable {
-    associatedtype FunWrapperType
-    var fb: FunWrapperType { get }
-    static var fb: FunWrapperType.Type { get }
+//extension UIDevice: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UIDevice {
+    var systemVersion: Float {
+        
+        return UIDevice.current.systemVersion.fb.floatValue ?? 10.0
+    }
+    
+    var iPhoneXSeries: Bool {
+        if #available(iOS 11.0, *) {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                
+                if let mainWindow = UIApplication.shared.fb.currentWindow {
+                    
+                    if mainWindow.safeAreaInsets.bottom > CGFloat(0.0) {
+                        
+                        return true
+                    }
+                }
+                
+            }
+            
+        }
+        return false
+    }
 }
 
-public extension FunNamespaceWrappable {
-    var fb: FunNamespaceWrapper<Self> {
-        return FunNamespaceWrapper(value: self)
-    }
+//extension UIApplication: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UIApplication {
 
- static var fb: FunNamespaceWrapper<Self>.Type {
-        return FunNamespaceWrapper.self
+    // 获取当前的window
+    var currentWindow: UIWindow? {
+        
+        if let window = UIApplication.shared.keyWindow {
+            return window
+        }
+        
+        if #available(iOS 13.0, *) {
+
+            for windowScene:UIWindowScene in ((UIApplication.shared.connectedScenes as? Set<UIWindowScene>)!) {
+                
+                if windowScene.activationState == .foregroundActive {
+                    
+                    return windowScene.windows.first
+                    
+                }
+                
+            }
+
+        }
+        
+        return nil
+        
     }
+    
+    var canPush: Bool {
+        return frontController.navigationController != nil
+    }
+    
+    // 获取当前控制器
+    var frontController: UIViewController {
+        
+        let rootViewController = UIApplication.shared.fb.currentWindow?.rootViewController
+        
+        return findFrontViewController(rootViewController!)
+    }
+    
+    var projectName: String? {
+
+        return Bundle.main.infoDictionary?["CFBundleExecutable"] as? String
+    }
+    
+    private func findFrontViewController(_ currnet: UIViewController) -> UIViewController {
+        
+        if let presentedController = currnet.presentedViewController {
+            
+            return findFrontViewController(presentedController)
+            
+        } else if let svc = currnet as? UISplitViewController, let next = svc.viewControllers.last {
+            
+            
+            return findFrontViewController(next)
+            
+        } else if let nvc = currnet as? UINavigationController, let next = nvc.topViewController {
+            
+            return findFrontViewController(next)
+            
+        } else if let tvc = currnet as? UITabBarController, let next = tvc.selectedViewController {
+            
+            
+            return findFrontViewController(next)
+            
+            
+        } else if currnet.children.count > 0 {
+            
+            for child in currnet.children {
+                
+                if currnet.view.subviews.contains(child.view) {
+                    
+                    return findFrontViewController(child)
+                }
+            }
+            
+        }
+        
+        return currnet
+        
+    }
+    
 }
 
-public struct FunNamespaceWrapper<T> {
-    public let wrappedValue: T
-    public init(value: T) {
-        self.wrappedValue = value
-    }
-}
+
+

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension UIDatePicker: FunNamespaceWrappable {}
+//extension UIDatePicker: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UIDatePicker {
     
     static var picker: FunBox.DatePicker {
@@ -192,7 +192,7 @@ public extension FunBox {
         }
         
         open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-            let rootViewController = UIApplication.shared.currentWindow?.rootViewController
+            let rootViewController = UIApplication.shared.fb.currentWindow?.rootViewController
             let coverView = UIView.init(frame: UIScreen.main.bounds)
             coverView.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
             

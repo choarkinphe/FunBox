@@ -46,10 +46,12 @@ extension UIViewController: FunSwizz {
         
         guard let contentView = fb.contentView else { return }
         
-        let content_x: CGFloat = 0.0
-        var content_y: CGFloat = 0.0
-        let content_w: CGFloat = view.frame.size.width
-        var content_h: CGFloat = view.frame.size.height
+        var rect = view.bounds
+        
+//        let content_x: CGFloat = 0.0
+//        var content_y: CGFloat = 0.0
+//        let content_w: CGFloat = view.frame.size.width
+//        var content_h: CGFloat = view.frame.size.height
         
         if let navigationController = navigationController {
             /*
@@ -65,7 +67,8 @@ extension UIViewController: FunSwizz {
             // 导航栏半透明的时候，才需要把contentView向下偏移
             if !navigationController.isNavigationBarHidden && edgesForExtendedLayout.rawValue != 0 && edgesForExtendedLayout != .bottom && navigationController.navigationBar.isTranslucent {
                 // 系统导航栏未隐藏，从导航栏地步开始计算坐标
-                content_y = navigationController.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
+//                content_y = navigationController.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
+                rect.origin.y = navigationController.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
                 
             }
         }
@@ -73,32 +76,40 @@ extension UIViewController: FunSwizz {
         if let tabBarController = tabBarController {
             if (tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
                 // tabBar没有隐藏，且tabBar是半透明状态
-                content_h = content_h - tabBarController.tabBar.frame.size.height;
+//                content_h = content_h - tabBarController.tabBar.frame.size.height;
+                rect.size.height = rect.size.height - tabBarController.tabBar.frame.size.height
             }
         }
         
         // 获取当前可用的content高度
-        content_h = content_h - content_y;
+//        content_h = content_h - content_y;
+        rect.size.height = rect.size.height - rect.origin.y;
         
         if let navigationBar = fb.navigationBar {
             if !navigationBar.isHidden {
                 navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
-                content_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
-                content_h = content_h - navigationBar.frame.size.height
+//                content_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
+//                content_h = content_h - navigationBar.frame.size.height
+                rect.origin.y = navigationBar.frame.origin.y + navigationBar.frame.size.height
+                rect.size.height = rect.size.height - navigationBar.frame.size.height
             }
         }
         
         if let topView = fb.topView {
             if !topView.isHidden {
                 if let navigationBar = fb.navigationBar, navigationBar.isHidden {
-                    content_y = self.fb.safeAeraInsets.top
+//                    content_y = self.fb.safeAeraInsets.top
+                    rect.origin.y = self.fb.safeAeraInsets.top
                 }
                 
                 // 利用上面改过的content_y（content顶部的实际可布局位置）
-                topView.frame = CGRect.init(x: 0, y: content_y, width: view.frame.size.width, height: topView.bounds.size.height)
+//                topView.frame = CGRect.init(x: 0, y: content_y, width: view.frame.size.width, height: topView.bounds.size.height)
+                topView.frame = CGRect.init(x: 0, y: rect.origin.y, width: view.frame.size.width, height: topView.bounds.size.height)
                 // 再次调整contentView的位置
-                content_y = topView.frame.origin.y + topView.frame.size.height
-                content_h = content_h - topView.frame.size.height
+//                content_y = topView.frame.origin.y + topView.frame.size.height
+//                content_h = content_h - topView.frame.size.height
+                rect.origin.y = topView.frame.origin.y + topView.frame.size.height
+                rect.size.height = rect.size.height - topView.frame.size.height
             }
             
         }
@@ -106,13 +117,18 @@ extension UIViewController: FunSwizz {
         if let bottomView = fb.bottomView {
             if !bottomView.isHidden {
                 
-                content_h = content_h - bottomView.frame.size.height - fb.safeAeraInsets.bottom;
+//                content_h = content_h - bottomView.frame.size.height - fb.safeAeraInsets.bottom;
+//
+//                bottomView.frame = CGRect.init(x: 0, y: content_h + content_y, width: view.frame.size.width, height: bottomView.frame.size.height)
                 
-                bottomView.frame = CGRect.init(x: 0, y: content_h + content_y, width: view.frame.size.width, height: bottomView.frame.size.height)
+                rect.size.height = rect.size.height - bottomView.frame.size.height - fb.safeAeraInsets.bottom;
+                
+                bottomView.frame = CGRect.init(x: 0, y: rect.size.height + rect.origin.y, width: view.frame.size.width, height: bottomView.frame.size.height)
             }
         }
         
-        contentView.frame = CGRect.init(x: content_x, y: content_y, width: content_w, height: content_h)
+//        contentView.frame = CGRect.init(x: content_x, y: content_y, width: content_w, height: content_h)
+        contentView.frame = rect
         
     }
     
@@ -158,10 +174,14 @@ public extension FunBox {
         
         public var safeAeraInsets: UIEdgeInsets {
             var safeAeraInsets = UIEdgeInsets.zero
-            if FunBox.device.iPhoneXSeries {
+            if FunBox.device.fb.iPhoneXSeries {
                 safeAeraInsets.top = 24
                 
-                if viewController?.hidesBottomBarWhenPushed == true || viewController?.parent?.hidesBottomBarWhenPushed == true {
+//                if viewController?.hidesBottomBarWhenPushed == true || viewController?.parent?.hidesBottomBarWhenPushed == true {
+//                    safeAeraInsets.bottom = 34
+//                }
+                
+                if viewController?.tabBarController?.tabBar.isHidden != true {
                     safeAeraInsets.bottom = 34
                 }
             }
@@ -291,6 +311,46 @@ public extension FunBox {
                     
                 }
             }
+        }
+        
+        public func setTopViewHidden(_ hidden: Bool, animated: Bool) {
+            guard let topView = topView, let viewController = viewController else { return }
+            if !hidden { topView.isHidden = hidden }
+            UIView.animate(withDuration: animated ? 0.35 : 0, animations: {
+
+                var topView_y: CGFloat = 0.0
+                if hidden {
+                    topView_y = -topView.bounds.size.height
+                    // 有navigationBar时，调整topView的frame
+                    if let navigationBar = self.navigationBar {
+                        topView_y = navigationBar.frame.maxY - topView.bounds.size.height
+                    }
+                } else {
+                    // 有navigationBar时，调整topView的frame
+                    if let navigationBar = self.navigationBar {
+                        topView_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
+                    }
+
+                }
+                topView.frame = CGRect.init(x: 0.0, y: topView_y, width: viewController.view.frame.size.width, height: topView.bounds.size.height)
+            }) { (complete) in
+                topView.isHidden = hidden
+            }
+        }
+        
+        public func setBottomViewHidden(_ hidden: Bool, animated: Bool) {
+            guard let bottomView = bottomView, let viewController = viewController else { return }
+            if !hidden { bottomView.isHidden = hidden }
+            UIView.animate(withDuration: animated ? 0.35 : 0, animations: {
+                if hidden {
+                    bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
+                } else {
+                    bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height - bottomView.frame.size.height - self.safeAeraInsets.bottom, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
+                }
+            }) { (complete) in
+                bottomView.isHidden = hidden
+            }
+            
         }
         
         fileprivate func resetBackgrounerColor() {

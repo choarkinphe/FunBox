@@ -61,7 +61,7 @@ public extension FunBox {
         @objc func memoryWarning() {
             
             for item in table_params {
-                if item.key != "\(UIApplication.shared.frontController.hashValue)" {
+                if item.key != "\(UIApplication.shared.fb.frontController.hashValue)" {
                     
                     table_params.removeValue(forKey: item.key)
                 }
@@ -87,7 +87,7 @@ public extension FunBox {
         // MARK: - 打开页面
         public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: (()->Void)?=nil) {
             
-            if UIApplication.shared.canPush {
+            if UIApplication.shared.fb.canPush {
                 push2(url: url, params: params, animated: animated)
             } else {
                 present2(url: url, params: params, animated: animated, completion: completion)
@@ -98,7 +98,7 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-            UIApplication.shared.frontController.navigationController?.pushViewController(vc, animated: animated)
+            UIApplication.shared.fb.frontController.navigationController?.pushViewController(vc, animated: animated)
             
         }
         
@@ -107,7 +107,7 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-            UIApplication.shared.frontController.present(vc, animated: animated, completion: completion)
+            UIApplication.shared.fb.frontController.present(vc, animated: animated, completion: completion)
             
         }
         
@@ -136,7 +136,7 @@ public extension FunBox {
         // MARK: - 注册支持路由的页面
         public func regist(url: FunRouterPathable?, class_name: String?) {
             
-            guard let URL = url?.asURL(), let class_name = class_name, let projectName = UIApplication.shared.projectName else { return }
+            guard let URL = url?.asURL(), let class_name = class_name, let projectName = UIApplication.shared.fb.projectName else { return }
             
             guard let get_class = NSClassFromString("\(projectName).\(class_name)") else { return }
             
@@ -149,7 +149,7 @@ public extension FunBox {
         
         fileprivate func cleanParams() {
             
-            FunRouter.default.table_params.removeValue(forKey: "\(UIApplication.shared.frontController.hashValue)")
+            FunRouter.default.table_params.removeValue(forKey: "\(UIApplication.shared.fb.frontController.hashValue)")
             
         }
         

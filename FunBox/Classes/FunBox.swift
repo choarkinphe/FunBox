@@ -17,7 +17,7 @@ open class FunBox {
     
     private struct Static {
         
-        static var instance_device: Device = Device()
+//        static var instance_device: Device = Device()
     }
     
 }
@@ -63,7 +63,7 @@ public extension FunBox {
         return Cache.default
     }
     
-    static var device: Device {
-        return Static.instance_device
+    static var device: UIDevice {
+        return UIDevice.current
     }
 }

@@ -51,7 +51,7 @@ public extension FunBox {
             
             sheetController.actions = _actions
             
-            var rootViewController = UIApplication.shared.currentWindow?.rootViewController
+            var rootViewController = UIApplication.shared.fb.currentWindow?.rootViewController
             if let presentedViewController = rootViewController?.presentedViewController {
                 rootViewController = presentedViewController
             }
@@ -367,7 +367,7 @@ public extension FunBox.Sheet {
         }
         
         open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-            let rootViewController = UIApplication.shared.currentWindow?.rootViewController
+            let rootViewController = UIApplication.shared.fb.currentWindow?.rootViewController
             let coverView = UIView.init(frame: UIScreen.main.bounds)
             coverView.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
             

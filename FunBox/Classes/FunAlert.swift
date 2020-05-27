@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIAlertController: FunNamespaceWrappable {}
+//extension UIAlertController: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UIAlertController {
     
     static var alert: FunBox.Alert {
@@ -203,7 +203,7 @@ public extension FunBox {
                 }
             }
             
-            var rootViewController = from ?? UIApplication.shared.currentWindow?.rootViewController
+            var rootViewController = from ?? UIApplication.shared.fb.currentWindow?.rootViewController
             
             if let presentedViewController = rootViewController?.presentedViewController {
                 rootViewController = presentedViewController
