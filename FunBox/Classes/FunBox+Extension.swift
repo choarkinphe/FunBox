@@ -452,15 +452,18 @@ public extension FunNamespaceWrapper where T: UIApplication {
     }
     
     var canPush: Bool {
-        return frontController.navigationController != nil
+        return frontController?.navigationController != nil
     }
     
     // 获取当前控制器
-    var frontController: UIViewController {
+    var frontController: UIViewController? {
         
-        let rootViewController = UIApplication.shared.fb.currentWindow?.rootViewController
+        guard let rootViewController = UIApplication.shared.fb.currentWindow?.rootViewController else {
+            return nil
+            
+        }
         
-        return findFrontViewController(rootViewController!)
+        return findFrontViewController(rootViewController)
     }
     
     var projectName: String? {

@@ -98,7 +98,7 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-            UIApplication.shared.fb.frontController.navigationController?.pushViewController(vc, animated: animated)
+            UIApplication.shared.fb.frontController?.navigationController?.pushViewController(vc, animated: animated)
             
         }
         
@@ -107,7 +107,7 @@ public extension FunBox {
             
             guard let vc = build(url: url, params: params) else { return }
             
-            UIApplication.shared.fb.frontController.present(vc, animated: animated, completion: completion)
+            UIApplication.shared.fb.frontController?.present(vc, animated: animated, completion: completion)
             
         }
         

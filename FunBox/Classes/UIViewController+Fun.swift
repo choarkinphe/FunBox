@@ -405,7 +405,7 @@ public extension FunBox {
 //                    }
 //                }
                 if let current = visableController, let options = options {
-                    viewController.transition(from: current, to: childVC, duration: 0.35, options: options, animations: {
+                    viewController.transition(from: current, to: childVC, duration: 0.45, options: options, animations: {
                         
                     }) { (finished) in
                         self.visableController = childVC
