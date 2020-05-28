@@ -389,23 +389,41 @@ public extension FunBox {
         }
         
 
+        private var visableController: UIViewController?
         
-            public func change2Child(_ childVC: UIViewController?) {
+        public func change2Child(_ childVC: UIViewController?, options: UIView.AnimationOptions?=nil) {
                 guard let childVC = childVC else { return }
                 guard let viewController = viewController else { return }
                 if !viewController.children.contains(childVC) {
                     viewController.addChild(childVC)
                 }
-                childVC.beginAppearanceTransition(true, animated: true)
-                childVC.view.frame = viewController.view.frame
-                viewController.view.addSubview(childVC.view)
-                childVC.endAppearanceTransition()
-                childVC.didMove(toParent: viewController)
+
+//                var current = viewController.children.first
+//                for item in viewController.children {
+//                    if viewController.view.subviews.contains(item.view) {
+//                        current = item
+//                    }
+//                }
+                if let current = visableController, let options = options {
+                    viewController.transition(from: current, to: childVC, duration: 0.35, options: options, animations: {
+                        
+                    }) { (finished) in
+                        self.visableController = childVC
+                    }
+                } else {
+                                    childVC.beginAppearanceTransition(true, animated: true)
+                                    childVC.view.frame = viewController.view.frame
+                                    viewController.view.addSubview(childVC.view)
+                                    childVC.endAppearanceTransition()
+                                    childVC.didMove(toParent: viewController)
+                    visableController = childVC
+                }
+                
             }
         
         
         deinit {
-            debugPrint("fun die")
+            debugPrint("fun die:\(viewController)")
             
             bottomView = nil
             contentView = nil
