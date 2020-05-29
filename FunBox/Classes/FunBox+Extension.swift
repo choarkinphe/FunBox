@@ -9,16 +9,24 @@ import UIKit
 import CommonCrypto
 
 // MARK: - NSObject
-fileprivate var objectIdentifierKey = "com.funbox.objectIdentifierKey"
+
+fileprivate struct FunKey {
+    static var objectIdentifier = "com.funbox.key.objectIdentifier"
+    struct TextField {
+        static var contentRegular = "com.funbox.key.contentRegular"
+        static var contentCount = "com.funbox.key.contentCount"
+    }
+    
+}
 extension NSObject: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: NSObject {
     var identifier: String? {
 
-        return objc_getAssociatedObject(self, &objectIdentifierKey) as? String
+        return objc_getAssociatedObject(wrappedValue, &FunKey.objectIdentifier) as? String
     }
     
     func set(identifier: String?) {
-        objc_setAssociatedObject(self, &objectIdentifierKey, identifier, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+        objc_setAssociatedObject(wrappedValue, &FunKey.objectIdentifier, identifier, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
 }
 
@@ -395,6 +403,89 @@ public extension FunNamespaceWrapper where T: UILabel {
     }
     
     
+}
+
+// MARK: - UITextField+Fun
+public extension FunNamespaceWrapper where T: UITextField {
+    
+    var contentCount: Int {
+        
+        if let count = objc_getAssociatedObject(wrappedValue, &FunKey.TextField.contentCount) as? Int {
+            return count
+        }
+        
+        return 0
+    }
+    
+    func set(contentCount: Int) {
+        objc_setAssociatedObject(wrappedValue, &FunKey.TextField.contentCount, contentCount, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
+        
+        wrappedValue.addTarget(wrappedValue, action: #selector(wrappedValue.inputCountMonitor(textField:)), for: .editingChanged)
+        
+    }
+    
+    var contentRegular: String? {
+
+        return objc_getAssociatedObject(wrappedValue, &FunKey.TextField.contentRegular) as? String
+    }
+    
+    func set(contentRegular: String?) {
+        objc_setAssociatedObject(wrappedValue, &FunKey.TextField.contentRegular, contentRegular, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+        
+        wrappedValue.addTarget(wrappedValue, action: #selector(wrappedValue.inputRegularMonitor(textField:)), for: .editingChanged)
+        
+    }
+    
+    
+}
+
+fileprivate extension UITextField {
+    @objc func inputCountMonitor(textField: UITextField) {
+
+        if textField.fb.contentCount > 0, let inputText = textField.text {
+            if inputText.count > textField.fb.contentCount {
+                text = inputText.fb.subString(to: textField.fb.contentCount)
+            }
+        }
+        
+    }
+    
+    @objc func inputRegularMonitor(textField: UITextField) {
+        if let inputText = textField.text, let regular = textField.fb.contentRegular {
+            do {
+
+                let regex = try NSRegularExpression.init(pattern: regular, options: .dotMatchesLineSeparators)
+
+                let newText = regex.stringByReplacingMatches(in: inputText, options: .reportCompletion, range: NSRange(location: 0, length: inputText.count), withTemplate: "")
+                
+                if let selRange = textField.selectedTextRange {
+                    
+                    let idx = textField.offset(from: textField.beginningOfDocument, to: selRange.start)
+                    let offset = newText.count - inputText.count
+                    
+                    if offset >= 0 {
+                        return
+                    }
+                    
+                    text = newText
+                    
+                    let newStart = (idx + offset) < 0 ? 0 : (idx + offset)
+
+                    if let start = textField.position(from: beginningOfDocument, offset: newStart),
+                        let end = textField.position(from: beginningOfDocument, offset: newStart) {
+                    
+                        textField.selectedTextRange = textField.textRange(from: start, to: end)
+                    }
+                }
+
+            }
+            catch {
+
+                print(error.localizedDescription)
+                
+            }
+        }
+    }
 }
 
 //extension UIDevice: FunNamespaceWrappable {}
