@@ -423,7 +423,7 @@ public extension FunBox {
         
         
         deinit {
-            debugPrint("fun die:\(viewController)")
+            debugPrint("funController die")
             
             bottomView = nil
             contentView = nil
