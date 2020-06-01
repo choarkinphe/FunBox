@@ -358,6 +358,22 @@ public extension FunNamespaceWrapper where T: UIImage {
         return nil
     }
 }
+// MARK: - UIColor+Fun
+public extension FunNamespaceWrapper where T: UIColor {
+    static var random: UIColor {
+        let red = CGFloat(arc4random_uniform(255))/255.0
+        let green = CGFloat(arc4random_uniform(255))/255.0
+        let blue = CGFloat(arc4random_uniform(255))/255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
+    }
+    
+    static func random(alpha: CGFloat) -> UIColor {
+        let red = CGFloat(arc4random_uniform(255))/255.0
+        let green = CGFloat(arc4random_uniform(255))/255.0
+        let blue = CGFloat(arc4random_uniform(255))/255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+}
 
 // MARK: - UIButton+Fun
 //extension UIButton: FunNamespaceWrappable {}
