@@ -47,6 +47,14 @@ public extension FunNamespaceWrapper where T: UIScreen {
     }
 }
 
+public extension FunNamespaceWrapper where T: UIScrollView {
+    var refresher: FunBox.Refresher {
+        let refresher = FunBox.Refresher()
+        wrappedValue.refreshControl = refresher
+        return refresher
+    }
+}
+
 // MARK: - GCD
 //extension DispatchQueue: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == DispatchQueue {

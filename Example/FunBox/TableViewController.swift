@@ -11,7 +11,14 @@ import FunBox
 
 
 class TableViewController: UITableViewController {
-
+    override init(style: UITableView.Style) {
+        super.init(style: style)
+        modalPresentationStyle = .overFullScreen
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,10 +27,25 @@ class TableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        view.backgroundColor = UIColor.red
+//        view.backgroundColor = UIColor.red
         
         print(rt.options?.params)
         
+//        var arefreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 120))
+//        arefreshControl.attributedTitle = NSAttributedString(string: "正在刷新")
+//        arefreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+//        refreshControl = arefreshControl
+        tableView.fb.refresher.text("下拉刷新").timeOut(3).tintColor(.orange).complete { (refresher) in
+            refresher.attributedTitle = NSAttributedString(string: "正在刷新")
+            print("开始刷新")
+        }
+    }
+    
+    @objc func refresh(sender: UIRefreshControl) {
+        print(sender.isRefreshing)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            sender.endRefreshing()
+        }
     }
 
     // MARK: - Table view data source

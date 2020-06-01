@@ -30,6 +30,63 @@ public struct FunNamespaceWrapper<T> {
     }
 }
 
+extension FunBox {
+    struct Config {
+        
+    }
+}
+
+extension FunBox.Config {
+    struct Refresher {
+        static var timeOut: TimeInterval = 15
+    }
+}
+extension FunBox {
+    public class Refresher: UIRefreshControl {
+        private var handler: ((UIRefreshControl)->Void)?
+//        lazy var control: UIRefreshControl = {
+//            let control = UIRefreshControl()
+//            control.addTarget(self, action: #selector(refreshAction(sender:)), for: .valueChanged)
+//            return control
+//        }()
+        private var timeOut: TimeInterval = FunBox.Config.Refresher.timeOut
+        public func text(_ text: String) -> Self {
+            self.attributedTitle = NSAttributedString(string: text)
+            return self
+        }
+        
+        public func timeOut(_ timeOut: TimeInterval) -> Self {
+            self.timeOut = timeOut
+            return self
+        }
+        
+        public func tintColor(_ tintColor: UIColor) -> Self {
+            self.tintColor = tintColor
+            return self
+        }
+        
+        public func complete(_ complete: ((UIRefreshControl)->Void)?) {
+            addTarget(self, action: #selector(refreshAction(sender:)), for: .valueChanged)
+            self.handler = complete
+        }
+        
+        @objc private func refreshAction(sender: UIRefreshControl) {
+            if let handler = self.handler {
+                handler(sender)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+timeOut) {
+                sender.endRefreshing()
+            }
+        }
+        
+        public override func layoutSubviews() {
+            superview?.layoutSubviews()
+            
+            
+        }
+    }
+}
 //public extension UIApplication {
 //
 //    // 获取当前的window
