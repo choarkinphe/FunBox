@@ -218,11 +218,11 @@ extension FunBox {
 /*
     方法交换
  */
-public protocol FunSwizz: class {
+protocol FunSwizz: class {
     static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector)
 }
 
-public extension FunSwizz {
+extension FunSwizz {
     
     static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector) {
         let originalMethod = class_getInstanceMethod(forClass, originalSelector)
