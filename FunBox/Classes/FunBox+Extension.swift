@@ -39,19 +39,20 @@ public extension FunNamespaceWrapper where T: UIBarButtonItem {
     
 }
 
-// MARK: - UIScreen
-//extension UIScreen: FunNamespaceWrappable {}
-public extension FunNamespaceWrapper where T: UIScreen {
-    static var size: CGSize {
-        return UIScreen.main.bounds.size
-    }
-}
-
 public extension FunNamespaceWrapper where T: UIScrollView {
     var refresher: FunBox.Refresher {
         let refresher = FunBox.Refresher()
         wrappedValue.refreshControl = refresher
         return refresher
+    }
+}
+
+
+// MARK: - UIScreen
+//extension UIScreen: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T: UIScreen {
+    static var size: CGSize {
+        return UIScreen.main.bounds.size
     }
 }
 
@@ -427,6 +428,11 @@ public extension FunNamespaceWrapper where T: UILabel {
     }
     
     
+}
+public extension FunNamespaceWrapper where T: UIView {
+    func effect(_ style: FunBox.Effect.Style) -> FunBox.Effect {
+        return FunBox.Effect.default.target(wrappedValue).style(style)
+    }
 }
 
 // MARK: - UITextField+Fun

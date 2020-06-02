@@ -20,7 +20,7 @@
 		4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9724653E170098C556 /* UIViewController+Fun.swift */; };
 		4A3EEDA424653E180098C556 /* FunLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9824653E170098C556 /* FunLocation.swift */; };
 		4A3EEDA524653E180098C556 /* FunToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9924653E170098C556 /* FunToast.swift */; };
-		4A3EEDA624653E180098C556 /* FunDrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9A24653E170098C556 /* FunDrawingBoard.swift */; };
+		4A3EEDA624653E180098C556 /* FunEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9A24653E170098C556 /* FunEffect.swift */; };
 		4A3EEDA724653E180098C556 /* FunDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9B24653E170098C556 /* FunDatePicker.swift */; };
 		4A3EEDA824653E180098C556 /* FunAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9C24653E170098C556 /* FunAlert.swift */; };
 		4A3EEDA924653E180098C556 /* FunSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9D24653E170098C556 /* FunSheet.swift */; };
@@ -97,7 +97,7 @@
 		4A3EED9724653E170098C556 /* UIViewController+Fun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Fun.swift"; path = "FunBox/Classes/UIViewController+Fun.swift"; sourceTree = "<group>"; };
 		4A3EED9824653E170098C556 /* FunLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunLocation.swift; path = FunBox/Classes/FunLocation.swift; sourceTree = "<group>"; };
 		4A3EED9924653E170098C556 /* FunToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunToast.swift; path = FunBox/Classes/FunToast.swift; sourceTree = "<group>"; };
-		4A3EED9A24653E170098C556 /* FunDrawingBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunDrawingBoard.swift; path = FunBox/Classes/FunDrawingBoard.swift; sourceTree = "<group>"; };
+		4A3EED9A24653E170098C556 /* FunEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunEffect.swift; path = FunBox/Classes/FunEffect.swift; sourceTree = "<group>"; };
 		4A3EED9B24653E170098C556 /* FunDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunDatePicker.swift; path = FunBox/Classes/FunDatePicker.swift; sourceTree = "<group>"; };
 		4A3EED9C24653E170098C556 /* FunAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunAlert.swift; path = FunBox/Classes/FunAlert.swift; sourceTree = "<group>"; };
 		4A3EED9D24653E170098C556 /* FunSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunSheet.swift; path = FunBox/Classes/FunSheet.swift; sourceTree = "<group>"; };
@@ -314,7 +314,7 @@
 				4A3EED9C24653E170098C556 /* FunAlert.swift */,
 				4A3EED9F24653E170098C556 /* FunCache.swift */,
 				4A3EED9B24653E170098C556 /* FunDatePicker.swift */,
-				4A3EED9A24653E170098C556 /* FunDrawingBoard.swift */,
+				4A3EED9A24653E170098C556 /* FunEffect.swift */,
 				4A3EEDA024653E170098C556 /* FunError.swift */,
 				4A3EED9E24653E170098C556 /* FunBox.swift */,
 				4A3EED9824653E170098C556 /* FunLocation.swift */,
@@ -601,7 +601,7 @@
 				4A3EEDAB24653E180098C556 /* FunCache.swift in Sources */,
 				4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */,
 				4A50659C246B912F000E9CA3 /* FunBox+Extension.swift in Sources */,
-				4A3EEDA624653E180098C556 /* FunDrawingBoard.swift in Sources */,
+				4A3EEDA624653E180098C556 /* FunEffect.swift in Sources */,
 				4A3EEDA924653E180098C556 /* FunSheet.swift in Sources */,
 				4A3EEDAC24653E180098C556 /* FunError.swift in Sources */,
 				4A3EEDA524653E180098C556 /* FunToast.swift in Sources */,

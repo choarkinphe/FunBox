@@ -8,17 +8,17 @@
 import Foundation
 
 public extension FunBox {
-    class DrawingBoard {
+    class Effect {
         
-        private var draw_config: DrawConfig?
-        private var mask_name = mask_layer_name
-        private var border_name = border_layer_name
+        private var config: Config?
+        private var mask_name = FunBox.Effect.Key.mask
+        private var border_name = FunBox.Effect.Key.border
         private var target: UIView?
         
-        public static var `default`: DrawingBoard {
-            let drawingBoard = DrawingBoard()
-            drawingBoard.draw_config = DrawConfig()
-            return drawingBoard
+        public static var `default`: Effect {
+            let effect = Effect()
+            effect.config = Effect.Config()
+            return effect
         }
         
         public func target(_ a_target: UIView?) -> Self {
@@ -27,7 +27,7 @@ public extension FunBox {
         }
         
         public func identifier(_ identifier: String) -> Self {
-            draw_config?.identifier = identifier
+            config?.identifier = identifier
             
             mask_name = mask_name + identifier
             border_name = border_name + identifier
@@ -35,72 +35,72 @@ public extension FunBox {
             return self
         }
         
-        public func style(_ style: DrawType) -> Self {
-            draw_config?.style = style
+        public func style(_ style: Style) -> Self {
+            config?.style = style
             
             return self
         }
         
         public func lineLength(_ lineLength: CGFloat) -> Self {
-            draw_config?.lineLength = lineLength
+            config?.lineLength = lineLength
             
             return self
         }
         
         public func lineSpacing(_ lineSpacing: CGFloat) -> Self {
-            draw_config?.lineSpacing = lineSpacing
+            config?.lineSpacing = lineSpacing
             
             return self
         }
         
         public func animation(_ animation: Bool) -> Self {
-            draw_config?.animation = animation
+            config?.animation = animation
             
             if animation {
-                draw_config?.animation_config = AnimationConfig()
+                config?.animation_config = Animation()
             }
             
             return self
         }
         
-        public func animation_config(_ animation_config: AnimationConfig) -> Self {
-            draw_config?.animation_config = animation_config
+        public func animation_config(_ animation_config: Animation) -> Self {
+            config?.animation_config = animation_config
             
             return self
         }
         
         public func positaion(_ positaion: LinePosition) -> Self {
-            draw_config?.positaion = positaion
+            config?.positaion = positaion
             
             return self
         }
         
         public func borderWidth(_ borderWidth: CGFloat) -> Self {
-            draw_config?.borderWidth = borderWidth
+            config?.borderWidth = borderWidth
             
             return self
         }
         
         public func borderColor(_ borderColor: UIColor) -> Self {
-            draw_config?.borderColor = borderColor
+            config?.borderColor = borderColor
             
             return self
         }
         
         public func cornerRadius(_ cornerRadius: CGFloat) -> Self {
-            draw_config?.cornerRadius = cornerRadius
+            config?.cornerRadius = cornerRadius
             
             return self
         }
         
         public func rectCornerType(_ rectCornerType: UIRectCorner) -> Self {
-            draw_config?.rectCornerType = rectCornerType
+            config?.rectCornerType = rectCornerType
             
             return self
         }
         
         public func rect(_ rect: CGRect) -> Self {
-            draw_config?.rect = rect
+            config?.rect = rect
             
             return self
         }
@@ -149,7 +149,7 @@ public extension FunBox {
                 
                 view.layer.rasterizationScale = UIScreen.main.scale
                 
-                if let config = draw_config {
+                if let config = config {
                     if let style = config.style {
                         switch style {
                         case .corner:
@@ -162,8 +162,8 @@ public extension FunBox {
             }
         }
         
-        private func draw_line(view: UIView, config: DrawConfig) {
-            let rect = draw_config?.rect ?? view.bounds
+        private func draw_line(view: UIView, config: Config) {
+            let rect = config.rect ?? view.bounds
             let lineWith = config.borderWidth ?? 0
             
             let borderLayer = CAShapeLayer()
@@ -223,7 +223,7 @@ public extension FunBox {
             view.layer.insertSublayer(borderLayer, at: 0)
         }
         
-        private func draw_corner(view: UIView, config: DrawConfig) {
+        private func draw_corner(view: UIView, config: Config) {
             let rect = config.rect ?? view.bounds
             let cornerRadius = config.cornerRadius ?? 0
             let rectCornerType = config.rectCornerType ?? .allCorners
@@ -254,7 +254,7 @@ public extension FunBox {
             view.layer.mask = maskLayer
         }
         
-        private func add_animation(shapeLayer: CAShapeLayer, config: AnimationConfig?) {
+        private func add_animation(shapeLayer: CAShapeLayer, config: Animation?) {
             if let a_config = config {
                 let baseAnimation = CABasicAnimation(keyPath: a_config.name)
                 baseAnimation.duration = a_config.duration   //持续时间
@@ -271,20 +271,25 @@ public extension FunBox {
     }
 }
 
-public extension UIView {
-    
-    var funDrawingBoard: FunBox.DrawingBoard {
-        
-        return FunBox.DrawingBoard.default.target(self)
+//public extension UIView {
+//
+//    var funDrawingBoard: FunBox.DrawingBoard {
+//
+//        return FunBox.DrawingBoard.default.target(self)
+//    }
+//}
+
+//private let mask_layer_name = "fun.border.maskLayer"
+//private let border_layer_name = "fun.border.maskLayer"
+private extension FunBox.Effect {
+    struct Key {
+        static var mask = "com.funbox.effect.key.mask"
+        static var border = "com.funbox.effect.key.border"
     }
 }
-
-private let mask_layer_name = "fun.border.maskLayer"
-private let border_layer_name = "fun.border.maskLayer"
-
-public extension FunBox.DrawingBoard {
+public extension FunBox.Effect {
     
-    enum DrawType: String {
+    enum Style: String {
         case corner = "corner"
         case line = "line"
     }
@@ -296,7 +301,7 @@ public extension FunBox.DrawingBoard {
         case right
     }
     
-    struct DrawConfig {
+    struct Config {
         
         public var borderWidth: CGFloat?
         
@@ -308,7 +313,7 @@ public extension FunBox.DrawingBoard {
         
         public var rect: CGRect?
         
-        public var style: DrawType?
+        public var style: Style?
         
         public var lineLength: CGFloat = 10.0
         
@@ -318,20 +323,20 @@ public extension FunBox.DrawingBoard {
         
         public var animation: Bool = false
         
-        public var animation_config: AnimationConfig?
+        public var animation_config: Animation?
         
         public var identifier: String?
     }
     
-    struct AnimationConfig {
+    struct Animation {
         public var duration: Double = 0.5
         public var fromValue: Double = 0.0
         public var toValue: Double = 0.5
         public var repeatDuration: Double = 1.0
         public var name: String = "strokeEnd"
         
-        public static func building(duration: Double? = nil, fromValue: Double? = nil, toValue: Double? = nil, repeatDuration: Double? = nil, name: String? = nil) -> AnimationConfig {
-            var config = AnimationConfig()
+        public static func building(duration: Double? = nil, fromValue: Double? = nil, toValue: Double? = nil, repeatDuration: Double? = nil, name: String? = nil) -> Animation {
+            var config = Animation()
             
             if let a_duration = duration {
                 config.duration = a_duration

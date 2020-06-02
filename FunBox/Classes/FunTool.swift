@@ -91,83 +91,83 @@ extension FunBox {
 //
 //    // 获取当前的window
 //    var currentWindow: UIWindow? {
-//        
+//
 //        if let window = UIApplication.shared.keyWindow {
 //            return window
 //        }
-//        
+//
 //        if #available(iOS 13.0, *) {
 //
 //            for windowScene:UIWindowScene in ((UIApplication.shared.connectedScenes as? Set<UIWindowScene>)!) {
-//                
+//
 //                if windowScene.activationState == .foregroundActive {
-//                    
+//
 //                    return windowScene.windows.first
-//                    
+//
 //                }
-//                
+//
 //            }
 //
 //        }
-//        
+//
 //        return nil
-//        
+//
 //    }
-//    
+//
 //    var canPush: Bool {
 //        return frontController.navigationController != nil
 //    }
-//    
+//
 //    // 获取当前控制器
 //    var frontController: UIViewController {
-//        
+//
 //        let rootViewController = UIApplication.shared.currentWindow?.rootViewController
-//        
+//
 //        return findFrontViewController(rootViewController!)
 //    }
-//    
+//
 //    var projectName: String? {
 //
 //        return Bundle.main.infoDictionary?["CFBundleExecutable"] as? String
 //    }
-//    
+//
 //    private func findFrontViewController(_ currnet: UIViewController) -> UIViewController {
-//        
+//
 //        if let presentedController = currnet.presentedViewController {
-//            
+//
 //            return findFrontViewController(presentedController)
-//            
+//
 //        } else if let svc = currnet as? UISplitViewController, let next = svc.viewControllers.last {
-//            
-//            
+//
+//
 //            return findFrontViewController(next)
-//            
+//
 //        } else if let nvc = currnet as? UINavigationController, let next = nvc.topViewController {
-//            
+//
 //            return findFrontViewController(next)
-//            
+//
 //        } else if let tvc = currnet as? UITabBarController, let next = tvc.selectedViewController {
-//            
-//            
+//
+//
 //            return findFrontViewController(next)
-//            
-//            
+//
+//
 //        } else if currnet.children.count > 0 {
-//            
+//
 //            for child in currnet.children {
-//                
+//
 //                if currnet.view.subviews.contains(child.view) {
-//                    
+//
 //                    return findFrontViewController(child)
 //                }
 //            }
-//            
+//
 //        }
-//        
+//
 //        return currnet
-//        
+//
 //    }
-//    
+//
 //}
 
 

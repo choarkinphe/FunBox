@@ -12,7 +12,7 @@ public typealias FunSheet = FunBox.Sheet
 public typealias FunAlert = FunBox.Alert
 public typealias FunDatePicker = FunBox.DatePicker
 public typealias FunCache = FunBox.Cache
-public typealias FunDrawingBoard = FunBox.DrawingBoard
+//public typealias FunDrawingBoard = FunBox.DrawingBoard
 open class FunBox {
     
     private struct Static {
@@ -23,12 +23,12 @@ open class FunBox {
 }
 
 // MARK: - DrawingBoard
-public extension FunBox {
-   static var drawingBoard: DrawingBoard {
-        
-        return DrawingBoard.default
-    }
-}
+//public extension FunBox {
+//   static var drawingBoard: DrawingBoard {
+//
+//        return DrawingBoard.default
+//    }
+//}
 
 // MARK: - picker
 public extension FunBox {
