@@ -333,6 +333,7 @@ extension CGSize {
 
 // MARK: - UIImage+Fun
 //extension UIImage: FunNamespaceWrappable {}
+fileprivate var imageCache: NSCache<UIColor, UIImage>!
 public extension FunNamespaceWrapper where T: UIImage {
     static var launchImage: UIImage? {
         let viewSize = UIScreen.main.bounds.size
@@ -366,6 +367,108 @@ public extension FunNamespaceWrapper where T: UIImage {
         
         return nil
     }
+    
+    static func color(_ color: UIColor, size: CGSize?=nil) -> UIImage {
+        DispatchQueue.fb.once {
+            imageCache = NSCache()
+        }
+
+        if let image = imageCache.object(forKey: color) {
+            return image
+        }
+        
+        let image_size = size ?? CGSize(width: 1, height: 1)
+        let rect = CGRect(x: 0, y: 0, width: image_size.width, height: image_size.height)
+        UIGraphicsBeginImageContext(image_size)
+
+        let context = UIGraphicsGetCurrentContext()
+
+        context?.setFillColor(color.cgColor)
+
+        context?.fill(rect)
+                
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        imageCache.setObject(image, forKey: color)
+        
+        return image
+    }
+    /**
+    *  修正图片信息
+    *
+    *  aImage 待修正的图片
+    *
+    *  @return 已修正的图片
+    *
+    *  @note 用相机拍摄出来的照片含有EXIF信息，UIImage的imageOrientation属性指的就是EXIF中的orientation信息。
+    *  如果我们忽略orientation信息，而直接对照片进行像素处理或者drawInRect等操作，得到的结果是翻转或者旋转90之后
+    *  的样子。这是因为我们执行像素处理或者drawInRect等操作之后，imageOrientaion信息被删除了，imageOrientaion
+    *  被重设为0，造成照片内容和imageOrientaion不匹配。所以，在对照片进行处理之前，先将照片旋转到正确的方向，并且
+    *  返回的imageOrientaion为0。
+    */
+    
+    var fixOrientation: UIImage {
+        if wrappedValue.imageOrientation == .up {
+            return wrappedValue
+        }
+        
+        var transform = CGAffineTransform.identity
+        
+        switch wrappedValue.imageOrientation {
+        case .down,.downMirrored:
+            transform = transform.translatedBy(x: wrappedValue.size.width, y: wrappedValue.size.height)
+            transform = transform.rotated(by: .pi)
+            break
+            
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: wrappedValue.size.width, y: 0)
+            transform = transform.rotated(by: .pi / 2)
+            break
+            
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: wrappedValue.size.height)
+            transform = transform.rotated(by: -.pi / 2)
+            break
+            
+        default:
+            break
+        }
+        
+        switch wrappedValue.imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: wrappedValue.size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            break
+             
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: wrappedValue.size.height, y: 0);
+            transform = transform.scaledBy(x: -1, y: 1)
+            break
+             
+        default:
+            break
+        }
+         
+        let ctx = CGContext(data: nil, width: Int(wrappedValue.size.width), height: Int(wrappedValue.size.height), bitsPerComponent: wrappedValue.cgImage!.bitsPerComponent, bytesPerRow: 0, space: wrappedValue.cgImage!.colorSpace!, bitmapInfo: wrappedValue.cgImage!.bitmapInfo.rawValue)
+        ctx?.concatenate(transform)
+         
+        switch wrappedValue.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            ctx?.draw(wrappedValue.cgImage!, in: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(wrappedValue.size.height), height: CGFloat(wrappedValue.size.width)))
+            break
+             
+        default:
+            ctx?.draw(wrappedValue.cgImage!, in: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(wrappedValue.size.width), height: CGFloat(wrappedValue.size.height)))
+            break
+        }
+         
+        let cgimg: CGImage = (ctx?.makeImage())!
+
+        
+        return UIImage(cgImage: cgimg)
+    }
+    
 }
 // MARK: - UIColor+Fun
 public extension FunNamespaceWrapper where T: UIColor {
