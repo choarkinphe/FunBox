@@ -105,6 +105,16 @@ public extension FunBox {
             return self
         }
         
+        public func gradientColors(_ colors: [UIColor]) -> Self {
+            
+            var array = [CGColor]()
+            for color in colors {
+                array.append(color.cgColor)
+            }
+            config?.gradientColors = array
+            return self
+        }
+        
         public func clearLayer(identifier: String? = nil) {
             
             if let view = target {
@@ -156,10 +166,35 @@ public extension FunBox {
                             draw_corner(view: view,config: config)
                         case .line:
                             draw_line(view: view,config: config)
+                        case .gradientColor:
+                            draw_gradientColors(view: view, config: config)
                         }
                     }
                 }
             }
+        }
+        
+        
+        private func draw_gradientColors(view: UIView, config: Config) {
+            guard let colors = config.gradientColors else { return }
+            //CAGradientLayer类对其绘制渐变背景颜色、填充层的形状(包括圆角)
+            let gradientLayer = CAGradientLayer()
+            
+            gradientLayer.frame = view.bounds
+            
+            //  创建渐变色数组，需要转换为CGColor颜色
+            gradientLayer.colors = colors
+            
+            //  设置渐变颜色方向，左上点为(0,0), 右下点为(1,1)
+            gradientLayer.startPoint = CGPoint(x: 0, y: 1)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            
+            //  设置颜色变化点，取值范围 0.0~1.0
+            gradientLayer.locations = [0,1]
+            
+            // 将渐变色图层压倒最下
+            //        [wrappedValue.layer. insertSublayer:gradientLayer atIndex:0];
+            view.layer.insertSublayer(gradientLayer, at: 0)
         }
         
         private func draw_line(view: UIView, config: Config) {
@@ -271,16 +306,6 @@ public extension FunBox {
     }
 }
 
-//public extension UIView {
-//
-//    var funDrawingBoard: FunBox.DrawingBoard {
-//
-//        return FunBox.DrawingBoard.default.target(self)
-//    }
-//}
-
-//private let mask_layer_name = "fun.border.maskLayer"
-//private let border_layer_name = "fun.border.maskLayer"
 private extension FunBox.Effect {
     struct Key {
         static var mask = "com.funbox.effect.key.mask"
@@ -292,6 +317,7 @@ public extension FunBox.Effect {
     enum Style: String {
         case corner = "corner"
         case line = "line"
+        case gradientColor = "gradientColor"
     }
     
     enum LinePosition: String {
@@ -302,6 +328,8 @@ public extension FunBox.Effect {
     }
     
     struct Config {
+        
+        public var gradientColors: [CGColor]?
         
         public var borderWidth: CGFloat?
         

@@ -335,6 +335,22 @@ extension CGSize {
 //extension UIImage: FunNamespaceWrappable {}
 fileprivate var imageCache: NSCache<UIColor, UIImage>!
 public extension FunNamespaceWrapper where T: UIImage {
+    
+    static var appIcon: UIImage? {
+        
+        if let infoPlist = Bundle.main.infoDictionary,
+            let icons = infoPlist["CFBundleIcons"] as? [String: Any],
+            let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
+            let files = primaryIcon["CFBundleIconFiles"] as? [String],
+            let name = files.first {
+                
+            return UIImage(named: name)
+                
+        }
+        
+        return nil
+    }
+    
     static var launchImage: UIImage? {
         let viewSize = UIScreen.main.bounds.size
         var viewOrientation = "Portrait"
@@ -394,6 +410,16 @@ public extension FunNamespaceWrapper where T: UIImage {
         
         return image
     }
+    
+    static func color(_ color: UIColor, toColor: UIColor, size: CGSize?=nil) -> UIImage? {
+        let contentView = UIView(frame: CGRect(origin: .zero, size: size ?? UIScreen.main.bounds.size))
+        
+        contentView.fb.effect(.gradientColor).gradientColors([color,toColor]).draw()
+        
+        return contentView.fb.snapshot
+
+    }
+
     /**
     *  修正图片信息
     *
@@ -471,6 +497,56 @@ public extension FunNamespaceWrapper where T: UIImage {
     
 }
 // MARK: - UIColor+Fun
+public protocol Colourful {
+    var rgb: (r:CGFloat,g:CGFloat,b:CGFloat)? { get }
+}
+extension String: Colourful {
+    public var rgb: (r: CGFloat, g: CGFloat, b: CGFloat)? {
+        
+        var hex = self.hasPrefix("#")
+          ? String(self.dropFirst())
+          : self
+        guard hex.count == 3 || hex.count == 6
+          else {
+//            self.init(white: 1.0, alpha: 0.0)
+            return (1,1,1)
+        }
+        if hex.count == 3 {
+          for (index, char) in hex.enumerated() {
+            hex.insert(char, at: hex.index(hex.startIndex, offsetBy: index * 2))
+          }
+        }
+        
+        guard let intCode = Int(hex, radix: 16) else {
+//          self.init(white: 1.0, alpha: 0.0)
+//          return
+            return (1,1,1)
+        }
+        
+        
+          let red = CGFloat((intCode >> 16) & 0xFF) / 255.0
+          let green = CGFloat((intCode >> 8) & 0xFF) / 255.0
+          let blue = CGFloat((intCode) & 0xFF) / 255.0
+        
+        return (red,green,blue)
+        
+    }
+}
+
+fileprivate typealias Ints = [Int]
+extension Ints: Colourful {
+    public var rgb: (r: CGFloat, g: CGFloat, b: CGFloat)? {
+        if self.count >= 3 {
+            let red = CGFloat(self[0]) / 255.0
+            let green = CGFloat(self[1]) / 255.0
+            let blue = CGFloat(self[2]) / 255.0
+
+            return (red,green,blue)
+        }
+        
+        return (1,1,1)
+    }
+}
 public extension FunNamespaceWrapper where T: UIColor {
     static var random: UIColor {
         let red = CGFloat(arc4random_uniform(255))/255.0
@@ -485,6 +561,22 @@ public extension FunNamespaceWrapper where T: UIColor {
         let blue = CGFloat(arc4random_uniform(255))/255.0
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
+    
+    static func RGB(_ element: Colourful, alpha: CGFloat?=nil) -> UIColor {
+        
+        guard let rgb = element.rgb else { return UIColor(white: 1, alpha: 0) }
+        return UIColor(red: rgb.r, green: rgb.g, blue: rgb.b, alpha: alpha ?? 1)
+    }
+    
+    func alpha(_ a_aplha: CGFloat) -> UIColor {
+        if let components = wrappedValue.cgColor.components {
+            let color = UIColor.init(red: components[0], green: components[1], blue: components[2], alpha: a_aplha)
+            return color
+        }
+        
+        return wrappedValue
+    }
+
 }
 
 // MARK: - UIButton+Fun
@@ -536,6 +628,27 @@ public extension FunNamespaceWrapper where T: UIView {
     func effect(_ style: FunBox.Effect.Style) -> FunBox.Effect {
         return FunBox.Effect.default.target(wrappedValue).style(style)
     }
+    
+    var snapshot: UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(wrappedValue.bounds.size, wrappedValue.isOpaque, 0)
+        
+        if let context = UIGraphicsGetCurrentContext() {
+            
+            wrappedValue.layer.render(in: context)
+            
+            let snap = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            return snap
+        }
+        
+        
+        return nil
+        
+    }
+
 }
 
 // MARK: - UITextField+Fun
