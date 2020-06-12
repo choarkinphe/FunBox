@@ -84,30 +84,50 @@ public extension FunBox {
             return Static.instance_router
         }
         
+        
         // MARK: - 打开页面
-        public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: (()->Void)?=nil) {
+        public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
             if UIApplication.shared.fb.canPush {
-                push2(url: url, params: params, animated: animated)
+                push2(url: url, params: params, animated: animated, completion: completion)
             } else {
                 present2(url: url, params: params, animated: animated, completion: completion)
             }
         }
         
-        public func push2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true) {
+        public func push2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
-            guard let vc = build(url: url, params: params) else { return }
+            guard let vc = build(url: url, params: params) else {
+                if let completion = completion {
+                    completion(false)
+                }
+                return
+                
+            }
             
             UIApplication.shared.fb.frontController?.navigationController?.pushViewController(vc, animated: animated)
-            
+            if let completion = completion {
+                completion(true)
+            }
         }
         
         
-        public func present2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: (()->Void)?=nil) {
+        public func present2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
-            guard let vc = build(url: url, params: params) else { return }
+            guard let vc = build(url: url, params: params) else {
+                if let completion = completion {
+                    completion(false)
+                }
+                return
+                
+            }
             
-            UIApplication.shared.fb.frontController?.present(vc, animated: animated, completion: completion)
+            UIApplication.shared.fb.frontController?.present(vc, animated: true, completion: {
+                if let completion = completion {
+                    completion(true)
+                }
+            })
+
             
         }
         
@@ -136,9 +156,9 @@ public extension FunBox {
         // MARK: - 注册支持路由的页面
         public func regist(url: FunRouterPathable?, class_name: String?) {
             
-            guard let URL = url?.asURL(), let class_name = class_name, let projectName = UIApplication.shared.fb.projectName else { return }
-            
-            guard let get_class = NSClassFromString("\(projectName).\(class_name)") else { return }
+            guard let URL = url?.asURL(), var class_name = class_name, let projectName = UIApplication.shared.fb.projectName else { return }
+            class_name = "\(projectName).\(class_name)"
+            guard let get_class = NSClassFromString(class_name) else { return }
             
             if get_class is UIViewController.Type {
                 guard let host = URL.host else { return }

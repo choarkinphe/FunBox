@@ -84,7 +84,7 @@ public extension FunNamespaceWrapper where T == DispatchQueue {
 // MARK: - JSON
 //extension JSONSerialization: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == JSONSerialization {
-    static func json(fileName: String?) -> [String: Any]? {
+    static func json<T>(fileName: String?, type: T.Type) -> T? {
         guard var fileName = fileName else { return nil }
         if ![".JSON",".json",",Json"].contains(fileName.fb.subString(from: fileName.count - 5)) {
             fileName = fileName + ".JSON"
@@ -97,7 +97,7 @@ public extension FunNamespaceWrapper where T == JSONSerialization {
             let data = try Data(contentsOf: url)
             let jsonData = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
             
-            if let json = jsonData as? [String: Any] {
+            if let json = jsonData as? T {
                 
                 return json
             }
@@ -419,6 +419,31 @@ public extension FunNamespaceWrapper where T: UIImage {
         return contentView.fb.snapshot
 
     }
+    
+    static func QRCodeImage(content: String?, size: CGSize?=nil) -> UIImage? {
+        guard let stringData = content?.data(using: String.Encoding.utf8) else { return nil }
+        
+        let qrFilter = CIFilter(name: "CIQRCodeGenerator")
+        qrFilter?.setValue(stringData, forKey: "inputMessage")
+        qrFilter?.setValue("H", forKey: "inputCorrectionLevel")
+        
+        let colorFilter = CIFilter(name: "CIFalseColor")
+        colorFilter?.setDefaults()
+        colorFilter?.setValuesForKeys(["inputImage" : (qrFilter?.outputImage)!,"inputColor0":CIColor.init(cgColor: UIColor.black.cgColor),"inputColor1":CIColor.init(cgColor: UIColor.white.cgColor)])
+        
+        let qrImage = colorFilter?.outputImage
+        let cgImage = CIContext(options: nil).createCGImage(qrImage!, from: (qrImage?.extent)!)
+        
+        UIGraphicsBeginImageContext(size ?? CGSize(width: 1024, height: 1024))
+        let context = UIGraphicsGetCurrentContext()
+        context?.interpolationQuality = .none
+        context?.scaleBy(x: 1.0, y: -1.0)
+        context?.draw(cgImage!, in: (context?.boundingBoxOfClipPath)!)
+        let codeImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return codeImage
+    }
+
 
     /**
     *  修正图片信息

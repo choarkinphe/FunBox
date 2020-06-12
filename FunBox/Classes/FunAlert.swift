@@ -85,7 +85,7 @@ public extension FunBox {
             return self
         }
         
-        public func title(title: String, titleFont: UIFont? = nil, titleColor: UIColor? = nil) -> Self {
+        public func title(title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil) -> Self {
             
             config.title = title
             
@@ -203,14 +203,13 @@ public extension FunBox {
                 }
             }
             
-            var rootViewController = from ?? UIApplication.shared.fb.currentWindow?.rootViewController
+            let frontController = from ?? UIApplication.shared.fb.frontController
             
-            if let presentedViewController = rootViewController?.presentedViewController {
-                rootViewController = presentedViewController
-            }
-            
-            rootViewController?.present(alertController, animated: true) {
+            DispatchQueue.main.async {
                 
+                frontController?.present(alertController, animated: true) {
+                    
+                }
             }
         }
         

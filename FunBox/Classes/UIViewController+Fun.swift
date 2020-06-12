@@ -74,7 +74,7 @@ extension UIViewController: FunSwizz {
         }
         
         if let tabBarController = tabBarController {
-            if (tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
+            if (!tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
                 // tabBar没有隐藏，且tabBar是半透明状态
 //                content_h = content_h - tabBarController.tabBar.frame.size.height;
                 rect.size.height = rect.size.height - tabBarController.tabBar.frame.size.height
@@ -392,34 +392,31 @@ public extension FunBox {
         private var visableController: UIViewController?
         
         public func change2Child(_ childVC: UIViewController?, options: UIView.AnimationOptions?=nil) {
-                guard let childVC = childVC else { return }
-                guard let viewController = viewController else { return }
-                if !viewController.children.contains(childVC) {
-                    viewController.addChild(childVC)
-                }
-
-//                var current = viewController.children.first
-//                for item in viewController.children {
-//                    if viewController.view.subviews.contains(item.view) {
-//                        current = item
-//                    }
-//                }
-                if let current = visableController, let options = options {
-                    viewController.transition(from: current, to: childVC, duration: 0.45, options: options, animations: {
-                        
-                    }) { (finished) in
-                        self.visableController = childVC
-                    }
-                } else {
-                                    childVC.beginAppearanceTransition(true, animated: true)
-                                    childVC.view.frame = viewController.view.frame
-                                    viewController.view.addSubview(childVC.view)
-                                    childVC.endAppearanceTransition()
-                                    childVC.didMove(toParent: viewController)
-                    visableController = childVC
-                }
-                
+            guard let childVC = childVC else { return }
+            guard let viewController = viewController else { return }
+            if visableController == childVC {
+                return
             }
+            if !viewController.children.contains(childVC) {
+                viewController.addChild(childVC)
+            }
+            
+            if let current = visableController, let options = options {
+                viewController.transition(from: current, to: childVC, duration: 0.45, options: options, animations: {
+                    
+                }) { (finished) in
+                    self.visableController = childVC
+                }
+            } else {
+                childVC.beginAppearanceTransition(true, animated: true)
+                childVC.view.frame = viewController.view.frame
+                viewController.view.addSubview(childVC.view)
+                childVC.endAppearanceTransition()
+                childVC.didMove(toParent: viewController)
+                visableController = childVC
+            }
+            
+        }
         
         
         deinit {
