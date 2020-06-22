@@ -41,6 +41,8 @@ public protocol FunRouterPathable {
     func asParams() -> FunRouterParameter?
     
     func asURL() -> URL?
+    
+    func asPageKey() -> String?
 }
 
 public extension FunBox {
@@ -71,6 +73,17 @@ public extension FunBox {
         
         fileprivate struct Static {
             static var instance_router = FunRouter()
+        }
+        
+        // 所有已注册的路由表
+        public var routerPages: [String] {
+            var pages = [String]()
+            
+            for item in table_vc {
+                pages.append(item.key)
+            }
+            
+            return pages
         }
         
         private var table_vc = [String: UIViewController.Type]()
@@ -134,7 +147,7 @@ public extension FunBox {
         // MARK: - 生成可跳转页面
         private func build(url: FunRouterPathable?, params: Any? = nil) -> UIViewController? {
             
-            guard let URL = url?.asURL(), let host = URL.host, let VC = table_vc["\(host).\(URL.relativePath)"] else { return nil }
+            guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = table_vc[key] else { return nil }
             
             let vc = VC.init()
             
@@ -161,8 +174,8 @@ public extension FunBox {
             guard let get_class = NSClassFromString(class_name) else { return }
             
             if get_class is UIViewController.Type {
-                guard let host = URL.host else { return }
-                table_vc["\(host).\(URL.relativePath)"]  = get_class as? UIViewController.Type
+                guard let key = URL.asPageKey() else { return }
+                table_vc[key] = get_class as? UIViewController.Type
             }
             
         }
@@ -215,6 +228,10 @@ extension UIViewController: FunRouterNamespaceWrappable {}
 
 extension Dictionary: FunRouterPathable {
     
+    public func asPageKey() -> String? {
+        return nil
+    }
+    
     public func asURL() -> URL? {
         return nil
     }
@@ -226,6 +243,13 @@ extension Dictionary: FunRouterPathable {
 }
 
 extension String: FunRouterPathable {
+    public func asPageKey() -> String? {
+        if let URL = asURL() {
+            return URL.asPageKey()
+        }
+        return nil
+    }
+    
     
     public func asParams() -> FunRouterParameter? {
         
@@ -234,11 +258,24 @@ extension String: FunRouterPathable {
     
     public func asURL() -> URL? {
         
-        return URL(string: self)
+        return URL(string: self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? self)
     }
 }
 
 extension URL: FunRouterPathable {
+    public func asPageKey() -> String? {
+        if let host = host {
+            if relativePath.count > 0 {
+                return host + relativePath
+            } else {
+                return host
+            }
+            
+        }
+        
+        return nil
+    }
+    
     public func asParams() -> FunRouterParameter? {
         
         return rt.URLParameters

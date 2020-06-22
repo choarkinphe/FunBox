@@ -269,6 +269,38 @@ public extension FunNamespaceWrapper where T == String {
     var localized: String {
         return NSLocalizedString(wrappedValue, tableName: nil, bundle: .main, value: "", comment: "")
     }
+    
+    func underline(text: String?=nil, color: UIColor) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: wrappedValue)
+        var ns_range = NSRange(location: 0, length: wrappedValue.count)
+        if let text = text, let range = wrappedValue.range(of: text) {
+            ns_range = wrappedValue.fb.toNSRange(range)
+        }
+        
+        attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: ns_range)
+        attributedString.addAttribute(.underlineColor, value: color, range: ns_range)
+        
+//        var attributedString = NSAttributedString(string: wrappedValue, attributes:[NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single, NSAttributedString.Key.underlineColor: color], range: NSRange(location: 0, length: wrappedValue.count))
+        return attributedString
+//        return NSAttributedString(string: wrappedValue, attributes: [NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single,
+//                                                                     NSAttributedString.Key.underlineColor: color])
+    }
+    
+    func toNSRange(_ range: Range<String.Index>) -> NSRange {
+        guard let from = range.lowerBound.samePosition(in: wrappedValue.utf16), let to = range.upperBound.samePosition(in: wrappedValue.utf16) else {
+            return NSMakeRange(0, 0)
+        }
+        return NSMakeRange(wrappedValue.utf16.distance(from: wrappedValue.utf16.startIndex, to: from), wrappedValue.utf16.distance(from: from, to: to))
+    }
+    
+    func toRange(_ range: NSRange) -> Range<String.Index>? {
+        guard let from16 = wrappedValue.utf16.index(wrappedValue.utf16.startIndex, offsetBy: range.location, limitedBy: wrappedValue.utf16.endIndex) else { return nil }
+        guard let to16 = wrappedValue.utf16.index(from16, offsetBy: range.length, limitedBy: wrappedValue.utf16.endIndex) else { return nil }
+        guard let from = String.Index(from16, within: wrappedValue) else { return nil }
+        guard let to = String.Index(to16, within: wrappedValue) else { return nil }
+        return from ..< to
+    }
+    
 }
 
 // MARK: - AttributedString+Fun

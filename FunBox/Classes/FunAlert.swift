@@ -71,51 +71,43 @@ public extension FunBox {
             return self
         }
         
-        public func titleColor(titleColor: UIColor) -> Self {
+        public func titleColor(_ titleColor: UIColor) -> Self {
             
             config.titleColor = titleColor
             
             return self
         }
         
-        public func titleFont(titleFont: UIFont) -> Self {
+        public func titleFont(_ titleFont: UIFont) -> Self {
             
             config.titleFont = titleFont
             
             return self
         }
         
-        public func title(title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil) -> Self {
+        public func title(_ title: String?) -> Self {
             
             config.title = title
             
-            config.titleFont = titleFont
-            
-            config.titleColor = titleColor
-            
             return self
         }
         
-        public func messageColor(messageColor: UIColor) -> Self {
+        public func messageColor(_ messageColor: UIColor) -> Self {
             config.messageColor = messageColor
             
             return self
         }
         
-        public func messageFont(messageFont: UIFont) -> Self {
+        public func messageFont(_ messageFont: UIFont) -> Self {
             
             config.messageFont = messageFont
             
             return self
         }
         
-        public func message(message: String?, messageFont: UIFont? = nil, messageColor: UIColor? = nil) -> Self {
+        public func message(_ message: String?) -> Self {
             
             config.message = message
-            
-            config.messageFont = messageFont
-            
-            config.messageColor = messageColor
             
             return self
         }
@@ -203,7 +195,7 @@ public extension FunBox {
                 }
             }
             
-            let frontController = from ?? UIApplication.shared.fb.frontController
+            var frontController = from ?? UIApplication.shared.fb.frontController
             
             DispatchQueue.main.async {
                 

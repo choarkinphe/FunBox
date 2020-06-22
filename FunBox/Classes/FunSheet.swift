@@ -108,7 +108,8 @@ public extension FunBox.Sheet {
     // 设置头部提示标语
     func setHeaderTips(_ tips: String?) -> Self {
         
-        sheetController.toolBar.tipLabel.text = tips
+//        sheetController.toolBar.tipLabel.text = tips
+        sheetController.toolBar.titleLabel.text = tips
         
         return self
     }
@@ -192,14 +193,16 @@ public extension FunBox.Sheet {
         public var handler: FunActionSheetHandler? {
             didSet {
 //                toolBar.isMultiSelector = false
+                toolBar.isMultiple = false
             }
         }
         // 多选回调
         public var multiHandler: FunActionSheetMultiHandler? {
             didSet {
                 // 多选样式时，设置按钮标题
-                toolBar.doneButton.setTitle("Done".fb.localized, for: .normal)
-                toolBar.cancelButton.setTitle("Cancel".fb.localized, for: .normal)
+//                toolBar.doneButton.setTitle("Done".fb.localized, for: .normal)
+//                toolBar.cancelButton.setTitle("Cancel".fb.localized, for: .normal)
+                toolBar.isMultiple = true
             }
         }
         // 选择结果
@@ -331,7 +334,8 @@ public extension FunBox.Sheet {
 //                        rect_topView = CGRect.init(x: config.contentInsets.left, y: rect_tableView.origin.y, width: contentW, height: 8)
 //                        a_topView.backgroundColor = .clear
 //                    }
-                    if multiHandler == nil, toolBar.tipLabel.text == nil { // 单选状态，并且没有标题时
+//                    if multiHandler == nil, toolBar.tipLabel.text == nil { // 单选状态，并且没有标题时
+                    if multiHandler == nil, toolBar.titleLabel.text == nil { // 单选状态，并且没有标题时
                         rect_topView = CGRect.init(x: config.contentInsets.left, y: rect_tableView.origin.y, width: contentW, height: max(8, config.cornerRadius ?? 0))
                         a_topView.backgroundColor = .clear
                     }
@@ -414,6 +418,7 @@ public extension FunBox.Sheet {
             _tableView.dataSource = self
             _tableView.rowHeight = UITableView.automaticDimension
             _tableView.estimatedRowHeight = 49
+            _tableView.separatorStyle = .none
             _tableView.register(ActionCell.self, forCellReuseIdentifier: ActionCell.reuseID)
             view.addSubview(_tableView)
             return _tableView
@@ -450,6 +455,7 @@ public extension FunBox.Sheet {
             if let action = actions?[indexPath.row] {
                 action.index = indexPath.row
                 cell.title = action.title
+                cell.subTitle = action.subTitle
                 
                 if config.selectType == .multi {
                     cell.selectionStyle = .none
@@ -518,14 +524,24 @@ public extension FunBox.Sheet {
                     
                 }
             }
+            var subTitle: String? {
+                didSet {
+                    if let text = subTitle {
+                        detailTextLabel?.text = text
+                        
+                    }
+                    
+                }
+            }
             
             var img_selected: UIImage?
             var img_normal: UIImage?
             
             override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
                 super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-                selectedBackgroundView = UIView()
-                selectedBackgroundView?.backgroundColor = .clear
+//                selectedBackgroundView = UIView()
+//                selectedBackgroundView?.backgroundColor = .clear
+//                selectionStyle = .
                 if #available(iOS 13.0, *) {
                     textLabel?.textColor = UIColor.label
                 } else {
@@ -533,7 +549,13 @@ public extension FunBox.Sheet {
                 }
                 textLabel?.font = UIFont.systemFont(ofSize: 15)
                 textLabel?.numberOfLines = 0
-                
+             if #available(iOS 13.0, *) {
+                line.backgroundColor = UIColor.systemGray6.cgColor
+             } else {
+                 // Fallback on earlier versions
+                line.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1).cgColor
+             }
+                contentView.layer.addSublayer(line)
             }
             
             required init?(coder: NSCoder) {
@@ -543,8 +565,15 @@ public extension FunBox.Sheet {
             override func layoutSubviews() {
                 super.layoutSubviews()
                 
-                selectedBackgroundView?.frame = frame
+//                selectedBackgroundView?.frame = frame
                 
+            }
+            
+            var line = CALayer()
+            override func draw(_ rect: CGRect) {
+                super.draw(rect)
+                
+                line.frame = CGRect(x: 8, y: rect.size.height - 0.5, width: rect.size.width-8, height: 0.5)
             }
             
         }
@@ -557,6 +586,7 @@ public extension FunBox.Sheet {
 
 extension FunBox.Sheet {
     // 默认的ToolBar
+    /*
     class ToolBar: UIView {
         
         public lazy var tipLabel = UILabel()
@@ -579,9 +609,15 @@ extension FunBox.Sheet {
             super.init(frame: frame)
             
 //            backgroundColor = .white
+//            if #available(iOS 13.0, *) {
+//                tintColor = .label
+//            } else {
+//                tintColor = .darkText
+//                // Fallback on earlier versions
+//            }
             
             tipLabel.font = UIFont.systemFont(ofSize: 14)
-            tipLabel.textColor = UIColor.init(white: 0.3, alpha: 1)
+            tipLabel.textColor = tintColor
             tipLabel.textAlignment = .center
             addSubview(tipLabel)
             
@@ -639,6 +675,83 @@ extension FunBox.Sheet {
             
             tipLabel.bounds = CGRect(origin: .zero, size: tipLabel.fb.fitSize)
             tipLabel.center = center
+        }
+    }
+    */
+    class ToolBar: UIToolbar {
+
+        var isMultiple: Bool = false {
+            didSet {
+                if isMultiple {
+                    items = [cancel_item,UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),title_item,UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),done_item]
+                    
+                } else {
+                    items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),title_item,UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
+                }
+            }
+        }
+        
+        
+        
+        private lazy var cancel_item = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelAction(sender:)))
+        
+        private lazy var done_item = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction(sender:)))
+        
+        lazy var titleLabel = UILabel()
+        
+        private lazy var title_item = UIBarButtonItem(customView: titleLabel)
+        
+        override var tintColor: UIColor! {
+            didSet {
+                titleLabel.textColor = tintColor
+            }
+        }
+        public override init(frame: CGRect) {
+            super.init(frame: frame)
+            titleLabel.font = UIFont.systemFont(ofSize: 14)
+            titleLabel.textColor = tintColor
+            titleLabel.textAlignment = .center
+            
+            items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),title_item,UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)]
+            
+            
+        }
+        
+        required public init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        @objc func cancelAction(sender: UIBarButtonItem) {
+            if let handler = cancelHandler {
+                DispatchQueue.main.async {
+                    
+                    handler()
+                }
+            }
+        }
+        
+        @objc func doneAction(sender: UIBarButtonItem) {
+            if let handler = doneHandler {
+                DispatchQueue.main.async {
+                    
+                    handler()
+                }
+            }
+        }
+        
+        private var doneHandler: (()->Void)?
+        public final func doneHandler(_ a_doneHandler: @escaping (()->Void)) {
+            doneHandler = a_doneHandler
+        }
+        
+        private var cancelHandler: (()->Void)?
+        public final func cancelHandler(_ a_cancelHandler: @escaping (()->Void)) {
+            cancelHandler = a_cancelHandler
+        }
+        
+        open override func layoutSubviews() {
+            super.layoutSubviews()
+            
         }
     }
     
@@ -715,6 +828,8 @@ public extension FunBox.Sheet {
         public var value: String?
         // 标题
         public var title: String?
+        // 副标题
+        public var subTitle: String?
         // 是否选中
         public var isSelected: Bool = false
         // 类型
@@ -722,12 +837,12 @@ public extension FunBox.Sheet {
         // 标号（行号）
         public var index: Int = 0
         // 构造方法
-        public init(title a_title: String?, value a_value: String? = nil, style a_style: Style? = .default) {
+        public init(title a_title: String?, subTitle a_subTitle: String?=nil, value a_value: String?=nil, style a_style: Style? = .default) {
             
             self.title = a_title
             self.value = a_value
             self.style = a_style ?? .default
-            
+            self.subTitle = a_subTitle
         }
         
     }
