@@ -195,7 +195,7 @@ public extension FunBox {
                 }
             }
             
-            var frontController = from ?? UIApplication.shared.fb.frontController
+            let frontController = from ?? UIApplication.shared.fb.frontController
             
             DispatchQueue.main.async {
                 
