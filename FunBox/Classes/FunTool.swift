@@ -30,9 +30,30 @@ public struct FunNamespaceWrapper<T> {
     }
 }
 
-extension FunBox {
+public extension FunBox {
     struct Config {
         
+    }
+    
+    class Observer: NSObject {
+        override init() {
+            super.init()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationChanged(sender:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+        }
+        
+        private var deviceOrientation: ((UIDeviceOrientation)->Void)?
+        
+        public func deviceOrientation(_ handler: ((UIDeviceOrientation)->Void)?) {
+            deviceOrientation = handler
+        }
+        
+        @objc fileprivate func deviceOrientationChanged(sender: Any) {
+            print(sender)
+            if let handler = deviceOrientation {
+                handler(UIDevice.current.orientation)
+            }
+        }
     }
 }
 

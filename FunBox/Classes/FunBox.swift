@@ -18,6 +18,7 @@ open class FunBox {
     private struct Static {
         
 //        static var instance_device: Device = Device()
+        static var instance_observer: Observer = Observer()
     }
     
 }
@@ -52,6 +53,9 @@ public extension FunBox {
         return Toast.default
     }
     
+    static var observer: Observer {
+        return Static.instance_observer
+    }
 
 }
 
