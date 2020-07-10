@@ -38,21 +38,64 @@ public extension FunBox {
     class Observer: NSObject {
         override init() {
             super.init()
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationChanged(sender:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+            // 监听键盘弹出
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+            // 监听键盘隐藏
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+            // 监听屏幕方向
+            NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationChanged(notification:)), name: UIDevice.orientationDidChangeNotification, object: nil)
         }
         
         private var deviceOrientation: ((UIDeviceOrientation)->Void)?
         
         public func deviceOrientation(_ handler: ((UIDeviceOrientation)->Void)?) {
             deviceOrientation = handler
+            if let handler = handler {
+                handler(UIDevice.current.orientation)
+            }
         }
-        
-        @objc fileprivate func deviceOrientationChanged(sender: Any) {
-            print(sender)
+
+        @objc fileprivate func deviceOrientationChanged(notification: Notification) {
+
             if let handler = deviceOrientation {
                 handler(UIDevice.current.orientation)
             }
+
+        }
+
+        private var keyboardHandler: (((isShow: Bool, rect: CGRect))->Void)?
+        public func keyboardShow(_ handler: (((isShow: Bool, rect: CGRect))->Void)?) {
+            keyboardHandler = handler
+        }
+        
+        @objc fileprivate func keyboardWillShow(notification: Notification) {
+            keyboardChanged(isShow: true, notification: notification)
+        }
+        
+        @objc fileprivate func keyboardWillHidden(notification: Notification) {
+            keyboardChanged(isShow: false, notification: notification)
+        }
+        
+        private func keyboardChanged(isShow: Bool, notification: Notification) {
+            guard let userInfo = notification.userInfo,
+                  let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                    return
+                }
+                
+            //获取动画执行的时间(没有的话默认0.25s)
+            let duration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double) ?? 0.25
+            
+            UIView.animate(withDuration: duration, delay: 0, options: .allowAnimatedContent, animations: {
+                if let handler = self.keyboardHandler {
+                    handler((isShow,keyboardRect))
+                }
+            }) { (complete) in
+                
+            }
+        }
+        
+        deinit {
+            NotificationCenter.default.removeObserver(self)
         }
     }
 }

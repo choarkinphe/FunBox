@@ -11,7 +11,8 @@ import CommonCrypto
 // MARK: - NSObject
 
 fileprivate struct FunKey {
-    static var objectIdentifier = "com.funbox.key.objectIdentifier"
+    static var identifier = "com.funbox.key.objectIdentifier"
+    static var observer = "com.funbox.key.observer"
     struct TextField {
         static var contentRegular = "com.funbox.key.contentRegular"
         static var contentCount = "com.funbox.key.contentCount"
@@ -22,11 +23,23 @@ extension NSObject: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: NSObject {
     var identifier: String? {
 
-        return objc_getAssociatedObject(wrappedValue, &FunKey.objectIdentifier) as? String
+        return objc_getAssociatedObject(wrappedValue, &FunKey.identifier) as? String
     }
     
     func set(identifier: String?) {
-        objc_setAssociatedObject(wrappedValue, &FunKey.objectIdentifier, identifier, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+        objc_setAssociatedObject(wrappedValue, &FunKey.identifier, identifier, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+    }
+    
+    var observer: FunBox.Observer {
+        if let observer = objc_getAssociatedObject(wrappedValue, &FunKey.observer) as? FunBox.Observer {
+            return observer
+        }
+        
+        let observer = FunBox.Observer()
+        
+        objc_setAssociatedObject(wrappedValue, &FunKey.observer, observer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
+        return observer
     }
 }
 

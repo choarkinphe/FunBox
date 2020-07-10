@@ -22,6 +22,9 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fb.observer.deviceOrientation { (orientation) in
+            print(orientation,"BBB")
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,7 +32,7 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
 //        view.backgroundColor = UIColor.red
         
-        print(rt.options?.params)
+//        print(rt.options?.params)
         
 //        var arefreshControl = UIRefreshControl(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 120))
 //        arefreshControl.attributedTitle = NSAttributedString(string: "正在刷新")
@@ -39,6 +42,16 @@ class TableViewController: UITableViewController {
             refresher.attributedTitle = NSAttributedString(string: "正在刷新")
             print("开始刷新")
         }
+        
+                let textField = UITextField(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 49))
+        //        view.addSubview(textField)
+//                fb.bottomView = textField
+        tableView.tableHeaderView = textField
+        tableView.keyboardDismissMode = .onDrag
+                FunBox.observer.keyboardShow { (keyboard) in
+                    print(keyboard.isShow)
+                    print(keyboard.rect)
+                }
     }
     
     @objc func refresh(sender: UIRefreshControl) {
@@ -58,6 +71,10 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
+    }
+    
+    deinit {
+        print("正常销毁")
     }
 
     /*

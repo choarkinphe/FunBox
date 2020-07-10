@@ -172,6 +172,8 @@ public extension FunBox {
             }
         }
         
+//        public lazy var observer = Observer()
+        
         public var safeAeraInsets: UIEdgeInsets {
             var safeAeraInsets = UIEdgeInsets.zero
             if FunBox.device.fb.iPhoneXSeries {
@@ -417,6 +419,8 @@ public extension FunBox {
             }
             
         }
+        
+        
         
         
         deinit {
