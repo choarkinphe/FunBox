@@ -638,14 +638,14 @@ public extension FunNamespaceWrapper where T: UIColor {
         return UIColor(red: rgb.r, green: rgb.g, blue: rgb.b, alpha: alpha ?? 1)
     }
     
-    func alpha(_ a_aplha: CGFloat) -> UIColor {
-        if let components = wrappedValue.cgColor.components {
-            let color = UIColor.init(red: components[0], green: components[1], blue: components[2], alpha: a_aplha)
-            return color
-        }
+//    func alpha(_ a_aplha: CGFloat) -> UIColor {
+//        if let components = wrappedValue.cgColor.components {
+//            let color = UIColor.init(red: components[0], green: components[1], blue: components[2], alpha: a_aplha)
+//            return color
+//        }
         
-        return wrappedValue
-    }
+//        return wrappedValue.withAlphaComponent(a_aplha)
+//    }
 
 }
 
