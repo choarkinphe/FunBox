@@ -380,6 +380,22 @@ extension CGSize {
 //extension UIImage: FunNamespaceWrappable {}
 fileprivate var imageCache: NSCache<UIColor, UIImage>!
 public extension FunNamespaceWrapper where T: UIImage {
+    static func size(url: FunURLConvertable?) -> CGSize {
+        guard let tempUrl = url?.realURL,
+              let imageSourceRef = CGImageSourceCreateWithURL(tempUrl as CFURL, nil),
+              let imageP = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil) else {
+                
+                return .zero
+        }
+        
+        let imageDict = imageP as Dictionary
+
+        let width = imageDict[kCGImagePropertyPixelWidth] as? CGFloat ?? 0
+            
+        let height = imageDict[kCGImagePropertyPixelHeight] as? CGFloat ?? 0
+     
+        return CGSize(width: width, height: height)
+    }
     
     static var appIcon: UIImage? {
         

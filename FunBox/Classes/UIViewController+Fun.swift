@@ -73,7 +73,7 @@ extension UIViewController: FunSwizz {
             }
         }
         
-        if let tabBarController = tabBarController {
+        if let tabBarController = tabBarController, !hidesBottomBarWhenPushed {
             if (!tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
                 // tabBar没有隐藏，且tabBar是半透明状态
 //                content_h = content_h - tabBarController.tabBar.frame.size.height;
@@ -169,23 +169,37 @@ public extension FunBox {
             UIViewController.swizzleMethod()
             if let target = target {
                 viewController = target
+                // 监听hidden，方便后面调整frame
+                observations.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
+                    target.view.setNeedsLayout()
+                })
             }
+            
         }
         
 //        public lazy var observer = Observer()
         
         public var safeAeraInsets: UIEdgeInsets {
             var safeAeraInsets = UIEdgeInsets.zero
+            guard let viewController = viewController else { return safeAeraInsets }
             if FunBox.device.fb.iPhoneXSeries {
                 safeAeraInsets.top = 24
                 
-//                if viewController?.hidesBottomBarWhenPushed == true || viewController?.parent?.hidesBottomBarWhenPushed == true {
-//                    safeAeraInsets.bottom = 34
-//                }
-                
-                if viewController?.tabBarController?.tabBar.isHidden != true {
+
+                if let tabBarController = viewController.tabBarController {
+                    if tabBarController.tabBar.isHidden { // tabBar隐藏状态加偏移
+                        safeAeraInsets.bottom = 34
+                    }
+                    
+                    if viewController.hidesBottomBarWhenPushed || viewController.parent?.hidesBottomBarWhenPushed == true {
+                        safeAeraInsets.bottom = 34
+                    }
+                    
+                } else {
+                    
                     safeAeraInsets.bottom = 34
                 }
+
             }
             return safeAeraInsets
         }

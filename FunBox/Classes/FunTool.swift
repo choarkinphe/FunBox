@@ -151,6 +151,27 @@ extension FunBox {
         }
     }
 }
+
+public protocol FunURLConvertable {
+    
+    var realURL: URL? { get }
+}
+
+extension URL: FunURLConvertable {
+    public var realURL: URL? {
+        return self
+    }
+    
+    
+}
+
+extension String: FunURLConvertable {
+    public var realURL: URL? {
+        return URL.init(string: self)
+    }
+}
+
+
 //public extension UIApplication {
 //
 //    // 获取当前的window
