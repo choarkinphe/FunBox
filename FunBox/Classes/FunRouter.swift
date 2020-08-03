@@ -88,7 +88,7 @@ public extension FunBox {
         
         private var table_vc = [String: UIViewController.Type]()
         fileprivate var table_params = [String: FunRouterOptions]()
-
+        
         public var scheme: String?
         
         public var delegate: FunRouterDelegate?
@@ -117,10 +117,11 @@ public extension FunBox {
                 return
                 
             }
-            
-            UIApplication.shared.fb.frontController?.navigationController?.pushViewController(vc, animated: animated)
-            if let completion = completion {
-                completion(true)
+            DispatchQueue.main.async {
+                UIApplication.shared.fb.frontController?.navigationController?.pushViewController(vc, animated: animated)
+                if let completion = completion {
+                    completion(true)
+                }
             }
         }
         
@@ -134,13 +135,14 @@ public extension FunBox {
                 return
                 
             }
+            DispatchQueue.main.async {
+                UIApplication.shared.fb.frontController?.present(vc, animated: true, completion: {
+                    if let completion = completion {
+                        completion(true)
+                    }
+                })
+            }
             
-            UIApplication.shared.fb.frontController?.present(vc, animated: true, completion: {
-                if let completion = completion {
-                    completion(true)
-                }
-            })
-
             
         }
         
@@ -156,7 +158,7 @@ public extension FunBox {
             if let option_params = (params ?? url?.asParams()) {
                 options[FunRouterParameterKey.params] = option_params
             }
-
+            
             table_params["\(vc.hashValue)"] = options
             
             if let delegate = delegate {
