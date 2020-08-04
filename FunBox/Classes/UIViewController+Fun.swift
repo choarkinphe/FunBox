@@ -14,8 +14,8 @@ extension UIViewController: FunSwizz {
         DispatchQueue.fb.once {
 
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLoad), swizzledSelector: #selector(swizzled_viewDidLoad))
-            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidAppear(_:)), swizzledSelector: #selector(swizzled_viewDidAppear(animated:)))
-            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidDisappear(_:)), swizzledSelector: #selector(swizzled_viewDidDisappear(animated:)))
+            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewWillAppear(_:)), swizzledSelector: #selector(swizzled_viewWillAppear(animated:)))
+            swizzlingForClass(UIViewController.self, originalSelector: #selector(viewWillDisappear(_:)), swizzledSelector: #selector(swizzled_viewWillDisappear(animated:)))
             swizzlingForClass(UIViewController.self, originalSelector: #selector(viewDidLayoutSubviews), swizzledSelector: #selector(swizzled_viewDidLayoutSubviews))
         }
     }
@@ -28,22 +28,23 @@ extension UIViewController: FunSwizz {
     }
     
     
-    @objc func swizzled_viewDidAppear(animated: Bool) {
-        swizzled_viewDidAppear(animated: animated)
-        
+    @objc func swizzled_viewWillAppear(animated: Bool) {
+        swizzled_viewWillAppear(animated: animated)
+        fb.addObservations()
+        debugPrint("willappear",self)
         navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
     }
     
     
-    @objc func swizzled_viewDidDisappear(animated: Bool) {
-        swizzled_viewDidDisappear(animated: animated)
-        
-        
+    @objc func swizzled_viewWillDisappear(animated: Bool) {
+        swizzled_viewWillDisappear(animated: animated)
+        debugPrint("willdisappear",self)
+        fb.removeObservations()
     }
     
     @objc func swizzled_viewDidLayoutSubviews() {
         swizzled_viewDidLayoutSubviews()
-        
+        debugPrint("layout",self)
         guard let contentView = fb.contentView else { return }
         
         var rect = view.bounds
@@ -158,21 +159,65 @@ extension UIViewController: FunSwizz {
 public extension FunBox {
     class FunController {
 
-        lazy var observations: [NSKeyValueObservation] = {
-            let observations = [NSKeyValueObservation]()
-            
-            return observations
-        }()
+//        lazy var observations: [NSKeyValueObservation] = {
+//            let observations = [NSKeyValueObservation]()
+//
+//            return observations
+//        }()
+        private var observations: [NSKeyValueObservation]?
+        
         private weak var viewController: UIViewController?
+        
+        func addObservations() {
+            if let target = viewController {
+                
+                observations = [NSKeyValueObservation]()
+                
+                // 监听hidden，方便后面调整frame
+                observations?.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
+                    target.view.setNeedsLayout()
+                })
+            }
+            
+            if let navigationBar = navigationBar {
+                observations?.append(navigationBar.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+                    viewController?.view.setNeedsLayout()
+                    
+                })
+            }
+            
+            if let topView = topView {
+                observations?.append(topView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+                    viewController?.view.setNeedsLayout()
+                    
+                })
+            }
+            
+            if let bottomView = bottomView {
+                observations?.append(bottomView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+                    viewController?.view.setNeedsLayout()
+                    
+                })
+            }
+            
+        }
+        
+        func removeObservations() {
+            observations?.removeAll()
+            observations = nil
+        }
         
         init(target: UIViewController?) {
             UIViewController.swizzleMethod()
             if let target = target {
                 viewController = target
+                
+                observations = [NSKeyValueObservation]()
+                
                 // 监听hidden，方便后面调整frame
-                observations.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
-                    target.view.setNeedsLayout()
-                })
+//                observations?.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
+//                    target.view.setNeedsLayout()
+//                })
             }
             
         }
@@ -225,10 +270,10 @@ public extension FunBox {
                     navigationBar.frame = CGRect.init(x: 0, y: 0, width: viewController.view.frame.size.width, height: navigationBar.bounds.size.height)
                     viewController.view.addSubview(navigationBar)
                     // 监听hidden，方便后面调整frame
-                    observations.append(navigationBar.observe(\UIView.isHidden) { (_, change) in
-                        viewController.view.setNeedsLayout()
-                        
-                    })
+//                    observations?.append(navigationBar.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+//                        viewController?.view.setNeedsLayout()
+//
+//                    })
                     
                 }
             }
@@ -259,10 +304,10 @@ public extension FunBox {
                     viewController.view.addSubview(topView)
                     // 监听hidden，方便后面调整frame
                     
-                    observations.append(topView.observe(\UIView.isHidden) { (_, change) in
-                        viewController.view.setNeedsLayout()
-                        
-                    })
+//                    observations?.append(topView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+//                        viewController?.view.setNeedsLayout()
+//
+//                    })
                     
                 }
             }
@@ -320,10 +365,10 @@ public extension FunBox {
                     
                     viewController.view.addSubview(bottomView)
 
-                    observations.append(bottomView.observe(\UIView.isHidden) { (_, change) in
-                        viewController.view.setNeedsLayout()
-                        
-                    })
+//                    observations?.append(bottomView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+//                        viewController?.view.setNeedsLayout()
+//
+//                    })
                     
                 }
             }

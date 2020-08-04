@@ -10,9 +10,17 @@ import UIKit
 import FunBox
 
 
-class TableViewController: UITableViewController {
-    override init(style: UITableView.Style) {
-        super.init(style: style)
+class TableViewController: UIViewController, UITableViewDataSource {
+    
+    
+//    override init(style: UITableView.Style) {
+//        super.init(style: style)
+//        modalPresentationStyle = .overFullScreen
+//    }
+//
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
         modalPresentationStyle = .overFullScreen
     }
     
@@ -38,6 +46,9 @@ class TableViewController: UITableViewController {
 //        arefreshControl.attributedTitle = NSAttributedString(string: "正在刷新")
 //        arefreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
 //        refreshControl = arefreshControl
+        
+        let tableView = UITableView()
+        tableView.dataSource = self
         tableView.fb.refresher.text("下拉刷新").timeOut(3).tintColor(.orange).complete { (refresher) in
             refresher.attributedTitle = NSAttributedString(string: "正在刷新")
             print("开始刷新")
@@ -52,6 +63,8 @@ class TableViewController: UITableViewController {
                     print(keyboard.isShow)
                     print(keyboard.rect)
                 }
+        
+        fb.contentView = tableView
     }
     
     @objc func refresh(sender: UIRefreshControl) {
@@ -63,14 +76,18 @@ class TableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
     
     deinit {
