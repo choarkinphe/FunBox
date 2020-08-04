@@ -168,7 +168,7 @@ public extension FunBox {
         
         private weak var viewController: UIViewController?
         
-        func addObservations() {
+        fileprivate func addObservations() {
             if let target = viewController {
                 
                 observations = [NSKeyValueObservation]()
@@ -202,7 +202,7 @@ public extension FunBox {
             
         }
         
-        func removeObservations() {
+        fileprivate func removeObservations() {
             observations?.removeAll()
             observations = nil
         }
@@ -484,7 +484,7 @@ public extension FunBox {
         
         deinit {
             debugPrint("funController die")
-            
+            navigationBar = nil
             bottomView = nil
             contentView = nil
             topView = nil
