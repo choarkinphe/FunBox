@@ -30,6 +30,10 @@ public extension FunNamespaceWrapper where T: NSObject {
         objc_setAssociatedObject(wrappedValue, &FunKey.identifier, identifier, objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
     
+    var address: String? {
+        return String(format: "%p", wrappedValue)
+    }
+    
     var observer: FunBox.Observer {
         if let observer = objc_getAssociatedObject(wrappedValue, &FunKey.observer) as? FunBox.Observer {
             return observer
