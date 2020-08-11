@@ -892,12 +892,27 @@ public extension FunNamespaceWrapper where T: UIApplication {
         
         return findFrontViewController(rootViewController)
     }
-    
+    // 获取工程名
     var projectName: String? {
 
         return Bundle.main.infoDictionary?["CFBundleExecutable"] as? String
     }
+    // 获取 bundle version版本号
+
+    var version: String? {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
     
+    // 获取BundleID
+    var bundleID: String?{
+        return Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
+    }
+
+    // 获取app的名字
+    var appName: String? {
+        return Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+    }
+
     private func findFrontViewController(_ currnet: UIViewController) -> UIViewController {
         
         if let presentedController = currnet.presentedViewController {
