@@ -63,10 +63,13 @@ public extension FunBox {
                 coverView.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
             }
             
-            rootViewController?.present(sheetController, animated: true) {
+            DispatchQueue.main.async {
                 
-                self.sheetController.view.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
-                coverView.removeFromSuperview()
+                rootViewController?.present(self.sheetController, animated: true) {
+                    
+                    self.sheetController.view.backgroundColor = UIColor.init(white: 0, alpha: 0.35)
+                    coverView.removeFromSuperview()
+                }
             }
             
         }
