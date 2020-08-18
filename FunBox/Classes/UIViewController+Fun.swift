@@ -45,7 +45,7 @@ extension UIViewController: FunSwizz {
     @objc func swizzled_viewDidLayoutSubviews() {
         swizzled_viewDidLayoutSubviews()
         debugPrint("layout",self)
-        guard let contentView = fb.contentView else { return }
+        guard let contentView = fb.contentView, fb.isNeedLayout else { return }
         
         var rect = view.bounds
         
@@ -134,8 +134,10 @@ extension UIViewController: FunSwizz {
     }
     
     
-    
     public var fb: FunBox.FunController {
+        return box
+    }
+    public var box: FunBox.FunController {
         set {
             
             objc_setAssociatedObject(self, &funControllerKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -149,7 +151,7 @@ extension UIViewController: FunSwizz {
             } else {
                 objc_setAssociatedObject(self, &funControllerKey, FunBox.FunController(target: self), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
-            return self.fb
+            return self.box
         }
     }
     
@@ -222,6 +224,7 @@ public extension FunBox {
             
         }
         
+        public var isNeedLayout = true
 //        public lazy var observer = Observer()
         
         public var safeAeraInsets: UIEdgeInsets {

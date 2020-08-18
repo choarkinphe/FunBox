@@ -300,9 +300,6 @@ public extension FunBox {
             
         }
         
-        deinit {
-            print("drawing config die")
-        }
     }
 }
 

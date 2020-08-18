@@ -585,6 +585,20 @@ public extension FunNamespaceWrapper where T: UIImage {
         return UIImage(cgImage: cgimg)
     }
     
+    func scale(_ toSize: CGSize) -> UIImage? {
+        // 创建一个bitmap的context
+        // 并把它设置成为当前正在使用的context
+        UIGraphicsBeginImageContext(toSize)
+        // 绘制改变大小的图片
+        wrappedValue.draw(in: CGRect(origin: .zero, size: toSize))
+        // 从当前context中创建一个改变大小后的图片
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        // 使当前的context出堆栈
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
+
 }
 // MARK: - UIColor+Fun
 public protocol Colourful {
