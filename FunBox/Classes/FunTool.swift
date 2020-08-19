@@ -68,6 +68,11 @@ public extension FunBox {
             keyboardHandler = handler
         }
         
+        private var keyboardWillShowHandler: (((isShow: Bool, duration: Double, rect: CGRect))->Void)?
+        public func keyboardWillShow(_ handler: (((isShow: Bool, duration: Double, rect: CGRect))->Void)?) {
+            keyboardWillShowHandler = handler
+        }
+        
         @objc fileprivate func keyboardWillShow(notification: Notification) {
             keyboardChanged(isShow: true, notification: notification)
         }
@@ -84,6 +89,10 @@ public extension FunBox {
                 
             //获取动画执行的时间(没有的话默认0.25s)
             let duration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double) ?? 0.25
+            
+            if let handler = self.keyboardWillShowHandler {
+                handler((isShow,duration,keyboardRect))
+            }
             
             UIView.animate(withDuration: duration, delay: 0, options: .allowAnimatedContent, animations: {
                 if let handler = self.keyboardHandler {

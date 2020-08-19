@@ -131,13 +131,14 @@ extension UIViewController: FunSwizz {
 //        contentView.frame = CGRect.init(x: content_x, y: content_y, width: content_w, height: content_h)
         contentView.frame = rect
         
+        fb.resetBackgrounerColor()
     }
     
     
+//    public var fb: FunBox.FunController {
+//        return box
+//    }
     public var fb: FunBox.FunController {
-        return box
-    }
-    public var box: FunBox.FunController {
         set {
             
             objc_setAssociatedObject(self, &funControllerKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -151,7 +152,7 @@ extension UIViewController: FunSwizz {
             } else {
                 objc_setAssociatedObject(self, &funControllerKey, FunBox.FunController(target: self), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
-            return self.box
+            return self.fb
         }
     }
     
