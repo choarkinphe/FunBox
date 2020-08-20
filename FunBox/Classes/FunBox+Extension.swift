@@ -864,6 +864,24 @@ public extension FunNamespaceWrapper where T: UIDevice {
     }
 }
 
+extension Int: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == Int {
+    var format2Han: String {
+        if [Int](1...9999).contains(wrappedValue) {
+            return "\(wrappedValue)"
+        } else if [Int](10000...99999999).contains(wrappedValue) {
+            // 获取零头(只保留一位)
+            let odd = "\(wrappedValue%10000)".fb.subString(to: 1)
+            
+            return "\(wrappedValue/10000).\(odd ?? "0")万"
+            
+        } else if wrappedValue > 99999999 {
+            return "\(wrappedValue / 100000000)亿"
+        }
+        return ""
+    }
+}
+
 //extension UIApplication: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UIApplication {
 
