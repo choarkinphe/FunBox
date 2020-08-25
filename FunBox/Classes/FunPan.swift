@@ -13,20 +13,20 @@ public extension FunBox {
     class Pan: UIPanGestureRecognizer {
         
         private var beganHandler: FunPanHandler?
-        func touchesBegan(_ handler: FunPanHandler?) {
+        public func touchesBegan(_ handler: FunPanHandler?) {
             beganHandler = handler
         }
         private var movedHandler: FunPanHandler?
-        func touchesMoved(_ handler: FunPanHandler?) {
+        public func touchesMoved(_ handler: FunPanHandler?) {
             movedHandler = handler
         }
         private var cancelHandler: FunPanHandler?
-        func touchesCancelled(_ handler: FunPanHandler?) {
+        public func touchesCancelled(_ handler: FunPanHandler?) {
             cancelHandler = handler
         }
         
         private var endHandler: FunPanHandler?
-        func touchesEnded(_ handler: FunPanHandler?) {
+        public func touchesEnded(_ handler: FunPanHandler?) {
             endHandler = handler
         }
         
