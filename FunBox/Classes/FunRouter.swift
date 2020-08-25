@@ -311,3 +311,5 @@ public struct FunRouterNamespaceWrapper<T> {
         self.wrappedValue = value
     }
 }
+
+

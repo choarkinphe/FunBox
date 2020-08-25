@@ -28,6 +28,11 @@
 		4A3EEDAB24653E180098C556 /* FunCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9F24653E170098C556 /* FunCache.swift */; };
 		4A3EEDAC24653E180098C556 /* FunError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EEDA024653E170098C556 /* FunError.swift */; };
 		4A50659C246B912F000E9CA3 /* FunBox+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */; };
+		4AFCB5D724F4D5BB00BBCAA5 /* FunPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5D424F4D5BB00BBCAA5 /* FunPan.swift */; };
+		4AFCB5D824F4D5BB00BBCAA5 /* FunAuthorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5D524F4D5BB00BBCAA5 /* FunAuthorize.swift */; };
+		4AFCB5D924F4D5BB00BBCAA5 /* FunLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5D624F4D5BB00BBCAA5 /* FunLabel.swift */; };
+		4AFCB5DB24F4D5D700BBCAA5 /* FunButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5DA24F4D5D700BBCAA5 /* FunButton.swift */; };
+		4AFCB5DF24F4D87300BBCAA5 /* UIView+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5DE24F4D87300BBCAA5 /* UIView+Fun.swift */; };
 		53317B04AB548F3568225C7390E37C26 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		62044ECA464FDD7C5C9CDC7EC17DB505 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6650C095330F67C112A1F281A932EA99 /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -105,6 +110,11 @@
 		4A3EED9F24653E170098C556 /* FunCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunCache.swift; path = FunBox/Classes/FunCache.swift; sourceTree = "<group>"; };
 		4A3EEDA024653E170098C556 /* FunError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunError.swift; path = FunBox/Classes/FunError.swift; sourceTree = "<group>"; };
 		4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FunBox+Extension.swift"; path = "FunBox/Classes/FunBox+Extension.swift"; sourceTree = "<group>"; };
+		4AFCB5D424F4D5BB00BBCAA5 /* FunPan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunPan.swift; path = FunBox/Classes/FunPan.swift; sourceTree = "<group>"; };
+		4AFCB5D524F4D5BB00BBCAA5 /* FunAuthorize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunAuthorize.swift; path = FunBox/Classes/FunAuthorize.swift; sourceTree = "<group>"; };
+		4AFCB5D624F4D5BB00BBCAA5 /* FunLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunLabel.swift; path = FunBox/Classes/FunLabel.swift; sourceTree = "<group>"; };
+		4AFCB5DA24F4D5D700BBCAA5 /* FunButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunButton.swift; path = FunBox/Classes/FunButton.swift; sourceTree = "<group>"; };
+		4AFCB5DE24F4D87300BBCAA5 /* UIView+Fun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Fun.swift"; path = "FunBox/Classes/UIView+Fun.swift"; sourceTree = "<group>"; };
 		4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.release.xcconfig; sourceTree = "<group>"; };
 		53DFD8869E0048AA8D42048C0BCE4E2B /* Pods-FunBox_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		5663752B583AE64C9FAEA708D4344A08 /* FunBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FunBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -311,6 +321,10 @@
 		9E7A9846657527C2F8E71A6E855B4DFE /* FunBox */ = {
 			isa = PBXGroup;
 			children = (
+				4AFCB5D524F4D5BB00BBCAA5 /* FunAuthorize.swift */,
+				4AFCB5D624F4D5BB00BBCAA5 /* FunLabel.swift */,
+				4AFCB5DA24F4D5D700BBCAA5 /* FunButton.swift */,
+				4AFCB5D424F4D5BB00BBCAA5 /* FunPan.swift */,
 				4A3EED9C24653E170098C556 /* FunAlert.swift */,
 				4A3EED9F24653E170098C556 /* FunCache.swift */,
 				4A3EED9B24653E170098C556 /* FunDatePicker.swift */,
@@ -325,6 +339,7 @@
 				4A39D77F24695DF1002BD04D /* FunRouter.swift */,
 				4A3EED9724653E170098C556 /* UIViewController+Fun.swift */,
 				4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */,
+				4AFCB5DE24F4D87300BBCAA5 /* UIView+Fun.swift */,
 				209E9F171398158D261DB751CFD025E1 /* Pod */,
 				0CD430FA4F3F070876AC8A15FBDD9243 /* Support Files */,
 			);
@@ -591,20 +606,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBD366E49E2E19ECE5CF074AE16D4DE5 /* FunBox-dummy.m in Sources */,
+				4AFCB5DB24F4D5D700BBCAA5 /* FunButton.swift in Sources */,
 				4A3EEDA224653E180098C556 /* FunTool.swift in Sources */,
 				4A3EEDA824653E180098C556 /* FunAlert.swift in Sources */,
 				4A3EEDAA24653E180098C556 /* FunBox.swift in Sources */,
 				4A39D78024695DF1002BD04D /* FunRouter.swift in Sources */,
 				4A3EEDA424653E180098C556 /* FunLocation.swift in Sources */,
 				49A518892472B71400D647CD /* FunSecurity.swift in Sources */,
+				4AFCB5DF24F4D87300BBCAA5 /* UIView+Fun.swift in Sources */,
 				4A3EEDA724653E180098C556 /* FunDatePicker.swift in Sources */,
 				4A3EEDAB24653E180098C556 /* FunCache.swift in Sources */,
 				4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */,
+				4AFCB5D924F4D5BB00BBCAA5 /* FunLabel.swift in Sources */,
 				4A50659C246B912F000E9CA3 /* FunBox+Extension.swift in Sources */,
 				4A3EEDA624653E180098C556 /* FunEffect.swift in Sources */,
 				4A3EEDA924653E180098C556 /* FunSheet.swift in Sources */,
+				4AFCB5D824F4D5BB00BBCAA5 /* FunAuthorize.swift in Sources */,
 				4A3EEDAC24653E180098C556 /* FunError.swift in Sources */,
 				4A3EEDA524653E180098C556 /* FunToast.swift in Sources */,
+				4AFCB5D724F4D5BB00BBCAA5 /* FunPan.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
