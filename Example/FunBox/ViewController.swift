@@ -14,8 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        FunRouter.default.regist(url: "funbox://testList", class_name: "TableViewController")
-        
+//        FunRouter.default.regist(url: "funbox://testList", class_name: "TableViewController")
+        FunRouter.default.hz.regist()
         fb.observer.deviceOrientation { (orientation) in
             print(orientation,"AAA")
         }
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
 //        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
-        FunBox.router.push2(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true, completion: nil)
+        FunBox.router.push2(url: "funbox://testOC?aaa=2&bbb=c", params: AAModel(), animated: true, completion: nil)
 //        FunBox.router.present2(url: "zz://AAA?aaa=2&bbb=c", params: nil, animated: true, completion: nil)
 //        FunBox.toast.message("哈哈").showActivity()
     }
