@@ -65,6 +65,15 @@ class TableViewController: UIViewController, UITableViewDataSource {
                 }
         
         fb.contentView = tableView
+        
+        
+        print("参数URL:  ",rt.options?.url)
+        print("参数PARAMS:  ",rt.options?.params)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
     
     @objc func refresh(sender: UIRefreshControl) {

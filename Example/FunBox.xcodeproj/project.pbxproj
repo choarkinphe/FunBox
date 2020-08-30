@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49C2937C24FA2B54005880AD /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937B24FA2B54005880AD /* Router.swift */; };
+		49C2937E24FA2BE3005880AD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937D24FA2BE3005880AD /* Service.swift */; };
+		49C2938024FA3485005880AD /* RouterPage.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 49C2937F24FA3485005880AD /* RouterPage.JSON */; };
 		4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D78124696BA4002BD04D /* TableViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -31,6 +34,9 @@
 /* Begin PBXFileReference section */
 		13229E97BF991B9B97ABF914 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunBox_Example.release.xcconfig"; path = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
 		214F32D937AF825BEA63634D /* Pods_FunBox_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunBox_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C2937B24FA2B54005880AD /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		49C2937D24FA2BE3005880AD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		49C2937F24FA3485005880AD /* RouterPage.JSON */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RouterPage.JSON; sourceTree = "<group>"; };
 		4A39D78124696BA4002BD04D /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* FunBox_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunBox_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +119,9 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				49C2937B24FA2B54005880AD /* Router.swift */,
+				49C2937F24FA3485005880AD /* RouterPage.JSON */,
+				49C2937D24FA2BE3005880AD /* Service.swift */,
 			);
 			name = "Example for FunBox";
 			path = FunBox;
@@ -254,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				49C2938024FA3485005880AD /* RouterPage.JSON in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -356,7 +366,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C2937C24FA2B54005880AD /* Router.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				49C2937E24FA2BE3005880AD /* Service.swift in Sources */,
 				4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);

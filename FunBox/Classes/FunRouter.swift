@@ -8,95 +8,124 @@
 import UIKit
 
 public typealias FunRouter = FunBox.Router
-public typealias FunRouterParameter = [String: Any]
-
+// 路由跳转间的参数
 public protocol FunRouterOptions {
     var url: URL? {get}
     var params: Any? {get}
 }
-
-fileprivate struct FunRouterParameterKey {
-    static let URL = "com.FunBox.Router.ParameterKey.URL"
-    static let params = "com.FunBox.Router.ParameterKey.params"
-}
-extension FunRouterParameter: FunRouterOptions {
-    public var url: URL? {
-        return self[FunRouterParameterKey.URL] as? URL
-    }
-    
-    public var params: Any? {
-        return self[FunRouterParameterKey.params]
-    }
-    
-    
-}
+// 路由跳转协议
 public protocol FunRouterDelegate {
     
     func routerWillOpen(viewController: UIViewController, options: FunRouterOptions?)
     
 }
-
+// 路由链接的解析方法
 public protocol FunRouterPathable {
     
-    func asParams() -> FunRouterParameter?
+    func asParams() -> FunRouter.Parameter?
     
     func asURL() -> URL?
     
     func asPageKey() -> String?
 }
 
+// APP启动数据协议
+public protocol APPLaunchable {
+    var url: URL? { get }
+}
+
 public extension FunBox {
-    
+    // 路由单利
     static var router: Router {
         
         return Router.default
     }
     
     
-    class Router {
-        
-        init() {
-            NotificationCenter.default.addObserver(self, selector: #selector(memoryWarning), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
-        }
-        
-        // MARK: - 内存报警时清除非前台页面参数
-        @objc func memoryWarning() {
-            
-            for item in table_params {
-                if item.key != "\(UIApplication.shared.fb.frontController.hashValue)" {
-                    
-                    table_params.removeValue(forKey: item.key)
-                }
-            }
-            
-        }
-        
+    class Router: NSObject {
+        // 路由单利
         fileprivate struct Static {
             static var instance_router = FunRouter()
         }
-        
-        // 所有已注册的路由表
-        public var routerPages: [String] {
-            var pages = [String]()
-            
-            for item in table_vc {
-                pages.append(item.key)
-            }
-            
-            return pages
-        }
-        
-        private var table_vc = [String: UIViewController.Type]()
-        fileprivate var table_params = [String: FunRouterOptions]()
-        
-        public var scheme: String?
-        
-        public var delegate: FunRouterDelegate?
-        
         public static var `default`: FunRouter {
             return Static.instance_router
         }
+        // 参数
+        public typealias Parameter = [String: Any]
+        // APP启动参数
+        public typealias LaunchOptions = [UIApplication.LaunchOptionsKey: Any]
         
+        // 内部Key
+        fileprivate struct ParameterKey {
+            static let URL = "com.FunBox.Router.ParameterKey.URL"
+            static let params = "com.FunBox.Router.ParameterKey.params"
+            static var options = "com.FunBox.Router.ParameterKey.options"
+        }
+        
+        override init() {
+
+            super.init()
+//            NotificationCenter.default.addObserver(self, selector: #selector(memoryWarning), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+        }
+        
+        // MARK: - 内存报警时清除非前台页面参数
+//        @objc func memoryWarning() {
+//
+//            for item in table_params {
+//                if item.key != "\(UIApplication.shared.fb.frontController.hashValue)" {
+//
+//                    table_params.removeValue(forKey: item.key)
+//                }
+//            }
+//
+//        }
+        
+
+        
+        // 所有已注册的路由表
+//        public var routerPages: [String] {
+//            var pages = [String]()
+//            if let items = route_table[.page] {
+//                
+//                for item in items {
+//                    pages.append(item.key)
+//                }
+//            }
+//            return pages
+//        }
+        
+        // 路由表
+        
+        
+        private var route_table: [Table: [String: Any]] = {
+            var table = [Table: [String: Any]]()
+            table[.page] = [String: String]()
+            return table
+        }()
+        
+        struct Table: Hashable {
+            var rawValue: String
+            init(string: String) {
+                rawValue = string
+            }
+            // 页面表
+            static let page: Table = Table(string: "com.FunBox.Router.table.page")
+        }
+//        fileprivate var table_params = [String: FunRouterOptions]()
+        // APP scheme（预留）
+        public var scheme: String?
+        // 代理
+        public var delegate: FunRouterDelegate?
+        
+        
+        
+        // APP启动或者外部唤醒APP时会走到这里
+        public func open(launchOptions: APPLaunchable?, completion: ((Bool)->Void)?=nil) {
+
+            guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
+            
+            open(url: url, params: nil, animated: true, completion: completion)
+        }
         
         // MARK: - 打开页面
         public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
@@ -149,17 +178,18 @@ public extension FunBox {
         // MARK: - 生成可跳转页面
         private func build(url: FunRouterPathable?, params: Any? = nil) -> UIViewController? {
             
-            guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = table_vc[key] else { return nil }
+            guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = viewController(route_table[.page]?[key] as? String) else { return nil }
             
             let vc = VC.init()
             
-            var options = FunRouterParameter()
-            options[FunRouterParameterKey.URL] = URL
+            var options = FunRouter.Parameter()
+            options[ParameterKey.URL] = URL.absoluteString
             if let option_params = (params ?? url?.asParams()) {
-                options[FunRouterParameterKey.params] = option_params
+                options[ParameterKey.params] = option_params
             }
             
-            table_params["\(vc.hashValue)"] = options
+//            table_params["\(vc.hashValue)"] = options
+            vc.rt.set(options: options)
             
             if let delegate = delegate {
                 delegate.routerWillOpen(viewController: vc, options: options)
@@ -170,23 +200,54 @@ public extension FunBox {
         
         // MARK: - 注册支持路由的页面
         public func regist(url: FunRouterPathable?, class_name: String?) {
+            guard let URL = url?.asURL() else { return }
+//            guard let URL = url?.asURL(), let class_name = class_name, let projectName = UIApplication.shared.fb.projectName else { return }
+//            class_name = "\(projectName).\(class_name)"
+            // 先直接获取类(oc不需要项目名)，没有货渠道再拼叫项目名获取swift类
+//            guard let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else { return }
+//
+//            if get_class is UIViewController.Type {
+//                guard let key = URL.asPageKey() else { return }
+////                table_vc[key] = get_class as? UIViewController.Type
+//                route_table[.page]?[key] = class_name
+//            }
             
-            guard let URL = url?.asURL(), var class_name = class_name, let projectName = UIApplication.shared.fb.projectName else { return }
-            class_name = "\(projectName).\(class_name)"
-            guard let get_class = NSClassFromString(class_name) else { return }
-            
-            if get_class is UIViewController.Type {
-                guard let key = URL.asPageKey() else { return }
-                table_vc[key] = get_class as? UIViewController.Type
+            if viewController(class_name) != nil, let key = URL.asPageKey() {
+                
+                route_table[.page]?[key] = class_name
             }
             
         }
         
-        fileprivate func cleanParams() {
+        // 验证该页面有没有注册
+        public func verifyRegist(_ page: FunRouterPathable?) -> Bool {
+            guard let key = page?.asPageKey(), !key.isEmpty else { return false }
+            var flag = false
             
-            FunRouter.default.table_params.removeValue(forKey: "\(UIApplication.shared.fb.frontController.hashValue)")
+            route_table[.page]?.forEach({ (item) in
+                if item.key == key {
+                    flag = true
+                }
+            })
             
+            return flag
         }
+        
+        private func viewController(_ class_name: String?) -> UIViewController.Type? {
+            guard let class_name = class_name, let projectName = UIApplication.shared.fb.projectName, let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else { return nil }
+            
+            if get_class is UIViewController.Type {
+                return get_class as? UIViewController.Type
+            }
+            
+            return nil
+        }
+        
+//        fileprivate func cleanParams() {
+//
+//            FunRouter.default.table_params.removeValue(forKey: "\(UIApplication.shared.fb.frontController.hashValue)")
+//
+//        }
         
     }
     
@@ -194,19 +255,18 @@ public extension FunBox {
 
 public extension FunRouterNamespaceWrapper where T == String {
     
-    var URLParameters: FunRouterParameter? {
+    var URLParameters: FunRouter.Parameter? {
         guard let url = URL.init(string: wrappedValue) else { return nil }
         
         return url.rt.URLParameters
     }
-    
     
 }
 
 
 public extension FunRouterNamespaceWrapper where T == URL {
     
-    var URLParameters: FunRouterParameter? {
+    var URLParameters: FunRouter.Parameter? {
         guard let components = URLComponents(url: wrappedValue, resolvingAgainstBaseURL: true),
             let queryItems = components.queryItems else { return nil }
         return queryItems.reduce(into: [String: String]()) { (result, item) in
@@ -219,7 +279,17 @@ public extension FunRouterNamespaceWrapper where T == URL {
 public extension FunRouterNamespaceWrapper where T: UIViewController {
     
     var options: FunRouterOptions? {
-        return FunRouter.default.table_params["\(wrappedValue.hashValue)"]
+        return objc_getAssociatedObject(wrappedValue, &FunRouter.ParameterKey.options) as? FunRouter.Parameter
+    }
+    
+    fileprivate func set(options: FunRouter.Parameter) {
+        
+        if !JSONSerialization.isValidJSONObject(options) {
+            debugPrint("options is not a valid json object")
+        }
+        
+        
+        objc_setAssociatedObject(wrappedValue, &FunRouter.ParameterKey.options, options, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
 }
@@ -238,9 +308,9 @@ extension Dictionary: FunRouterPathable {
         return nil
     }
     
-    public func asParams() -> FunRouterParameter? {
+    public func asParams() -> FunRouter.Parameter? {
         
-        return self as? FunRouterParameter
+        return self as? FunRouter.Parameter
     }
 }
 
@@ -253,7 +323,7 @@ extension String: FunRouterPathable {
     }
     
     
-    public func asParams() -> FunRouterParameter? {
+    public func asParams() -> FunRouter.Parameter? {
         
         return rt.URLParameters
     }
@@ -278,7 +348,7 @@ extension URL: FunRouterPathable {
         return nil
     }
     
-    public func asParams() -> FunRouterParameter? {
+    public func asParams() -> FunRouter.Parameter? {
         
         return rt.URLParameters
     }
@@ -289,6 +359,40 @@ extension URL: FunRouterPathable {
     }
 }
 
+extension FunRouter.Parameter: FunRouterOptions {
+    public var url: URL? {
+        if let string = self[FunRouter.ParameterKey.URL] as? String {
+            return URL(string: string)
+        } else if let url = self[FunRouter.ParameterKey.URL] as? URL {
+            
+            return url
+        }
+        return nil
+    }
+    
+    public var params: Any? {
+        return self[FunRouter.ParameterKey.params]
+    }
+
+}
+
+@available(iOS 13.0, *)
+extension UIScene.ConnectionOptions: APPLaunchable {
+    public var url: URL? {
+        return urlContexts.first?.url
+    }
+    
+}
+
+extension FunRouter.LaunchOptions: APPLaunchable {
+    public var url: URL? {
+        return self[UIApplication.LaunchOptionsKey.url] as? URL
+    }
+    
+}
+
+
+// 路由的命名空间
 public protocol FunRouterNamespaceWrappable {
     associatedtype FunRouterWrapperType
     var rt: FunRouterWrapperType { get }
