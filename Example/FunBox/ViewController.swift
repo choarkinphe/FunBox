@@ -31,9 +31,13 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
 //        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
-        FunBox.router.push2(url: "funbox://testOC?aaa=2&bbb=c", params: AAModel(), animated: true, completion: nil)
+//        FunBox.router.push2(url: "funbox://testOC?aaa=2&bbb=c", params: AAModel(), animated: true, completion: nil)
 //        FunBox.router.present2(url: "zz://AAA?aaa=2&bbb=c", params: nil, animated: true, completion: nil)
 //        FunBox.toast.message("哈哈").showActivity()
+        FunBox.router.scheme = "funbox://"
+        FunBox.router.open(page: .alert(message: "提示"), params: nil, animated: true) { (action) in
+            
+        }
     }
 }
 

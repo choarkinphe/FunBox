@@ -118,17 +118,8 @@ public extension FunBox {
         public var delegate: FunRouterDelegate?
         
         
-        
-        // APP启动或者外部唤醒APP时会走到这里
-        public func open(launchOptions: APPLaunchable?, completion: ((Bool)->Void)?=nil) {
-
-            guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
-            
-            open(url: url, params: nil, animated: true, completion: completion)
-        }
-        
         // MARK: - 打开页面
-        public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
+        fileprivate func show(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
             if UIApplication.shared.fb.canPush {
                 push2(url: url, params: params, animated: animated, completion: completion)
@@ -251,6 +242,117 @@ public extension FunBox {
         
     }
     
+}
+
+extension FunRouter {
+    // 公共页面
+    public struct Page {
+        fileprivate var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+        
+        public static func alert(message: String) -> Page {
+            
+            return Page(rawValue: "alert?message=\(message)")
+        }
+    }
+    
+    // 路由事件
+    public struct Action {
+        // 路由完整地址
+        public var URL: URL?
+        // 如果是Alert事件，会包含此信息
+        public var alertAction: UIAlertAction?
+        // 每个identifier会对应一个Page，方便外部查找
+        public var identifier: String? {
+            if let string = URL?.relativePath {
+                
+                if string.first == "/" {
+                    return string.fb.subString(from: 1)
+                }
+                
+                return string
+            }
+            return nil
+        }
+        
+    }
+    
+    // APP启动或者外部唤醒APP时会走到这里
+    public func open(launchOptions: APPLaunchable?, completion: ((FunRouter.Action)->Void)?=nil) {
+
+        guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
+        
+        self.open(url: url, params: nil, animated: true, handler: completion)
+    }
+    
+    // 通过Page打开
+    public func open(page: FunRouter.Page, params: Any? = nil, animated: Bool = true, completion: ((FunRouter.Action)->Void)?=nil) {
+        // 生成URL
+        if let scheme = scheme {
+        
+            let urlString = scheme + page.rawValue
+            
+            self.open(url: urlString, params: params, animated: animated, handler: completion)
+        }
+    }
+    
+    // 手动路由的方法
+    public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, handler: ((FunRouter.Action)->Void)?=nil) {
+            guard let url = url?.asURL() else {
+                // url为空
+    //            HUD.tips("功能暂未开放")
+                
+                return
+            }
+            
+            if ["Alert","alert"].contains(url.host) { // Alert事件统一在这里处理
+
+                let params = url.asParams()
+                var alert = FunBox.alert
+                    .title("提示")
+                    .messageFont(UIFont.systemFont(ofSize: 16))
+                    .messageColor(UIColor.darkText)
+                if let message = (params?["message"] as? String) {
+                    alert = alert.message("\n\(message)")
+                }
+                if let title = (params?["title"] as? String) {
+                    alert = alert.title(title)
+                }
+                alert = alert.addAction(title: "取消", style: .cancel, color: UIColor.lightText)
+                alert = alert.addAction(title: "确定", style: .default, color: UIColor.orange) { (action) in
+//                    if let completion = completion {
+                        handler?(Action(URL: url.asURL(), alertAction: action))
+//                    }
+                }
+                
+                alert.present()
+            } else {
+                
+                // 已正常注册的页面
+                if verifyRegist(url) {
+                
+                    if let isPresent = url.asParams()?["present"] as? String, isPresent == "true" {
+                        present2(url: url, params: params, animated: animated) { (success) in
+//                            if let completion = completion {
+                                handler?(Action(URL: url.asURL(), alertAction: nil))
+//                            }
+                        }
+                    } else {
+                        show(url: url, params: params, animated: animated) { (success) in
+                            handler?(Action(URL: url.asURL(), alertAction: nil))
+                        }
+
+                    }
+                    
+                } else {
+                    // 没有找到已注册的页面
+    //                HUD.tips("功能暂未开放")
+                }
+            }
+            
+        }
 }
 
 public extension FunRouterNamespaceWrapper where T == String {
