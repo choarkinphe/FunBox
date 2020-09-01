@@ -8,6 +8,7 @@
 import UIKit
 
 public typealias FunRouter = FunBox.Router
+
 // 路由跳转间的参数
 public protocol FunRouterOptions {
     var url: URL? {get}
@@ -29,11 +30,6 @@ public protocol FunRouterPathable {
     func asPageKey() -> String?
 }
 
-// APP启动数据协议
-public protocol APPLaunchable {
-    var url: URL? { get }
-}
-
 public extension FunBox {
     // 路由单利
     static var router: Router {
@@ -52,8 +48,6 @@ public extension FunBox {
         }
         // 参数
         public typealias Parameter = [String: Any]
-        // APP启动参数
-        public typealias LaunchOptions = [UIApplication.LaunchOptionsKey: Any]
         
         // 内部Key
         fileprivate struct ParameterKey {
@@ -65,38 +59,10 @@ public extension FunBox {
         override init() {
             
             super.init()
-            //            NotificationCenter.default.addObserver(self, selector: #selector(memoryWarning), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
+
         }
         
-        // MARK: - 内存报警时清除非前台页面参数
-        //        @objc func memoryWarning() {
-        //
-        //            for item in table_params {
-        //                if item.key != "\(UIApplication.shared.fb.frontController.hashValue)" {
-        //
-        //                    table_params.removeValue(forKey: item.key)
-        //                }
-        //            }
-        //
-        //        }
-        
-        
-        
-        // 所有已注册的路由表
-        //        public var routerPages: [String] {
-        //            var pages = [String]()
-        //            if let items = route_table[.page] {
-        //
-        //                for item in items {
-        //                    pages.append(item.key)
-        //                }
-        //            }
-        //            return pages
-        //        }
-        
         // 路由表
-        
-        
         private var route_table: [Table: [String: Any]] = {
             var table = [Table: [String: Any]]()
             table[.page] = [String: String]()
@@ -111,8 +77,8 @@ public extension FunBox {
             // 页面表
             static let page: Table = Table(string: "com.FunBox.Router.table.page")
         }
-        //        fileprivate var table_params = [String: FunRouterOptions]()
-        // APP scheme（预留）
+        
+        // APP scheme
         public var scheme: String?
         // 代理
         public var delegate: FunRouterDelegate?
@@ -192,17 +158,7 @@ public extension FunBox {
         // MARK: - 注册支持路由的页面
         public func regist(url: FunRouterPathable?, class_name: String?) {
             guard let URL = url?.asURL() else { return }
-            //            guard let URL = url?.asURL(), let class_name = class_name, let projectName = UIApplication.shared.fb.projectName else { return }
-            //            class_name = "\(projectName).\(class_name)"
-            // 先直接获取类(oc不需要项目名)，没有货渠道再拼叫项目名获取swift类
-            //            guard let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else { return }
-            //
-            //            if get_class is UIViewController.Type {
-            //                guard let key = URL.asPageKey() else { return }
-            ////                table_vc[key] = get_class as? UIViewController.Type
-            //                route_table[.page]?[key] = class_name
-            //            }
-            
+
             if viewController(class_name) != nil, let key = URL.asPageKey() {
                 
                 route_table[.page]?[key] = class_name
@@ -233,12 +189,6 @@ public extension FunBox {
             
             return nil
         }
-        
-        //        fileprivate func cleanParams() {
-        //
-        //            FunRouter.default.table_params.removeValue(forKey: "\(UIApplication.shared.fb.frontController.hashValue)")
-        //
-        //        }
         
     }
     
@@ -279,14 +229,6 @@ extension FunRouter {
         // 错误信息
         public var error: Error?
         
-    }
-    
-    // APP启动或者外部唤醒APP时会走到这里
-    public func open(launchOptions: APPLaunchable?, completion: ((FunRouter.Response)->Void)?=nil) {
-        
-        guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
-        
-        self.open(url: url, params: nil, animated: true, handler: completion)
     }
     
     // 通过Page打开
@@ -483,21 +425,6 @@ extension FunRouter.Parameter: FunRouterOptions {
     
     public var params: Any? {
         return self[FunRouter.ParameterKey.params]
-    }
-    
-}
-
-@available(iOS 13.0, *)
-extension UIScene.ConnectionOptions: APPLaunchable {
-    public var url: URL? {
-        return urlContexts.first?.url
-    }
-    
-}
-
-extension FunRouter.LaunchOptions: APPLaunchable {
-    public var url: URL? {
-        return self[UIApplication.LaunchOptionsKey.url] as? URL
     }
     
 }

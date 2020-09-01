@@ -11,6 +11,8 @@ import FunBox
 
 typealias Router = FunBox.Router
 extension Service: FunRouterDelegate {
+    // APP启动参数
+    typealias LaunchOptions = [UIApplication.LaunchOptionsKey: Any]
     
     static var router: Router {
         let router = Router.default
@@ -32,7 +34,36 @@ extension Router.Page {
     static var message: Router.Page = Router.Page(rawValue: "message/list")
 }
 
+// APP启动数据协议
+public protocol APPLaunchable {
+    var url: URL? { get }
+}
+
+@available(iOS 13.0, *)
+extension UIScene.ConnectionOptions: APPLaunchable {
+    public var url: URL? {
+        return urlContexts.first?.url
+    }
+
+}
+
+
+extension Service.LaunchOptions: APPLaunchable {
+    public var url: URL? {
+        return self[.url] as? URL
+    }
+
+}
+
 extension NamespaceWrapper where T : Router {
+    
+    // APP启动或者外部唤醒APP时会走到这里
+    func open(launchOptions: APPLaunchable?, completion: ((FunRouter.Response)->Void)?=nil) {
+        
+        guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
+        
+        wrappedValue.open(url: url, params: nil, animated: true, handler: completion)
+    }
 
     // 注册本地JSON文件中的路由规则
     func regist() {
