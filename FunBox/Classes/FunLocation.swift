@@ -45,7 +45,7 @@ public extension FunBox {
                 // 定位服务未打开
                 // 直接抛出异常
                 if let handler = locationHandler {
-                    handler((nil,FunError.init(desc: "location services is not enabled")))
+                    handler((nil,FunError(description: "location services is not enabled")))
                 }
                 return
             }

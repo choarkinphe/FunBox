@@ -85,9 +85,15 @@ public extension FunBox {
             return self
         }
         
-        public func title(_ title: String?) -> Self {
+        public func title(_ title: String?, font: UIFont?=nil, color: UIColor?=nil) -> Self {
             
             config.title = title
+            if let titleFont = font {
+                config.titleFont = titleFont
+            }
+            if let titleColor = color {
+                config.titleColor = titleColor
+            }
             
             return self
         }
@@ -105,9 +111,15 @@ public extension FunBox {
             return self
         }
         
-        public func message(_ message: String?) -> Self {
+        public func message(_ message: String?, font: UIFont?=nil, color: UIColor?=nil) -> Self {
             
             config.message = message
+            if let messageFont = font {
+                config.messageFont = messageFont
+            }
+            if let messageColor = color {
+                config.messageColor = messageColor
+            }
             
             return self
         }
