@@ -7,7 +7,8 @@
 //
 
 #import "OCViewController.h"
-
+#import <FunBox/FunBox-Swift.h>
+#import "FunBox_Example-Swift.h"
 @interface OCViewController ()
 
 @end
@@ -19,8 +20,23 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor redColor];
+    
+    NSDictionary *dict = self.rt_params;
+    
+    NSLog(@"%@",dict);
+    
+    
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    Router *router = [Service router];
+    
+    [router openWithUrl:@"funbox://testOC" params:@"哈哈哈" animated:YES completion:^(NSURL * url, NSString * identifier, UIAlertAction * alert, NSString * error) {
+        
+    }];
+
+}
 /*
 #pragma mark - Navigation
 

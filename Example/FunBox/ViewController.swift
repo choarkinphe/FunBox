@@ -35,12 +35,14 @@ class ViewController: UIViewController {
 //        FunBox.toast.message("哈哈").showActivity()
         FunBox.router.scheme = "funbox://"
         
-        Service.router.push2(url: "funbox://testOC?aaa=2&bbb=c", params: AAModel(), animated: true, completion: nil)
+        Service.router.open(url: "funbox://testOC?aaa=2&bbb=c", params: ["aaa":1], animated: true, handler: nil)
+//        Service.router.open(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true) { (action) in
+            
+//        }
 
-
-        Service.router.open(page: .alert(message: "提示"), params: nil, animated: true) { (action) in
-            print(action.error?.localizedDescription)
-        }
+//        Service.router.open(page: .alert(message: "提示"), params: nil, animated: true) { (action) in
+//            print(action.error?.localizedDescription)
+//        }
     }
 }
 

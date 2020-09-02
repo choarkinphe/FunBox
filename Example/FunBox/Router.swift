@@ -11,10 +11,12 @@ import FunBox
 
 typealias Router = FunBox.Router
 extension Service: FunRouterDelegate {
+    
+    
     // APP启动参数
     typealias LaunchOptions = [UIApplication.LaunchOptionsKey: Any]
     
-    static var router: Router {
+    @objc static var router: Router {
         let router = Router.default
         router.delegate = Service.manager
         router.scheme = "funbox://"
@@ -25,6 +27,13 @@ extension Service: FunRouterDelegate {
         // 这里可以获取到所有即将通过路由打开的页面
         
         
+    }
+//    构造需要跳转的VC，实现了就会走这里
+    public func routerWillBuild(options: FunRouterOptions?) -> UIViewController? {
+        if options?.url?.pathExtension == "message/list" {
+            return UIStoryboard.init(name: "xx", bundle: .main).instantiateInitialViewController()
+        }
+        return nil
     }
     
 }

@@ -1,5 +1,6 @@
 {
     "funbox://testList": "TableViewController",
-    "funbox://testOC": "OCViewController"
+    "funbox://testOC": "OCViewController",
+    "funbox://message/list": "MessageViewController"
 }
 

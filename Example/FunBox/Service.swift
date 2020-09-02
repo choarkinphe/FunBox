@@ -12,7 +12,7 @@ import UIKit
 
 typealias Result = Service.Result
 typealias PageElement = Service.PageElement
-open class Service {
+open class Service: NSObject {
     
     enum Server: String {
         case `default` = "default"

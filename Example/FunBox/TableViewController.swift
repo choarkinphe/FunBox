@@ -29,7 +29,9 @@ class TableViewController: UIViewController, UITableViewDataSource {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let params = rt.options?.params {
+            print(params)
+        }
         fb.observer.deviceOrientation { (orientation) in
             print(orientation,"BBB")
         }

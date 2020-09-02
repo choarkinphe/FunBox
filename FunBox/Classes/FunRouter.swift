@@ -19,6 +19,13 @@ public protocol FunRouterDelegate {
     
     func routerWillOpen(viewController: UIViewController, options: FunRouterOptions?)
     
+    func routerWillBuild(options: FunRouterOptions?) -> UIViewController?
+    
+}
+extension FunRouterDelegate {
+    func routerWillBuild(options: FunRouterOptions?) -> UIViewController? {
+        return nil
+    }
 }
 // 路由链接的解析方法
 public protocol FunRouterPathable {
@@ -54,6 +61,7 @@ public extension FunBox {
             static let URL = "com.FunBox.Router.ParameterKey.URL"
             static let params = "com.FunBox.Router.ParameterKey.params"
             static var options = "com.FunBox.Router.ParameterKey.options"
+            static var rt_params = "com.FunBox.Router.ParameterKey.rt_params"
         }
         
         override init() {
@@ -85,26 +93,19 @@ public extension FunBox {
         
         
         // MARK: - 打开页面
-        fileprivate func show(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
+        fileprivate func show(viewController: UIViewController, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
             if UIApplication.shared.fb.canPush {
-                push2(url: url, params: params, animated: animated, completion: completion)
+                push2(viewController: viewController, animated: animated, completion: completion)
             } else {
-                present2(url: url, params: params, animated: animated, completion: completion)
+                present2(viewController: viewController, animated: animated, completion: completion)
             }
         }
         
-        public func push2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
+        fileprivate func push2(viewController: UIViewController, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
-            guard let vc = build(url: url, params: params) else {
-                if let completion = completion {
-                    completion(false)
-                }
-                return
-                
-            }
             DispatchQueue.main.async {
-                UIApplication.shared.fb.frontController?.navigationController?.pushViewController(vc, animated: animated)
+                UIApplication.shared.fb.frontController?.navigationController?.pushViewController(viewController, animated: animated)
                 if let completion = completion {
                     completion(true)
                 }
@@ -112,17 +113,11 @@ public extension FunBox {
         }
         
         
-        public func present2(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
+        fileprivate func present2(viewController: UIViewController, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
-            guard let vc = build(url: url, params: params) else {
-                if let completion = completion {
-                    completion(false)
-                }
-                return
-                
-            }
+
             DispatchQueue.main.async {
-                UIApplication.shared.fb.frontController?.present(vc, animated: true, completion: {
+                UIApplication.shared.fb.frontController?.present(viewController, animated: true, completion: {
                     if let completion = completion {
                         completion(true)
                     }
@@ -137,18 +132,24 @@ public extension FunBox {
             
             guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = viewController(route_table[.page]?[key] as? String) else { return nil }
             
-            let vc = VC.init()
-            
             var options = FunRouter.Parameter()
             options[ParameterKey.URL] = URL.absoluteString
             if let option_params = (params ?? url?.asParams()) {
                 options[ParameterKey.params] = option_params
             }
             
-            //            table_params["\(vc.hashValue)"] = options
-            vc.rt.set(options: options)
+            var vc: UIViewController?
+            if let viewController = delegate?.routerWillBuild(options: options) {
+                
+                vc = viewController
+            } else {
+                vc = VC.init()
+            }
+            vc?.rt.set(options: options)
+            // 方便oc使用
+            vc?.set(rt_params: options.params)
             
-            if let delegate = delegate {
+            if let delegate = delegate, let vc = vc {
                 delegate.routerWillOpen(viewController: vc, options: options)
             }
             
@@ -194,9 +195,10 @@ public extension FunBox {
     
 }
 
+
 extension FunRouter {
     // 公共页面
-    public struct Page {
+    public class Page {
         fileprivate var rawValue: String
         public init(rawValue: String) {
             self.rawValue = rawValue
@@ -228,7 +230,6 @@ extension FunRouter {
         }
         // 错误信息
         public var error: Error?
-        
     }
     
     // 通过Page打开
@@ -283,14 +284,20 @@ extension FunRouter {
             // 已正常注册的页面
             if verifyRegist(url) {
                 
+                guard let viewController = build(url: url, params: params) else {
+                    handler?(Response(URL: url?.asURL(), error: FunError(description: "未找到 ViewController")))
+                    return
+                    
+                }
+                
                 if let isPresent = URL.asParams()?["present"] as? String, isPresent == "true" {
-                    present2(url: url, params: params, animated: animated) { (success) in
+                    present2(viewController: viewController, animated: animated) { (success) in
                         //                            if let completion = completion {
                         handler?(Response(URL: URL))
                         //                            }
                     }
                 } else {
-                    show(url: url, params: params, animated: animated) { (success) in
+                    show(viewController: viewController, animated: animated) { (success) in
                         handler?(Response(URL: URL))
                     }
                     
@@ -343,6 +350,38 @@ public extension FunRouterNamespaceWrapper where T: UIViewController {
         
         
         objc_setAssociatedObject(wrappedValue, &FunRouter.ParameterKey.options, options, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+}
+
+extension FunRouter {
+    
+    /// 供OC调用的方法
+    /// - Parameters:
+    ///   - url: 跳转地址
+    ///   - params: 参数
+    ///   - animated: 是否开启动画
+    ///   - completion: (地址、标示、alert事件、错误信息)
+    @objc public func open(url: String, params: Any? = nil, animated: Bool = true, completion: ((URL?,String?,UIAlertAction?,String?)->Void)?) {
+        open(url: url, params: params, animated: animated) { (response) in
+            completion?(response.URL,response.identifier,response.alert,response.error?.localizedDescription)
+        }
+    }
+}
+
+public extension UIViewController {
+    
+    @objc var rt_params: Any? {
+        return objc_getAssociatedObject(self, &FunRouter.ParameterKey.rt_params)
+    }
+    
+    fileprivate func set(rt_params: Any?) {
+        
+//        if !JSONSerialization.isValidJSONObject(rt_options) {
+//            debugPrint("options is not a valid json object")
+//        }
+        
+        objc_setAssociatedObject(self, &FunRouter.ParameterKey.rt_params, rt_params, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
 }
