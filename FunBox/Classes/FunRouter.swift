@@ -22,7 +22,7 @@ public protocol FunRouterDelegate {
     func routerWillBuild(options: FunRouterOptions?) -> UIViewController?
     
 }
-extension FunRouterDelegate {
+public extension FunRouterDelegate {
     func routerWillBuild(options: FunRouterOptions?) -> UIViewController? {
         return nil
     }
