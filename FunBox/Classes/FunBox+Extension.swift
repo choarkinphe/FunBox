@@ -78,7 +78,13 @@ public extension FunNamespaceWrapper where T == JSONSerialization {
         if ![".JSON",".json",",Json"].contains(fileName.fb.subString(from: fileName.count - 5)) {
             fileName = fileName + ".JSON"
         }
-        guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else { return nil }
+
+        return json(filePath: Bundle.main.path(forResource: fileName, ofType: nil), type: type)
+    }
+    
+    static func json<T>(filePath: String?, type: T.Type) -> T? {
+        
+        guard let path = filePath else { return nil }
         let url = URL(fileURLWithPath: path)
         
         do {
@@ -97,7 +103,6 @@ public extension FunNamespaceWrapper where T == JSONSerialization {
         
         return nil
     }
-    
 }
 
 
