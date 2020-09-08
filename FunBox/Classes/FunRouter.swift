@@ -237,7 +237,7 @@ extension FunRouter {
         // 生成URL
         if let scheme = scheme {
             
-            let urlString = scheme + page.rawValue
+            let urlString = scheme + "://" + page.rawValue
             
             self.open(url: urlString, params: params, animated: animated, handler: completion)
         } else {
