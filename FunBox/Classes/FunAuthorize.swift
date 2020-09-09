@@ -8,7 +8,7 @@
 
 import Foundation
 import Photos
-typealias FunAuthorize = FunBox.Authorize
+public typealias FunAuthorize = FunBox.Authorize
 public extension FunBox {
     // 获取权限
     struct Authorize { }
@@ -18,7 +18,7 @@ public extension FunBox {
 public extension FunAuthorize {
        class Photo {
         // 保存照片权限
-        static func save(_ clouse: @escaping (PHAuthorizationStatus)->Void) {
+        public static func save(_ clouse: @escaping (PHAuthorizationStatus)->Void) {
             PHPhotoLibrary.requestAuthorization({ (status) in
                 if status == .authorized || status == .notDetermined {
                     clouse(.authorized)
