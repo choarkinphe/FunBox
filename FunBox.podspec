@@ -30,8 +30,35 @@ TODO: Add long description of the pod here.
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
+  # 核心库
+  s.subspec 'Core' do |core|
+      # 核心库路径
+      core.source_files = 'FunBox/Core/Code/**/*'
+      # 核心库Bundle地址
+      core.resource_bundles = {
+          'Core' => ['FunBox/Core/Assets/*.{storyboard,xib,xcassets,json,imageset,png}']
+      }
+  end
+  
+      # 组件库
+      s.subspec 'Modules' do |modules|
+          # 组件库公共路径
+          modules.source_files = 'FunBox/Modules/Main/**/*'
+          modules.dependency 'FunBox/Core'
+          # 工具: FunNetworking
+          modules.subspec 'Networking' do |networking|
+              # FunNetworking路径
+              networking.source_files = 'FunBox/Modules/Networking/Code/**/*'
+              # FunNetworking的Bundle地址
+              networking.resource_bundles = {
+                  'FunNetworking' => ['HZCoreKit/Modules/Networking/Assets/*.{storyboard,xib,xcassets,json,imageset,png}']
+              }
+              # FunNetworking依赖
+              networking.dependency 'Alamofire', '~> 5.2.2'
+          end
+      end
 
-  s.source_files = 'FunBox/Classes/**/*'
+  #s.source_files = 'FunBox/Classes/**/*'
   
   # s.resource_bundles = {
   #   'FunBox' => ['FunBox/Assets/*.png']

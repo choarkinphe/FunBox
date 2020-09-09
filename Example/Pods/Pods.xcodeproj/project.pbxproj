@@ -7,449 +7,601 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00224C929D57F45B70E87359E719948D /* FBSnapshotTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = FEE661E58CA6655B39AA49AA4C021C33 /* FBSnapshotTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		14C511527597E5846AB2627F791C7D8E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 716A9972B9D9103B54DB950893FAF104 /* QuartzCore.framework */; };
-		1BAC4F76B70DCFDD6C95C9887C999D03 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E1B7EA746BF6557FD565BAE12AF9198 /* FBSnapshotTestController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		2C23604704C757F2AE847349910120C8 /* Pods-FunBox_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EA23469833B2288C9A33710B66549E3 /* Pods-FunBox_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2D020BE58F582D1552D1A660D4D7537A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */; };
-		318E95B0689A3507D9608B5948548910 /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */; };
-		40039E0AF0D764360B1D4FC4F7950D2E /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		49A518892472B71400D647CD /* FunSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A518882472B71400D647CD /* FunSecurity.swift */; };
-		4A39D78024695DF1002BD04D /* FunRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D77F24695DF1002BD04D /* FunRouter.swift */; };
-		4A3EEDA224653E180098C556 /* FunTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9624653E170098C556 /* FunTool.swift */; };
-		4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9724653E170098C556 /* UIViewController+Fun.swift */; };
-		4A3EEDA424653E180098C556 /* FunLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9824653E170098C556 /* FunLocation.swift */; };
-		4A3EEDA524653E180098C556 /* FunToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9924653E170098C556 /* FunToast.swift */; };
-		4A3EEDA624653E180098C556 /* FunEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9A24653E170098C556 /* FunEffect.swift */; };
-		4A3EEDA724653E180098C556 /* FunDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9B24653E170098C556 /* FunDatePicker.swift */; };
-		4A3EEDA824653E180098C556 /* FunAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9C24653E170098C556 /* FunAlert.swift */; };
-		4A3EEDA924653E180098C556 /* FunSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9D24653E170098C556 /* FunSheet.swift */; };
-		4A3EEDAA24653E180098C556 /* FunBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9E24653E170098C556 /* FunBox.swift */; };
-		4A3EEDAB24653E180098C556 /* FunCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EED9F24653E170098C556 /* FunCache.swift */; };
-		4A3EEDAC24653E180098C556 /* FunError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3EEDA024653E170098C556 /* FunError.swift */; };
-		4A50659C246B912F000E9CA3 /* FunBox+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */; };
-		4AFCB5D724F4D5BB00BBCAA5 /* FunPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5D424F4D5BB00BBCAA5 /* FunPan.swift */; };
-		4AFCB5D824F4D5BB00BBCAA5 /* FunAuthorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5D524F4D5BB00BBCAA5 /* FunAuthorize.swift */; };
-		4AFCB5D924F4D5BB00BBCAA5 /* FunLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5D624F4D5BB00BBCAA5 /* FunLabel.swift */; };
-		4AFCB5DB24F4D5D700BBCAA5 /* FunButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5DA24F4D5D700BBCAA5 /* FunButton.swift */; };
-		4AFCB5DF24F4D87300BBCAA5 /* UIView+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCB5DE24F4D87300BBCAA5 /* UIView+Fun.swift */; };
-		53317B04AB548F3568225C7390E37C26 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		62044ECA464FDD7C5C9CDC7EC17DB505 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		6650C095330F67C112A1F281A932EA99 /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		6AE239C5D116E1C06F5705699FB9EAF0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E601BD54DA9BF4071437E60125281FA /* XCTest.framework */; };
-		77E1B0E7D6FF466CE46E2CFED14DFED1 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 277B6BE10C665F515606A22FD60C6DCC /* FBSnapshotTestCase.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		79E3149A20D0D86A5861BF48CB37588B /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0D66CF296ABBC57EC4D0452397E235 /* SwiftSupport.swift */; };
-		89C03AED5B7CB2592B4D827330296696 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */; };
-		90142C6259374E18E640396A59AD379A /* FBSnapshotTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9FF9459FBCDC4AF88FB6B5A4CC1439 /* FBSnapshotTestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		965D6922662A330AEEF52B3D0EBE4234 /* Pods-FunBox_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A139D29658F0367BC8D6ED27277313B4 /* Pods-FunBox_Tests-dummy.m */; };
-		9F7728F6CC5DD4BAE0597E80904E6235 /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F538C426803AE34255FC6E35B408CCA /* UIApplication+StrictKeyWindow.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B1891A7DF2A0D60AD3F451CEDE493F58 /* Pods-FunBox_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A890591C7536B9603BB8F190B34ECB /* Pods-FunBox_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B25D795BDC4F426BC01EFC911F368B81 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */; };
-		B4DDC039D8C66E673F197DE6B602C9B2 /* FunBox-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E4E3C417C4DC524173FA1CA02FEB46E3 /* FunBox-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B74CD6E6EBEA0B642776BCB37850415D /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 284833D18C244D2B42966B6EE425AA59 /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BFCD27EA1513719252030E76A60B49D9 /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 235A78CFFA6D8B8D86CACD733531CB13 /* UIImage+Compare.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C49D52712466511E332C952834C81FE1 /* FBSnapshotTestCasePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 88B1DEEBF6316A84D7413645212492FF /* FBSnapshotTestCasePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D04AAC8B22E4A4DC4F39891C4E52F251 /* UIImage+Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 96187BF3038121CC146335E9FF0B0AFF /* UIImage+Diff.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E0B8D095C732352C854D365B9E5B993D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CAA89EEF1039078430D7A886477E365 /* UIKit.framework */; };
-		EBD366E49E2E19ECE5CF074AE16D4DE5 /* FunBox-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D19B64BFEAC9DA248620576419368AEA /* FunBox-dummy.m */; };
-		F1AAAE00BB32B733B238E2B4E8424506 /* UIImage+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = 656116C8FA5458F45D4707110C9530EC /* UIImage+Compare.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		F720FAF13A108CE6901E0A8B0580E1E8 /* FBSnapshotTestCase-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E5923010B02074CAA9AAF6EA02D66AA /* FBSnapshotTestCase-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FE79CA8CE3B9131801F14531C45B9719 /* Pods-FunBox_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E117CE5AA51A76EFD1CAC6FD475BA41 /* Pods-FunBox_Example-dummy.m */; };
-		FFEBF55A3C77F66F00F8967B4A061694 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */; };
+		013BAC24F7AC722E59517CB110A9E685 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4388F96485F322CF010F9CA6AF089C46 /* HTTPMethod.swift */; };
+		078FCD524B72685D64839061B28BC718 /* FunBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C8CB56B3B70C4CA01D135D308BA5AC /* FunBox.swift */; };
+		0A1849775CF90D514963187D3A771CF8 /* Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EBFC4256A48F45E26B860D38479E52 /* Combine.swift */; };
+		0A900DF17E3B64F08AF673E9A0DDD697 /* OperationQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876F4F5D5DA538F51C4D4F27C9F64377 /* OperationQueue+Alamofire.swift */; };
+		0E7BC1E641676B75FAD24449CEDD123D /* FunSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944CAB8A5DB5D21C068CDA7B047E37EC /* FunSheet.swift */; };
+		1208E81DA8B532D0646D627B50290EB6 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349B2325F6647FEE3C9209201FF5D4C2 /* AFError.swift */; };
+		19D605A3233499828FB6B790869F3E9C /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A0C3C3516540407583753D10DEB2B /* NetworkReachabilityManager.swift */; };
+		212EDC48B68107BEA9247F3464CE696E /* StringEncoding+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A51515830AB9FE94E01DF6F48146153 /* StringEncoding+Alamofire.swift */; };
+		218C14EAE5AA31C30314AE0289B732A0 /* Protected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D45A2AF061C99B2355F19EC47243D9 /* Protected.swift */; };
+		27E59A11A2743B0595CDE3A08675EAE1 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD9F54297FF27309F1F8A34F99417C /* DispatchQueue+Alamofire.swift */; };
+		2E3E90EBD17F79FD593848494A357A43 /* FunNetworkKit+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF83154F90453279F65156B6294CB998 /* FunNetworkKit+Codable.swift */; };
+		3475AD9385E3640237F680FCEF83202F /* FunLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C05B150BE3A80FF108871E5782C8EE /* FunLabel.swift */; };
+		375FC52353CF87076C849ADA810D0C6A /* Pods-FunBox_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD6674589BFDDF9607C2A196C09FE62 /* Pods-FunBox_Example-dummy.m */; };
+		381FF05F8B4F611EE9C2FDBE4457BB89 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72312136F76CCB5AC50BCDD37ED4A2 /* SessionDelegate.swift */; };
+		3C0283CA9A1A4C5483650D61945F0B62 /* FunNetworkKit+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9DB42B45525B7D818FC68A5A9B748B /* FunNetworkKit+Cache.swift */; };
+		40EB2E5CCF4B7D0D6F9B30506EF27F97 /* FunError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D695031682E579FFCC88B400605EC2F /* FunError.swift */; };
+		45B8CC1C61E7A0BB28CFA8CE7C12FEBC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0440F4381D065FED6264EFBCDB7960 /* MultipartFormData.swift */; };
+		4631DB94ECC1B490A9B71FC19BB5395F /* Readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 11B9AAED18CAC0F1EF8EF49F9856FB3B /* Readme.md */; };
+		47FDBBBD2704901588C3A7C56BBC502D /* ServerTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24B13480173106997D3F6538CDE3CD /* ServerTrustEvaluation.swift */; };
+		4AEC050FA7D5ED52FDA9DF50EA3560DF /* ParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26220434118FCFC30E4850800AC3068 /* ParameterEncoder.swift */; };
+		53839D15EA76EC01AAE4B39B692C33A8 /* FunDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EC51BA73202A690CE382005C68557B /* FunDatePicker.swift */; };
+		55C8B0CD32A5D67F90CEF1B517EDC62F /* FunAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1573187C6D34C1F3134AEF46B72C4C /* FunAlert.swift */; };
+		586718BB7F036311E10301A6EC092B69 /* FunPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BC592C7634D6D9E6D2B9471FFCE524 /* FunPan.swift */; };
+		5A420763D8752180276A370EB524E194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F401E181BEA002337E464DED414F440 /* Foundation.framework */; };
+		5D6EFF7B159DEB7AF7FC667E36E22DAB /* FunNetworking.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 681244E845B6BB4FBD0480FD896E82EE /* FunNetworking.bundle */; };
+		6546D728B69398F93B506845141EBD61 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC45C560942C5BCAB401419728808D3 /* EventMonitor.swift */; };
+		666EC5C8356E6D4448A2FE7BEE77AD88 /* RedirectHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB40D0E4136A2EBA646F9A9D0DA652 /* RedirectHandler.swift */; };
+		66B26C6CAE737EC21F4BA1F1851B69C5 /* Result+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673CB7AF23C7E1475678C8CCC286CF41 /* Result+Alamofire.swift */; };
+		692212DC2505E35B9F789783F60B4BB0 /* Pods-FunBox_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B4659BFB3949C018D796C643F98F4685 /* Pods-FunBox_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6AE407A4FB6C3D6ADD862CC6E3067A17 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591D5844289F02F52985F30FFDA6BB5 /* Session.swift */; };
+		6C08F6A77889651626583100F560153D /* RequestTaskMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B8687B00F57762F34D3282826817C5 /* RequestTaskMap.swift */; };
+		6E54F64E8DA73F4B0B46C216F9F93F63 /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1741D7ACD43E5D0E9DBE557F396581 /* RequestInterceptor.swift */; };
+		70AC6E3CCF68D56A49B9152370631932 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F401E181BEA002337E464DED414F440 /* Foundation.framework */; };
+		723C2F283615DA316259E807B58DC08D /* FunBox-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DDEB9AF407E16A09F9267B26D0BF5361 /* FunBox-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72EC2712926E6D28B52360D9AC41668F /* AlamofireExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43DFB0A067881554C0CF2E83093E1D6 /* AlamofireExtended.swift */; };
+		73909AC3A5D5D65D48043E289466CF00 /* Pods-FunBox_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC5D38FBD75B9A8D9383698D4EA9AA3 /* Pods-FunBox_Tests-dummy.m */; };
+		75D5A3DE84C53AADC32EEAA067FCE2D7 /* FunButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531802E5C4A43212E3EC8EBC9862B1D /* FunButton.swift */; };
+		7C67CFBA38F4403B1AC26CE371F921F4 /* FunDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899857F017B8A7A4292E432DCDD93749 /* FunDownloadManager.swift */; };
+		7D3DD4A8BB36733BA15868F7FB8C56CE /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 845043F6DD76EF451A61A8C4EEB3BF6C /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		897073D6F76F358D86E23D499A1BA21B /* Pods-FunBox_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 368DCF79C805A83FCC705ED5F7D38F49 /* Pods-FunBox_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8AA937910F87915DE700CAB6C868689E /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBC286A9BAE2611EFC71F7C9FB60B8 /* Notifications.swift */; };
+		8DADF48A93EEC04429321010A856B738 /* FunBox+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D14602A855BE982E53DD0A5C85938E /* FunBox+Extension.swift */; };
+		8EA4CE4A4BF9331B0B5125179AA0C476 /* FunToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600EE6F95EC16AEA2ADB90EF2D742EAC /* FunToast.swift */; };
+		909DF3132A9C0365D971E9919F938FEC /* FunTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35554694F5BD200B78EDC879DB41855 /* FunTool.swift */; };
+		911448B2EDA2FF880108F77642797A88 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7197951AB8559109A9F40B71A85C843E /* ResponseSerialization.swift */; };
+		91B837CE0DCD8EDB300FCDFFA1279162 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333DAB6EC98A071AAD9A29C41818F346 /* HTTPHeaders.swift */; };
+		9987198D927F77895BE8EB16A1DFFABB /* FunCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689F5D7E112387C8B9B01617EDB99E4 /* FunCache.swift */; };
+		9AA66FD80EA6BCAD9CA02A75D3B3D840 /* FunEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75586C65F57FF6F1AD9CAE07B95A32A /* FunEffect.swift */; };
+		9B1D8A7798D8A6F518FC9AF9725431D0 /* URLConvertible+URLRequestConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC350EEADBAF761D20138C94C4A0086 /* URLConvertible+URLRequestConvertible.swift */; };
+		9FED70D1E1FBFB80E974E999EF732258 /* RetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44EFF4AE1CC95C361F6A007EDBD6E7 /* RetryPolicy.swift */; };
+		A574EABB0AC43E6CB2B30D5E2618145D /* FunSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70AE508D4F075FA9B0D1F6CD6F186D4 /* FunSecurity.swift */; };
+		A6CD346A907E46CE2D3081094A73BE7B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F401E181BEA002337E464DED414F440 /* Foundation.framework */; };
+		A738C2A39C0150BBA7EA5EC19B95F03E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32BD7B93FEA70BDFD057550D07FA7961 /* CFNetwork.framework */; };
+		ABA85887A41495358C83CE3F3030EDEA /* CachedResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D233027C8491F55B2473FCDA12389 /* CachedResponseHandler.swift */; };
+		BC8AB081813BED50C399AD6EC6070864 /* Core.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E46654DD2F1D8185264CF59AA4B7559C /* Core.bundle */; };
+		C1C5B050B55C15103ABC81769551A283 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F2B77F50C8E86FDD27C5A573013C07 /* Response.swift */; };
+		C1F1DB6A9CBDE584D09BA1613AAD4F9D /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF4837C47DFB74B73C8B82A591E94C /* Alamofire.swift */; };
+		C38B52504156C8C02445A630A9260CBA /* FunLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800BACA21C5825CD688E13F9CE9B7FC6 /* FunLocation.swift */; };
+		C57949955ED92B36C1716D6DBE2FF95F /* FunBox-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EE5BDE4237009A8170F627518D0D3F /* FunBox-dummy.m */; };
+		C6D5A4B4028B2C43380C9FA58BD5C8CA /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DFC11D87B8E53578044EA373E7DE6642 /* Alamofire-dummy.m */; };
+		CCB7EFB48BBE854A9FDB18F1568C1AB1 /* FunRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DD88CEAC08D21B531CFE20F5C83F0 /* FunRouter.swift */; };
+		CEFE5671DEE87DDD94A77D6DAF595A07 /* UIView+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B5983F7A0A606DBD482868DF3954E5 /* UIView+Fun.swift */; };
+		D03F1F02DE8606E6057D57866611BEBF /* MultipartUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BB5063650D66E661FD979273F90078 /* MultipartUpload.swift */; };
+		D14066FAE94E304798E43651E5886D13 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998E57E5CB536D68D4A97BC1B56E62B8 /* ParameterEncoding.swift */; };
+		D31FC7FDD450C4CDD633ECBAD27C6221 /* URLEncodedFormEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F2B90B6F80D8F30747B3E178F5528F /* URLEncodedFormEncoder.swift */; };
+		D34A381162F560224E86035299012219 /* FunAuthorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC9CDEFE3E36A51EFF77BF0F0F40845 /* FunAuthorize.swift */; };
+		D5EAAFB6FAD77A8F0699345149BA3CBB /* URLRequest+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062C7841BFC1EEBD8A094A3CA60AEADA /* URLRequest+Alamofire.swift */; };
+		DC4713657F156433E9955721D9D449F4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0FF301302A2A77E95697F2B5692FA5E /* Alamofire.framework */; };
+		DC627AFC5B585686898B014184AFCABD /* AuthenticationInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DA36ADD8B0E94CE139C28448821E13 /* AuthenticationInterceptor.swift */; };
+		EDC93BD7B9262119AE145E4C7A9D0212 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B14ACFFB6A91762B582B46A3466A3F /* Request.swift */; };
+		F08654A5BAFFBC6FB78EDA8B09FAB65E /* UIViewController+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BF617A08CF038F820D03211CFEC116 /* UIViewController+Fun.swift */; };
+		F0F3224FF592F9BA2A044A2FC2BD4CCD /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20097F794E1A1791AB97EBE230264E61 /* Validation.swift */; };
+		F6B16DC8CADA07287C6A372AC8AD787C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F401E181BEA002337E464DED414F440 /* Foundation.framework */; };
+		F70EF854395CDE981A8336E4FF0310FE /* URLSessionConfiguration+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970C386BD824FE4AD000560950399556 /* URLSessionConfiguration+Alamofire.swift */; };
+		FE137FF5ECFBB88052623261CCEF7EFE /* FunNetworkKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C0227F844C4B4AFEDED312D1F7D4F5 /* FunNetworkKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		439642604586381958D70D7C8616EC66 /* PBXContainerItemProxy */ = {
+		58B9D2BD65A06874F741D6CD2D351AAF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1554CE95DCB7A71E8F4B31AEA9604B0;
+			remoteInfo = "FunBox-FunNetworking";
+		};
+		67D901C96512189D52DCE9296EEECB40 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5F97002BA674DC145AE0F5BBCC38DA2F;
 			remoteInfo = "Pods-FunBox_Example";
 		};
-		659489E7FDD0CBF2E73B28B826651D20 /* PBXContainerItemProxy */ = {
+		8234C2A8D19AB88B64E2357A8842BF23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEE610FC5BC17720D42C537A83441A77;
+			remoteInfo = "FunBox-Core";
+		};
+		E92824E7D1BC030E492C3DDFD97D6279 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+		F29E42C751016BF038EEA81113F37C4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
+			remoteInfo = Alamofire;
+		};
+		F37C10B73E15CA8701C74EB82431BBF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 767655ED07F4F225D5EC16AD7E58BAA2;
 			remoteInfo = FunBox;
 		};
-		E6BA1AC9FCCCF156CAC3C852431FA980 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 98A98149697C80CEF8D5772791E92E66;
-			remoteInfo = FBSnapshotTestCase;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0BE2DA622AAFD494A5B7F9254166FE1F /* Pods-FunBox_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FunBox_Example-frameworks.sh"; sourceTree = "<group>"; };
-		0F538C426803AE34255FC6E35B408CCA /* UIApplication+StrictKeyWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+StrictKeyWindow.m"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.m"; sourceTree = "<group>"; };
-		10B78A53AA323DA89C105DB803886739 /* FunBox-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FunBox-Info.plist"; sourceTree = "<group>"; };
-		1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
-		1EBB7480B9C18F07154215502BC6BAE0 /* Pods-FunBox_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		235A78CFFA6D8B8D86CACD733531CB13 /* UIImage+Compare.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compare.m"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.m"; sourceTree = "<group>"; };
-		277B6BE10C665F515606A22FD60C6DCC /* FBSnapshotTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCase.m; path = FBSnapshotTestCase/FBSnapshotTestCase.m; sourceTree = "<group>"; };
-		284833D18C244D2B42966B6EE425AA59 /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
-		3E1D64FAF58A521D45BD00DC24C5095D /* FunBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FunBox.debug.xcconfig; sourceTree = "<group>"; };
-		3F0D66CF296ABBC57EC4D0452397E235 /* SwiftSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftSupport.swift; path = FBSnapshotTestCase/SwiftSupport.swift; sourceTree = "<group>"; };
-		4237F002EB45E907EF947222ABA1AA5B /* Pods-FunBox_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
-		465C22F21829F1F6B20DFC286D59BB63 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
-		49A518882472B71400D647CD /* FunSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunSecurity.swift; path = FunBox/Classes/FunSecurity.swift; sourceTree = "<group>"; };
-		4A39D77F24695DF1002BD04D /* FunRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunRouter.swift; path = FunBox/Classes/FunRouter.swift; sourceTree = "<group>"; };
-		4A3EED9624653E170098C556 /* FunTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunTool.swift; path = FunBox/Classes/FunTool.swift; sourceTree = "<group>"; };
-		4A3EED9724653E170098C556 /* UIViewController+Fun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Fun.swift"; path = "FunBox/Classes/UIViewController+Fun.swift"; sourceTree = "<group>"; };
-		4A3EED9824653E170098C556 /* FunLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunLocation.swift; path = FunBox/Classes/FunLocation.swift; sourceTree = "<group>"; };
-		4A3EED9924653E170098C556 /* FunToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunToast.swift; path = FunBox/Classes/FunToast.swift; sourceTree = "<group>"; };
-		4A3EED9A24653E170098C556 /* FunEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunEffect.swift; path = FunBox/Classes/FunEffect.swift; sourceTree = "<group>"; };
-		4A3EED9B24653E170098C556 /* FunDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunDatePicker.swift; path = FunBox/Classes/FunDatePicker.swift; sourceTree = "<group>"; };
-		4A3EED9C24653E170098C556 /* FunAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunAlert.swift; path = FunBox/Classes/FunAlert.swift; sourceTree = "<group>"; };
-		4A3EED9D24653E170098C556 /* FunSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunSheet.swift; path = FunBox/Classes/FunSheet.swift; sourceTree = "<group>"; };
-		4A3EED9E24653E170098C556 /* FunBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunBox.swift; path = FunBox/Classes/FunBox.swift; sourceTree = "<group>"; };
-		4A3EED9F24653E170098C556 /* FunCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunCache.swift; path = FunBox/Classes/FunCache.swift; sourceTree = "<group>"; };
-		4A3EEDA024653E170098C556 /* FunError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunError.swift; path = FunBox/Classes/FunError.swift; sourceTree = "<group>"; };
-		4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FunBox+Extension.swift"; path = "FunBox/Classes/FunBox+Extension.swift"; sourceTree = "<group>"; };
-		4AFCB5D424F4D5BB00BBCAA5 /* FunPan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunPan.swift; path = FunBox/Classes/FunPan.swift; sourceTree = "<group>"; };
-		4AFCB5D524F4D5BB00BBCAA5 /* FunAuthorize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunAuthorize.swift; path = FunBox/Classes/FunAuthorize.swift; sourceTree = "<group>"; };
-		4AFCB5D624F4D5BB00BBCAA5 /* FunLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunLabel.swift; path = FunBox/Classes/FunLabel.swift; sourceTree = "<group>"; };
-		4AFCB5DA24F4D5D700BBCAA5 /* FunButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunButton.swift; path = FunBox/Classes/FunButton.swift; sourceTree = "<group>"; };
-		4AFCB5DE24F4D87300BBCAA5 /* UIView+Fun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Fun.swift"; path = "FunBox/Classes/UIView+Fun.swift"; sourceTree = "<group>"; };
-		4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.release.xcconfig; sourceTree = "<group>"; };
-		53DFD8869E0048AA8D42048C0BCE4E2B /* Pods-FunBox_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		5663752B583AE64C9FAEA708D4344A08 /* FunBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FunBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5688154A46C87D9541D5468026E74BD7 /* Pods-FunBox_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FunBox_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		5BAE180B66E7A9C93682F3CF9873C4C8 /* FunBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FunBox.release.xcconfig; sourceTree = "<group>"; };
-		5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D6E10898521525FB0BD47CC9B8FE309 /* Pods-FunBox_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Tests-Info.plist"; sourceTree = "<group>"; };
-		5E117CE5AA51A76EFD1CAC6FD475BA41 /* Pods-FunBox_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FunBox_Example-dummy.m"; sourceTree = "<group>"; };
-		5E601BD54DA9BF4071437E60125281FA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		5EA23469833B2288C9A33710B66549E3 /* Pods-FunBox_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FunBox_Example-umbrella.h"; sourceTree = "<group>"; };
-		656116C8FA5458F45D4707110C9530EC /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
-		668728C9556DC42AD9C7D2E4AF586B8E /* Pods-FunBox_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FunBox_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCasePlatform.m; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.m; sourceTree = "<group>"; };
-		716A9972B9D9103B54DB950893FAF104 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		73FEFFF6DEF567BFB7F59A53A0531453 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7E1B7EA746BF6557FD565BAE12AF9198 /* FBSnapshotTestController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestController.m; path = FBSnapshotTestCase/FBSnapshotTestController.m; sourceTree = "<group>"; };
-		88B1DEEBF6316A84D7413645212492FF /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
-		8B02EBC73117467FD7EDA8EA33D9EEE5 /* Pods-FunBox_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Example-Info.plist"; sourceTree = "<group>"; };
-		8CAA89EEF1039078430D7A886477E365 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		8E5923010B02074CAA9AAF6EA02D66AA /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
-		904460A06B7CDA88BA76C7C475347CB1 /* Pods-FunBox_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		9468E867498BBAF36F9AFFE4845F8B09 /* FBSnapshotTestCase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.debug.xcconfig; sourceTree = "<group>"; };
-		96187BF3038121CC146335E9FF0B0AFF /* UIImage+Diff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Diff.h"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.h"; sourceTree = "<group>"; };
-		99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A00176FF872717C49892C4C11F1D6BB5 /* Pods_FunBox_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunBox_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A139D29658F0367BC8D6ED27277313B4 /* Pods-FunBox_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FunBox_Tests-dummy.m"; sourceTree = "<group>"; };
-		A8D154CA65C207D8F63AB6FBCB790C5D /* Pods-FunBox_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FunBox_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A9A890591C7536B9603BB8F190B34ECB /* Pods-FunBox_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FunBox_Tests-umbrella.h"; sourceTree = "<group>"; };
-		AE9FF9459FBCDC4AF88FB6B5A4CC1439 /* FBSnapshotTestController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestController.h; path = FBSnapshotTestCase/FBSnapshotTestController.h; sourceTree = "<group>"; };
-		B5E19083338BCD3F02CC40D5D0A774B5 /* Pods-FunBox_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-FunBox_Example.modulemap"; sourceTree = "<group>"; };
-		B7103CA00AED20722C5B69CA5B4F6938 /* FBSnapshotTestCase-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FBSnapshotTestCase-Info.plist"; sourceTree = "<group>"; };
-		B774AEFF749A279B549002B1AF8AB0F4 /* FunBox.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FunBox.modulemap; sourceTree = "<group>"; };
-		B82A47A428EBB2ED06FEDDB17EBF03DC /* Pods_FunBox_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunBox_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C338CD6150B92951063FED12D7926B14 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		CBFF6C5FD9C3A84274A9314D3E940B6E /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
-		D08CEBB9BDD9EF7A662ECFC0305C169E /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
-		D19B64BFEAC9DA248620576419368AEA /* FunBox-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FunBox-dummy.m"; sourceTree = "<group>"; };
-		D1B30D736A7F8D3C40E4B406EB7868A1 /* FunBox.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = FunBox.podspec; sourceTree = "<group>"; tabWidth = 2; };
-		D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Snapshot.m"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.m"; sourceTree = "<group>"; };
-		E4E3C417C4DC524173FA1CA02FEB46E3 /* FunBox-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FunBox-umbrella.h"; sourceTree = "<group>"; };
-		EA0B3D8DB55AB355989495F7F7DC12DF /* Pods-FunBox_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		EA99451B0DA3DC69CE51CCEE2744597F /* Pods-FunBox_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-FunBox_Tests.modulemap"; sourceTree = "<group>"; };
-		F6F7719C290E1C717AC96915EEF6F2F5 /* FunBox-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FunBox-prefix.pch"; sourceTree = "<group>"; };
-		FEE661E58CA6655B39AA49AA4C021C33 /* FBSnapshotTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCase.h; path = FBSnapshotTestCase/FBSnapshotTestCase.h; sourceTree = "<group>"; };
+		02C0227F844C4B4AFEDED312D1F7D4F5 /* FunNetworkKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunNetworkKit.swift; path = FunBox/Modules/Networking/Code/FunNetworkKit.swift; sourceTree = "<group>"; };
+		062C7841BFC1EEBD8A094A3CA60AEADA /* URLRequest+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLRequest+Alamofire.swift"; path = "Source/URLRequest+Alamofire.swift"; sourceTree = "<group>"; };
+		08BC592C7634D6D9E6D2B9471FFCE524 /* FunPan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunPan.swift; sourceTree = "<group>"; };
+		08D14602A855BE982E53DD0A5C85938E /* FunBox+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "FunBox+Extension.swift"; sourceTree = "<group>"; };
+		0AC5D38FBD75B9A8D9383698D4EA9AA3 /* Pods-FunBox_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FunBox_Tests-dummy.m"; sourceTree = "<group>"; };
+		0CD6674589BFDDF9607C2A196C09FE62 /* Pods-FunBox_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FunBox_Example-dummy.m"; sourceTree = "<group>"; };
+		0E0440F4381D065FED6264EFBCDB7960 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
+		0EC45C560942C5BCAB401419728808D3 /* EventMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Source/EventMonitor.swift; sourceTree = "<group>"; };
+		11B9AAED18CAC0F1EF8EF49F9856FB3B /* Readme.md */ = {isa = PBXFileReference; includeInIndex = 1; name = Readme.md; path = FunBox/Modules/Main/Readme.md; sourceTree = "<group>"; };
+		20097F794E1A1791AB97EBE230264E61 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
+		2864320E797320AADEAC16F17B82F214 /* FunBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FunBox.debug.xcconfig; sourceTree = "<group>"; };
+		29EBC286A9BAE2611EFC71F7C9FB60B8 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
+		2B0F05A3DBDE8E8AD6A8511F035D63D3 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		2E00D7F9A41DB2287C2E32F726DF9323 /* Pods-FunBox_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		2F9DB42B45525B7D818FC68A5A9B748B /* FunNetworkKit+Cache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FunNetworkKit+Cache.swift"; path = "FunBox/Modules/Networking/Code/FunNetworkKit+Cache.swift"; sourceTree = "<group>"; };
+		3256B606DDD0873CB03C0511A227A786 /* Pods-FunBox_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Tests-Info.plist"; sourceTree = "<group>"; };
+		32BD7B93FEA70BDFD057550D07FA7961 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		333DAB6EC98A071AAD9A29C41818F346 /* HTTPHeaders.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPHeaders.swift; path = Source/HTTPHeaders.swift; sourceTree = "<group>"; };
+		349B2325F6647FEE3C9209201FF5D4C2 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
+		349EA46A0CB476B40B908AAA2437F2E2 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
+		368DCF79C805A83FCC705ED5F7D38F49 /* Pods-FunBox_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FunBox_Tests-umbrella.h"; sourceTree = "<group>"; };
+		3B6DD88CEAC08D21B531CFE20F5C83F0 /* FunRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunRouter.swift; sourceTree = "<group>"; };
+		3B8153D7ABA560B84105C91CDA9FA904 /* ResourceBundle-Core-FunBox-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Core-FunBox-Info.plist"; sourceTree = "<group>"; };
+		3F401E181BEA002337E464DED414F440 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		401A0C3C3516540407583753D10DEB2B /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		4388F96485F322CF010F9CA6AF089C46 /* HTTPMethod.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HTTPMethod.swift; path = Source/HTTPMethod.swift; sourceTree = "<group>"; };
+		4591D5844289F02F52985F30FFDA6BB5 /* Session.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Source/Session.swift; sourceTree = "<group>"; };
+		4A51D931D0AF17B859CD591948D7CA03 /* Pods-FunBox_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		4A6F3FE8FE0310B27636C6466011A359 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		4ABD9F54297FF27309F1F8A34F99417C /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		4D3E0E1E34DD4394C6023B622C262222 /* Alamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.debug.xcconfig; sourceTree = "<group>"; };
+		51BB5063650D66E661FD979273F90078 /* MultipartUpload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartUpload.swift; path = Source/MultipartUpload.swift; sourceTree = "<group>"; };
+		51D45A2AF061C99B2355F19EC47243D9 /* Protected.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Source/Protected.swift; sourceTree = "<group>"; };
+		5663752B583AE64C9FAEA708D4344A08 /* FunBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FunBox.framework; path = FunBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58C05B150BE3A80FF108871E5782C8EE /* FunLabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunLabel.swift; sourceTree = "<group>"; };
+		5A51515830AB9FE94E01DF6F48146153 /* StringEncoding+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "StringEncoding+Alamofire.swift"; path = "Source/StringEncoding+Alamofire.swift"; sourceTree = "<group>"; };
+		5BEF4837C47DFB74B73C8B82A591E94C /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		5D695031682E579FFCC88B400605EC2F /* FunError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunError.swift; sourceTree = "<group>"; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		600EE6F95EC16AEA2ADB90EF2D742EAC /* FunToast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunToast.swift; sourceTree = "<group>"; };
+		6046FDBC4DA83DC6774D98B0743BF29F /* Pods-FunBox_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FunBox_Example-frameworks.sh"; sourceTree = "<group>"; };
+		61F2B90B6F80D8F30747B3E178F5528F /* URLEncodedFormEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = URLEncodedFormEncoder.swift; path = Source/URLEncodedFormEncoder.swift; sourceTree = "<group>"; };
+		6531802E5C4A43212E3EC8EBC9862B1D /* FunButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunButton.swift; sourceTree = "<group>"; };
+		673CB7AF23C7E1475678C8CCC286CF41 /* Result+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Result+Alamofire.swift"; path = "Source/Result+Alamofire.swift"; sourceTree = "<group>"; };
+		681244E845B6BB4FBD0480FD896E82EE /* FunNetworking.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = FunNetworking.bundle; path = "FunBox-FunNetworking.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A2316AC11F5875DBEDAD94A10DA6989 /* Pods-FunBox_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		6B7934058D75ABE61B855A67905A673B /* FunBox-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "FunBox-Info.plist"; sourceTree = "<group>"; };
+		7197951AB8559109A9F40B71A85C843E /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		72B5983F7A0A606DBD482868DF3954E5 /* UIView+Fun.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Fun.swift"; sourceTree = "<group>"; };
+		7689F5D7E112387C8B9B01617EDB99E4 /* FunCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunCache.swift; sourceTree = "<group>"; };
+		76EE5BDE4237009A8170F627518D0D3F /* FunBox-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FunBox-dummy.m"; sourceTree = "<group>"; };
+		771B92ECE4F5FF4B540B974B9F2633BD /* Pods-FunBox_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FunBox_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		79BFAE4F0928F95479DE70C637654FC5 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		79EB40D0E4136A2EBA646F9A9D0DA652 /* RedirectHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RedirectHandler.swift; path = Source/RedirectHandler.swift; sourceTree = "<group>"; };
+		7CC9CDEFE3E36A51EFF77BF0F0F40845 /* FunAuthorize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunAuthorize.swift; sourceTree = "<group>"; };
+		800BACA21C5825CD688E13F9CE9B7FC6 /* FunLocation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunLocation.swift; sourceTree = "<group>"; };
+		845043F6DD76EF451A61A8C4EEB3BF6C /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		84B14ACFFB6A91762B582B46A3466A3F /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		876F4F5D5DA538F51C4D4F27C9F64377 /* OperationQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "OperationQueue+Alamofire.swift"; path = "Source/OperationQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		899857F017B8A7A4292E432DCDD93749 /* FunDownloadManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunDownloadManager.swift; path = FunBox/Modules/Networking/Code/FunDownloadManager.swift; sourceTree = "<group>"; };
+		9052838E7D77F9344FC211D838903341 /* Pods-FunBox_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Example-Info.plist"; sourceTree = "<group>"; };
+		91FC0883F225089FADD5400D9DC52B41 /* FunBox.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = FunBox.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93C8CB56B3B70C4CA01D135D308BA5AC /* FunBox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunBox.swift; path = FunBox/Core/Code/FunBox.swift; sourceTree = "<group>"; };
+		944CAB8A5DB5D21C068CDA7B047E37EC /* FunSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunSheet.swift; sourceTree = "<group>"; };
+		970C386BD824FE4AD000560950399556 /* URLSessionConfiguration+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLSessionConfiguration+Alamofire.swift"; path = "Source/URLSessionConfiguration+Alamofire.swift"; sourceTree = "<group>"; };
+		998E57E5CB536D68D4A97BC1B56E62B8 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		9C1741D7ACD43E5D0E9DBE557F396581 /* RequestInterceptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RequestInterceptor.swift; path = Source/RequestInterceptor.swift; sourceTree = "<group>"; };
+		9C44EFF4AE1CC95C361F6A007EDBD6E7 /* RetryPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RetryPolicy.swift; path = Source/RetryPolicy.swift; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A00176FF872717C49892C4C11F1D6BB5 /* Pods_FunBox_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FunBox_Tests.framework; path = "Pods-FunBox_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4153404C4C0A47E701390CEDAB4A093 /* Alamofire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.release.xcconfig; sourceTree = "<group>"; };
+		A52C1C4354EC5A1F44DF0882F5B40512 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		A6F2B77F50C8E86FDD27C5A573013C07 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
+		A93A9D03676EA330EDAAC0D63735FB80 /* Pods-FunBox_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FunBox_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		AF83154F90453279F65156B6294CB998 /* FunNetworkKit+Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FunNetworkKit+Codable.swift"; path = "FunBox/Modules/Networking/Code/FunNetworkKit+Codable.swift"; sourceTree = "<group>"; };
+		B0EBFC4256A48F45E26B860D38479E52 /* Combine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Combine.swift; path = Source/Combine.swift; sourceTree = "<group>"; };
+		B35554694F5BD200B78EDC879DB41855 /* FunTool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunTool.swift; sourceTree = "<group>"; };
+		B4659BFB3949C018D796C643F98F4685 /* Pods-FunBox_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FunBox_Example-umbrella.h"; sourceTree = "<group>"; };
+		B4B8687B00F57762F34D3282826817C5 /* RequestTaskMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RequestTaskMap.swift; path = Source/RequestTaskMap.swift; sourceTree = "<group>"; };
+		B5DA36ADD8B0E94CE139C28448821E13 /* AuthenticationInterceptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthenticationInterceptor.swift; path = Source/AuthenticationInterceptor.swift; sourceTree = "<group>"; };
+		B70AE508D4F075FA9B0D1F6CD6F186D4 /* FunSecurity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunSecurity.swift; sourceTree = "<group>"; };
+		B82A47A428EBB2ED06FEDDB17EBF03DC /* Pods_FunBox_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FunBox_Example.framework; path = "Pods-FunBox_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCC350EEADBAF761D20138C94C4A0086 /* URLConvertible+URLRequestConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLConvertible+URLRequestConvertible.swift"; path = "Source/URLConvertible+URLRequestConvertible.swift"; sourceTree = "<group>"; };
+		C8173D62CA92676DA74873B05B3EBFD9 /* Pods-FunBox_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-FunBox_Tests.modulemap"; sourceTree = "<group>"; };
+		C91448DB5E5ABDA7259B08AE218E12B2 /* Pods-FunBox_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		C9EC51BA73202A690CE382005C68557B /* FunDatePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunDatePicker.swift; sourceTree = "<group>"; };
+		CE62EF82FFC0DE6C4C2FF4DB1D5C74C7 /* Pods-FunBox_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FunBox_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		D0FF301302A2A77E95697F2B5692FA5E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D26220434118FCFC30E4850800AC3068 /* ParameterEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoder.swift; path = Source/ParameterEncoder.swift; sourceTree = "<group>"; };
+		D75586C65F57FF6F1AD9CAE07B95A32A /* FunEffect.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunEffect.swift; sourceTree = "<group>"; };
+		DA4D233027C8491F55B2473FCDA12389 /* CachedResponseHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedResponseHandler.swift; path = Source/CachedResponseHandler.swift; sourceTree = "<group>"; };
+		DBFC2367F63612947858C078D62020A5 /* FunBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FunBox.release.xcconfig; sourceTree = "<group>"; };
+		DDEB9AF407E16A09F9267B26D0BF5361 /* FunBox-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FunBox-umbrella.h"; sourceTree = "<group>"; };
+		DFC11D87B8E53578044EA373E7DE6642 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
+		E37F769E7674D441A4E5008DABA95F6F /* Pods-FunBox_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-FunBox_Example.modulemap"; sourceTree = "<group>"; };
+		E46654DD2F1D8185264CF59AA4B7559C /* Core.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Core.bundle; path = "FunBox-Core.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6BF617A08CF038F820D03211CFEC116 /* UIViewController+Fun.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIViewController+Fun.swift"; sourceTree = "<group>"; };
+		EF1573187C6D34C1F3134AEF46B72C4C /* FunAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunAlert.swift; sourceTree = "<group>"; };
+		F3D02EE703205D327BBB23BD46DB1802 /* ResourceBundle-FunNetworking-FunBox-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-FunNetworking-FunBox-Info.plist"; sourceTree = "<group>"; };
+		F43DFB0A067881554C0CF2E83093E1D6 /* AlamofireExtended.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlamofireExtended.swift; path = Source/AlamofireExtended.swift; sourceTree = "<group>"; };
+		F4987698147EB745987D3BF631DC0D88 /* FunBox-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FunBox-prefix.pch"; sourceTree = "<group>"; };
+		F71BBCEF1586B8C48F6C090283FD70AA /* Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Alamofire-Info.plist"; sourceTree = "<group>"; };
+		F7A5EC98C5FE72F7D2D757B0BB6D37EE /* FunBox.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FunBox.modulemap; sourceTree = "<group>"; };
+		FA24B13480173106997D3F6538CDE3CD /* ServerTrustEvaluation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustEvaluation.swift; path = Source/ServerTrustEvaluation.swift; sourceTree = "<group>"; };
+		FF72312136F76CCB5AC50BCDD37ED4A2 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3DAB0421B2C34E052267C9E53ADF625E /* Frameworks */ = {
+		0B5EB6A2752E59D8B27F7DB73C118898 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89C03AED5B7CB2592B4D827330296696 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3F36EB2735677DD3E86B5E87AF6D01E8 /* Frameworks */ = {
+		24333CCC6AA135A9FFC9623A7A41269D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFEBF55A3C77F66F00F8967B4A061694 /* Foundation.framework in Frameworks */,
+				DC4713657F156433E9955721D9D449F4 /* Alamofire.framework in Frameworks */,
+				A6CD346A907E46CE2D3081094A73BE7B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C05AAE41ED827E43336251E717C26E7D /* Frameworks */ = {
+		9590D3FE7A79CD7CBEE3F346E8C19D4D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D020BE58F582D1552D1A660D4D7537A /* Foundation.framework in Frameworks */,
+				A738C2A39C0150BBA7EA5EC19B95F03E /* CFNetwork.framework in Frameworks */,
+				F6B16DC8CADA07287C6A372AC8AD787C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E581515110D66F94F80A6937831489A1 /* Frameworks */ = {
+		A8AD0E62E80FE726E748399706A92FC0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B25D795BDC4F426BC01EFC911F368B81 /* Foundation.framework in Frameworks */,
-				14C511527597E5846AB2627F791C7D8E /* QuartzCore.framework in Frameworks */,
-				E0B8D095C732352C854D365B9E5B993D /* UIKit.framework in Frameworks */,
-				6AE239C5D116E1C06F5705699FB9EAF0 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B46AF7A3C5329B7F642A91EBD5ED62CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A420763D8752180276A370EB524E194 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1554AECAEFA16BF10DFBF48472807B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70AC6E3CCF68D56A49B9152370631932 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0CD430FA4F3F070876AC8A15FBDD9243 /* Support Files */ = {
+		0A7ECDB35EE2D71CCBB9EC935A41F0BD /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				B774AEFF749A279B549002B1AF8AB0F4 /* FunBox.modulemap */,
-				D19B64BFEAC9DA248620576419368AEA /* FunBox-dummy.m */,
-				10B78A53AA323DA89C105DB803886739 /* FunBox-Info.plist */,
-				F6F7719C290E1C717AC96915EEF6F2F5 /* FunBox-prefix.pch */,
-				E4E3C417C4DC524173FA1CA02FEB46E3 /* FunBox-umbrella.h */,
-				3E1D64FAF58A521D45BD00DC24C5095D /* FunBox.debug.xcconfig */,
-				5BAE180B66E7A9C93682F3CF9873C4C8 /* FunBox.release.xcconfig */,
+				5D695031682E579FFCC88B400605EC2F /* FunError.swift */,
+			);
+			name = Other;
+			path = FunBox/Core/Code/Other;
+			sourceTree = "<group>";
+		};
+		20F612F0849D1654C139A8EC0FF8F6F6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F7A5EC98C5FE72F7D2D757B0BB6D37EE /* FunBox.modulemap */,
+				76EE5BDE4237009A8170F627518D0D3F /* FunBox-dummy.m */,
+				6B7934058D75ABE61B855A67905A673B /* FunBox-Info.plist */,
+				F4987698147EB745987D3BF631DC0D88 /* FunBox-prefix.pch */,
+				DDEB9AF407E16A09F9267B26D0BF5361 /* FunBox-umbrella.h */,
+				2864320E797320AADEAC16F17B82F214 /* FunBox.debug.xcconfig */,
+				DBFC2367F63612947858C078D62020A5 /* FunBox.release.xcconfig */,
+				3B8153D7ABA560B84105C91CDA9FA904 /* ResourceBundle-Core-FunBox-Info.plist */,
+				F3D02EE703205D327BBB23BD46DB1802 /* ResourceBundle-FunNetworking-FunBox-Info.plist */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/FunBox";
 			sourceTree = "<group>";
 		};
-		209E9F171398158D261DB751CFD025E1 /* Pod */ = {
+		2AF209935C73CFB4E045101882A834A3 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D1B30D736A7F8D3C40E4B406EB7868A1 /* FunBox.podspec */,
-				73FEFFF6DEF567BFB7F59A53A0531453 /* LICENSE */,
-				C338CD6150B92951063FED12D7926B14 /* README.md */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		4BA2479549DD918290454B1CDCD0B92B /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				FEE661E58CA6655B39AA49AA4C021C33 /* FBSnapshotTestCase.h */,
-				277B6BE10C665F515606A22FD60C6DCC /* FBSnapshotTestCase.m */,
-				88B1DEEBF6316A84D7413645212492FF /* FBSnapshotTestCasePlatform.h */,
-				6ABB3EB3CCC5BCA82F40FE8DC87BB778 /* FBSnapshotTestCasePlatform.m */,
-				AE9FF9459FBCDC4AF88FB6B5A4CC1439 /* FBSnapshotTestController.h */,
-				7E1B7EA746BF6557FD565BAE12AF9198 /* FBSnapshotTestController.m */,
-				99A67367E018411D614EC8536A8A1C5B /* UIApplication+StrictKeyWindow.h */,
-				0F538C426803AE34255FC6E35B408CCA /* UIApplication+StrictKeyWindow.m */,
-				656116C8FA5458F45D4707110C9530EC /* UIImage+Compare.h */,
-				235A78CFFA6D8B8D86CACD733531CB13 /* UIImage+Compare.m */,
-				96187BF3038121CC146335E9FF0B0AFF /* UIImage+Diff.h */,
-				4568279DE47DC3AB91598E1317503995 /* UIImage+Diff.m */,
-				284833D18C244D2B42966B6EE425AA59 /* UIImage+Snapshot.h */,
-				D872A3EE224412D4057C234FBC629F9C /* UIImage+Snapshot.m */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		4F5C32BF47C7E54B5B4EEFA6C86F668F /* Pods-FunBox_Tests */ = {
-			isa = PBXGroup;
-			children = (
-				EA99451B0DA3DC69CE51CCEE2744597F /* Pods-FunBox_Tests.modulemap */,
-				5688154A46C87D9541D5468026E74BD7 /* Pods-FunBox_Tests-acknowledgements.markdown */,
-				53DFD8869E0048AA8D42048C0BCE4E2B /* Pods-FunBox_Tests-acknowledgements.plist */,
-				A139D29658F0367BC8D6ED27277313B4 /* Pods-FunBox_Tests-dummy.m */,
-				668728C9556DC42AD9C7D2E4AF586B8E /* Pods-FunBox_Tests-frameworks.sh */,
-				5D6E10898521525FB0BD47CC9B8FE309 /* Pods-FunBox_Tests-Info.plist */,
-				A9A890591C7536B9603BB8F190B34ECB /* Pods-FunBox_Tests-umbrella.h */,
-				4237F002EB45E907EF947222ABA1AA5B /* Pods-FunBox_Tests.debug.xcconfig */,
-				1EBB7480B9C18F07154215502BC6BAE0 /* Pods-FunBox_Tests.release.xcconfig */,
-			);
-			name = "Pods-FunBox_Tests";
-			path = "Target Support Files/Pods-FunBox_Tests";
-			sourceTree = "<group>";
-		};
-		58A5C52B16884CA8C881C19D248EED59 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				67A2894230CD28DF257115AEE3FE81B9 /* Pods-FunBox_Example */,
-				4F5C32BF47C7E54B5B4EEFA6C86F668F /* Pods-FunBox_Tests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		648DAF779AA6A8A440EE5B45C77AA892 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9E7A9846657527C2F8E71A6E855B4DFE /* FunBox */,
+				77669FBAA70D27CA096FD1C0177E3D10 /* FunBox */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		67A2894230CD28DF257115AEE3FE81B9 /* Pods-FunBox_Example */ = {
+		2F05014673D9B8EF9756FFF171C19770 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B5E19083338BCD3F02CC40D5D0A774B5 /* Pods-FunBox_Example.modulemap */,
-				A8D154CA65C207D8F63AB6FBCB790C5D /* Pods-FunBox_Example-acknowledgements.markdown */,
-				EA0B3D8DB55AB355989495F7F7DC12DF /* Pods-FunBox_Example-acknowledgements.plist */,
-				5E117CE5AA51A76EFD1CAC6FD475BA41 /* Pods-FunBox_Example-dummy.m */,
-				0BE2DA622AAFD494A5B7F9254166FE1F /* Pods-FunBox_Example-frameworks.sh */,
-				8B02EBC73117467FD7EDA8EA33D9EEE5 /* Pods-FunBox_Example-Info.plist */,
-				5EA23469833B2288C9A33710B66549E3 /* Pods-FunBox_Example-umbrella.h */,
-				904460A06B7CDA88BA76C7C475347CB1 /* Pods-FunBox_Example.debug.xcconfig */,
-				465C22F21829F1F6B20DFC286D59BB63 /* Pods-FunBox_Example.release.xcconfig */,
-			);
-			name = "Pods-FunBox_Example";
-			path = "Target Support Files/Pods-FunBox_Example";
-			sourceTree = "<group>";
-		};
-		7DE5752EED0A4C4A430975244947611A /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				7BD4ED544B638D07C7D755AF1C27116A /* Foundation.framework */,
-				716A9972B9D9103B54DB950893FAF104 /* QuartzCore.framework */,
-				8CAA89EEF1039078430D7A886477E365 /* UIKit.framework */,
-				5E601BD54DA9BF4071437E60125281FA /* XCTest.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		906402ECC4C6C5EB58DD365FD2C64E92 /* SwiftSupport */ = {
-			isa = PBXGroup;
-			children = (
-				3F0D66CF296ABBC57EC4D0452397E235 /* SwiftSupport.swift */,
-			);
-			name = SwiftSupport;
-			sourceTree = "<group>";
-		};
-		9E7A9846657527C2F8E71A6E855B4DFE /* FunBox */ = {
-			isa = PBXGroup;
-			children = (
-				4AFCB5D524F4D5BB00BBCAA5 /* FunAuthorize.swift */,
-				4AFCB5D624F4D5BB00BBCAA5 /* FunLabel.swift */,
-				4AFCB5DA24F4D5D700BBCAA5 /* FunButton.swift */,
-				4AFCB5D424F4D5BB00BBCAA5 /* FunPan.swift */,
-				4A3EED9C24653E170098C556 /* FunAlert.swift */,
-				4A3EED9F24653E170098C556 /* FunCache.swift */,
-				4A3EED9B24653E170098C556 /* FunDatePicker.swift */,
-				4A3EED9A24653E170098C556 /* FunEffect.swift */,
-				4A3EEDA024653E170098C556 /* FunError.swift */,
-				4A3EED9E24653E170098C556 /* FunBox.swift */,
-				4A3EED9824653E170098C556 /* FunLocation.swift */,
-				4A3EED9D24653E170098C556 /* FunSheet.swift */,
-				4A3EED9924653E170098C556 /* FunToast.swift */,
-				4A3EED9624653E170098C556 /* FunTool.swift */,
-				49A518882472B71400D647CD /* FunSecurity.swift */,
-				4A39D77F24695DF1002BD04D /* FunRouter.swift */,
-				4A3EED9724653E170098C556 /* UIViewController+Fun.swift */,
-				4A50659B246B912F000E9CA3 /* FunBox+Extension.swift */,
-				4AFCB5DE24F4D87300BBCAA5 /* UIView+Fun.swift */,
-				209E9F171398158D261DB751CFD025E1 /* Pod */,
-				0CD430FA4F3F070876AC8A15FBDD9243 /* Support Files */,
-			);
-			name = FunBox;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		B69B2ECE2D2C9A3924A9231138CE0BBC /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				CBFF6C5FD9C3A84274A9314D3E940B6E /* FBSnapshotTestCase.modulemap */,
-				1ADA6E655DC84D06359BD0ED5E36C783 /* FBSnapshotTestCase-dummy.m */,
-				B7103CA00AED20722C5B69CA5B4F6938 /* FBSnapshotTestCase-Info.plist */,
-				D08CEBB9BDD9EF7A662ECFC0305C169E /* FBSnapshotTestCase-prefix.pch */,
-				8E5923010B02074CAA9AAF6EA02D66AA /* FBSnapshotTestCase-umbrella.h */,
-				9468E867498BBAF36F9AFFE4845F8B09 /* FBSnapshotTestCase.debug.xcconfig */,
-				4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/FBSnapshotTestCase";
-			sourceTree = "<group>";
-		};
-		BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7DE5752EED0A4C4A430975244947611A /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BD2D60DE56CBB8C87BA07E0C1CCD0592 /* FBSnapshotTestCase */ = {
-			isa = PBXGroup;
-			children = (
-				4BA2479549DD918290454B1CDCD0B92B /* Core */,
-				B69B2ECE2D2C9A3924A9231138CE0BBC /* Support Files */,
-				906402ECC4C6C5EB58DD365FD2C64E92 /* SwiftSupport */,
-			);
-			path = FBSnapshotTestCase;
-			sourceTree = "<group>";
-		};
-		C4CAF0AFE0E9292F1BFC19D1F05A86B5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase.framework */,
+				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */,
+				E46654DD2F1D8185264CF59AA4B7559C /* Core.bundle */,
 				5663752B583AE64C9FAEA708D4344A08 /* FunBox.framework */,
+				681244E845B6BB4FBD0480FD896E82EE /* FunNetworking.bundle */,
 				B82A47A428EBB2ED06FEDDB17EBF03DC /* Pods_FunBox_Example.framework */,
 				A00176FF872717C49892C4C11F1D6BB5 /* Pods_FunBox_Tests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4BF62439A2FE1F58E9E704216CF2CE03 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				32BD7B93FEA70BDFD057550D07FA7961 /* CFNetwork.framework */,
+				3F401E181BEA002337E464DED414F440 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		5A6F22EC0F5633257B85B6E660A2165F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				79BFAE4F0928F95479DE70C637654FC5 /* Alamofire.modulemap */,
+				DFC11D87B8E53578044EA373E7DE6642 /* Alamofire-dummy.m */,
+				F71BBCEF1586B8C48F6C090283FD70AA /* Alamofire-Info.plist */,
+				2B0F05A3DBDE8E8AD6A8511F035D63D3 /* Alamofire-prefix.pch */,
+				845043F6DD76EF451A61A8C4EEB3BF6C /* Alamofire-umbrella.h */,
+				4D3E0E1E34DD4394C6023B622C262222 /* Alamofire.debug.xcconfig */,
+				A4153404C4C0A47E701390CEDAB4A093 /* Alamofire.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Alamofire";
+			sourceTree = "<group>";
+		};
+		62C3D2D98A9E0374A840C7C045DA5107 /* Pods-FunBox_Example */ = {
+			isa = PBXGroup;
+			children = (
+				E37F769E7674D441A4E5008DABA95F6F /* Pods-FunBox_Example.modulemap */,
+				771B92ECE4F5FF4B540B974B9F2633BD /* Pods-FunBox_Example-acknowledgements.markdown */,
+				4A51D931D0AF17B859CD591948D7CA03 /* Pods-FunBox_Example-acknowledgements.plist */,
+				0CD6674589BFDDF9607C2A196C09FE62 /* Pods-FunBox_Example-dummy.m */,
+				6046FDBC4DA83DC6774D98B0743BF29F /* Pods-FunBox_Example-frameworks.sh */,
+				9052838E7D77F9344FC211D838903341 /* Pods-FunBox_Example-Info.plist */,
+				B4659BFB3949C018D796C643F98F4685 /* Pods-FunBox_Example-umbrella.h */,
+				2E00D7F9A41DB2287C2E32F726DF9323 /* Pods-FunBox_Example.debug.xcconfig */,
+				349EA46A0CB476B40B908AAA2437F2E2 /* Pods-FunBox_Example.release.xcconfig */,
+			);
+			name = "Pods-FunBox_Example";
+			path = "Target Support Files/Pods-FunBox_Example";
+			sourceTree = "<group>";
+		};
+		6FF97FACCA57A9A7BC9912B94BE14E47 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				349B2325F6647FEE3C9209201FF5D4C2 /* AFError.swift */,
+				5BEF4837C47DFB74B73C8B82A591E94C /* Alamofire.swift */,
+				F43DFB0A067881554C0CF2E83093E1D6 /* AlamofireExtended.swift */,
+				B5DA36ADD8B0E94CE139C28448821E13 /* AuthenticationInterceptor.swift */,
+				DA4D233027C8491F55B2473FCDA12389 /* CachedResponseHandler.swift */,
+				B0EBFC4256A48F45E26B860D38479E52 /* Combine.swift */,
+				4ABD9F54297FF27309F1F8A34F99417C /* DispatchQueue+Alamofire.swift */,
+				0EC45C560942C5BCAB401419728808D3 /* EventMonitor.swift */,
+				333DAB6EC98A071AAD9A29C41818F346 /* HTTPHeaders.swift */,
+				4388F96485F322CF010F9CA6AF089C46 /* HTTPMethod.swift */,
+				0E0440F4381D065FED6264EFBCDB7960 /* MultipartFormData.swift */,
+				51BB5063650D66E661FD979273F90078 /* MultipartUpload.swift */,
+				401A0C3C3516540407583753D10DEB2B /* NetworkReachabilityManager.swift */,
+				29EBC286A9BAE2611EFC71F7C9FB60B8 /* Notifications.swift */,
+				876F4F5D5DA538F51C4D4F27C9F64377 /* OperationQueue+Alamofire.swift */,
+				D26220434118FCFC30E4850800AC3068 /* ParameterEncoder.swift */,
+				998E57E5CB536D68D4A97BC1B56E62B8 /* ParameterEncoding.swift */,
+				51D45A2AF061C99B2355F19EC47243D9 /* Protected.swift */,
+				79EB40D0E4136A2EBA646F9A9D0DA652 /* RedirectHandler.swift */,
+				84B14ACFFB6A91762B582B46A3466A3F /* Request.swift */,
+				9C1741D7ACD43E5D0E9DBE557F396581 /* RequestInterceptor.swift */,
+				B4B8687B00F57762F34D3282826817C5 /* RequestTaskMap.swift */,
+				A6F2B77F50C8E86FDD27C5A573013C07 /* Response.swift */,
+				7197951AB8559109A9F40B71A85C843E /* ResponseSerialization.swift */,
+				673CB7AF23C7E1475678C8CCC286CF41 /* Result+Alamofire.swift */,
+				9C44EFF4AE1CC95C361F6A007EDBD6E7 /* RetryPolicy.swift */,
+				FA24B13480173106997D3F6538CDE3CD /* ServerTrustEvaluation.swift */,
+				4591D5844289F02F52985F30FFDA6BB5 /* Session.swift */,
+				FF72312136F76CCB5AC50BCDD37ED4A2 /* SessionDelegate.swift */,
+				5A51515830AB9FE94E01DF6F48146153 /* StringEncoding+Alamofire.swift */,
+				BCC350EEADBAF761D20138C94C4A0086 /* URLConvertible+URLRequestConvertible.swift */,
+				61F2B90B6F80D8F30747B3E178F5528F /* URLEncodedFormEncoder.swift */,
+				062C7841BFC1EEBD8A094A3CA60AEADA /* URLRequest+Alamofire.swift */,
+				970C386BD824FE4AD000560950399556 /* URLSessionConfiguration+Alamofire.swift */,
+				20097F794E1A1791AB97EBE230264E61 /* Validation.swift */,
+				5A6F22EC0F5633257B85B6E660A2165F /* Support Files */,
+			);
+			name = Alamofire;
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		75046852E6F482A7C34333B1178BB00F /* Pods-FunBox_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C8173D62CA92676DA74873B05B3EBFD9 /* Pods-FunBox_Tests.modulemap */,
+				A93A9D03676EA330EDAAC0D63735FB80 /* Pods-FunBox_Tests-acknowledgements.markdown */,
+				6A2316AC11F5875DBEDAD94A10DA6989 /* Pods-FunBox_Tests-acknowledgements.plist */,
+				0AC5D38FBD75B9A8D9383698D4EA9AA3 /* Pods-FunBox_Tests-dummy.m */,
+				3256B606DDD0873CB03C0511A227A786 /* Pods-FunBox_Tests-Info.plist */,
+				368DCF79C805A83FCC705ED5F7D38F49 /* Pods-FunBox_Tests-umbrella.h */,
+				CE62EF82FFC0DE6C4C2FF4DB1D5C74C7 /* Pods-FunBox_Tests.debug.xcconfig */,
+				C91448DB5E5ABDA7259B08AE218E12B2 /* Pods-FunBox_Tests.release.xcconfig */,
+			);
+			name = "Pods-FunBox_Tests";
+			path = "Target Support Files/Pods-FunBox_Tests";
+			sourceTree = "<group>";
+		};
+		77669FBAA70D27CA096FD1C0177E3D10 /* FunBox */ = {
+			isa = PBXGroup;
+			children = (
+				A4B738FE00DB88B8556898649934447A /* Core */,
+				F85163415EB9819AA1F63EC05EDE3E1B /* Modules */,
+				C1F28B29344FE0E474F02950F9513949 /* Pod */,
+				20F612F0849D1654C139A8EC0FF8F6F6 /* Support Files */,
+			);
+			name = FunBox;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		7CE0FE6350FC63470D32393B546D0D4D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				EF1573187C6D34C1F3134AEF46B72C4C /* FunAlert.swift */,
+				7CC9CDEFE3E36A51EFF77BF0F0F40845 /* FunAuthorize.swift */,
+				7689F5D7E112387C8B9B01617EDB99E4 /* FunCache.swift */,
+				C9EC51BA73202A690CE382005C68557B /* FunDatePicker.swift */,
+				D75586C65F57FF6F1AD9CAE07B95A32A /* FunEffect.swift */,
+				800BACA21C5825CD688E13F9CE9B7FC6 /* FunLocation.swift */,
+				3B6DD88CEAC08D21B531CFE20F5C83F0 /* FunRouter.swift */,
+				B70AE508D4F075FA9B0D1F6CD6F186D4 /* FunSecurity.swift */,
+				944CAB8A5DB5D21C068CDA7B047E37EC /* FunSheet.swift */,
+				600EE6F95EC16AEA2ADB90EF2D742EAC /* FunToast.swift */,
+				B35554694F5BD200B78EDC879DB41855 /* FunTool.swift */,
+			);
+			name = Utils;
+			path = FunBox/Core/Code/Utils;
+			sourceTree = "<group>";
+		};
+		8B7726F00BE0DEBD187E394CC351277C /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				6531802E5C4A43212E3EC8EBC9862B1D /* FunButton.swift */,
+				58C05B150BE3A80FF108871E5782C8EE /* FunLabel.swift */,
+				08BC592C7634D6D9E6D2B9471FFCE524 /* FunPan.swift */,
+			);
+			name = Custom;
+			path = FunBox/Core/Code/Custom;
+			sourceTree = "<group>";
+		};
+		8B7A79262BFE6D94671D449787F3AAA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0FF301302A2A77E95697F2B5692FA5E /* Alamofire.framework */,
+				4BF62439A2FE1F58E9E704216CF2CE03 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4B738FE00DB88B8556898649934447A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				93C8CB56B3B70C4CA01D135D308BA5AC /* FunBox.swift */,
+				8B7726F00BE0DEBD187E394CC351277C /* Custom */,
+				A5FC88BECF29ACD9307E6FBA88F62BBE /* Extension */,
+				0A7ECDB35EE2D71CCBB9EC935A41F0BD /* Other */,
+				7CE0FE6350FC63470D32393B546D0D4D /* Utils */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		A5FC88BECF29ACD9307E6FBA88F62BBE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				08D14602A855BE982E53DD0A5C85938E /* FunBox+Extension.swift */,
+				72B5983F7A0A606DBD482868DF3954E5 /* UIView+Fun.swift */,
+				E6BF617A08CF038F820D03211CFEC116 /* UIViewController+Fun.swift */,
+			);
+			name = Extension;
+			path = FunBox/Core/Code/Extension;
+			sourceTree = "<group>";
+		};
+		C1F28B29344FE0E474F02950F9513949 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				91FC0883F225089FADD5400D9DC52B41 /* FunBox.podspec */,
+				A52C1C4354EC5A1F44DF0882F5B40512 /* LICENSE */,
+				4A6F3FE8FE0310B27636C6466011A359 /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				648DAF779AA6A8A440EE5B45C77AA892 /* Development Pods */,
-				BA4F31F07263C99FC76E66D632A59F09 /* Frameworks */,
-				E81A37DBDE41E671312C56736544E2FA /* Pods */,
-				C4CAF0AFE0E9292F1BFC19D1F05A86B5 /* Products */,
-				58A5C52B16884CA8C881C19D248EED59 /* Targets Support Files */,
+				2AF209935C73CFB4E045101882A834A3 /* Development Pods */,
+				8B7A79262BFE6D94671D449787F3AAA9 /* Frameworks */,
+				D6535AE6278B88B90F3A376D1347504F /* Pods */,
+				2F05014673D9B8EF9756FFF171C19770 /* Products */,
+				D11C9C992B28C76B7C34501268AB4E08 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		E81A37DBDE41E671312C56736544E2FA /* Pods */ = {
+		D11C9C992B28C76B7C34501268AB4E08 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				BD2D60DE56CBB8C87BA07E0C1CCD0592 /* FBSnapshotTestCase */,
+				62C3D2D98A9E0374A840C7C045DA5107 /* Pods-FunBox_Example */,
+				75046852E6F482A7C34333B1178BB00F /* Pods-FunBox_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		D6535AE6278B88B90F3A376D1347504F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6FF97FACCA57A9A7BC9912B94BE14E47 /* Alamofire */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F85163415EB9819AA1F63EC05EDE3E1B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				11B9AAED18CAC0F1EF8EF49F9856FB3B /* Readme.md */,
+				FC6E23B5585C30B18955D573905937E6 /* Networking */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		FC6E23B5585C30B18955D573905937E6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				899857F017B8A7A4292E432DCDD93749 /* FunDownloadManager.swift */,
+				02C0227F844C4B4AFEDED312D1F7D4F5 /* FunNetworkKit.swift */,
+				2F9DB42B45525B7D818FC68A5A9B748B /* FunNetworkKit+Cache.swift */,
+				AF83154F90453279F65156B6294CB998 /* FunNetworkKit+Codable.swift */,
+			);
+			name = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		285B00844989F4C37D51E8E10FBF6386 /* Headers */ = {
+		8070B01910C64B9AFD0DB550EDE38D6B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C23604704C757F2AE847349910120C8 /* Pods-FunBox_Example-umbrella.h in Headers */,
+				7D3DD4A8BB36733BA15868F7FB8C56CE /* Alamofire-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		384DE8A8021C5DA5E256BCFEC3D478A9 /* Headers */ = {
+		90973E23DEB986ABDCBB4C6E8896C642 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F720FAF13A108CE6901E0A8B0580E1E8 /* FBSnapshotTestCase-umbrella.h in Headers */,
-				00224C929D57F45B70E87359E719948D /* FBSnapshotTestCase.h in Headers */,
-				C49D52712466511E332C952834C81FE1 /* FBSnapshotTestCasePlatform.h in Headers */,
-				90142C6259374E18E640396A59AD379A /* FBSnapshotTestController.h in Headers */,
-				40039E0AF0D764360B1D4FC4F7950D2E /* UIApplication+StrictKeyWindow.h in Headers */,
-				F1AAAE00BB32B733B238E2B4E8424506 /* UIImage+Compare.h in Headers */,
-				D04AAC8B22E4A4DC4F39891C4E52F251 /* UIImage+Diff.h in Headers */,
-				B74CD6E6EBEA0B642776BCB37850415D /* UIImage+Snapshot.h in Headers */,
+				723C2F283615DA316259E807B58DC08D /* FunBox-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		500617CED3119A9DC1A51C445DC02194 /* Headers */ = {
+		94BEDF7771C7FC16321B7971BB2C38FB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1891A7DF2A0D60AD3F451CEDE493F58 /* Pods-FunBox_Tests-umbrella.h in Headers */,
+				897073D6F76F358D86E23D499A1BA21B /* Pods-FunBox_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		52F5B0B212B6F938A378240C34FEC4DE /* Headers */ = {
+		FDBC8B55481B8A03BFF3F8A8C7A2CE59 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4DDC039D8C66E673F197DE6B602C9B2 /* FunBox-umbrella.h in Headers */,
+				692212DC2505E35B9F789783F60B4BB0 /* Pods-FunBox_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,18 +610,17 @@
 /* Begin PBXNativeTarget section */
 		32F4ACE8E87B8C2F6B990334D5A0F5CA /* Pods-FunBox_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E48DB6E2E7E746C24700AC9278BBE19 /* Build configuration list for PBXNativeTarget "Pods-FunBox_Tests" */;
+			buildConfigurationList = 4395859E0B15017E83F321B05AECD788 /* Build configuration list for PBXNativeTarget "Pods-FunBox_Tests" */;
 			buildPhases = (
-				500617CED3119A9DC1A51C445DC02194 /* Headers */,
-				E7984CF16F272A36CF0D552673E9815E /* Sources */,
-				3F36EB2735677DD3E86B5E87AF6D01E8 /* Frameworks */,
-				FC086E4989FAAB7B4A29460D0E6E45A6 /* Resources */,
+				94BEDF7771C7FC16321B7971BB2C38FB /* Headers */,
+				637949428641612F9FB4976DCE370D6C /* Sources */,
+				F1554AECAEFA16BF10DFBF48472807B3 /* Frameworks */,
+				BD3CF12C11F0F19B50A98A87876C77F3 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				67865B2BA17F300EDFFC9F7EC6C64B8D /* PBXTargetDependency */,
-				BCB18F869160A0A515EC7C199547031F /* PBXTargetDependency */,
+				919DD792DBB89E6CDE33A51C64DD8DD0 /* PBXTargetDependency */,
 			);
 			name = "Pods-FunBox_Tests";
 			productName = "Pods-FunBox_Tests";
@@ -478,17 +629,18 @@
 		};
 		5F97002BA674DC145AE0F5BBCC38DA2F /* Pods-FunBox_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9E690DE7BCE1637EDA2F97647C93374F /* Build configuration list for PBXNativeTarget "Pods-FunBox_Example" */;
+			buildConfigurationList = 8B2E4098476A7266ABEAB7A5FEEDE3FF /* Build configuration list for PBXNativeTarget "Pods-FunBox_Example" */;
 			buildPhases = (
-				285B00844989F4C37D51E8E10FBF6386 /* Headers */,
-				ADD5DB1EB905B703F16BAE3AA8619400 /* Sources */,
-				C05AAE41ED827E43336251E717C26E7D /* Frameworks */,
-				B583BF17E590B520B087CD59A6F6B1BC /* Resources */,
+				FDBC8B55481B8A03BFF3F8A8C7A2CE59 /* Headers */,
+				A29FB1DE09A8876F8882FF53D361287A /* Sources */,
+				B46AF7A3C5329B7F642A91EBD5ED62CB /* Frameworks */,
+				8426E58B295220EA0102EE803F3C9A4E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				36935F9043A94E3D8BB2BC303895D50E /* PBXTargetDependency */,
+				36BEC7205190D688BE7508889F620691 /* PBXTargetDependency */,
+				4698CCDD8A64D8F2450E700B24AE9EEA /* PBXTargetDependency */,
 			);
 			name = "Pods-FunBox_Example";
 			productName = "Pods-FunBox_Example";
@@ -497,38 +649,75 @@
 		};
 		767655ED07F4F225D5EC16AD7E58BAA2 /* FunBox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 881AADE57682E49C3C6E54979631BBD5 /* Build configuration list for PBXNativeTarget "FunBox" */;
+			buildConfigurationList = 4D3ED4AB55ECAC038ABBB480D82B2638 /* Build configuration list for PBXNativeTarget "FunBox" */;
 			buildPhases = (
-				52F5B0B212B6F938A378240C34FEC4DE /* Headers */,
-				2A5B452DAC6B30B362237620285ECCBC /* Sources */,
-				3DAB0421B2C34E052267C9E53ADF625E /* Frameworks */,
-				C97241983ABF138DC78F45CFD7950763 /* Resources */,
+				90973E23DEB986ABDCBB4C6E8896C642 /* Headers */,
+				E536AD5D6A698C1CF6A716C3C753FD13 /* Sources */,
+				24333CCC6AA135A9FFC9623A7A41269D /* Frameworks */,
+				E2FBE7902287FC158DF1C89B1EDB6694 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E39FF24F2D0433CFD26FC6DA0CF41A9E /* PBXTargetDependency */,
+				1DB8A9D1135688F5A4685085A48775BE /* PBXTargetDependency */,
+				700C8D536221DE5B625FC10484FF233D /* PBXTargetDependency */,
 			);
 			name = FunBox;
 			productName = FunBox;
 			productReference = 5663752B583AE64C9FAEA708D4344A08 /* FunBox.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */ = {
+		C1554CE95DCB7A71E8F4B31AEA9604B0 /* FunBox-FunNetworking */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A38070E189561F257BBD5A0A55CACCCF /* Build configuration list for PBXNativeTarget "FBSnapshotTestCase" */;
+			buildConfigurationList = 19D47A1E22ABDF11E297D14F575063F8 /* Build configuration list for PBXNativeTarget "FunBox-FunNetworking" */;
 			buildPhases = (
-				384DE8A8021C5DA5E256BCFEC3D478A9 /* Headers */,
-				D80A51BD628282C84AD14ED63EADA00B /* Sources */,
-				E581515110D66F94F80A6937831489A1 /* Frameworks */,
-				5CC655F1A6C7A45A9693160581076BAE /* Resources */,
+				8FA56A71CA862ABC92E2C9CFE07D635B /* Sources */,
+				0B5EB6A2752E59D8B27F7DB73C118898 /* Frameworks */,
+				9C37125AE785753B8FBA9A9B638B3ECC /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = FBSnapshotTestCase;
-			productName = FBSnapshotTestCase;
-			productReference = 5C4F31330DFA99D699E4BDC8C3573D73 /* FBSnapshotTestCase.framework */;
+			name = "FunBox-FunNetworking";
+			productName = "FunBox-FunNetworking";
+			productReference = 681244E845B6BB4FBD0480FD896E82EE /* FunNetworking.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		DEE610FC5BC17720D42C537A83441A77 /* FunBox-Core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08603E4E395ABAAA3C9865EA493C8F48 /* Build configuration list for PBXNativeTarget "FunBox-Core" */;
+			buildPhases = (
+				F1ED43DEC32B6578370796BEE8451D58 /* Sources */,
+				A8AD0E62E80FE726E748399706A92FC0 /* Frameworks */,
+				FFC7F02A0228441B08A847C47E29AC5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FunBox-Core";
+			productName = "FunBox-Core";
+			productReference = E46654DD2F1D8185264CF59AA4B7559C /* Core.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78E219AC01CD5AFED663C9AB28280801 /* Build configuration list for PBXNativeTarget "Alamofire" */;
+			buildPhases = (
+				8070B01910C64B9AFD0DB550EDE38D6B /* Headers */,
+				2C8326877F6A9617C2FBE9BD15D95B59 /* Sources */,
+				9590D3FE7A79CD7CBEE3F346E8C19D4D /* Frameworks */,
+				9BCA7D105D531AE5DAF34FB86A2E623A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alamofire;
+			productName = Alamofire;
+			productReference = 5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -539,14 +728,6 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
-				TargetAttributes = {
-					767655ED07F4F225D5EC16AD7E58BAA2 = {
-						LastSwiftMigration = 1140;
-					};
-					98A98149697C80CEF8D5772791E92E66 = {
-						LastSwiftMigration = 1140;
-					};
-				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -557,12 +738,14 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = C4CAF0AFE0E9292F1BFC19D1F05A86B5 /* Products */;
+			productRefGroup = 2F05014673D9B8EF9756FFF171C19770 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */,
+				EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */,
 				767655ED07F4F225D5EC16AD7E58BAA2 /* FunBox */,
+				DEE610FC5BC17720D42C537A83441A77 /* FunBox-Core */,
+				C1554CE95DCB7A71E8F4B31AEA9604B0 /* FunBox-FunNetworking */,
 				5F97002BA674DC145AE0F5BBCC38DA2F /* Pods-FunBox_Example */,
 				32F4ACE8E87B8C2F6B990334D5A0F5CA /* Pods-FunBox_Tests */,
 			);
@@ -570,28 +753,44 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5CC655F1A6C7A45A9693160581076BAE /* Resources */ = {
+		8426E58B295220EA0102EE803F3C9A4E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B583BF17E590B520B087CD59A6F6B1BC /* Resources */ = {
+		9BCA7D105D531AE5DAF34FB86A2E623A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C97241983ABF138DC78F45CFD7950763 /* Resources */ = {
+		9C37125AE785753B8FBA9A9B638B3ECC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FC086E4989FAAB7B4A29460D0E6E45A6 /* Resources */ = {
+		BD3CF12C11F0F19B50A98A87876C77F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2FBE7902287FC158DF1C89B1EDB6694 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC8AB081813BED50C399AD6EC6070864 /* Core.bundle in Resources */,
+				5D6EFF7B159DEB7AF7FC667E36E22DAB /* FunNetworking.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFC7F02A0228441B08A847C47E29AC5B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -601,279 +800,171 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2A5B452DAC6B30B362237620285ECCBC /* Sources */ = {
+		2C8326877F6A9617C2FBE9BD15D95B59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBD366E49E2E19ECE5CF074AE16D4DE5 /* FunBox-dummy.m in Sources */,
-				4AFCB5DB24F4D5D700BBCAA5 /* FunButton.swift in Sources */,
-				4A3EEDA224653E180098C556 /* FunTool.swift in Sources */,
-				4A3EEDA824653E180098C556 /* FunAlert.swift in Sources */,
-				4A3EEDAA24653E180098C556 /* FunBox.swift in Sources */,
-				4A39D78024695DF1002BD04D /* FunRouter.swift in Sources */,
-				4A3EEDA424653E180098C556 /* FunLocation.swift in Sources */,
-				49A518892472B71400D647CD /* FunSecurity.swift in Sources */,
-				4AFCB5DF24F4D87300BBCAA5 /* UIView+Fun.swift in Sources */,
-				4A3EEDA724653E180098C556 /* FunDatePicker.swift in Sources */,
-				4A3EEDAB24653E180098C556 /* FunCache.swift in Sources */,
-				4A3EEDA324653E180098C556 /* UIViewController+Fun.swift in Sources */,
-				4AFCB5D924F4D5BB00BBCAA5 /* FunLabel.swift in Sources */,
-				4A50659C246B912F000E9CA3 /* FunBox+Extension.swift in Sources */,
-				4A3EEDA624653E180098C556 /* FunEffect.swift in Sources */,
-				4A3EEDA924653E180098C556 /* FunSheet.swift in Sources */,
-				4AFCB5D824F4D5BB00BBCAA5 /* FunAuthorize.swift in Sources */,
-				4A3EEDAC24653E180098C556 /* FunError.swift in Sources */,
-				4A3EEDA524653E180098C556 /* FunToast.swift in Sources */,
-				4AFCB5D724F4D5BB00BBCAA5 /* FunPan.swift in Sources */,
+				1208E81DA8B532D0646D627B50290EB6 /* AFError.swift in Sources */,
+				C6D5A4B4028B2C43380C9FA58BD5C8CA /* Alamofire-dummy.m in Sources */,
+				C1F1DB6A9CBDE584D09BA1613AAD4F9D /* Alamofire.swift in Sources */,
+				72EC2712926E6D28B52360D9AC41668F /* AlamofireExtended.swift in Sources */,
+				DC627AFC5B585686898B014184AFCABD /* AuthenticationInterceptor.swift in Sources */,
+				ABA85887A41495358C83CE3F3030EDEA /* CachedResponseHandler.swift in Sources */,
+				0A1849775CF90D514963187D3A771CF8 /* Combine.swift in Sources */,
+				27E59A11A2743B0595CDE3A08675EAE1 /* DispatchQueue+Alamofire.swift in Sources */,
+				6546D728B69398F93B506845141EBD61 /* EventMonitor.swift in Sources */,
+				91B837CE0DCD8EDB300FCDFFA1279162 /* HTTPHeaders.swift in Sources */,
+				013BAC24F7AC722E59517CB110A9E685 /* HTTPMethod.swift in Sources */,
+				45B8CC1C61E7A0BB28CFA8CE7C12FEBC /* MultipartFormData.swift in Sources */,
+				D03F1F02DE8606E6057D57866611BEBF /* MultipartUpload.swift in Sources */,
+				19D605A3233499828FB6B790869F3E9C /* NetworkReachabilityManager.swift in Sources */,
+				8AA937910F87915DE700CAB6C868689E /* Notifications.swift in Sources */,
+				0A900DF17E3B64F08AF673E9A0DDD697 /* OperationQueue+Alamofire.swift in Sources */,
+				4AEC050FA7D5ED52FDA9DF50EA3560DF /* ParameterEncoder.swift in Sources */,
+				D14066FAE94E304798E43651E5886D13 /* ParameterEncoding.swift in Sources */,
+				218C14EAE5AA31C30314AE0289B732A0 /* Protected.swift in Sources */,
+				666EC5C8356E6D4448A2FE7BEE77AD88 /* RedirectHandler.swift in Sources */,
+				EDC93BD7B9262119AE145E4C7A9D0212 /* Request.swift in Sources */,
+				6E54F64E8DA73F4B0B46C216F9F93F63 /* RequestInterceptor.swift in Sources */,
+				6C08F6A77889651626583100F560153D /* RequestTaskMap.swift in Sources */,
+				C1C5B050B55C15103ABC81769551A283 /* Response.swift in Sources */,
+				911448B2EDA2FF880108F77642797A88 /* ResponseSerialization.swift in Sources */,
+				66B26C6CAE737EC21F4BA1F1851B69C5 /* Result+Alamofire.swift in Sources */,
+				9FED70D1E1FBFB80E974E999EF732258 /* RetryPolicy.swift in Sources */,
+				47FDBBBD2704901588C3A7C56BBC502D /* ServerTrustEvaluation.swift in Sources */,
+				6AE407A4FB6C3D6ADD862CC6E3067A17 /* Session.swift in Sources */,
+				381FF05F8B4F611EE9C2FDBE4457BB89 /* SessionDelegate.swift in Sources */,
+				212EDC48B68107BEA9247F3464CE696E /* StringEncoding+Alamofire.swift in Sources */,
+				9B1D8A7798D8A6F518FC9AF9725431D0 /* URLConvertible+URLRequestConvertible.swift in Sources */,
+				D31FC7FDD450C4CDD633ECBAD27C6221 /* URLEncodedFormEncoder.swift in Sources */,
+				D5EAAFB6FAD77A8F0699345149BA3CBB /* URLRequest+Alamofire.swift in Sources */,
+				F70EF854395CDE981A8336E4FF0310FE /* URLSessionConfiguration+Alamofire.swift in Sources */,
+				F0F3224FF592F9BA2A044A2FC2BD4CCD /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ADD5DB1EB905B703F16BAE3AA8619400 /* Sources */ = {
+		637949428641612F9FB4976DCE370D6C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE79CA8CE3B9131801F14531C45B9719 /* Pods-FunBox_Example-dummy.m in Sources */,
+				73909AC3A5D5D65D48043E289466CF00 /* Pods-FunBox_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D80A51BD628282C84AD14ED63EADA00B /* Sources */ = {
+		8FA56A71CA862ABC92E2C9CFE07D635B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				318E95B0689A3507D9608B5948548910 /* FBSnapshotTestCase-dummy.m in Sources */,
-				77E1B0E7D6FF466CE46E2CFED14DFED1 /* FBSnapshotTestCase.m in Sources */,
-				6650C095330F67C112A1F281A932EA99 /* FBSnapshotTestCasePlatform.m in Sources */,
-				1BAC4F76B70DCFDD6C95C9887C999D03 /* FBSnapshotTestController.m in Sources */,
-				79E3149A20D0D86A5861BF48CB37588B /* SwiftSupport.swift in Sources */,
-				9F7728F6CC5DD4BAE0597E80904E6235 /* UIApplication+StrictKeyWindow.m in Sources */,
-				BFCD27EA1513719252030E76A60B49D9 /* UIImage+Compare.m in Sources */,
-				53317B04AB548F3568225C7390E37C26 /* UIImage+Diff.m in Sources */,
-				62044ECA464FDD7C5C9CDC7EC17DB505 /* UIImage+Snapshot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E7984CF16F272A36CF0D552673E9815E /* Sources */ = {
+		A29FB1DE09A8876F8882FF53D361287A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				965D6922662A330AEEF52B3D0EBE4234 /* Pods-FunBox_Tests-dummy.m in Sources */,
+				375FC52353CF87076C849ADA810D0C6A /* Pods-FunBox_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E536AD5D6A698C1CF6A716C3C753FD13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55C8B0CD32A5D67F90CEF1B517EDC62F /* FunAlert.swift in Sources */,
+				D34A381162F560224E86035299012219 /* FunAuthorize.swift in Sources */,
+				8DADF48A93EEC04429321010A856B738 /* FunBox+Extension.swift in Sources */,
+				C57949955ED92B36C1716D6DBE2FF95F /* FunBox-dummy.m in Sources */,
+				078FCD524B72685D64839061B28BC718 /* FunBox.swift in Sources */,
+				75D5A3DE84C53AADC32EEAA067FCE2D7 /* FunButton.swift in Sources */,
+				9987198D927F77895BE8EB16A1DFFABB /* FunCache.swift in Sources */,
+				53839D15EA76EC01AAE4B39B692C33A8 /* FunDatePicker.swift in Sources */,
+				7C67CFBA38F4403B1AC26CE371F921F4 /* FunDownloadManager.swift in Sources */,
+				9AA66FD80EA6BCAD9CA02A75D3B3D840 /* FunEffect.swift in Sources */,
+				40EB2E5CCF4B7D0D6F9B30506EF27F97 /* FunError.swift in Sources */,
+				3475AD9385E3640237F680FCEF83202F /* FunLabel.swift in Sources */,
+				C38B52504156C8C02445A630A9260CBA /* FunLocation.swift in Sources */,
+				3C0283CA9A1A4C5483650D61945F0B62 /* FunNetworkKit+Cache.swift in Sources */,
+				2E3E90EBD17F79FD593848494A357A43 /* FunNetworkKit+Codable.swift in Sources */,
+				FE137FF5ECFBB88052623261CCEF7EFE /* FunNetworkKit.swift in Sources */,
+				586718BB7F036311E10301A6EC092B69 /* FunPan.swift in Sources */,
+				CCB7EFB48BBE854A9FDB18F1568C1AB1 /* FunRouter.swift in Sources */,
+				A574EABB0AC43E6CB2B30D5E2618145D /* FunSecurity.swift in Sources */,
+				0E7BC1E641676B75FAD24449CEDD123D /* FunSheet.swift in Sources */,
+				8EA4CE4A4BF9331B0B5125179AA0C476 /* FunToast.swift in Sources */,
+				909DF3132A9C0365D971E9919F938FEC /* FunTool.swift in Sources */,
+				4631DB94ECC1B490A9B71FC19BB5395F /* Readme.md in Sources */,
+				CEFE5671DEE87DDD94A77D6DAF595A07 /* UIView+Fun.swift in Sources */,
+				F08654A5BAFFBC6FB78EDA8B09FAB65E /* UIViewController+Fun.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1ED43DEC32B6578370796BEE8451D58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		36935F9043A94E3D8BB2BC303895D50E /* PBXTargetDependency */ = {
+		1DB8A9D1135688F5A4685085A48775BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FunBox-Core";
+			target = DEE610FC5BC17720D42C537A83441A77 /* FunBox-Core */;
+			targetProxy = 8234C2A8D19AB88B64E2357A8842BF23 /* PBXContainerItemProxy */;
+		};
+		36BEC7205190D688BE7508889F620691 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = F29E42C751016BF038EEA81113F37C4F /* PBXContainerItemProxy */;
+		};
+		4698CCDD8A64D8F2450E700B24AE9EEA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FunBox;
 			target = 767655ED07F4F225D5EC16AD7E58BAA2 /* FunBox */;
-			targetProxy = 659489E7FDD0CBF2E73B28B826651D20 /* PBXContainerItemProxy */;
+			targetProxy = F37C10B73E15CA8701C74EB82431BBF8 /* PBXContainerItemProxy */;
 		};
-		67865B2BA17F300EDFFC9F7EC6C64B8D /* PBXTargetDependency */ = {
+		700C8D536221DE5B625FC10484FF233D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = FBSnapshotTestCase;
-			target = 98A98149697C80CEF8D5772791E92E66 /* FBSnapshotTestCase */;
-			targetProxy = E6BA1AC9FCCCF156CAC3C852431FA980 /* PBXContainerItemProxy */;
+			name = "FunBox-FunNetworking";
+			target = C1554CE95DCB7A71E8F4B31AEA9604B0 /* FunBox-FunNetworking */;
+			targetProxy = 58B9D2BD65A06874F741D6CD2D351AAF /* PBXContainerItemProxy */;
 		};
-		BCB18F869160A0A515EC7C199547031F /* PBXTargetDependency */ = {
+		919DD792DBB89E6CDE33A51C64DD8DD0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-FunBox_Example";
 			target = 5F97002BA674DC145AE0F5BBCC38DA2F /* Pods-FunBox_Example */;
-			targetProxy = 439642604586381958D70D7C8616EC66 /* PBXContainerItemProxy */;
+			targetProxy = 67D901C96512189D52DCE9296EEECB40 /* PBXContainerItemProxy */;
+		};
+		E39FF24F2D0433CFD26FC6DA0CF41A9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = EAAA1AD3A8A1B59AB91319EE40752C6D /* Alamofire */;
+			targetProxy = E92824E7D1BC030E492C3DDFD97D6279 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		13CCA1DDC11B4A9E8ABE2FB8D36C02CE /* Debug */ = {
+		127190548245258C376115C6EDCE4EFB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E1D64FAF58A521D45BD00DC24C5095D /* FunBox.debug.xcconfig */;
+			baseConfigurationReference = DBFC2367F63612947858C078D62020A5 /* FunBox.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FunBox/FunBox-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FunBox/FunBox-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/FunBox";
+				IBSC_MODULE = FunBox;
+				INFOPLIST_FILE = "Target Support Files/FunBox/ResourceBundle-FunNetworking-FunBox-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FunBox/FunBox.modulemap";
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_MODULE_NAME = FunBox;
-				PRODUCT_NAME = FunBox;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		3112DDE55A4081CA989E45DADE372ED2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 465C22F21829F1F6B20DFC286D59BB63 /* Pods-FunBox_Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = FunNetworking;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
-		441C7939108738A0C7CD37CBADE0B85E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9468E867498BBAF36F9AFFE4845F8B09 /* FBSnapshotTestCase.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
-				PRODUCT_MODULE_NAME = FBSnapshotTestCase;
-				PRODUCT_NAME = FBSnapshotTestCase;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		45B5D17D294951BE74D15D706278D532 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4237F002EB45E907EF947222ABA1AA5B /* Pods-FunBox_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-FunBox_Tests/Pods-FunBox_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-FunBox_Tests/Pods-FunBox_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		B0087CB4594321EF41619F3181FE120E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		B8BCBD0110C2658BB5DAADB9B7D97B92 /* Debug */ = {
+		196DFA3E4A09A28224918543529A1885 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -937,108 +1028,12 @@
 			};
 			name = Debug;
 		};
-		BE874B114A0991701B09229EAAA4CA84 /* Release */ = {
+		3A97B5DE879C11D2630D42B1986E4E00 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C6513B09838318BD763CFD5390D1DE0 /* FBSnapshotTestCase.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
-				PRODUCT_MODULE_NAME = FBSnapshotTestCase;
-				PRODUCT_NAME = FBSnapshotTestCase;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		DDE1679B68120F47E87C8991BC3D66C3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5BAE180B66E7A9C93682F3CF9873C4C8 /* FunBox.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FunBox/FunBox-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FunBox/FunBox-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FunBox/FunBox.modulemap";
-				PRODUCT_MODULE_NAME = FunBox;
-				PRODUCT_NAME = FunBox;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		EF47CB0023F83B3996074697DEEE9014 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 904460A06B7CDA88BA76C7C475347CB1 /* Pods-FunBox_Example.debug.xcconfig */;
+			baseConfigurationReference = C91448DB5E5ABDA7259B08AE218E12B2 /* Pods-FunBox_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F9E71FCCC50D971D794286E6F9058D8C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EBB7480B9C18F07154215502BC6BAE0 /* Pods-FunBox_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1068,50 +1063,412 @@
 			};
 			name = Release;
 		};
+		41D944EDAECF3E2E01F57AD8EF800365 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 349EA46A0CB476B40B908AAA2437F2E2 /* Pods-FunBox_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		487E4668A7F5BAD8A414A9558EBD63FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2864320E797320AADEAC16F17B82F214 /* FunBox.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FunBox/FunBox-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FunBox/FunBox-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FunBox/FunBox.modulemap";
+				PRODUCT_MODULE_NAME = FunBox;
+				PRODUCT_NAME = FunBox;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		48FD2B4E815CEB933B18D313E9E9EF64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4153404C4C0A47E701390CEDAB4A093 /* Alamofire.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Alamofire-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				PRODUCT_MODULE_NAME = Alamofire;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5E30EEF81510DFE990B9E8B14FF2F328 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBFC2367F63612947858C078D62020A5 /* FunBox.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FunBox/FunBox-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FunBox/FunBox-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FunBox/FunBox.modulemap";
+				PRODUCT_MODULE_NAME = FunBox;
+				PRODUCT_NAME = FunBox;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		744C2952CB62C8E0D18625663103B250 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE62EF82FFC0DE6C4C2FF4DB1D5C74C7 /* Pods-FunBox_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-FunBox_Tests/Pods-FunBox_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FunBox_Tests/Pods-FunBox_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		ACCC06FA6F9B1353961A52B5816E5BC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBFC2367F63612947858C078D62020A5 /* FunBox.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/FunBox";
+				IBSC_MODULE = FunBox;
+				INFOPLIST_FILE = "Target Support Files/FunBox/ResourceBundle-Core-FunBox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_NAME = Core;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		B0D7CABF58F4F090C17E96AD61591B77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2864320E797320AADEAC16F17B82F214 /* FunBox.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/FunBox";
+				IBSC_MODULE = FunBox;
+				INFOPLIST_FILE = "Target Support Files/FunBox/ResourceBundle-FunNetworking-FunBox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_NAME = FunNetworking;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		B68FF0EC45338BB1AE535E9C18A202F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E00D7F9A41DB2287C2E32F726DF9323 /* Pods-FunBox_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B8097E0BC5FC2A93DC3D888A2075DCA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2864320E797320AADEAC16F17B82F214 /* FunBox.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/FunBox";
+				IBSC_MODULE = FunBox;
+				INFOPLIST_FILE = "Target Support Files/FunBox/ResourceBundle-Core-FunBox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				PRODUCT_NAME = Core;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		E73BFB7433831CF292FADF6B2CB7AC3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D3E0E1E34DD4394C6023B622C262222 /* Alamofire.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Alamofire-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				PRODUCT_MODULE_NAME = Alamofire;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		08603E4E395ABAAA3C9865EA493C8F48 /* Build configuration list for PBXNativeTarget "FunBox-Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8097E0BC5FC2A93DC3D888A2075DCA3 /* Debug */,
+				ACCC06FA6F9B1353961A52B5816E5BC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19D47A1E22ABDF11E297D14F575063F8 /* Build configuration list for PBXNativeTarget "FunBox-FunNetworking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0D7CABF58F4F090C17E96AD61591B77 /* Debug */,
+				127190548245258C376115C6EDCE4EFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4395859E0B15017E83F321B05AECD788 /* Build configuration list for PBXNativeTarget "Pods-FunBox_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				744C2952CB62C8E0D18625663103B250 /* Debug */,
+				3A97B5DE879C11D2630D42B1986E4E00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B8BCBD0110C2658BB5DAADB9B7D97B92 /* Debug */,
-				B0087CB4594321EF41619F3181FE120E /* Release */,
+				196DFA3E4A09A28224918543529A1885 /* Debug */,
+				B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		881AADE57682E49C3C6E54979631BBD5 /* Build configuration list for PBXNativeTarget "FunBox" */ = {
+		4D3ED4AB55ECAC038ABBB480D82B2638 /* Build configuration list for PBXNativeTarget "FunBox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				13CCA1DDC11B4A9E8ABE2FB8D36C02CE /* Debug */,
-				DDE1679B68120F47E87C8991BC3D66C3 /* Release */,
+				487E4668A7F5BAD8A414A9558EBD63FE /* Debug */,
+				5E30EEF81510DFE990B9E8B14FF2F328 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E48DB6E2E7E746C24700AC9278BBE19 /* Build configuration list for PBXNativeTarget "Pods-FunBox_Tests" */ = {
+		78E219AC01CD5AFED663C9AB28280801 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				45B5D17D294951BE74D15D706278D532 /* Debug */,
-				F9E71FCCC50D971D794286E6F9058D8C /* Release */,
+				E73BFB7433831CF292FADF6B2CB7AC3B /* Debug */,
+				48FD2B4E815CEB933B18D313E9E9EF64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9E690DE7BCE1637EDA2F97647C93374F /* Build configuration list for PBXNativeTarget "Pods-FunBox_Example" */ = {
+		8B2E4098476A7266ABEAB7A5FEEDE3FF /* Build configuration list for PBXNativeTarget "Pods-FunBox_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EF47CB0023F83B3996074697DEEE9014 /* Debug */,
-				3112DDE55A4081CA989E45DADE372ED2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A38070E189561F257BBD5A0A55CACCCF /* Build configuration list for PBXNativeTarget "FBSnapshotTestCase" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				441C7939108738A0C7CD37CBADE0B85E /* Debug */,
-				BE874B114A0991701B09229EAAA4CA84 /* Release */,
+				B68FF0EC45338BB1AE535E9C18A202F6 /* Debug */,
+				41D944EDAECF3E2E01F57AD8EF800365 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

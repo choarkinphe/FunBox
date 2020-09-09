@@ -1,27 +1,31 @@
 PODS:
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
-  - FunBox (0.1.0)
+  - Alamofire (5.2.2)
+  - FunBox (0.2.9):
+    - FunBox/Core (= 0.2.9)
+    - FunBox/Modules (= 0.2.9)
+  - FunBox/Core (0.2.9)
+  - FunBox/Modules (0.2.9):
+    - FunBox/Core
+    - FunBox/Modules/Networking (= 0.2.9)
+  - FunBox/Modules/Networking (0.2.9):
+    - Alamofire (~> 5.2.2)
+    - FunBox/Core
 
 DEPENDENCIES:
-  - FBSnapshotTestCase (~> 2.1.4)
   - FunBox (from `../`)
 
 SPEC REPOS:
   trunk:
-    - FBSnapshotTestCase
+    - Alamofire
 
 EXTERNAL SOURCES:
   FunBox:
     :path: "../"
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  FunBox: b901d3389df7f494faca4884e670dd1921900928
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  FunBox: 093a6b2c9d1eb8bb1f549f75c411fed240ea38a1
 
-PODFILE CHECKSUM: 2c3f56e89bd8f4b8982d1e8a168477f69eae5172
+PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 
-COCOAPODS: 1.9.0.beta.2
+COCOAPODS: 1.9.3
