@@ -681,3 +681,23 @@ public extension FunNamespaceWrapper where T: UIApplication {
     }
     
 }
+
+extension UIEdgeInsets: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == UIEdgeInsets {
+    func contect(_ inset: UIEdgeInsets) -> UIEdgeInsets {
+        var new = wrappedValue
+        new.top += inset.top
+        new.left += inset.left
+        new.bottom += inset.bottom
+        new.right += inset.bottom
+        return new
+    }
+    
+    var horizontalValue: CGFloat {
+        return wrappedValue.left + wrappedValue.right
+    }
+    
+    var verticalValue: CGFloat {
+        return wrappedValue.top + wrappedValue.bottom
+    }
+}
