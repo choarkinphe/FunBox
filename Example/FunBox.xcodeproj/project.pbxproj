@@ -44,7 +44,7 @@
 		49C2938324FBE2F6005880AD /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
 		4A39D78124696BA4002BD04D /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4A9F852924FF93FD0020AA12 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; };
+		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* FunBox_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunBox_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
