@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.2.9"
+    "tag": "0.3.0"
   },
   "platforms": {
     "ios": "10.0"
@@ -22,12 +22,7 @@
   "subspecs": [
     {
       "name": "Core",
-      "source_files": "FunBox/Core/Code/**/*",
-      "resource_bundles": {
-        "Core": [
-          "FunBox/Core/Assets/*.{storyboard,xib,xcassets,json,imageset,png}"
-        ]
-      }
+      "source_files": "FunBox/Core/Code/**/*"
     },
     {
       "name": "Modules",
@@ -41,11 +36,6 @@
         {
           "name": "Networking",
           "source_files": "FunBox/Modules/Networking/Code/**/*",
-          "resource_bundles": {
-            "FunNetworking": [
-              "HZCoreKit/Modules/Networking/Assets/*.{storyboard,xib,xcassets,json,imageset,png}"
-            ]
-          },
           "dependencies": {
             "Alamofire": [
               "~> 5.2.2"

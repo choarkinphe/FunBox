@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FunBox'
-  s.version          = '0.2.9'
+  s.version          = '0.3.0'
   s.summary          = 'FunBox 饭盒？'
   s.swift_version    = '5.0'
   
@@ -35,9 +35,9 @@ TODO: Add long description of the pod here.
       # 核心库路径
       core.source_files = 'FunBox/Core/Code/**/*'
       # 核心库Bundle地址
-      core.resource_bundles = {
-          'Core' => ['FunBox/Core/Assets/*.{storyboard,xib,xcassets,json,imageset,png}']
-      }
+      #core.resource_bundles = {
+          #'FunCore' => ['FunBox/Core/Assets/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+      #}
   end
   
       # 组件库
@@ -50,9 +50,9 @@ TODO: Add long description of the pod here.
               # FunNetworking路径
               networking.source_files = 'FunBox/Modules/Networking/Code/**/*'
               # FunNetworking的Bundle地址
-              networking.resource_bundles = {
-                  'FunNetworking' => ['HZCoreKit/Modules/Networking/Assets/*.{storyboard,xib,xcassets,json,imageset,png}']
-              }
+              #networking.resource_bundles = {
+                  #'FunNetworking' => ['HZCoreKit/Modules/Networking/Assets/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+              #}
               # FunNetworking依赖
               networking.dependency 'Alamofire', '~> 5.2.2'
           end
