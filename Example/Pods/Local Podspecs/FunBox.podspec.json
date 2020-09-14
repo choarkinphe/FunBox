@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.3.0"
+    "tag": "0.3.1"
   },
   "platforms": {
     "ios": "10.0"
@@ -41,6 +41,10 @@
               "~> 5.2.2"
             ]
           }
+        },
+        {
+          "name": "FunView",
+          "source_files": "FunBox/Modules/CustomView/Code/**/*"
         }
       ]
     }

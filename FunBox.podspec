@@ -56,6 +56,17 @@ TODO: Add long description of the pod here.
               # FunNetworking依赖
               networking.dependency 'Alamofire', '~> 5.2.2'
           end
+          # 工具: ViewKit
+          modules.subspec 'FunView' do |networking|
+              # FunNetworking路径
+              networking.source_files = 'FunBox/Modules/CustomView/Code/**/*'
+              # FunNetworking的Bundle地址
+              #networking.resource_bundles = {
+                  #'FunNetworking' => ['HZCoreKit/Modules/Networking/Assets/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+              #}
+              # FunNetworking依赖
+#              networking.dependency 'Alamofire', '~> 5.2.2'
+          end
       end
 
   #s.source_files = 'FunBox/Classes/**/*'
