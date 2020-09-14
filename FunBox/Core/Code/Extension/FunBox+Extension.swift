@@ -10,10 +10,13 @@ import CommonCrypto
 
 // MARK: - NSObject
 
-struct FunKey {
-    static var identifier = "com.funbox.key.objectIdentifier"
-    static var observer = "com.funbox.key.observer"
-    
+typealias FunKey = FunBox.ObjectKey
+extension FunBox {
+    struct ObjectKey {
+        static var identifier = "com.funbox.key.objectIdentifier"
+        static var observer = "com.funbox.key.observer"
+        
+    }
 }
 extension NSObject: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: NSObject {

@@ -14,7 +14,7 @@ import CoreLocation
  Privacy - Location Always and When In Use Usage Description
  提示语，根据自己的具体请求需求来
  */
-
+public typealias FunLocation = FunBox.Location
 public extension FunBox {
     class Location: NSObject {
         

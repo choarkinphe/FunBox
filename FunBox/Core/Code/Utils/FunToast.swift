@@ -6,9 +6,11 @@
 //
 
 import UIKit
-
+public typealias FunToast = FunBox.Toast
 public extension FunBox {
-    
+    static var toast: Toast {
+        return Toast.default
+    }
     class Toast {
         
         fileprivate var config = Config()

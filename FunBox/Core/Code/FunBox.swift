@@ -6,59 +6,71 @@
 //
 
 import Foundation
-public typealias FunLocation = FunBox.Location
-public typealias FunToast = FunBox.Toast
-public typealias FunSheet = FunBox.Sheet
-public typealias FunAlert = FunBox.Alert
-public typealias FunDatePicker = FunBox.DatePicker
-public typealias FunCache = FunBox.Cache
 
-open class FunBox {
-    
-    private struct Static {
-        
-        static var instance_observer: Observer = Observer()
-    }
+public class FunBox {
     
 }
 
-// MARK: - picker
-public extension FunBox {
-    
-    static var datePicker: DatePicker {
-        
-        return DatePicker.default
-    }
-    
-    static var sheet: Sheet {
-        
-        return Sheet.default
-    }
-    
-    static var alert: Alert {
-        
-        return Alert.default
-    }
-    
-    static var toast: Toast {
-        return Toast.default
-    }
-    
-    static var observer: Observer {
-        return Static.instance_observer
-    }
-
+// MARK: - NameSpace
+public protocol FunNamespaceWrappable {
+    associatedtype FunWrapperType
+    var fb: FunWrapperType { get }
+    static var fb: FunWrapperType.Type { get }
 }
 
-// MARK: -Tool
-public extension FunBox {
-
-    static var cache: Cache {
-        
-        return Cache.default
+public extension FunNamespaceWrappable {
+    var fb: FunNamespaceWrapper<Self> {
+        return FunNamespaceWrapper(value: self)
     }
+
+ static var fb: FunNamespaceWrapper<Self>.Type {
+        return FunNamespaceWrapper.self
+    }
+}
+
+public struct FunNamespaceWrapper<T> {
+    public let wrappedValue: T
+    public init(value: T) {
+        self.wrappedValue = value
+    }
+}
+
+public protocol FunURLConvertable {
     
-    static var device: UIDevice {
-        return UIDevice.current
+    var realURL: URL? { get }
+}
+
+extension URL: FunURLConvertable {
+    public var realURL: URL? {
+        return self
+    }
+}
+
+extension String: FunURLConvertable {
+    public var realURL: URL? {
+        return URL.init(string: self)
+    }
+}
+
+/*
+    方法交换
+ */
+protocol FunSwizz: class {
+    static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector)
+}
+
+extension FunSwizz {
+    
+    static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector) {
+        let originalMethod = class_getInstanceMethod(forClass, originalSelector)
+        let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector)
+        guard (originalMethod != nil && swizzledMethod != nil) else {
+            return
+        }
+        if class_addMethod(forClass, originalSelector, method_getImplementation(swizzledMethod!), method_getTypeEncoding(swizzledMethod!)) {
+            class_replaceMethod(forClass, swizzledSelector, method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
+        } else {
+            method_exchangeImplementations(originalMethod!, swizzledMethod!)
+        }
     }
 }

@@ -231,7 +231,7 @@ public extension FunBox {
         public var safeAeraInsets: UIEdgeInsets {
             var safeAeraInsets = UIEdgeInsets.zero
             guard let viewController = viewController else { return safeAeraInsets }
-            if FunBox.device.fb.iPhoneXSeries {
+            if UIDevice.current.fb.iPhoneXSeries {
                 safeAeraInsets.top = 24
                 
 

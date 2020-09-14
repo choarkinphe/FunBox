@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+public typealias FunDatePicker = FunBox.DatePicker
 //extension UIDatePicker: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UIDatePicker {
     
@@ -38,6 +38,12 @@ extension String: FunDateConvertable {
 public typealias FunDateHandler = ((Date,Formatter)->Void)
 public extension FunBox {
     
+        
+        static var datePicker: DatePicker {
+            
+            return DatePicker.default
+        }
+        
     private struct DatePickerConfig {
         
         var position: DatePicker.Position = .default

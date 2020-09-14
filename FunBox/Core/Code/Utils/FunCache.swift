@@ -9,9 +9,13 @@
 import Foundation
 import CommonCrypto
 
+public typealias FunCache = FunBox.Cache
 fileprivate let FunCachePathName = "com.FunBox.funcache"
-
 public extension FunBox {
+    static var cache: Cache {
+        
+        return Cache.default
+    }
     class Cache {
         
         private struct Static {

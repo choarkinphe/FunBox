@@ -6,7 +6,15 @@
 //
 
 import UIKit
-
+public typealias FunAlert = FunBox.Alert
+// MARK: - picker
+public extension FunBox {
+    
+    static var alert: Alert {
+        
+        return Alert.default
+    }
+}
 //extension UIAlertController: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UIAlertController {
     

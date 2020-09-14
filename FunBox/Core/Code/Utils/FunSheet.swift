@@ -8,9 +8,12 @@
 import Foundation
 public typealias FunActionSheetHandler = (FunBox.Sheet.Action) -> Void
 public typealias FunActionSheetMultiHandler = ([FunBox.Sheet.Action]) -> Void
-
+public typealias FunSheet = FunBox.Sheet
 public extension FunBox {
-    
+    static var sheet: Sheet {
+        
+        return Sheet.default
+    }
     class Sheet {
         
         public static var `default`: Sheet {
