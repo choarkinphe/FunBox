@@ -167,6 +167,15 @@ public extension FunBox {
             
         }
         
+        // MARK: - 添加新的注册页面
+        public func feedPages(JSON: [String: String]?) {
+            guard let JSON = JSON else { return }
+            for item in JSON {
+                regist(url: item.key, class_name: item.value)
+            }
+            
+        }
+        
         // 验证该页面有没有注册
         public func verifyRegist(_ page: FunRouterPathable?) -> Bool {
             guard let key = page?.asPageKey(), !key.isEmpty else { return false }
@@ -230,6 +239,17 @@ extension FunRouter {
         }
         // 错误信息
         public var error: Error?
+    }
+    
+    // APP冷启动时用到的跳转方法
+    public func open(launchOptions: Any?) {
+        
+        if let options = launchOptions as? [UIApplication.LaunchOptionsKey: Any] {
+            open(url: options[.url] as? URL)
+        } else if #available(iOS 13.0, *), let options = launchOptions as? UIScene.ConnectionOptions {
+            open(url: options.urlContexts.first?.url)
+        }
+        
     }
     
     // 通过Page打开
