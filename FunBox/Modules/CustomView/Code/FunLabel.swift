@@ -8,9 +8,9 @@
 
 import UIKit
 // MARK: - CustomView
-public typealias FunLabel = FunBox.Label
-extension FunBox {
-    open class Label: UILabel {
+//public typealias FunLabel = FunBox.Label
+//extension FunBox {
+    open class FunLabel: UILabel {
         public enum VerticalAlignment: Int {
             case none = 0
             case top = 1
@@ -57,4 +57,4 @@ extension FunBox {
             return textRect
         }
     }
-}
+//}

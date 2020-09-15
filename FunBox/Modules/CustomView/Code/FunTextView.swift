@@ -8,9 +8,9 @@
 
 import UIKit
 
-public typealias FunTextView = FunBox.TextView
-extension FunBox {
-    open class TextView: UITextView {
+//public typealias FunTextView = FunBox.TextView
+//extension FunBox {
+    open class FunTextView: UITextView {
         public var placeholder: String?
         public let placeholderLabel: UILabel
         
@@ -102,6 +102,6 @@ extension FunBox {
             NotificationCenter.default.removeObserver(self)
         }
     }
-}
+//}
 
 

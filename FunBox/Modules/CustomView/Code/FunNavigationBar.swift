@@ -6,9 +6,9 @@
 //
 
 import UIKit
-public typealias FunNavigationBar = FunBox.NavigationBar
-extension FunBox {
-    open class NavigationBar: UIView {
+//public typealias FunNavigationBar = FunBox.NavigationBar
+//extension FunBox {
+    open class FunNavigationBar: UIView {
         
         public var contentInsets: UIEdgeInsets
         
@@ -185,4 +185,4 @@ extension FunBox {
         
     }
 
-}
+//}

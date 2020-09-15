@@ -8,9 +8,9 @@
 
 import Foundation
 public typealias FunPanHandler = ((Set<UITouch>,UIEvent)->Void)
-public typealias FunPan = FunBox.Pan
-public extension FunBox {
-    class Pan: UIPanGestureRecognizer {
+//public typealias FunPan = FunBox.Pan
+//public extension FunBox {
+    open class FunPan: UIPanGestureRecognizer {
         
         private var beganHandler: FunPanHandler?
         public func touchesBegan(_ handler: FunPanHandler?) {
@@ -60,4 +60,4 @@ public extension FunBox {
             }
         }
     }
-}
+//}

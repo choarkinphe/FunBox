@@ -7,9 +7,9 @@
 
 import UIKit
 // MARK: - CustomView
-public typealias FunButton = FunBox.Button
-extension FunBox {
-    open class Button: UIButton {
+//public typealias FunButton = FunBox.Button
+//extension FunBox {
+    open class FunButton: UIButton {
         public enum Layout {
             case `default`
             case imageTop
@@ -70,4 +70,4 @@ extension FunBox {
             
         }
     }
-}
+//}
