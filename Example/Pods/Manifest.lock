@@ -1,23 +1,15 @@
 PODS:
   - Alamofire (5.2.2)
-  - FunBox (1.0.0):
-    - FunBox/Core (= 1.0.0)
-    - FunBox/Modules (= 1.0.0)
-  - FunBox/Core (1.0.0):
-    - FunBox/Core/Extension (= 1.0.0)
-    - FunBox/Core/Other (= 1.0.0)
-    - FunBox/Core/Utils (= 1.0.0)
-  - FunBox/Core/Extension (1.0.0)
-  - FunBox/Core/Other (1.0.0)
-  - FunBox/Core/Utils (1.0.0):
-    - FunBox/Core/Extension
-    - FunBox/Core/Other
-  - FunBox/Modules (1.0.0):
-    - FunBox/Modules/FunView (= 1.0.0)
-    - FunBox/Modules/Networking (= 1.0.0)
-  - FunBox/Modules/FunView (1.0.0):
+  - FunBox (1.0.2):
+    - FunBox/Core (= 1.0.2)
+    - FunBox/Modules (= 1.0.2)
+  - FunBox/Core (1.0.2)
+  - FunBox/Modules (1.0.2):
+    - FunBox/Modules/FunView (= 1.0.2)
+    - FunBox/Modules/Networking (= 1.0.2)
+  - FunBox/Modules/FunView (1.0.2):
     - FunBox/Core
-  - FunBox/Modules/Networking (1.0.0):
+  - FunBox/Modules/Networking (1.0.2):
     - Alamofire (~> 5.2.2)
     - FunBox/Core
 
@@ -34,8 +26,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  FunBox: 861c78ab7dc1c8335d07f1931dae21cf7cae54fb
+  FunBox: 7152ca51d57126db0e8d5bcbd2c4dfdde978714c
 
 PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0.beta.2

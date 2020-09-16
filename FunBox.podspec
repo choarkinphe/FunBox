@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunBox'
-    s.version          = '1.0.1'
+    s.version          = '1.0.2'
     s.summary          = 'FunBox 饭盒？'
     s.swift_version    = '5.0'
     
@@ -36,28 +36,30 @@ Pod::Spec.new do |s|
 #    s.public_header_files = 'FunBox/Core/Code/FunBox.swift'
     s.subspec 'Core' do |ss|
         # 核心库路径
-        ss.source_files = 'FunBox/Core/Code/**/*'
-        
-        ss.subspec 'Extension' do |sss|
-            # 核心库路径
-#            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
-            sss.source_files = 'FunBox/Core/Code/Extension/**/*'
-            sss.source_files = 'FunBox/Core/Code/*'
-        end
-        ss.subspec 'Other' do |sss|
-            # 核心库路径
-#            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
-            sss.source_files = 'FunBox/Core/Code/Other/**/*'
-            sss.source_files = 'FunBox/Core/Code/*'
-        end
-        ss.subspec 'Utils' do |sss|
-            # 核心库路径
-#            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
-            sss.source_files = 'FunBox/Core/Code/Utils/**/*'
-            sss.source_files = 'FunBox/Core/Code/*'
-            sss.dependency 'FunBox/Core/Extension'
-            sss.dependency 'FunBox/Core/Other'
-        end
+        ss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Extension/*','FunBox/Core/Code/Utils/*','FunBox/Core/Code/Other/*'
+#        ss.source_files = 'FunBox/Core/Code/Extension/*'
+#        ss.source_files = 'FunBox/Core/Code/Utils/*'
+#        ss.source_files = 'FunBox/Core/Code/Other/*'
+#        ss.subspec 'Extension' do |sss|
+#            # 核心库路径
+##            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+#            sss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Extension/*'
+##            sss.source_files = 'FunBox/Core/Code/*'
+#        end
+#        ss.subspec 'Other' do |sss|
+#            # 核心库路径
+##            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+#            sss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Other/*'
+##            sss.source_files = 'FunBox/Core/Code/*'
+#        end
+#        ss.subspec 'Utils' do |sss|
+#            # 核心库路径
+##            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+#            sss.source_files = 'FunBox/Core/Code/Utils/*'
+#            sss.source_files = 'FunBox/Core/Code/*'
+#            sss.dependency 'FunBox/Core/Extension'
+#            sss.dependency 'FunBox/Core/Other'
+#        end
         # 核心库Bundle地址
         #core.resource_bundles = {
         #'FunCore' => ['FunBox/Core/Assets/*.{storyboard,xib,xcassets,json,imageset,png,md}']
