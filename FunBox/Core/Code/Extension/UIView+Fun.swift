@@ -469,6 +469,18 @@ public extension FunNamespaceWrapper where T: UIView {
         return nil
         
     }
+    
+    var controller: UIViewController? {
+        
+        return find(wrappedValue)
+    }
+    
+    private func find(_ responder: UIResponder?) -> UIViewController {
+        if let responder = responder as? UIViewController {
+            return responder
+        }
+        return find(responder?.next)
+    }
 
 }
 
