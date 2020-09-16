@@ -86,6 +86,7 @@ extension UIViewController: FunSwizz {
                 //                content_h = content_h - navigationBar.frame.size.height
 //                rect.origin.y = navigationBar.frame.origin.y + navigationBar.frame.size.height
 //                rect.size.height = rect.size.height - navigationBar.frame.size.height
+            view.bringSubviewToFront(navigationBar)
         }
         // 从topView开始，考虑contentInsets
         rect.origin.y = fb.safeAeraInsets.top
@@ -363,7 +364,7 @@ public extension FunBox {
                     if size == .zero {
                         size = bottomView.sizeThatFits(viewController.view.bounds.size)
                     }
-                    var bottom_y = viewController.view.frame.height - size.height - safeAeraInsets.bottom
+                    let bottom_y = viewController.view.frame.height - size.height - safeAeraInsets.bottom
                     bottomView.frame = CGRect.init(x: 0, y: bottom_y, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
                     
                     viewController.view.addSubview(bottomView)
