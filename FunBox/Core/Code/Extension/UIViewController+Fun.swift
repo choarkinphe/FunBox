@@ -50,7 +50,7 @@ extension UIViewController: FunSwizz {
         
         var rect = view.bounds
         
-        if let navigationController = navigationController {
+//        if let navigationController = navigationController {
             /*
              None     不做任何扩展,如果有navigationBar和tabBar时,self.view显示区域在二者之间
              Top      扩展顶部,self.view显示区域是从navigationBar顶部计算面开始计算一直到屏幕tabBar上部
@@ -62,12 +62,14 @@ extension UIViewController: FunSwizz {
             
             // edgesForExtendedLayout == UIRectEdgeNone || UIRectEdgeBottom时，view本身就是从navigationBar的下面开始计算坐标的
             // 导航栏半透明的时候，才需要把contentView向下偏移
-            if !navigationController.isNavigationBarHidden && edgesForExtendedLayout.rawValue != 0 && edgesForExtendedLayout != .bottom && navigationController.navigationBar.isTranslucent {
-                // 系统导航栏未隐藏，从导航栏地步开始计算坐标
-                rect.origin.y = navigationController.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
-                
-            }
-        }
+//            if !navigationController.isNavigationBarHidden && edgesForExtendedLayout.rawValue != 0 && edgesForExtendedLayout != .bottom && navigationController.navigationBar.isTranslucent {
+//                // 系统导航栏未隐藏，从导航栏地步开始计算坐标
+//                rect.origin.y = navigationController.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
+//
+//            }
+//        }
+        
+//        rect.origin.y = fb.safeAeraInsets.top
         
         if let tabBarController = tabBarController, !hidesBottomBarWhenPushed {
             if (!tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
@@ -76,20 +78,52 @@ extension UIViewController: FunSwizz {
             }
         }
         
+        if let navigationController = navigationController, navigationController.isNavigationBarHidden {
+            // 导航栏被隐藏时，启用安全区域
+            rect.origin.y = fb.safeAeraInsets.top
+            /*
+            if !navigationController.isNavigationBarHidden, !navigationController.navigationBar.isTranslucent {
+                // 系统导航栏未隐藏
+                // 导航栏非透明时，view会自动下移，此时导航栏下面才是0点
+                // 此时忽略安全距离(导航栏已经规避开了安全区域)
+                rect.origin.y = 0
+                
+            } else if edgesForExtendedLayout.rawValue == 0 || edgesForExtendedLayout == .bottom {
+                /*
+                 None     不做任何扩展,如果有navigationBar和tabBar时,self.view显示区域在二者之间
+                 Top      扩展顶部,self.view显示区域是从navigationBar顶部计算面开始计算一直到屏幕tabBar上部
+                 Left     扩展左边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
+                 Bottom   扩展底部,self.view显示区域是从navigationBar底部到tabBar底部
+                 Right    扩展右边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
+                 All      上下左右都扩展,及暂满全屏,是默认选项
+                 */
+                rect.origin.y = 0
+            }
+             */
+        }
         // 获取当前可用的content高度
 //        rect.size.height = rect.size.height - rect.origin.y;
         
-        if let navigationBar = fb.navigationBar, !navigationBar.isHidden {
-            
+        if let navigationBar = fb.navigationBar {
+            if navigationBar.isHidden {
+                // 导航栏被隐藏时，启用安全区域
+                rect.origin.y = fb.safeAeraInsets.top
+            } else {
                 navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
                 //                content_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
                 //                content_h = content_h - navigationBar.frame.size.height
 //                rect.origin.y = navigationBar.frame.origin.y + navigationBar.frame.size.height
 //                rect.size.height = rect.size.height - navigationBar.frame.size.height
             view.bringSubviewToFront(navigationBar)
+            }
         }
         // 从topView开始，考虑contentInsets
-        rect.origin.y = fb.safeAeraInsets.top
+        
+//        if navigationController?.navigationBar.isTranslucent == false {
+//            // 导航栏非透明时，view会自动下移，此时导航栏下面才是0点
+//            // 只有在导航栏半透明状态此时忽略安全距离
+//            rect.origin.y = 0
+//        }
 //        rect.size.height = rect.size.height - fb.contentInsets.top - fb.contentInsets.bottom
         if let topView = fb.topView, !topView.isHidden {
             
