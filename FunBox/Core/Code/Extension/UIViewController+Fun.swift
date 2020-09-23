@@ -177,57 +177,66 @@ extension UIViewController: FunSwizz {
 public extension FunBox {
     class FunController {
         
-        private var observations: [NSKeyValueObservation]?
+        private var observations: [NSKeyValueObservation]
         
         public var contentInsets: UIEdgeInsets = .zero
         
         private weak var viewController: UIViewController?
         
         fileprivate func addObservations() {
+            
+            observations.removeAll()
+            
             if let target = viewController {
                 
-                observations = [NSKeyValueObservation]()
-                
                 // 监听hidden，方便后面调整frame
-                observations?.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
+                observations.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
                     target.view.setNeedsLayout()
                 })
             }
             
             if let navigationBar = navigationBar {
-                observations?.append(navigationBar.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+                observations.append(navigationBar.observe(\UIView.isHidden) { [weak viewController] (_, change) in
                     viewController?.view.setNeedsLayout()
                     
                 })
             }
             
             if let topView = topView {
-                observations?.append(topView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+                observations.append(topView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
                     viewController?.view.setNeedsLayout()
                     
+                })
+                observations.append(topView.observe(\UIView.backgroundColor) { [weak self] (_, change) in
+//                    viewController?.view.setNeedsLayout()
+                    self?.topFillView?.backgroundColor = topView.backgroundColor
                 })
             }
             
             if let bottomView = bottomView {
-                observations?.append(bottomView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
+                observations.append(bottomView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
                     viewController?.view.setNeedsLayout()
                     
+                })
+                observations.append(bottomView.observe(\UIView.backgroundColor) { [weak self] (_, change) in
+//                    viewController?.view.setNeedsLayout()
+                    self?.bottomFillView?.backgroundColor = bottomView.backgroundColor
                 })
             }
             
         }
         
         fileprivate func removeObservations() {
-            observations?.removeAll()
-            observations = nil
+            observations.removeAll()
+//            observations = nil
         }
         
         init(target: UIViewController?) {
             UIViewController.swizzleMethod()
+            observations = [NSKeyValueObservation]()
             if let target = target {
                 viewController = target
                 
-                observations = [NSKeyValueObservation]()
                 
                 // 监听hidden，方便后面调整frame
                 //                observations?.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
@@ -298,16 +307,13 @@ public extension FunBox {
                     }
                     navigationBar.frame = CGRect.init(x: 0, y: 0, width: viewController.view.frame.size.width, height: size.height)
                     viewController.view.addSubview(navigationBar)
-                    // 监听hidden，方便后面调整frame
-                    //                    observations?.append(navigationBar.observe(\UIView.isHidden) { [weak viewController] (_, change) in
-                    //                        viewController?.view.setNeedsLayout()
-                    //
-                    //                    })
-                    
+
+                    addObservations()
                 }
             }
         }
         
+        fileprivate var topFillView: UIView?
         public var topView: UIView? {
             willSet {
                 if topView == newValue {
@@ -333,16 +339,18 @@ public extension FunBox {
                     if let navigationBar = navigationBar {
                         topView_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
                     }
+                    if safeAeraInsets.top > 0 {
+                        let fillView = UIView(frame: CGRect(x: 0, y: topView_y, width: topView.frame.width, height: safeAeraInsets.top))
+                        fillView.backgroundColor = topView.backgroundColor
+                        topFillView = fillView
+                        
+                        viewController.view.addSubview(fillView)
+                    }
                     topView_y = topView_y + safeAeraInsets.top
                     topView.frame = CGRect.init(x: 0.0, y: topView_y, width: viewController.view.frame.size.width, height: size.height)
                     viewController.view.addSubview(topView)
-                    // 监听hidden，方便后面调整frame
                     
-                    //                    observations?.append(topView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
-                    //                        viewController?.view.setNeedsLayout()
-                    //
-                    //                    })
-                    
+                    addObservations()
                 }
             }
         }
@@ -374,7 +382,7 @@ public extension FunBox {
             }
             
         }
-        
+        fileprivate var bottomFillView: UIView?
         // 原理与topView相同
         public var bottomView: UIView? {
             willSet {
@@ -387,7 +395,7 @@ public extension FunBox {
                     
                     bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
                     bottomView.removeFromSuperview()
-                    
+                    bottomFillView?.removeFromSuperview()
                 }
                 
             }
@@ -402,93 +410,21 @@ public extension FunBox {
                     bottomView.frame = CGRect.init(x: 0, y: bottom_y, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
                     
                     viewController.view.addSubview(bottomView)
-                    
-                    //                    observations?.append(bottomView.observe(\UIView.isHidden) { [weak viewController] (_, change) in
-                    //                        viewController?.view.setNeedsLayout()
-                    //
-                    //                    })
-                    
-                }
-            }
-        }
-        
-        public func setTopViewHidden(_ hidden: Bool, animated: Bool) {
-            guard let topView = topView, let viewController = viewController else { return }
-            if !hidden { topView.isHidden = hidden }
-            UIView.animate(withDuration: animated ? 0.35 : 0, animations: {
-                
-                var topView_y: CGFloat = 0.0
-                if hidden {
-                    topView_y = -topView.bounds.size.height
-                    // 有navigationBar时，调整topView的frame
-                    if let navigationBar = self.navigationBar {
-                        topView_y = navigationBar.frame.maxY - topView.bounds.size.height
-                    }
-                } else {
-                    // 有navigationBar时，调整topView的frame
-                    if let navigationBar = self.navigationBar {
-                        topView_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
+
+                    if safeAeraInsets.bottom > 0 {
+                        let fillView = UIView(frame: CGRect(x: 0, y: bottomView.frame.maxY, width: bottomView.frame.width, height: safeAeraInsets.bottom))
+                        fillView.backgroundColor = bottomView.backgroundColor
+                        bottomFillView = fillView
+                        
+                        viewController.view.addSubview(fillView)
                     }
                     
+                    addObservations()
                 }
-                topView.frame = CGRect.init(x: 0.0, y: topView_y, width: viewController.view.frame.size.width, height: topView.bounds.size.height)
-            }) { (complete) in
-                topView.isHidden = hidden
             }
         }
-        
-        public func setBottomViewHidden(_ hidden: Bool, animated: Bool) {
-            guard let bottomView = bottomView, let viewController = viewController else { return }
-            if !hidden { bottomView.isHidden = hidden }
-            UIView.animate(withDuration: animated ? 0.35 : 0, animations: {
-                if hidden {
-                    bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
-                } else {
-                    bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height - bottomView.frame.size.height - self.safeAeraInsets.bottom, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
-                }
-            }) { (complete) in
-                bottomView.isHidden = hidden
-            }
-            
-        }
-        
-        fileprivate func resetBackgrounerColor() {
-            if let viewController = viewController {
-                var fromColor = UIColor.white
-                var toColor = UIColor.white
-                
-                if let topColor = topView?.backgroundColor, topColor != .clear {
-                    fromColor = topColor
-                }
-                
-                if let bottomColor = bottomView?.backgroundColor, bottomColor != .clear {
-                    toColor = bottomColor
-                }
-                //CAGradientLayer类对其绘制渐变背景颜色、填充层的形状(包括圆角)
-                let gradientLayer = CAGradientLayer()
-                gradientLayer.frame = viewController.view.bounds
-                
-                //  创建渐变色数组，需要转换为CGColor颜色
-                gradientLayer.colors = [fromColor.cgColor,toColor.cgColor]
-                
-                //  设置渐变颜色方向，左上点为(0,0), 右下点为(1,1)
-                gradientLayer.startPoint = CGPoint.init(x: 1, y: 0)
-                gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
-                
-                // 确定渐变的起点和终点
-                let topPosition = Double(safeAeraInsets.top / viewController.view.frame.size.height)
-                let bottomPosition = Double(1.0 - safeAeraInsets.bottom / viewController.view.frame.size.height)
-                
-                //  设置颜色变化点，取值范围 0.0~1.0
-                gradientLayer.locations = [NSNumber(floatLiteral: topPosition),NSNumber(floatLiteral: bottomPosition)]
-                
-                // 将渐变色图层压倒最下
-                viewController.view.layer.insertSublayer(gradientLayer, at: 0)
-            }
-        }
-        
-        
-        private var visableController: UIViewController?
+
+        public var visableController: UIViewController?
         
         public func change2Child(_ childVC: UIViewController?, options: UIView.AnimationOptions?=nil) {
             guard let childVC = childVC else { return }
@@ -516,10 +452,7 @@ public extension FunBox {
             }
             
         }
-        
-        
-        
-        
+
         deinit {
             debugPrint("funController die")
             navigationBar = nil

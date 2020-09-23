@@ -88,6 +88,8 @@ public extension FunBox {
         
         // APP scheme
         public var scheme: String?
+        // 项目名（方便swift去查询控制器）
+        public var projectName: String? = UIApplication.shared.fb.projectName
         // 代理
         public var delegate: FunRouterDelegate?
         
@@ -191,7 +193,12 @@ public extension FunBox {
         }
         
         private func viewController(_ class_name: String?) -> UIViewController.Type? {
-            guard let class_name = class_name, let projectName = UIApplication.shared.fb.projectName, let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else { return nil }
+            guard let class_name = class_name,
+                  let projectName = projectName,
+                  let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else {
+                return nil
+                
+            }
             
             if get_class is UIViewController.Type {
                 return get_class as? UIViewController.Type
