@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     let timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
+        /*
         // 每0.1s执行一次
         timer.schedule(wallDeadline: .now(), repeating: .milliseconds(100), leeway: .milliseconds(0))
         // 开启计时器
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         }
         
         timer.resume()
-        
+        */
 //        FunRouter.default.push2(url: "zz://AAA?aaa=2&bbb=c", params: AAModel())
 //        FunBox.router.present2(url: "zz://AAA?aaa=2&bbb=c", params: nil, animated: true, completion: nil)
 //        FunBox.toast.message("我来报个提示，可能是出错了吧").mode(.activity).image(UIImage(named: "ic_home_info")).inView(view).show()
@@ -71,9 +71,9 @@ class ViewController: UIViewController {
 //        FunBox.router.scheme = "funbox://"
         
 //        Service.router.open(url: URL(string: "funbox://testOC?aaa=2&bbb=c"), params: ["aaa":1], animated: true, handler: nil)
-//        Service.router.open(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true) { (action) in
+        Service.router.open(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true) { (action) in
             
-//        }
+        }
 //        Service.router.open(page: .message)
 //        Service.router.open(page: .alert(message: "提示"), params: nil, animated: true) { (action) in
 //            print(action.error?.localizedDescription)

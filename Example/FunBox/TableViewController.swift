@@ -10,7 +10,7 @@ import UIKit
 import FunBox
 
 
-class TableViewController: UIViewController, UITableViewDataSource {
+class TableViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     
     
 //    override init(style: UITableView.Style) {
@@ -49,8 +49,11 @@ class TableViewController: UIViewController, UITableViewDataSource {
 //        arefreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
 //        refreshControl = arefreshControl
         
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.fb.refresher.text("下拉刷新").timeOut(3).tintColor(.orange).complete { (refresher) in
             refresher.attributedTitle = NSAttributedString(string: "正在刷新")
             print("开始刷新")
@@ -69,10 +72,27 @@ class TableViewController: UIViewController, UITableViewDataSource {
         fb.contentView = tableView
         
         
-        print("参数URL:  ",rt.options?.url)
-        print("参数PARAMS:  ",rt.options?.params)
+//        print("参数URL:  ",rt.options?.url)
+//        print("参数PARAMS:  ",rt.options?.params)
+        
+        topView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 44)
+        
+        topView.backgroundColor = .red
+        
+        fb.topView = topView
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.topView.backgroundColor = .yellow
+            self.topView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 88)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        
     }
     
+    let topView = UIView()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -85,20 +105,25 @@ class TableViewController: UIViewController, UITableViewDataSource {
         }
     }
 
+
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(TableViewController(), animated: true)
     }
     
     deinit {
