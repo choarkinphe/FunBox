@@ -248,7 +248,7 @@ open class FunNavigationBar: UIView {
         }
         
         if let titleView = titleView {
-            titleView.frame = CGRect(x: max(rect.origin.x, titleView.frame.origin.x), y: rect.height - titleView.bounds.height, width: rect.width, height: titleView.bounds.height)
+            titleView.frame = CGRect(x: max(rect.origin.x, titleView.frame.origin.x), y: rect.height - titleView.bounds.height, width: min(rect.width, titleView.frame.width), height: titleView.bounds.height)
             titleLabel.alpha = 0
         } else {
             titleLabel.alpha = 1
