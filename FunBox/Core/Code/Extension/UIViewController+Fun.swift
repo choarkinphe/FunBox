@@ -50,7 +50,7 @@ extension UIViewController: FunSwizz {
         
         var rect = view.bounds
         
-//        if let navigationController = navigationController {
+        if edgesForExtendedLayout != .init(rawValue: 0) {
             /*
              None     不做任何扩展,如果有navigationBar和tabBar时,self.view显示区域在二者之间
              Top      扩展顶部,self.view显示区域是从navigationBar顶部计算面开始计算一直到屏幕tabBar上部
@@ -59,50 +59,20 @@ extension UIViewController: FunSwizz {
              Right    扩展右边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
              All      上下左右都扩展,及暂满全屏,是默认选项
              */
-            
-            // edgesForExtendedLayout == UIRectEdgeNone || UIRectEdgeBottom时，view本身就是从navigationBar的下面开始计算坐标的
-            // 导航栏半透明的时候，才需要把contentView向下偏移
-//            if !navigationController.isNavigationBarHidden && edgesForExtendedLayout.rawValue != 0 && edgesForExtendedLayout != .bottom && navigationController.navigationBar.isTranslucent {
-//                // 系统导航栏未隐藏，从导航栏地步开始计算坐标
-//                rect.origin.y = navigationController.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
-//
-//            }
-//        }
-        
-//        rect.origin.y = fb.safeAeraInsets.top
-        
-        if let tabBarController = tabBarController, !hidesBottomBarWhenPushed {
-            if (!tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
-                // tabBar没有隐藏，且tabBar是半透明状态
-                rect.size.height = rect.size.height - tabBarController.tabBar.frame.size.height
+            // none == 0 ,此时view不需要做特殊处理
+            if let tabBarController = tabBarController, !hidesBottomBarWhenPushed {
+                if (!tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
+                    // tabBar没有隐藏，且tabBar是半透明状态
+                    rect.size.height = rect.size.height - tabBarController.tabBar.frame.size.height
+                }
             }
         }
-        
         if let navigationController = navigationController, navigationController.isNavigationBarHidden {
             // 导航栏被隐藏时，启用安全区域
             rect.origin.y = fb.safeAeraInsets.top
-            /*
-            if !navigationController.isNavigationBarHidden, !navigationController.navigationBar.isTranslucent {
-                // 系统导航栏未隐藏
-                // 导航栏非透明时，view会自动下移，此时导航栏下面才是0点
-                // 此时忽略安全距离(导航栏已经规避开了安全区域)
-                rect.origin.y = 0
-                
-            } else if edgesForExtendedLayout.rawValue == 0 || edgesForExtendedLayout == .bottom {
-                /*
-                 None     不做任何扩展,如果有navigationBar和tabBar时,self.view显示区域在二者之间
-                 Top      扩展顶部,self.view显示区域是从navigationBar顶部计算面开始计算一直到屏幕tabBar上部
-                 Left     扩展左边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
-                 Bottom   扩展底部,self.view显示区域是从navigationBar底部到tabBar底部
-                 Right    扩展右边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
-                 All      上下左右都扩展,及暂满全屏,是默认选项
-                 */
-                rect.origin.y = 0
-            }
-             */
+            
         }
-        // 获取当前可用的content高度
-//        rect.size.height = rect.size.height - rect.origin.y;
+        
         
         if let navigationBar = fb.navigationBar {
             if navigationBar.isHidden {
@@ -110,45 +80,33 @@ extension UIViewController: FunSwizz {
                 rect.origin.y = fb.safeAeraInsets.top
             } else {
                 navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
-                //                content_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
-                //                content_h = content_h - navigationBar.frame.size.height
-//                rect.origin.y = navigationBar.frame.origin.y + navigationBar.frame.size.height
-//                rect.size.height = rect.size.height - navigationBar.frame.size.height
-            view.bringSubviewToFront(navigationBar)
+                
+                view.bringSubviewToFront(navigationBar)
             }
         }
-        // 从topView开始，考虑contentInsets
         
-//        if navigationController?.navigationBar.isTranslucent == false {
-//            // 导航栏非透明时，view会自动下移，此时导航栏下面才是0点
-//            // 只有在导航栏半透明状态此时忽略安全距离
-//            rect.origin.y = 0
-//        }
-//        rect.size.height = rect.size.height - fb.contentInsets.top - fb.contentInsets.bottom
         if let topView = fb.topView, !topView.isHidden {
             
-                if let navigationBar = fb.navigationBar, !navigationBar.isHidden {
-                    rect.origin.y = navigationBar.frame.maxY
-                }
-                
-                // 利用上面改过的content_y（content顶部的实际可布局位置）
-                topView.frame = CGRect.init(x: 0, y: rect.origin.y, width: view.frame.size.width, height: topView.bounds.size.height)
-                // 再次调整rect的位置
-            rect.origin.y = topView.frame.maxY
-//                rect.size.height = rect.size.height - topView.frame.size.height
+            if let navigationBar = fb.navigationBar, !navigationBar.isHidden {
+                rect.origin.y = navigationBar.frame.maxY
+            }
             
+            // 利用上面改过的content_y（content顶部的实际可布局位置）
+            topView.frame = CGRect.init(x: 0, y: rect.origin.y, width: view.frame.size.width, height: topView.bounds.size.height)
+            // 再次调整rect的位置
+            rect.origin.y = topView.frame.maxY
             
         }
         rect.size.height = rect.size.height - rect.origin.y
         if let bottomView = fb.bottomView, !bottomView.isHidden {
-                
+            
             rect.size.height = rect.size.height - bottomView.frame.size.height - fb.safeAeraInsets.bottom
             bottomView.frame = CGRect.init(x: 0, y: rect.maxY, width: view.frame.size.width, height: bottomView.frame.size.height)
         }
-        //        fb.resetBackgrounerColor()
+        
         
         guard let contentView = fb.contentView else { return }
-//        rect.size.height = rect.height - fb.contentInsets.bottom
+        
         contentView.frame = rect
         
     }
@@ -208,7 +166,7 @@ public extension FunBox {
                     
                 })
                 observations.append(topView.observe(\UIView.backgroundColor) { [weak self] (_, change) in
-//                    viewController?.view.setNeedsLayout()
+                    //                    viewController?.view.setNeedsLayout()
                     self?.topFillView?.backgroundColor = topView.backgroundColor
                 })
             }
@@ -219,7 +177,7 @@ public extension FunBox {
                     
                 })
                 observations.append(bottomView.observe(\UIView.backgroundColor) { [weak self] (_, change) in
-//                    viewController?.view.setNeedsLayout()
+                    //                    viewController?.view.setNeedsLayout()
                     self?.bottomFillView?.backgroundColor = bottomView.backgroundColor
                 })
             }
@@ -228,7 +186,7 @@ public extension FunBox {
         
         fileprivate func removeObservations() {
             observations.removeAll()
-//            observations = nil
+            //            observations = nil
         }
         
         init(target: UIViewController?) {
@@ -307,7 +265,7 @@ public extension FunBox {
                     }
                     navigationBar.frame = CGRect.init(x: 0, y: 0, width: viewController.view.frame.size.width, height: size.height)
                     viewController.view.addSubview(navigationBar)
-
+                    
                     addObservations()
                 }
             }
@@ -410,7 +368,7 @@ public extension FunBox {
                     bottomView.frame = CGRect.init(x: 0, y: bottom_y, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
                     
                     viewController.view.addSubview(bottomView)
-
+                    
                     if safeAeraInsets.bottom > 0 {
                         let fillView = UIView(frame: CGRect(x: 0, y: bottomView.frame.maxY, width: bottomView.frame.width, height: safeAeraInsets.bottom))
                         fillView.backgroundColor = bottomView.backgroundColor
@@ -423,7 +381,7 @@ public extension FunBox {
                 }
             }
         }
-
+        
         public var visableController: UIViewController?
         
         public func change2Child(_ childVC: UIViewController?, options: UIView.AnimationOptions?=nil) {
@@ -452,7 +410,7 @@ public extension FunBox {
             }
             
         }
-
+        
         deinit {
             debugPrint("funController die")
             navigationBar = nil
