@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "1.0.2",
+  "version": "0.3.6",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "1.0.2"
+    "tag": "0.3.6"
   },
   "platforms": {
     "ios": "10.0"
@@ -28,7 +28,12 @@
         "FunBox/Core/Code/Extension/*",
         "FunBox/Core/Code/Utils/*",
         "FunBox/Core/Code/Other/*"
-      ]
+      ],
+      "resource_bundles": {
+        "FunCore": [
+          "FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+        ]
+      }
     },
     {
       "name": "Modules",

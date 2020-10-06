@@ -16,16 +16,16 @@ public extension FunBox {
         
         return Cache.default
     }
-    class Cache {
+    struct Cache {
         
         private struct Static {
             
-            static var instance_cache: Cache = Cache.init(path: nil)
+            static var instance: Cache = Cache(path: nil)
         }
         
         static var `default`: Cache {
             
-            return Static.instance_cache
+            return Static.instance
         }
         
         public init(path: String?) {
@@ -165,26 +165,26 @@ public extension FunBox {
         
         // 删除指定的缓存数据
         public func removeCache(key: String?) {
-            weak var weakSelf = self
+//            weak let weakSelf = self
             ioQueue.async {
-                guard let cachePath = self.cachePathForKey(key: key), let cacheTool = weakSelf else { return }
+                guard let cachePath = self.cachePathForKey(key: key) else { return }
                 // 删除memory缓存
-                cacheTool.memoryCache.removeObject(forKey: NSString(string: cachePath))
+                memoryCache.removeObject(forKey: NSString(string: cachePath))
                 // 删除磁盘缓存
-                try? cacheTool.fileManager.removeItem(atPath: cachePath)
+                try? fileManager.removeItem(atPath: cachePath)
             }
             
         }
         
         // 清除所有缓存
         public func removeAllCache() {
-            weak var weakSelf = self
+//            weak var weakSelf = self
             ioQueue.async {
-                if let cacheTool = weakSelf, let cachePath = weakSelf?.diskCachePath {
+                if let cachePath = diskCachePath {
                     // 清空缓存池
-                    cacheTool.memoryCache.removeAllObjects()
+                    memoryCache.removeAllObjects()
                     // 清空磁盘
-                    try? cacheTool.fileManager.removeItem(atPath: cachePath)
+                    try? fileManager.removeItem(atPath: cachePath)
                 }
             }
         }

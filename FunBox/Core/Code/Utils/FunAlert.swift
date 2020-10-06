@@ -27,8 +27,8 @@ public extension FunNamespaceWrapper where T == UIAlertController {
     }
 }
 
-public extension FunBox {
-    private struct AlertConfig {
+extension FunBox.Alert {
+    fileprivate struct Config {
         
         var titleColor: UIColor?
         
@@ -49,6 +49,10 @@ public extension FunBox {
         var actions: [UIAlertAction]?
         
     }
+}
+
+public extension FunBox {
+    
     
     
     
@@ -56,8 +60,8 @@ public extension FunBox {
         
         private var style: UIAlertController.Style = .alert
         
-        private lazy var config: AlertConfig = {
-            var _config = AlertConfig()
+        private lazy var config: Config = {
+            var _config = Config()
             _config.titleColor = .darkText
             _config.messageColor = .darkGray
             _config.titleFont = UIFont.systemFont(ofSize: 16)

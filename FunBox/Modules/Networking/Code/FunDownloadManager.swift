@@ -57,7 +57,7 @@ public extension FunBox {
         // 生成默认的缓存路径
 //        private var localResponderPath: String?
         // 创建缓存管理器
-        private let cacheManager: FunCache
+        private var cacheManager: FunCache
         
         // 最大同时下载数（默认一次下载一条）
         public var maxDownloadCount: Int = 1

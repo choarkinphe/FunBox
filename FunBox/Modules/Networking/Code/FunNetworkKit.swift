@@ -430,7 +430,7 @@ public extension FunNetworking {
             
             // 默认的请求缓存放在temp下（重启或储存空间报警自动移除）
             // 生成对应的请求缓存工具
-            let request_cache = FunBox.Cache.init(path: NSTemporaryDirectory() + "/\(FunNetworkCachePathName)")
+            var request_cache = FunBox.Cache.init(path: NSTemporaryDirectory() + "/\(FunNetworkCachePathName)")
             // 默认请求缓存的时效为2分钟
             request_cache.cacheTimeOut = 120
             

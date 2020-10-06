@@ -61,9 +61,9 @@ Pod::Spec.new do |s|
 #            sss.dependency 'FunBox/Core/Other'
 #        end
         # 核心库Bundle地址
-        #core.resource_bundles = {
-        #'FunCore' => ['FunBox/Core/Assets/*.{storyboard,xib,xcassets,json,imageset,png,md}']
-        #}
+        ss.resource_bundles = {
+        'FunCore' => ['FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+        }
     end
     
     # 组件库

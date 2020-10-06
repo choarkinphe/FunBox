@@ -8,7 +8,13 @@
 import Foundation
 
 public class FunBox {
-    
+    public static var bundle: Bundle? {
+        
+        if let url = Bundle(for: self).url(forResource: "FunCore", withExtension: "bundle") {
+            return Bundle(url: url)
+        }
+        return nil
+    }
 }
 
 // MARK: - NameSpace

@@ -1,15 +1,15 @@
 PODS:
   - Alamofire (5.2.2)
-  - FunBox (1.0.2):
-    - FunBox/Core (= 1.0.2)
-    - FunBox/Modules (= 1.0.2)
-  - FunBox/Core (1.0.2)
-  - FunBox/Modules (1.0.2):
-    - FunBox/Modules/FunView (= 1.0.2)
-    - FunBox/Modules/Networking (= 1.0.2)
-  - FunBox/Modules/FunView (1.0.2):
+  - FunBox (0.3.6):
+    - FunBox/Core (= 0.3.6)
+    - FunBox/Modules (= 0.3.6)
+  - FunBox/Core (0.3.6)
+  - FunBox/Modules (0.3.6):
+    - FunBox/Modules/FunView (= 0.3.6)
+    - FunBox/Modules/Networking (= 0.3.6)
+  - FunBox/Modules/FunView (0.3.6):
     - FunBox/Core
-  - FunBox/Modules/Networking (1.0.2):
+  - FunBox/Modules/Networking (0.3.6):
     - Alamofire (~> 5.2.2)
     - FunBox/Core
 
@@ -26,8 +26,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  FunBox: 7152ca51d57126db0e8d5bcbd2c4dfdde978714c
+  FunBox: 267eca766cf7a1615a50c64a2db9718a3c5ce62e
 
 PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.9.1

@@ -71,13 +71,22 @@ class ViewController: UIViewController {
 //        FunBox.router.scheme = "funbox://"
         
 //        Service.router.open(url: URL(string: "funbox://testOC?aaa=2&bbb=c"), params: ["aaa":1], animated: true, handler: nil)
-        Service.router.open(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true) { (action) in
+//        Service.router.open(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true) { (action) in
             
-        }
+//        }
 //        Service.router.open(page: .message)
 //        Service.router.open(page: .alert(message: "提示"), params: nil, animated: true) { (action) in
 //            print(action.error?.localizedDescription)
 //        }
+        
+//        let image = UIImage(named: "fb_tips_error", in: FunBox.bundle, compatibleWith: nil)
+//
+//        print(image)
+        
+//        FunBox.cache.cache(key: "哈哈", data: "XXX".data(using: .utf8))
+        if let data = FunBox.cache.loadCache(key: "哈哈"), let text = String(data: data, encoding: .utf8) {
+            FunBox.toast.template(.error).title("测粉丝当试").message(text).style(.system).inView(self.view).show()
+        }
         
         
     }
