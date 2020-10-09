@@ -25,16 +25,36 @@ open class FunNavigationBar: UIView {
     
     public let backItem: UIButton
     
+    private let titleLabel: FunLabel
+//    private lazy var titleLabel: FunLabel = {
+//        let titleLabel = FunLabel()
+//        titleLabel.verticalAlignment = .center
+////        titleLabel.textColor = FunNavigationBar.style.textColor
+////        titleLabel.font = FunNavigationBar.style.font
+//        titleLabel.textAlignment = .center
+//        //        self.titleView = titleLabel
+//        contentView.addSubview(titleLabel)
+//        return titleLabel
+//    }()
+    
     public override init(frame: CGRect) {
         contentInsets = UIEdgeInsets(top: UIDevice.current.fb.iPhoneXSeries ? 24 : 22, left: 0, bottom: 0, right: 0)
         contentView = UIView()
+        titleLabel = FunLabel()
         backItem = UIButton()
+        titleColor = FunNavigationBar.style.textColor
+        titleFont = FunNavigationBar.style.font
         super.init(frame: frame)
         
         
         
         addSubview(contentView)
-        
+        titleLabel.verticalAlignment = .center
+        titleLabel.textColor = titleColor
+        titleLabel.font = titleFont
+        titleLabel.textAlignment = .center
+        //        self.titleView = titleLabel
+        contentView.addSubview(titleLabel)
         contentView.addSubview(backItem)
         
         setUp()
@@ -175,6 +195,18 @@ open class FunNavigationBar: UIView {
         }
     }
     
+    open var titleColor: UIColor {
+        didSet {
+            titleLabel.textColor = titleColor
+        }
+    }
+    
+    open var titleFont: UIFont {
+        didSet {
+            titleLabel.font = titleFont
+        }
+    }
+    
     open var attributedText: NSAttributedString? {
         didSet {
             titleLabel.attributedText = attributedText
@@ -182,16 +214,7 @@ open class FunNavigationBar: UIView {
         }
     }
     
-    private lazy var titleLabel: FunLabel = {
-        let titleLabel = FunLabel()
-        titleLabel.verticalAlignment = .center
-        titleLabel.textColor = FunNavigationBar.style.textColor
-        titleLabel.font = FunNavigationBar.style.font
-        titleLabel.textAlignment = .center
-        //        self.titleView = titleLabel
-        self.contentView.addSubview(titleLabel)
-        return titleLabel
-    }()
+
     
     public var backgroundImage: UIImage? {
         didSet {
@@ -257,8 +280,9 @@ open class FunNavigationBar: UIView {
             //            let offset = (contentView.bounds.height - textSize.height) / 2.0
             //            titleLabel.sizeToFit()
             //            titleLabel.center = CGPoint(x: contentView.center.x, y: contentView.bounds.height / 2.0 - offset)
-            titleLabel.center = CGPoint(x: center.x, y: rect.size.height - 22)
-//            titleLabel.frame = CGRect(x: rect.origin.x, y: rect.height - 44, width: rect.width, height: 44)
+//            titleLabel.sizeThatFits(bounds.size)
+//            titleLabel.center = CGPoint(x: center.x, y: rect.size.height - 22)
+            titleLabel.frame = CGRect(x: 44, y: rect.height - 44, width: bounds.width-88, height: 44)
         }
     }
     
