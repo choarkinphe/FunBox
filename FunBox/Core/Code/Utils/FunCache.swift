@@ -16,7 +16,7 @@ public extension FunBox {
         
         return Cache.default
     }
-    struct Cache {
+    class Cache {
         
         private struct Static {
             
@@ -169,9 +169,9 @@ public extension FunBox {
             ioQueue.async {
                 guard let cachePath = self.cachePathForKey(key: key) else { return }
                 // 删除memory缓存
-                memoryCache.removeObject(forKey: NSString(string: cachePath))
+                self.memoryCache.removeObject(forKey: NSString(string: cachePath))
                 // 删除磁盘缓存
-                try? fileManager.removeItem(atPath: cachePath)
+                try? self.fileManager.removeItem(atPath: cachePath)
             }
             
         }
@@ -180,11 +180,11 @@ public extension FunBox {
         public func removeAllCache() {
 //            weak var weakSelf = self
             ioQueue.async {
-                if let cachePath = diskCachePath {
+                if let cachePath = self.diskCachePath {
                     // 清空缓存池
-                    memoryCache.removeAllObjects()
+                    self.memoryCache.removeAllObjects()
                     // 清空磁盘
-                    try? fileManager.removeItem(atPath: cachePath)
+                    try? self.fileManager.removeItem(atPath: cachePath)
                 }
             }
         }
