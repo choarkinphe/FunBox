@@ -257,7 +257,8 @@ open class FunNavigationBar: UIView {
             //            let offset = (contentView.bounds.height - textSize.height) / 2.0
             //            titleLabel.sizeToFit()
             //            titleLabel.center = CGPoint(x: contentView.center.x, y: contentView.bounds.height / 2.0 - offset)
-            titleLabel.frame = CGRect(x: rect.origin.x, y: rect.height - 44, width: rect.width, height: 44)
+            titleLabel.center = CGPoint(x: center.x, y: rect.size.height - 22)
+//            titleLabel.frame = CGRect(x: rect.origin.x, y: rect.height - 44, width: rect.width, height: 44)
         }
     }
     
