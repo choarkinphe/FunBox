@@ -20,6 +20,7 @@ class ViewController: UIViewController {
             print(orientation,"AAA")
         }
         
+        FunBox.FPS.default.set(frame: CGRect(x: 40, y: 24, width: 88, height: 28)).show()
     }
 
     override func didReceiveMemoryWarning() {

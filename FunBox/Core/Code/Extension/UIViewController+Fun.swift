@@ -80,7 +80,7 @@ extension UIViewController: FunSwizz {
                 rect.origin.y = fb.safeAeraInsets.top
             } else {
                 navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
-                
+                rect.origin.y = 0
                 view.bringSubviewToFront(navigationBar)
             }
         }
