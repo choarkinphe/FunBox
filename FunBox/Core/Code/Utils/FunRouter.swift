@@ -9,6 +9,52 @@ import UIKit
 
 public typealias FunRouter = FunBox.Router
 
+/*
+    关于二级路由
+ 
+    创建任意一个类，遵守FunRouterable协议
+    
+    例：
+    class JSRouter: FunRouterable {
+        func open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?) {
+ 
+        }
+    }
+    
+    注册路由时:
+    {
+        "fun://webView/telMobile" : JSRouter
+ 
+    }
+ 
+    然后主路由会自动把`fun://webView/telMobile`交由二级路由CCRouter处理
+    
+ 
+    CCRouter在`open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?)`方法内自行处理和拓展
+ 
+    
+ */
+
+public protocol FunRouterable {
+    
+    // MARK: - 添加新的路由表
+//    func feedPages(JSON: [String: String]?)
+    
+//    func regist(url: FunRouterPathable?, class_name: String?)
+    
+    // 验证该页面有没有注册
+//    func verifyRegist(_ page: FunRouterPathable?) -> Bool
+    
+    // 唤起路由事件
+    func open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?)
+    
+    
+}
+
+extension FunRouterable {
+    
+}
+
 // 路由跳转间的参数
 public protocol FunRouterOptions {
     var url: URL? {get}
@@ -45,7 +91,9 @@ public extension FunBox {
     }
     
     
-    class Router: NSObject {
+    class Router: NSObject, FunRouterable {
+        
+        
         // 路由单利
         fileprivate struct Static {
             static var instance_router = FunRouter()
@@ -73,7 +121,8 @@ public extension FunBox {
         // 路由表
         private var route_table: [Table: [String: Any]] = {
             var table = [Table: [String: Any]]()
-            table[.page] = [String: String]()
+            table[.main] = [String: String]()
+            table[.sub_routers] = [String: FunRouterable]()
             return table
         }()
         
@@ -82,8 +131,10 @@ public extension FunBox {
             init(string: String) {
                 rawValue = string
             }
-            // 页面表
-            static let page: Table = Table(string: "com.FunBox.Router.table.page")
+            // 主表
+            static let main = Table(string: "com.FunBox.Router.table.main")
+            // 二级路由
+            static let sub_routers = Table(string: "com.FunBox.Router.table.sub_routers")
         }
         
         // APP scheme
@@ -92,7 +143,6 @@ public extension FunBox {
         public var projectName: String? = UIApplication.shared.fb.projectName
         // 代理
         public var delegate: FunRouterDelegate?
-        
         
         // MARK: - 打开页面
         fileprivate func show(viewController: UIViewController, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
@@ -132,7 +182,7 @@ public extension FunBox {
         // MARK: - 生成可跳转页面
         private func build(url: FunRouterPathable?, params: Any? = nil) -> UIViewController? {
             
-            guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = viewController(route_table[.page]?[key] as? String) else { return nil }
+            guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = viewController(route_table[.main]?[key] as? String) else { return nil }
             
             var options = FunRouter.Parameter()
             options[ParameterKey.URL] = URL.absoluteString
@@ -161,11 +211,26 @@ public extension FunBox {
         // MARK: - 注册支持路由的页面
         public func regist(url: FunRouterPathable?, class_name: String?) {
             guard let URL = url?.asURL() else { return }
-
-            if viewController(class_name) != nil, let key = URL.asPageKey() {
-                
-                route_table[.page]?[key] = class_name
+            if router(class_name) != nil, let key = URL.asPageKey() {
+                // 符合路由协议的，注册为二级路由事件
+                route_table[.main]?[key] = class_name
+            } else if viewController(class_name) != nil, let key = URL.asPageKey() {
+                // class为ViewController的注册为页面
+                route_table[.main]?[key] = class_name
             }
+            
+        }
+        
+        // MARK: - 注册二级路由
+        public func regist(host: Host?, router: FunRouterable?) {
+//            guard let URL = url?.asURL() else { return }
+//            if router(class_name) != nil, let key = URL.asPageKey() {
+//                // 符合路由协议的，注册为二级路由事件
+//                route_table[.page]?[key] = class_name
+//            } else if viewController(class_name) != nil, let key = URL.asPageKey() {
+//                // class为ViewController的注册为页面
+//                route_table[.page]?[key] = class_name
+//            }
             
         }
         
@@ -183,7 +248,7 @@ public extension FunBox {
             guard let key = page?.asPageKey(), !key.isEmpty else { return false }
             var flag = false
             
-            route_table[.page]?.forEach({ (item) in
+            route_table[.main]?.forEach({ (item) in
                 if item.key == key {
                     flag = true
                 }
@@ -207,6 +272,21 @@ public extension FunBox {
             return nil
         }
         
+        private func router(_ class_name: String?) -> FunRouterable? {
+            guard let class_name = class_name,
+                  let projectName = projectName,
+                  let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else {
+                return nil
+                
+            }
+            
+            if get_class is FunRouterable.Type {
+                return get_class as? FunRouterable
+            }
+            
+            return nil
+        }
+        
     }
     
 }
@@ -214,7 +294,7 @@ public extension FunBox {
 
 extension FunRouter {
     // 公共页面
-    public class Page {
+    public struct Page {
         fileprivate var rawValue: String
         public init(rawValue: String) {
             self.rawValue = rawValue
@@ -223,6 +303,13 @@ extension FunRouter {
         public static func alert(message: String) -> Page {
             
             return Page(rawValue: "alert?message=\(message)")
+        }
+    }
+    
+    public struct Host {
+        fileprivate var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
         }
     }
     
@@ -272,6 +359,10 @@ extension FunRouter {
         }
     }
     
+    public func open(url: FunRouterPathable?, handler: ((Response) -> Void)?) {
+        open(url: url, params: url?.asParams(), animated: true, handler: handler)
+    }
+    
     // 手动路由的方法
     public func open(url: FunRouterPathable?, params: Any? = nil, animated: Bool = true, handler: ((FunRouter.Response)->Void)?=nil) {
         guard let URL = url?.asURL() else {
@@ -310,6 +401,15 @@ extension FunRouter {
             
             // 已正常注册的页面
             if verifyRegist(url) {
+                if let key = url?.asPageKey(),
+                   let class_name = route_table[.main]?[key] as? String,
+                   let subRouter = router(class_name) {
+                    // 如果路由表指向了二级路由，交由二级路由处理
+                    
+                    subRouter.open(url: url, handler: handler)
+                    debugPrint("FunRouter: SubRouter Action")
+                    return
+                }
                 
                 guard let viewController = build(url: url, params: params) else {
                     handler?(Response(URL: url?.asURL(), error: FunError(description: "未找到 ViewController")))

@@ -21,6 +21,9 @@ class ViewController: UIViewController {
         }
         
         FunBox.FPS.default.set(frame: CGRect(x: 40, y: 24, width: 88, height: 28)).show()
+        
+//        FunBox.Location.default
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +72,10 @@ class ViewController: UIViewController {
 //        DispatchQueue.main.asyncAfter(deadline: .now()+8) {
 //            FunBox.toast.dismissActivity(inView: self.view)
 //        }
-//        FunBox.router.scheme = "funbox://"
+        
+        FunBox.router.regist(url: <#T##FunRouterPathable?#>, class_name: <#T##String?#>)
+        
+//        FunBox.router.scheme = "fb"
         
 //        Service.router.open(url: URL(string: "funbox://testOC?aaa=2&bbb=c"), params: ["aaa":1], animated: true, handler: nil)
 //        Service.router.open(url: "funbox://testList?aaa=2&bbb=c", params: AAModel(), animated: true) { (action) in
@@ -85,9 +91,17 @@ class ViewController: UIViewController {
 //        print(image)
         
 //        FunBox.cache.cache(key: "哈哈", data: "XXX".data(using: .utf8))
-        if let data = FunBox.cache.loadCache(key: "哈哈"), let text = String(data: data, encoding: .utf8) {
-            FunBox.toast.template(.error).title("测粉丝当试").message(text).style(.system).inView(self.view).show()
+//        if let data = FunBox.cache.loadCache(key: "哈哈"), let text = String(data: data, encoding: .utf8) {
+//            FunBox.toast.template(.error).title("测粉丝当试").message(text).style(.system).inView(self.view).show()
+//        }
+        
+        let url = "fb://aaa/bbb/ccc"
+        
+        if let URL = url.asURL() {
+            print("host: \(URL.host)")
+            print("relativePath: \(URL.relativePath)")
         }
+        
         
         
     }
