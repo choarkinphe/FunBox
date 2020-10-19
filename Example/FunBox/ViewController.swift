@@ -24,6 +24,7 @@ class ViewController: UIViewController {
         
 //        FunBox.Location.default
         
+        FunRouter.default.regist(host: .init(rawValue: "Sub"), router: SubRouter.self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,7 +74,7 @@ class ViewController: UIViewController {
 //            FunBox.toast.dismissActivity(inView: self.view)
 //        }
         
-        FunBox.router.regist(url: <#T##FunRouterPathable?#>, class_name: <#T##String?#>)
+//        FunBox.router.regist(url: <#T##FunRouterPathable?#>, class_name: <#T##String?#>)
         
 //        FunBox.router.scheme = "fb"
         
@@ -95,19 +96,32 @@ class ViewController: UIViewController {
 //            FunBox.toast.template(.error).title("测粉丝当试").message(text).style(.system).inView(self.view).show()
 //        }
         
-        let url = "fb://aaa/bbb/ccc"
-        
+//        let url = "fb://Alert?message=哈哈哈&title=呵呵"
+        let url = "fb://Aub/bbb/ccc"
+        FunBox.router.regist(url: "fb://Aub/bbb/ccc", class_name: "ViewController")
         if let URL = url.asURL() {
             print("host: \(URL.host)")
             print("relativePath: \(URL.relativePath)")
         }
         
-        
+        FunBox.router.open(url: url)
         
     }
 }
 
 struct AAModel {
     var aaa: Int = 1
+}
+
+class SubRouter: FunRouterable {
+    func open(url: FunRouterPathable?, handler: ((FunRouter.Response) -> Void)?) {
+        print(url)
+    }
+    
+    static func shared() -> FunRouterable {
+        return SubRouter()
+    }
+    
+    
 }
 

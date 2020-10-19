@@ -9,45 +9,13 @@ import UIKit
 
 public typealias FunRouter = FunBox.Router
 
-/*
-    关于二级路由
- 
-    创建任意一个类，遵守FunRouterable协议
-    
-    例：
-    class JSRouter: FunRouterable {
-        func open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?) {
- 
-        }
-    }
-    
-    注册路由时:
-    {
-        "fun://webView/telMobile" : JSRouter
- 
-    }
- 
-    然后主路由会自动把`fun://webView/telMobile`交由二级路由CCRouter处理
-    
- 
-    CCRouter在`open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?)`方法内自行处理和拓展
- 
-    
- */
-
-public protocol FunRouterable {
-    
-    // MARK: - 添加新的路由表
-//    func feedPages(JSON: [String: String]?)
-    
-//    func regist(url: FunRouterPathable?, class_name: String?)
-    
-    // 验证该页面有没有注册
-//    func verifyRegist(_ page: FunRouterPathable?) -> Bool
+public protocol FunRouterable: class {
     
     // 唤起路由事件
     func open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?)
     
+    // 路由对象创建方法（不一定要是单利，可以直接返回init）
+    static func shared() -> FunRouterable
     
 }
 
@@ -92,7 +60,9 @@ public extension FunBox {
     
     
     class Router: NSObject, FunRouterable {
-        
+        public static func shared() -> FunRouterable {
+            return Router.default
+        }
         
         // 路由单利
         fileprivate struct Static {
@@ -112,30 +82,27 @@ public extension FunBox {
             static var rt_params = "com.FunBox.Router.ParameterKey.rt_params"
         }
         
-        override init() {
-            
+        public override init() {
             super.init()
-
+            
+            self.regist(host: .alert, router: AlertRouter.self)
         }
         
-        // 路由表
-        private var route_table: [Table: [String: Any]] = {
-            var table = [Table: [String: Any]]()
-            table[.main] = [String: String]()
-            table[.sub_routers] = [String: FunRouterable]()
-            return table
+        // MARK: - 路由表
+        
+        // 注册页面
+        private var pages: [Page: String] = {
+            let pages = [Page: String]()
+            
+            return pages
         }()
         
-        struct Table: Hashable {
-            var rawValue: String
-            init(string: String) {
-                rawValue = string
-            }
-            // 主表
-            static let main = Table(string: "com.FunBox.Router.table.main")
-            // 二级路由
-            static let sub_routers = Table(string: "com.FunBox.Router.table.sub_routers")
-        }
+        // 二级路由
+        private var sub_routers: [Host: String] = {
+            let routers = [Host: String]()
+            
+            return routers
+        }()
         
         // APP scheme
         public var scheme: String?
@@ -167,7 +134,7 @@ public extension FunBox {
         
         fileprivate func present2(viewController: UIViewController, animated: Bool = true, completion: ((Bool)->Void)?=nil) {
             
-
+            
             DispatchQueue.main.async {
                 UIApplication.shared.fb.frontController?.present(viewController, animated: true, completion: {
                     if let completion = completion {
@@ -179,10 +146,28 @@ public extension FunBox {
             
         }
         
-        // MARK: - 生成可跳转页面
-        private func build(url: FunRouterPathable?, params: Any? = nil) -> UIViewController? {
+        
+        // MARK: - 生成二级路由
+        private func buildRouter(url: FunRouterPathable?, params: Any? = nil) -> FunRouterable? {
+            if let URL = url?.asURL() {
+                if let host = URL.host, let Router = router(of: sub_routers[Host(rawValue: host)]) {
+                    
+                    return Router.shared()
+                }
+                if let page = URL.asPageKey(), let Router = router(of: pages[Page(rawValue: page)]) {
+                    
+                    return Router.shared()
+                    
+                }
+            }
             
-            guard let URL = url?.asURL(), let key = URL.asPageKey(), let VC = viewController(route_table[.main]?[key] as? String) else { return nil }
+            return nil
+        }
+        
+        // MARK: - 生成可跳转页面
+        private func buildPage(url: FunRouterPathable?, params: Any? = nil) -> UIViewController? {
+            
+            guard let URL = url?.asURL(), let page = URL.asPageKey(), let VC = viewController(of: pages[Page(rawValue: page)]) else { return nil }
             
             var options = FunRouter.Parameter()
             options[ParameterKey.URL] = URL.absoluteString
@@ -210,27 +195,27 @@ public extension FunBox {
         
         // MARK: - 注册支持路由的页面
         public func regist(url: FunRouterPathable?, class_name: String?) {
-            guard let URL = url?.asURL() else { return }
-            if router(class_name) != nil, let key = URL.asPageKey() {
+            guard let URL = url?.asURL(), let page = URL.asPageKey() else { return }
+            if router(of: class_name) != nil {
                 // 符合路由协议的，注册为二级路由事件
-                route_table[.main]?[key] = class_name
-            } else if viewController(class_name) != nil, let key = URL.asPageKey() {
+                pages[.init(rawValue: page)] = class_name
+            } else if viewController(of: class_name) != nil {
                 // class为ViewController的注册为页面
-                route_table[.main]?[key] = class_name
+                pages[.init(rawValue: page)] = class_name
             }
             
         }
         
         // MARK: - 注册二级路由
-        public func regist(host: Host?, router: FunRouterable?) {
-//            guard let URL = url?.asURL() else { return }
-//            if router(class_name) != nil, let key = URL.asPageKey() {
-//                // 符合路由协议的，注册为二级路由事件
-//                route_table[.page]?[key] = class_name
-//            } else if viewController(class_name) != nil, let key = URL.asPageKey() {
-//                // class为ViewController的注册为页面
-//                route_table[.page]?[key] = class_name
-//            }
+        public func regist<T>(host: Host, router: T.Type) where T: FunRouterable {
+            
+            let class_name = NSStringFromClass(router)
+            
+            if self.router(of: class_name) != nil {
+                // 符合路由协议的，注册为二级路由事件
+                
+                sub_routers[host] = class_name
+            }
             
         }
         
@@ -245,19 +230,32 @@ public extension FunBox {
         
         // 验证该页面有没有注册
         public func verifyRegist(_ page: FunRouterPathable?) -> Bool {
-            guard let key = page?.asPageKey(), !key.isEmpty else { return false }
+            
             var flag = false
             
-            route_table[.main]?.forEach({ (item) in
-                if item.key == key {
-                    flag = true
+            // 查找页面表
+            if let key = page?.asPageKey() {
+                pages.forEach { (item) in
+                    if item.key == Page(rawValue: key) {
+                        flag = true
+                    }
                 }
-            })
+            }
+            
+            // 未找到注册页面
+            if !flag, let host = page?.asURL()?.host {
+                // 依据host查找有没有支持的二级路由
+                sub_routers.forEach { (item) in
+                    if item.key == Host(rawValue: host) {
+                        flag = true
+                    }
+                }
+            }
             
             return flag
         }
         
-        private func viewController(_ class_name: String?) -> UIViewController.Type? {
+        private func viewController(of class_name: String?) -> UIViewController.Type? {
             guard let class_name = class_name,
                   let projectName = projectName,
                   let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else {
@@ -272,7 +270,7 @@ public extension FunBox {
             return nil
         }
         
-        private func router(_ class_name: String?) -> FunRouterable? {
+        private func router(of class_name: String?) -> FunRouterable.Type? {
             guard let class_name = class_name,
                   let projectName = projectName,
                   let get_class = NSClassFromString(class_name) ?? NSClassFromString("\(projectName).\(class_name)") else {
@@ -281,7 +279,7 @@ public extension FunBox {
             }
             
             if get_class is FunRouterable.Type {
-                return get_class as? FunRouterable
+                return get_class as? FunRouterable.Type
             }
             
             return nil
@@ -294,7 +292,7 @@ public extension FunBox {
 
 extension FunRouter {
     // 公共页面
-    public struct Page {
+    public struct Page: Hashable {
         fileprivate var rawValue: String
         public init(rawValue: String) {
             self.rawValue = rawValue
@@ -306,11 +304,13 @@ extension FunRouter {
         }
     }
     
-    public struct Host {
+    public struct Host: Hashable {
         fileprivate var rawValue: String
         public init(rawValue: String) {
-            self.rawValue = rawValue
+            self.rawValue = rawValue.lowercased()
         }
+        
+        public static let alert = Host.init(rawValue: "alert")
     }
     
     // 路由事件
@@ -375,68 +375,42 @@ extension FunRouter {
         if scheme != URL.scheme {
             handler?(Response(URL: URL, error: FunError(description: "scheme 不符")))
         }
-        // Alert的页面不需要注册
-        if ["Alert","alert"].contains(URL.host) { // Alert事件统一在这里处理
+        // 已正常注册的页面
+        if verifyRegist(url) {
             
-            let params = URL.asParams()
-            var alert = FunBox.alert
-                .title("提示")
-                .messageFont(UIFont.systemFont(ofSize: 16))
-                .messageColor(UIColor.darkText)
-            if let message = (params?["message"] as? String) {
-                alert = alert.message("\n\(message)")
-            }
-            if let title = (params?["title"] as? String) {
-                alert = alert.title(title)
-            }
-            alert = alert.addAction(title: "取消", style: .cancel, color: UIColor.systemGray)
-            alert = alert.addAction(title: "确定", style: .default, color: UIColor.orange) { (alertAction) in
-                //                    if let completion = completion {
-                handler?(Response(URL: URL, alert: alertAction))
-                //                    }
+            if let subRouter = buildRouter(url: url, params: params) {
+                // 如果路由表指向了二级路由，交由二级路由处理
+                
+                subRouter.open(url: url, handler: handler)
+                
+                debugPrint("FunRouter: SubRouter Action")
+                return
             }
             
-            alert.present()
-        } else {
+            guard let viewController = buildPage(url: url, params: params) else {
+                handler?(Response(URL: url?.asURL(), error: FunError(description: "未找到 ViewController")))
+                return
+                
+            }
             
-            // 已正常注册的页面
-            if verifyRegist(url) {
-                if let key = url?.asPageKey(),
-                   let class_name = route_table[.main]?[key] as? String,
-                   let subRouter = router(class_name) {
-                    // 如果路由表指向了二级路由，交由二级路由处理
-                    
-                    subRouter.open(url: url, handler: handler)
-                    debugPrint("FunRouter: SubRouter Action")
-                    return
+            if let isPresent = URL.asParams()?["present"] as? String, isPresent == "true" {
+                present2(viewController: viewController, animated: animated) { (success) in
+                    //                            if let completion = completion {
+                    handler?(Response(URL: URL))
+                    //                            }
                 }
-                
-                guard let viewController = build(url: url, params: params) else {
-                    handler?(Response(URL: url?.asURL(), error: FunError(description: "未找到 ViewController")))
-                    return
-                    
-                }
-                
-                if let isPresent = URL.asParams()?["present"] as? String, isPresent == "true" {
-                    present2(viewController: viewController, animated: animated) { (success) in
-                        //                            if let completion = completion {
-                        handler?(Response(URL: URL))
-                        //                            }
-                    }
-                } else {
-                    show(viewController: viewController, animated: animated) { (success) in
-                        handler?(Response(URL: URL))
-                    }
-                    
-                }
-                
             } else {
-                // 没有找到已注册的页面
-                //                HUD.tips("功能暂未开放")
-                handler?(Response(URL: URL, error: FunError(description: "页面未注册")))
+                show(viewController: viewController, animated: animated) { (success) in
+                    handler?(Response(URL: URL))
+                }
+                
             }
+            
+        } else {
+            // 没有找到已注册的页面
+            //                HUD.tips("功能暂未开放")
+            handler?(Response(URL: URL, error: FunError(description: "页面未注册")))
         }
-        
     }
 }
 
@@ -455,7 +429,7 @@ public extension FunRouterNamespaceWrapper where T == URL {
     
     var URLParameters: FunRouter.Parameter? {
         guard let components = URLComponents(url: wrappedValue, resolvingAgainstBaseURL: true),
-            let queryItems = components.queryItems else { return nil }
+              let queryItems = components.queryItems else { return nil }
         return queryItems.reduce(into: [String: String]()) { (result, item) in
             result[item.name] = item.value
         }
@@ -481,6 +455,42 @@ public extension FunRouterNamespaceWrapper where T: UIViewController {
     
 }
 
+// MARK: - 处理Alert事件的二级路由
+extension FunRouter {
+    class AlertRouter: FunRouterable {
+        func open(url: FunRouterPathable?, handler: ((FunRouter.Response) -> Void)?) {
+            if let URL = url?.asURL() {
+                let params = URL.asParams()
+                var alert = FunBox.alert
+                    .title("提示")
+                    .messageFont(UIFont.systemFont(ofSize: 16))
+                    .messageColor(UIColor.darkText)
+                if let message = (params?["message"] as? String) {
+                    alert = alert.message("\n\(message)")
+                }
+                if let title = (params?["title"] as? String) {
+                    alert = alert.title(title)
+                }
+                alert = alert.addAction(title: "取消", style: .cancel, color: UIColor.systemGray)
+                alert = alert.addAction(title: "确定", style: .default, color: UIColor.orange) { (alertAction) in
+                    
+                    handler?(Response(URL: URL, alert: alertAction))
+                    
+                }
+                
+                alert.present()
+            }
+            
+        }
+        
+        static func shared() -> FunRouterable {
+            return AlertRouter()
+        }
+        
+        
+    }
+}
+
 extension FunRouter {
     
     /// 供OC调用的方法
@@ -496,6 +506,7 @@ extension FunRouter {
     }
 }
 
+// 供OC使用接口
 public extension UIViewController {
     
     @objc var rt_params: Any? {
@@ -503,10 +514,6 @@ public extension UIViewController {
     }
     
     fileprivate func set(rt_params: Any?) {
-        
-//        if !JSONSerialization.isValidJSONObject(rt_options) {
-//            debugPrint("options is not a valid json object")
-//        }
         
         objc_setAssociatedObject(self, &FunRouter.ParameterKey.rt_params, rt_params, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
@@ -557,9 +564,9 @@ extension URL: FunRouterPathable {
     public func asPageKey() -> String? {
         if let host = host {
             if relativePath.count > 0 {
-                return host + relativePath
+                return (host + relativePath).lowercased()
             } else {
-                return host
+                return host.lowercased()
             }
             
         }
