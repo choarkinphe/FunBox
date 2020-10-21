@@ -97,15 +97,16 @@ class ViewController: UIViewController {
 //        }
         
 //        let url = "fb://Alert?message=哈哈哈&title=呵呵"
-        let url = "fb://Aub/bbb/ccc"
-        FunBox.router.regist(url: "fb://Aub/bbb/ccc", class_name: "ViewController")
-        if let URL = url.asURL() {
-            print("host: \(URL.host)")
-            print("relativePath: \(URL.relativePath)")
-        }
+//        let url = "fb://Aub/bbb/ccc"
+//        FunBox.router.regist(url: "fb://Aub/bbb/ccc", class_name: "ViewController")
+//        if let URL = url.asURL() {
+//            print("host: \(URL.host)")
+//            print("relativePath: \(URL.relativePath)")
+//        }
+//        
+//        FunBox.router.open(url: url)
         
-        FunBox.router.open(url: url)
-        
+        navigationController?.pushViewController(WebViewController(), animated: true)
     }
 }
 

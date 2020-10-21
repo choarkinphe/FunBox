@@ -49,6 +49,8 @@ extension UIViewController: FunSwizz {
         guard fb.isNeedLayout else { return }
         
         var rect = view.bounds
+        // 默认偏移出安全区域
+        rect.origin.y = fb.safeAeraInsets.top
         
         if edgesForExtendedLayout != .init(rawValue: 0) {
             /*
@@ -69,26 +71,26 @@ extension UIViewController: FunSwizz {
         }
         if let navigationController = navigationController, navigationController.isNavigationBarHidden {
             // 导航栏被隐藏时，启用安全区域
-            rect.origin.y = fb.safeAeraInsets.top
             
         }
         
         
-        if let navigationBar = fb.navigationBar {
-            if navigationBar.isHidden {
-                // 导航栏被隐藏时，启用安全区域
-                rect.origin.y = fb.safeAeraInsets.top
-            } else {
-                navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
-                rect.origin.y = 0
-                view.bringSubviewToFront(navigationBar)
-            }
+        if let navigationBar = fb.navigationBar, !navigationBar.isHidden {
+            // 自定义导航栏未隐藏时，设置导航栏frame
+            navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
+            
+            view.bringSubviewToFront(navigationBar)
         }
         
         if let topView = fb.topView, !topView.isHidden {
             
             if let navigationBar = fb.navigationBar, !navigationBar.isHidden {
                 rect.origin.y = navigationBar.frame.maxY
+            }
+            
+            // 存在fillView时，设置fillView的frame
+            if let fillView = fb.topFillView {
+                fillView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: rect.origin.y)
             }
             
             // 利用上面改过的content_y（content顶部的实际可布局位置）
@@ -102,6 +104,11 @@ extension UIViewController: FunSwizz {
             
             rect.size.height = rect.size.height - bottomView.frame.size.height - fb.safeAeraInsets.bottom
             bottomView.frame = CGRect.init(x: 0, y: rect.maxY, width: view.frame.size.width, height: bottomView.frame.size.height)
+            
+            // 存在fillView时，设置fillView的frame
+            if let fillView = fb.bottomFillView {
+                fillView.frame = CGRect(x: 0, y: bottomView.frame.maxY, width: view.frame.size.width, height: fb.safeAeraInsets.bottom)
+            }
         }
         
         
@@ -210,7 +217,7 @@ public extension FunBox {
         public var safeAeraInsets: UIEdgeInsets {
             var safeAeraInsets = UIEdgeInsets.zero
             guard let viewController = viewController else { return safeAeraInsets }
-            if UIDevice.current.fb.iPhoneXSeries {
+            if UIDevice.current.fb.isInfinity {
                 safeAeraInsets.top = 24
                 
                 

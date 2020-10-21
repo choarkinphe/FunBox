@@ -38,7 +38,7 @@ open class FunNavigationBar: UIView {
 //    }()
     
     public override init(frame: CGRect) {
-        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.iPhoneXSeries ? 24 : 22, left: 0, bottom: 0, right: 0)
+        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 0, bottom: 0, right: 0)
         contentView = UIView()
         titleLabel = FunLabel()
         backItem = UIButton()

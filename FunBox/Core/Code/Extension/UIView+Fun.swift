@@ -12,6 +12,10 @@ extension FunKey {
         static var contentCount = "com.funbox.key.contentCount"
     }
 }
+extension FunBox.CacheKey {
+    static let uuid = FunBox.CacheKey(rawValue: "uuid")
+}
+
 // MARK: - UIBarButtonItem
 //extension UIBarButtonItem: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UIBarButtonItem {
@@ -98,7 +102,6 @@ extension CGSize {
 }
 
 // MARK: - UIImage+Fun
-//extension UIImage: FunNamespaceWrappable {}
 fileprivate var imageCache: NSCache<UIColor, UIImage>!
 public extension FunNamespaceWrapper where T: UIImage {
     static func size(url: FunURLConvertable?) -> CGSize {
@@ -567,14 +570,39 @@ fileprivate extension UITextField {
     }
 }
 
-//extension UIDevice: FunNamespaceWrappable {}
+// MARK: - UIDevice
 public extension FunNamespaceWrapper where T: UIDevice {
+    
+    // 获取系统版本
     var systemVersion: Float {
         
         return UIDevice.current.systemVersion.fb.floatValue ?? 10.0
     }
     
+    // 获取uuid（自动缓存，除非重新安装APP或者超过300天<缓存有效期>）
+    var uuid: String {
+        
+        if let data = FunBox.cachePool.load(key: .uuid), let uuid = String(data: data, encoding: .utf8) {
+            return uuid
+        } else {
+            
+            let uuid = UUID().uuidString
+            
+            FunBox.cachePool.cache(key: .uuid, data: uuid.data(using: .utf8))
+            
+            return uuid
+        }
+        
+    }
+    
+    // 判断设备是否为iPhoneX 系列
+    @available(*, deprecated, message: "use isInfinity instand of it")
     var iPhoneXSeries: Bool {
+        return isInfinity
+    }
+    
+    // 是否全面屏
+    var isInfinity: Bool {
         if #available(iOS 11.0, *) {
             if UIDevice.current.userInterfaceIdiom == .phone {
                 
@@ -592,7 +620,7 @@ public extension FunNamespaceWrapper where T: UIDevice {
         return false
     }
 }
-//extension UIApplication: FunNamespaceWrappable {}
+// MARK: - UIApplication
 public extension FunNamespaceWrapper where T: UIApplication {
 
     // 获取当前的window
@@ -620,6 +648,7 @@ public extension FunNamespaceWrapper where T: UIApplication {
         
     }
     
+    // 可否push
     var canPush: Bool {
         return frontController?.navigationController != nil
     }
@@ -643,6 +672,13 @@ public extension FunNamespaceWrapper where T: UIApplication {
 
     var version: String? {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    
+    // 获取build版本
+    var build: String? {
+        let info = Bundle.main.infoDictionary
+        
+        return info?["CFBundleVersion"] as? String
     }
     
     // 获取BundleID

@@ -80,3 +80,35 @@ extension FunSwizz {
         }
     }
 }
+
+// MARK: - 内部缓存
+extension FunBox {
+    
+    struct CacheKey {
+        let rawValue: String
+        init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+    
+    private static let cachePathName = "com.funbox.core.cache"
+    
+    static var cachePool: Cache {
+        let directoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
+        // 指定缓存路径
+        let cachePool = FunBox.Cache.init(path: directoryPath! + "/\(cachePathName)")
+        // 缓存有效期为300天
+        cachePool.cacheTimeOut = 25920000
+        return cachePool
+    }
+}
+
+extension FunCache {
+    func cache(key: FunBox.CacheKey, data: Data?) {
+        FunBox.cachePool.cache(key: key.rawValue, data: data)
+    }
+    
+    func load(key: FunBox.CacheKey) -> Data? {
+        return FunBox.cachePool.loadCache(key: key.rawValue)
+    }
+}
