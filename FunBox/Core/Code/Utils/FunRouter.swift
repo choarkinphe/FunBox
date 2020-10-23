@@ -15,7 +15,7 @@ public protocol FunRouterable: class {
     func open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?)
     
     // 路由对象创建方法（不一定要是单利，可以直接返回init）
-    static func shared() -> FunRouterable
+    static func current() -> FunRouterable
     
 }
 
@@ -49,6 +49,18 @@ public protocol FunRouterPathable {
     func asURL() -> URL?
     
     func asPageKey() -> String?
+    
+    func asPage() -> FunRouter.Page?
+    
+}
+
+extension FunRouterPathable {
+    public func asPage() -> FunRouter.Page? {
+        if let pageKey = asPageKey() {
+            return FunRouter.Page(rawValue: pageKey)
+        }
+        return nil
+    }
 }
 
 public extension FunBox {
@@ -60,7 +72,7 @@ public extension FunBox {
     
     
     class Router: NSObject, FunRouterable {
-        public static func shared() -> FunRouterable {
+        public static func current() -> FunRouterable {
             return Router.default
         }
         
@@ -91,14 +103,14 @@ public extension FunBox {
         // MARK: - 路由表
         
         // 注册页面
-        private var pages: [Page: String] = {
+        fileprivate var pages: [Page: String] = {
             let pages = [Page: String]()
             
             return pages
         }()
         
         // 二级路由
-        private var sub_routers: [Host: String] = {
+        fileprivate var sub_routers: [Host: String] = {
             let routers = [Host: String]()
             
             return routers
@@ -152,11 +164,11 @@ public extension FunBox {
             if let URL = url?.asURL() {
                 if let host = URL.host, let Router = router(of: sub_routers[Host(rawValue: host)]) {
                     
-                    return Router.shared()
+                    return Router.current()
                 }
                 if let page = URL.asPageKey(), let Router = router(of: pages[Page(rawValue: page)]) {
                     
-                    return Router.shared()
+                    return Router.current()
                     
                 }
             }
@@ -292,7 +304,7 @@ public extension FunBox {
 
 extension FunRouter {
     // 公共页面
-    public struct Page: Hashable {
+    public struct Page: Hashable, Equatable {
         fileprivate var rawValue: String
         public init(rawValue: String) {
             self.rawValue = rawValue
@@ -302,9 +314,20 @@ extension FunRouter {
             
             return Page(rawValue: "alert?message=\(message)")
         }
+        
+        // 获取该页面注册的类
+        public var regist_class: AnyClass? {
+            if let class_name = FunRouter.default.pages[self] {
+                
+                return NSClassFromString(class_name)
+            }
+            
+            return nil
+        }
+        
     }
     
-    public struct Host: Hashable {
+    public struct Host: Hashable, Equatable {
         fileprivate var rawValue: String
         public init(rawValue: String) {
             self.rawValue = rawValue.lowercased()
@@ -483,7 +506,7 @@ extension FunRouter {
             
         }
         
-        static func shared() -> FunRouterable {
+        static func current() -> FunRouterable {
             return AlertRouter()
         }
         

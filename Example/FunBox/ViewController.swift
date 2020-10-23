@@ -119,7 +119,7 @@ class SubRouter: FunRouterable {
         print(url)
     }
     
-    static func shared() -> FunRouterable {
+    static func current() -> FunRouterable {
         return SubRouter()
     }
     
