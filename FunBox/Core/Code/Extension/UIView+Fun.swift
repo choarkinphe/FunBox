@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 extension FunKey {
     struct TextField {
         static var contentRegular = "com.funbox.key.contentRegular"
@@ -747,5 +748,50 @@ public extension FunNamespaceWrapper where T == UIEdgeInsets {
     
     var verticalValue: CGFloat {
         return wrappedValue.top + wrappedValue.bottom
+    }
+}
+
+
+//extension PHPhotoLibrary: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == PHPhotoLibrary {
+    //照片保存
+    static func save(album: PHPhotoLibrary.Album = .default, resource: PhotoResource?, complete: @escaping (((asset: PHAsset?, error: Error?))->Void)) {
+        guard let resource = resource else { return }
+        // 尝试获取相册保存权限
+        FunBox.Authorize.Photo.save({ (status) in
+            if status == .authorized {
+                
+                let library = PHPhotoLibrary.shared()
+                
+                var localIdentifier: String?
+                
+                library.performChanges({
+                    // 创建一个相册变动请求
+                    let collectionRequest = album.toCollectionRequest()
+                    
+                    // 根据传入的照片，创建照片变动请求
+                    let assetRequest = resource.asAssetRequest()
+                    
+                    // 创建一个占位对象
+                    if let placeholder = assetRequest?.placeholderForCreatedAsset {
+                        localIdentifier = placeholder.localIdentifier
+                        // 将占位对象添加到相册请求中
+                        collectionRequest.addAssets(NSArray(object: placeholder))
+                    }
+                    
+                }) { (success, error) in
+                    
+                    if success, let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject {
+                            
+                        complete((asset,error))
+                        
+                        
+                    } else {
+                        complete((nil,error))
+                    }
+                }
+                
+            }
+        })
     }
 }

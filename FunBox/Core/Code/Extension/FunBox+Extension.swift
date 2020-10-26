@@ -7,7 +7,7 @@
 
 import UIKit
 import CommonCrypto
-
+import MobileCoreServices
 // MARK: - NSObject
 
 typealias FunKey = FunBox.ObjectKey
@@ -257,6 +257,39 @@ public extension FunNamespaceWrapper where T == String {
         guard let from = String.Index(from16, within: wrappedValue) else { return nil }
         guard let to = String.Index(to16, within: wrappedValue) else { return nil }
         return from ..< to
+    }
+    
+}
+
+extension URL: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == URL {
+    /*
+     1 超文本标记语言文本 .html,.html text/html
+      2 普通文本 .txt text/plain
+      3 RTF文本 .rtf application/rtf
+      4 GIF图形 .gif image/gif
+      5 JPEG图形 .ipeg,.jpg image/jpeg
+      6 au声音文件 .au audio/basic
+      7 MIDI音乐文件 mid,.midi audio/midi,audio/x-midi
+      8 RealAudio音乐文件 .ra, .ram audio/x-pn-realaudio
+      9 MPEG文件 .mpg,.mpeg video/mpeg
+     10 AVI文件 .avi video/x-msvideo
+     11 GZIP文件 .gz application/x-gzip
+     12 TAR文件 .tar application/x-tar
+     */
+    
+    //根据后缀获取对应的Mime-Type
+    var mimeType: String {
+        if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+                                                           wrappedValue.pathExtension as NSString,
+                                                           nil)?.takeRetainedValue() {
+            if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?
+                .takeRetainedValue() as String? {
+                return mimetype.lowercased()
+            }
+        }
+        //文件资源类型如果不知道，传万能类型application/octet-stream，服务器会自动解析文件类
+        return "application/octet-stream"
     }
     
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import FunBox
+import Photos
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -25,6 +26,19 @@ class ViewController: UIViewController {
 //        FunBox.Location.default
         
         FunRouter.default.regist(host: .init(rawValue: "Sub"), router: SubRouter.self)
+        
+//        PHPhotoLibrary.fb.save(album: .default, resource: UIImage()) { (result) in
+//            
+//        }
+//        
+//        PHPhotoLibrary.fb.save(resource: URL(fileURLWithPath: "")) { (result) in
+//            
+//            // 保存到相册的对象
+//            result.asset
+//            
+//            // 错误信息
+//            result.error
+//        }
     }
 
     override func didReceiveMemoryWarning() {

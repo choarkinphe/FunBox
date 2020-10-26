@@ -7,6 +7,7 @@
 
 import Foundation
 
+import Photos
 public extension FunBox {
     static var observer: Observer {
         return Observer.Static.instance
@@ -308,6 +309,99 @@ extension FunBox {
             
         }
     }
+}
+
+extension FunBox {
+    
+    
+//    func save(<#parameters#>) -> <#return type#> {
+//        PHPhotoLibrary.saveVideo(albumName: "人大履职", localPath: fileUrl) { (asset) in
+//            DispatchQueue.main.async {
+//
+//                self?.completion?((self?.imageView.image,asset))
+//                HZHUD.dismissActivity()
+//            }
+//        }
+//    }
+//
+    
+}
+
+public protocol PhotoResource {
+    func asAssetRequest() -> PHAssetChangeRequest?
+}
+
+extension UIImage: PhotoResource {
+    public func asAssetRequest() -> PHAssetChangeRequest? {
+        return PHAssetChangeRequest.creationRequestForAsset(from: self)
+    }
+}
+
+extension URL: PhotoResource {
+    
+    public func asAssetRequest() -> PHAssetChangeRequest? {
+    
+        if isFileURL {
+            // 获取文件类型
+            let mimeType = fb.mimeType
+            
+            if mimeType.contains("video") {// 视频类型
+                return PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self)
+            } else if mimeType.contains("image") { // 图片类型
+                return PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: self)
+            }
+        }
+        
+        return nil
+    }
+}
+
+extension PHPhotoLibrary {
+    
+    public struct Album: Equatable {
+        public let name: String
+        public init(name: String) {
+            self.name = name
+        }
+        
+        public static var `default`: Album {
+            
+            // 1. 创建搜索集合
+            let result = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
+            
+            
+            // 默认返回第一个相册名
+            if let title = result.firstObject?.localizedTitle {
+                return Album(name: title)
+            }
+            
+            return Album(name: "New")
+        }
+        
+        func toCollectionRequest() -> PHAssetCollectionChangeRequest {
+            var collection: PHAssetCollectionChangeRequest?
+            // 1. 创建搜索集合
+            let result = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
+            // 2. 遍历搜索集合并取出对应的相册，返回当前的相册changeRequest
+            result.enumerateObjects { (assetCollection, index, pointer) in
+                if let localizedTitle = assetCollection.localizedTitle, localizedTitle.contains(name) {
+                    
+                    collection = PHAssetCollectionChangeRequest.init(for: assetCollection)
+                }
+            }
+            
+            if let collection = collection {
+                return collection
+            }
+            
+            // 如果不存在，创建一个名字为albumName的相册changeRequest
+            return PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: name)
+        }
+        
+        
+    }
+    
+   
 }
 
 
