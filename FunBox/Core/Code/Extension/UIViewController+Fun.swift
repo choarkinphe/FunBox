@@ -52,7 +52,7 @@ extension UIViewController: FunSwizz {
         // 默认偏移出安全区域
         rect.origin.y = fb.safeAeraInsets.top
         
-        if edgesForExtendedLayout != .init(rawValue: 0) {
+        if edgesForExtendedLayout != .init(rawValue: 0), edgesForExtendedLayout != .top {
             /*
              None     不做任何扩展,如果有navigationBar和tabBar时,self.view显示区域在二者之间
              Top      扩展顶部,self.view显示区域是从navigationBar顶部计算面开始计算一直到屏幕tabBar上部
@@ -62,6 +62,7 @@ extension UIViewController: FunSwizz {
              All      上下左右都扩展,及暂满全屏,是默认选项
              */
             // none == 0 ,此时view不需要做特殊处理
+            // 只有在view的地步不从tabBar顶部开始计算时，才需要在布局中减去tabBar的高度
             if let tabBarController = tabBarController, !hidesBottomBarWhenPushed {
                 if (!tabBarController.tabBar.isHidden && tabBarController.tabBar.isTranslucent) {
                     // tabBar没有隐藏，且tabBar是半透明状态
@@ -70,9 +71,9 @@ extension UIViewController: FunSwizz {
             }
             
             // none模式下，短行蓝显示时不用考虑安全区域
-            if let navigationController = navigationController, !navigationController.isNavigationBarHidden {
-                rect.origin.y = 0
-            }
+//            if let navigationController = navigationController, !navigationController.isNavigationBarHidden {
+//                rect.origin.y = 0
+//            }
             
         }
         if let navigationController = navigationController, navigationController.isNavigationBarHidden {
@@ -224,22 +225,45 @@ public extension FunBox {
             var safeAeraInsets = UIEdgeInsets.zero
             guard let viewController = viewController else { return safeAeraInsets }
             if UIDevice.current.fb.isInfinity {
-                safeAeraInsets.top = 24
                 
                 
-                if let tabBarController = viewController.tabBarController {
-                    if tabBarController.tabBar.isHidden { // tabBar隐藏状态加偏移
-                        safeAeraInsets.bottom = 34
+                
+                /*
+                 None     不做任何扩展,如果有navigationBar和tabBar时,self.view显示区域在二者之间
+                 Top      扩展顶部,self.view显示区域是从navigationBar顶部计算面开始计算一直到屏幕tabBar上部
+                 Left     扩展左边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
+                 Bottom   扩展底部,self.view显示区域是从navigationBar底部到tabBar底部
+                 Right    扩展右边,上下都不扩展,显示区域和UIRectEdgeNone是一样的
+                 All      上下左右都扩展,及暂满全屏,是默认选项
+                 */
+                if viewController.edgesForExtendedLayout != .init(rawValue: 0) {
+                    
+                    // view不是从navigationBar的底部开始计算，就存在安全区域
+                    if viewController.edgesForExtendedLayout != .bottom {
+                        safeAeraInsets.top = 24
                     }
                     
-                    if viewController.hidesBottomBarWhenPushed || viewController.parent?.hidesBottomBarWhenPushed == true {
-                        safeAeraInsets.bottom = 34
+                    // view不是从tabBar的顶端开始计算时，考虑安全区域
+                    if viewController.edgesForExtendedLayout != .top {
+                        
+                        if let tabBarController = viewController.tabBarController {
+                            if tabBarController.tabBar.isHidden { // tabBar隐藏状态加偏移
+                                safeAeraInsets.bottom = 34
+                            }
+                            
+                            if viewController.hidesBottomBarWhenPushed || viewController.parent?.hidesBottomBarWhenPushed == true {
+                                safeAeraInsets.bottom = 34
+                            }
+                            
+                        } else {
+                            
+                            safeAeraInsets.bottom = 34
+                        }
                     }
                     
-                } else {
                     
-                    safeAeraInsets.bottom = 34
                 }
+                
                 
             }
             
