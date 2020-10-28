@@ -68,6 +68,12 @@ extension UIViewController: FunSwizz {
                     rect.size.height = rect.size.height - tabBarController.tabBar.frame.size.height
                 }
             }
+            
+            // none模式下，短行蓝显示时不用考虑安全区域
+            if let navigationController = navigationController, !navigationController.isNavigationBarHidden {
+                rect.origin.y = 0
+            }
+            
         }
         if let navigationController = navigationController, navigationController.isNavigationBarHidden {
             // 导航栏被隐藏时，启用安全区域
