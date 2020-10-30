@@ -6,9 +6,11 @@
 //
 
 import Foundation
-
 import Photos
+
+// MARK: - Observer
 public extension FunBox {
+    
     static var observer: Observer {
         return Observer.Static.instance
     }
@@ -90,7 +92,7 @@ public extension FunBox {
     }
 }
 
-
+// MARK: - Refresher
 extension FunBox {
     public class Refresher: UIRefreshControl {
         private var handler: ((UIRefreshControl)->Void)?
@@ -139,6 +141,8 @@ extension FunBox.Refresher {
     }
 }
 
+
+// MARK: - WeakProxy
 protocol FunWeakProxyProtocol: NSObjectProtocol {
     func targetDidRelease()
 }
@@ -152,8 +156,8 @@ public class FunWeakProxy: NSObject {
     
     var sel: Selector?
 
-//    public weak var linker: CADisplayLink?
     weak var timer: FunWeakProxyProtocol?
+
     public required init(target: NSObjectProtocol?, sel:Selector?) {
         self.target = target
         self.sel = sel
@@ -200,132 +204,13 @@ extension CADisplayLink: FunWeakProxyProtocol {
         let linker = CADisplayLink.init(target: proxy, selector: aSelector)
         proxy.timer = linker
         return linker
-        
+    }
+    
+    func targetDidRelease() {
+        invalidate()
     }
 }
 
-extension FunBox {
-    public class FPS: NSObject {
-
-        private var count: Int = 0
-        private var lastTime: TimeInterval = 0
-        private var isShow: Bool = false
-        private var font: UIFont?
-        private var subFont: UIFont?
-        private var frame: CGRect = CGRect.init(x: UIScreen.main.bounds.size.width - 68, y: UIScreen.main.bounds.size.height - 84, width: 60, height: 24)
-        private var targetView: UIView?
-
-        
-        private lazy var fpsLabel: UILabel = {
-            font = UIFont.init(name: "Menlo", size: 14)
-            if font != nil {
-                subFont = UIFont.init(name: "Menlo", size: 4)
-            } else {
-                font = UIFont.init(name: "Courier", size: 14)
-                subFont = UIFont.init(name: "Courier", size: 4)
-            }
-            
-            let _fpsLabel = UILabel.init(frame: frame)
-            _fpsLabel.textColor = .white
-            _fpsLabel.layer.cornerRadius = 5
-            _fpsLabel.layer.masksToBounds = true
-            _fpsLabel.textAlignment = .center
-            _fpsLabel.isUserInteractionEnabled = false
-            _fpsLabel.backgroundColor = UIColor.init(white: 0.0, alpha: 0.7)
-            _fpsLabel.font = UIFont.systemFont(ofSize: 17)
-            return _fpsLabel
-        }()
-        
-        public static var `default`: FPS {
-            
-            return Static.instance
-        }
-        
-        private struct Static {
-            static let instance = FPS()
-        }
-        
-        public func set(frame: CGRect) -> Self {
-            self.frame = frame
-            
-            return self
-        }
-        
-        public func show(inView: UIView? = nil) {
-            
-            isShow = true
-            
-            targetView = inView ?? UIApplication.shared.keyWindow
-            
-            targetView?.addSubview(fpsLabel)
-            
-            start()
-        }
-        
-        private func start() {
-            
-            let link = CADisplayLink.weak_linker(target: self, selector: #selector(tick(linker:)))
-            link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
-        }
-        
-        @objc private func tick(linker: CADisplayLink) {
-            
-            if lastTime == 0 {
-                lastTime = linker.timestamp
-                
-                return
-            }
-            
-            count = count + 1
-            
-            let delta = linker.timestamp - lastTime
-
-            if delta < 1.0 {
-                return
-            }
-            
-            lastTime = linker.timestamp
-            let fps = Double(count) / delta
-            count = 0
-            
-            let progress = fps / 60.0
-            let fpsText = "\(Int(round(fps))) FPS"
-            
-            if isShow {
-                
-                let color = UIColor.init(hue: CGFloat(0.27 * (progress - 0.2)), saturation: 1.0, brightness: 0.9, alpha: 1.0)
-                let text = NSMutableAttributedString.init(string: fpsText)
-                text.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: NSRange.init(location: 0, length: text.length - 3))
-                text.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: NSRange.init(location: text.length - 3, length: 3))
-                text.addAttribute(NSAttributedString.Key.font, value: font!, range: NSRange.init(location: 0, length: text.length))
-                text.addAttribute(NSAttributedString.Key.font, value: subFont!, range: NSRange.init(location: text.length - 4, length: 1))
-                self.fpsLabel.attributedText = text
-                self.targetView?.bringSubviewToFront(self.fpsLabel)
-
-            } else {
-                print(fpsText)
-            }
-            
-            
-        }
-    }
-}
-
-extension FunBox {
-    
-    
-//    func save(<#parameters#>) -> <#return type#> {
-//        PHPhotoLibrary.saveVideo(albumName: "人大履职", localPath: fileUrl) { (asset) in
-//            DispatchQueue.main.async {
-//
-//                self?.completion?((self?.imageView.image,asset))
-//                HZHUD.dismissActivity()
-//            }
-//        }
-//    }
-//
-    
-}
 
 public protocol PhotoResource {
     func asAssetRequest() -> PHAssetChangeRequest?

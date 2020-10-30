@@ -17,6 +17,23 @@ extension FunBox.CacheKey {
     static let uuid = FunBox.CacheKey(rawValue: "uuid")
 }
 
+// MARK: - UIView
+public extension FunNamespaceWrapper where T: UIView {
+    var viewController: UIViewController? {
+        for view in sequence(first: wrappedValue.superview, next: {$0?.superview}){
+            
+            if let responder = view?.next{
+                
+                if responder.isKind(of: UIViewController.self){
+                    
+                    return responder as? UIViewController
+                }
+            }
+        }
+        return nil
+    }
+}
+
 // MARK: - UIBarButtonItem
 //extension UIBarButtonItem: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UIBarButtonItem {
@@ -782,12 +799,18 @@ public extension FunNamespaceWrapper where T == PHPhotoLibrary {
                 }) { (success, error) in
                     
                     if success, let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject {
+                        DispatchQueue.main.async {
                             
-                        complete((asset,error))
+                            complete((asset,error))
+                        }
                         
                         
                     } else {
-                        complete((nil,error))
+                        DispatchQueue.main.async {
+                            
+                            complete((nil,error))
+                        }
+                        
                     }
                 }
                 

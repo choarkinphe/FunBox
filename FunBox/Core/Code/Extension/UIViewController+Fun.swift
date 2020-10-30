@@ -243,6 +243,12 @@ public extension FunBox {
                         safeAeraInsets.top = 24
                     }
                     
+                    // 导航栏在显示状态，且导航栏不透明时，忽略安全范围（此时view是从导航栏下半部分开始计算的）
+                    if let navigationBar = viewController.navigationController?.navigationBar, !navigationBar.isTranslucent, !navigationBar.isHidden {
+                        
+                        safeAeraInsets.top = 0
+                    }
+                    
                     // view不是从tabBar的顶端开始计算时，考虑安全区域
                     if viewController.edgesForExtendedLayout != .top {
                         

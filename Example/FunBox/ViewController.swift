@@ -20,8 +20,8 @@ class ViewController: UIViewController {
         fb.observer.deviceOrientation { (orientation) in
             print(orientation,"AAA")
         }
-        
-        FunBox.FPS.default.set(frame: CGRect(x: 40, y: 24, width: 88, height: 28)).show()
+//        FunBox.cache.removeAllCache()
+//        FunBox.FPS.default.set(frame: CGRect(x: 40, y: 24, width: 88, height: 28)).show()
         
 //        FunBox.Location.default
         
@@ -39,6 +39,8 @@ class ViewController: UIViewController {
 //            // 错误信息
 //            result.error
 //        }
+        
+        FunLoger.record("我是第一条记录")
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,7 +122,38 @@ class ViewController: UIViewController {
 //        
 //        FunBox.router.open(url: url)
         
-        navigationController?.pushViewController(WebViewController(), animated: true)
+//        navigationController?.pushViewController(WebViewController(), animated: true)
+//        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+        FunBox.cache.cache(key: "AAA", data: "AAA_Value".data(using: .utf8))
+//        }
+//            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+        FunBox.cache.cache(key: "BBB", data: "BBB_Value".data(using: .utf8))
+//            }
+//                DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+        FunBox.cache.cache(key: "CCC", data: "CCC_Value".data(using: .utf8))
+//                }
+//                    DispatchQueue.main.asyncAfter(deadline: .now()+4) {
+        FunBox.cache.cache(key: "DDD", data: "DDD_Value".data(using: .utf8))
+//                    }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+4) {
+            let indexes = FunBox.cache.indexes
+                
+                print(indexes)
+            
+            
+            
+        }
+        
+        
+        let indexes = FunLoger.indexes
+
+        print(indexes)
+        if let log = FunLoger.read(index: indexes.first) {
+            print(log.message)
+        }
+//
+        
     }
 }
 

@@ -33,7 +33,7 @@ private extension FunBox.Cache {
     func cache_request(_ element: FunNetworking.RequestElement, response: Data?) {
         guard let key_str = element.identifier else { return }
         
-        cache(key: key_str, data: response, timeOut: element.cacheTimeOut)
+        cache(key: key_str, data: response, options: [.memory,.disk,.timeOut(element.cacheTimeOut ?? 60)])
         
         debugPrint("cache_request=",element.urlString ?? "")
     }
