@@ -33,17 +33,17 @@ public extension FunNamespaceWrapper where T: NSObject {
         return String(format: "%p", wrappedValue)
     }
     
-    var observer: FunBox.Observer {
-        if let observer = objc_getAssociatedObject(wrappedValue, &FunKey.observer) as? FunBox.Observer {
-            return observer
-        }
-        
-        let observer = FunBox.Observer()
-        
-        objc_setAssociatedObject(wrappedValue, &FunKey.observer, observer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        
-        return observer
-    }
+//    var observer: FunBox.Observer {
+//        if let observer = objc_getAssociatedObject(wrappedValue, &FunKey.observer) as? FunBox.Observer {
+//            return observer
+//        }
+//        
+//        let observer = FunBox.Observer()
+//        
+//        objc_setAssociatedObject(wrappedValue, &FunKey.observer, observer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//        
+//        return observer
+//    }
 }
 
 

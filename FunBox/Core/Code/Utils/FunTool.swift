@@ -92,6 +92,21 @@ public extension FunBox {
     }
 }
 
+public extension FunNamespaceWrapper where T: NSObject {
+    
+    var observer: FunBox.Observer {
+        if let observer = objc_getAssociatedObject(wrappedValue, &FunKey.observer) as? FunBox.Observer {
+            return observer
+        }
+        
+        let observer = FunBox.Observer()
+        
+        objc_setAssociatedObject(wrappedValue, &FunKey.observer, observer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
+        return observer
+    }
+}
+
 // MARK: - Refresher
 extension FunBox {
     public class Refresher: UIRefreshControl {
@@ -132,6 +147,14 @@ extension FunBox {
             
             
         }
+    }
+}
+
+public extension FunNamespaceWrapper where T: UIScrollView {
+    var refresher: FunBox.Refresher {
+        let refresher = FunBox.Refresher()
+        wrappedValue.refreshControl = refresher
+        return refresher
     }
 }
 
@@ -290,3 +313,52 @@ extension PHPhotoLibrary {
 }
 
 
+//extension PHPhotoLibrary: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == PHPhotoLibrary {
+    //照片保存
+    static func save(album: PHPhotoLibrary.Album = .default, resource: PhotoResource?, complete: @escaping (((asset: PHAsset?, error: Error?))->Void)) {
+        guard let resource = resource else { return }
+        // 尝试获取相册保存权限
+        FunBox.Authorize.Photo.save({ (status) in
+            if status == .authorized {
+                
+                let library = PHPhotoLibrary.shared()
+                
+                var localIdentifier: String?
+                
+                library.performChanges({
+                    // 创建一个相册变动请求
+                    let collectionRequest = album.toCollectionRequest()
+                    
+                    // 根据传入的照片，创建照片变动请求
+                    let assetRequest = resource.asAssetRequest()
+                    
+                    // 创建一个占位对象
+                    if let placeholder = assetRequest?.placeholderForCreatedAsset {
+                        localIdentifier = placeholder.localIdentifier
+                        // 将占位对象添加到相册请求中
+                        collectionRequest.addAssets(NSArray(object: placeholder))
+                    }
+                    
+                }) { (success, error) in
+                    
+                    if success, let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject {
+                        DispatchQueue.main.async {
+                            
+                            complete((asset,error))
+                        }
+                        
+                        
+                    } else {
+                        DispatchQueue.main.async {
+                            
+                            complete((nil,error))
+                        }
+                        
+                    }
+                }
+                
+            }
+        })
+    }
+}

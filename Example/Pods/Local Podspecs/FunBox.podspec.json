@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.3.6",
+  "version": "0.3.20",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,24 +14,72 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.3.6"
+    "tag": "0.3.20"
   },
   "platforms": {
     "ios": "10.0"
   },
   "source_files": "FunBox/Core/Code/*",
+  "resource_bundles": {
+    "FunBox": [
+      "FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+    ]
+  },
   "subspecs": [
     {
       "name": "Core",
+      "dependencies": {
+        "FunBox/Extension": [
+
+        ],
+        "FunBox/Utils": [
+
+        ],
+        "FunBox/Main": [
+
+        ],
+        "FunBox/UI": [
+
+        ]
+      }
+    },
+    {
+      "name": "Extension",
+      "source_files": "FunBox/Core/Code/Extension/**/*",
+      "dependencies": {
+        "FunBox/Main": [
+
+        ]
+      }
+    },
+    {
+      "name": "Main",
       "source_files": [
         "FunBox/Core/Code/*",
-        "FunBox/Core/Code/Extension/*",
-        "FunBox/Core/Code/Utils/*",
-        "FunBox/Core/Code/Other/*"
-      ],
-      "resource_bundles": {
-        "FunCore": [
-          "FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+        "FunBox/Core/Code/Other/**/*"
+      ]
+    },
+    {
+      "name": "Utils",
+      "source_files": "FunBox/Core/Code/Utils/**/*",
+      "dependencies": {
+        "FunBox/Extension": [
+
+        ],
+        "FunBox/Main": [
+
+        ]
+      }
+    },
+    {
+      "name": "UI",
+      "source_files": "FunBox/Core/Code/UI/**/*",
+      "dependencies": {
+        "FunBox/Extension": [
+
+        ],
+        "FunBox/Main": [
+
         ]
       }
     },
@@ -51,8 +99,8 @@
           }
         },
         {
-          "name": "FunView",
-          "source_files": "FunBox/Modules/CustomView/Code/**/*",
+          "name": "FunUI",
+          "source_files": "FunBox/Modules/UI/Code/**/*",
           "dependencies": {
             "FunBox/Core": [
 

@@ -30,41 +30,56 @@ Pod::Spec.new do |s|
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
     
     s.ios.deployment_target = '10.0'
-
+    
     # 核心库
     s.source_files = 'FunBox/Core/Code/*'
-#    s.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+    #    s.public_header_files = 'FunBox/Core/Code/FunBox.swift'
     s.subspec 'Core' do |ss|
         # 核心库路径
-        ss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Extension/*','FunBox/Core/Code/Utils/*','FunBox/Core/Code/Other/*'
-#        ss.source_files = 'FunBox/Core/Code/Extension/*'
-#        ss.source_files = 'FunBox/Core/Code/Utils/*'
-#        ss.source_files = 'FunBox/Core/Code/Other/*'
-#        ss.subspec 'Extension' do |sss|
-#            # 核心库路径
-##            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
-#            sss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Extension/*'
-##            sss.source_files = 'FunBox/Core/Code/*'
-#        end
-#        ss.subspec 'Other' do |sss|
-#            # 核心库路径
-##            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
-#            sss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Other/*'
-##            sss.source_files = 'FunBox/Core/Code/*'
-#        end
-#        ss.subspec 'Utils' do |sss|
-#            # 核心库路径
-##            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
-#            sss.source_files = 'FunBox/Core/Code/Utils/*'
-#            sss.source_files = 'FunBox/Core/Code/*'
-#            sss.dependency 'FunBox/Core/Extension'
-#            sss.dependency 'FunBox/Core/Other'
-#        end
-        # 核心库Bundle地址
-        ss.resource_bundles = {
-        'FunCore' => ['FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
-        }
+        #        ss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/UI/*','FunBox/Core/Code/Extension/*','FunBox/Core/Code/Utils/*','FunBox/Core/Code/Other/*'
+        #        ss.source_files = 'FunBox/Core/Code/Extension/*'
+        #        ss.source_files = 'FunBox/Core/Code/Utils/*'
+        #        ss.source_files = 'FunBox/Core/Code/Other/*'
+        ss.dependency 'FunBox/Extension'
+        ss.dependency 'FunBox/Utils'
+        ss.dependency 'FunBox/Main'
+        ss.dependency 'FunBox/UI'
     end
+    s.subspec 'Extension' do |ss|
+        # 核心库路径
+        #            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+        ss.source_files = 'FunBox/Core/Code/Extension/**/*'
+        #            sss.source_files = 'FunBox/Core/Code/*'
+        ss.dependency 'FunBox/Main'
+        
+    end
+    s.subspec 'Main' do |ss|
+        # 核心库路径
+        #            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+        ss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Other/**/*'
+        #            sss.source_files = 'FunBox/Core/Code/*'
+    end
+    s.subspec 'Utils' do |ss|
+        # 核心库路径
+        #            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+        ss.source_files = 'FunBox/Core/Code/Utils/**/*'
+        
+        ss.dependency 'FunBox/Extension'
+        ss.dependency 'FunBox/Main'
+    end
+    s.subspec 'UI' do |ss|
+        # 核心库路径
+        #            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
+        ss.source_files = 'FunBox/Core/Code/UI/**/*'
+        
+        ss.dependency 'FunBox/Extension'
+        ss.dependency 'FunBox/Main'
+    end
+    
+    # 公共Bundle地址
+    s.resource_bundles = {
+        'FunBox' => ['FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+    }
     
     # 组件库
     s.subspec 'Modules' do |modules|
@@ -84,9 +99,9 @@ Pod::Spec.new do |s|
             networking.dependency 'Alamofire', '~> 5.2.2'
         end
         # 工具: ViewKit
-        modules.subspec 'FunView' do |funView|
+        modules.subspec 'FunUI' do |funView|
             # FunNetworking路径
-            funView.source_files = 'FunBox/Modules/CustomView/Code/**/*'
+            funView.source_files = 'FunBox/Modules/UI/Code/**/*'
             # FunNetworking的Bundle地址
             #networking.resource_bundles = {
             #'FunNetworking' => ['HZCoreKit/Modules/Networking/Assets/*.{storyboard,xib,xcassets,json,imageset,png,md}']

@@ -43,20 +43,17 @@ public extension FunNamespaceWrapper where T: UIBarButtonItem {
     
 }
 
-public extension FunNamespaceWrapper where T: UIScrollView {
-    var refresher: FunBox.Refresher {
-        let refresher = FunBox.Refresher()
-        wrappedValue.refreshControl = refresher
-        return refresher
-    }
-}
-
 
 // MARK: - UIScreen
 //extension UIScreen: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: UIScreen {
+    // 屏幕尺寸
     static var size: CGSize {
         return UIScreen.main.bounds.size
+    }
+    // 是否全面屏
+    static var isInfinity: Bool {
+        return UIDevice.current.fb.isInfinity
     }
 }
 
@@ -467,9 +464,9 @@ public extension FunNamespaceWrapper where T: UILabel {
     
 }
 public extension FunNamespaceWrapper where T: UIView {
-    func effect(_ style: FunBox.Effect.Style) -> FunBox.Effect {
-        return FunBox.Effect.default.target(wrappedValue).style(style)
-    }
+//    func effect(_ style: UIView.Effect.Style) -> UIView.Effect {
+//        return UIView.Effect.default.target(wrappedValue).style(style)
+//    }
     
     var snapshot: UIImage? {
         
@@ -599,18 +596,18 @@ public extension FunNamespaceWrapper where T: UIDevice {
     
     // 获取uuid（自动缓存，除非重新安装APP或者超过300天<缓存有效期>）
     var uuid: String {
-        
+
         if let data = FunBox.cachePool.load(key: .uuid), let uuid = String(data: data, encoding: .utf8) {
             return uuid
         } else {
-            
+
             let uuid = UUID().uuidString
-            
+
             FunBox.cachePool.cache(key: .uuid, data: uuid.data(using: .utf8))
-            
+
             return uuid
         }
-        
+
     }
     
     // 判断设备是否为iPhoneX 系列
@@ -769,52 +766,3 @@ public extension FunNamespaceWrapper where T == UIEdgeInsets {
 }
 
 
-//extension PHPhotoLibrary: FunNamespaceWrappable {}
-public extension FunNamespaceWrapper where T == PHPhotoLibrary {
-    //照片保存
-    static func save(album: PHPhotoLibrary.Album = .default, resource: PhotoResource?, complete: @escaping (((asset: PHAsset?, error: Error?))->Void)) {
-        guard let resource = resource else { return }
-        // 尝试获取相册保存权限
-        FunBox.Authorize.Photo.save({ (status) in
-            if status == .authorized {
-                
-                let library = PHPhotoLibrary.shared()
-                
-                var localIdentifier: String?
-                
-                library.performChanges({
-                    // 创建一个相册变动请求
-                    let collectionRequest = album.toCollectionRequest()
-                    
-                    // 根据传入的照片，创建照片变动请求
-                    let assetRequest = resource.asAssetRequest()
-                    
-                    // 创建一个占位对象
-                    if let placeholder = assetRequest?.placeholderForCreatedAsset {
-                        localIdentifier = placeholder.localIdentifier
-                        // 将占位对象添加到相册请求中
-                        collectionRequest.addAssets(NSArray(object: placeholder))
-                    }
-                    
-                }) { (success, error) in
-                    
-                    if success, let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject {
-                        DispatchQueue.main.async {
-                            
-                            complete((asset,error))
-                        }
-                        
-                        
-                    } else {
-                        DispatchQueue.main.async {
-                            
-                            complete((nil,error))
-                        }
-                        
-                    }
-                }
-                
-            }
-        })
-    }
-}
