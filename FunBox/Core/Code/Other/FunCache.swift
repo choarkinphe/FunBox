@@ -293,7 +293,7 @@ public extension FunBox {
         // 将key进行一次md5，拼接最终储存路径（防止key过长与重复）
         private func cachePathForKey(key: FunCacheKey?) -> String? {
             
-            if let fileName = key?.rawValue.fb.md5 {
+            if let fileName = key?.rawValue.md5 {
                 
                 return diskCachePath + "/\(fileName)"
             }
@@ -304,6 +304,20 @@ public extension FunBox {
         
     }
     
+}
+
+extension String {
+    fileprivate var md5: String {
+        
+        if let utf8 = cString(using: .utf8), !utf8.isEmpty {
+            var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+            CC_MD5(utf8, CC_LONG(utf8.count - 1), &digest)
+            return digest.reduce("") { $0 + String(format:"%02X", $1)
+                
+            }
+        }
+        return self
+    }
 }
 
 public protocol FunCacheOptions {
@@ -369,5 +383,37 @@ extension Options: FunCacheOptions {
 extension FunBox.Cache.Option: FunCacheOptions {
     public func asOptions() -> [FunBox.Cache.Option] {
         return [self]
+    }
+}
+
+// MARK: - 内部缓存
+extension FunBox {
+    
+    struct CacheKey {
+        let rawValue: String
+        init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+    
+    private static let cachePathName = "com.funbox.core.cache"
+    
+    static var cachePool: Cache {
+        let directoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
+        // 指定缓存路径
+        let cachePool = FunBox.Cache.init(path: directoryPath! + "/\(cachePathName)")
+        // 缓存有效期为300天
+        cachePool.cacheTimeOut = 25920000
+        return cachePool
+    }
+}
+
+extension FunCache {
+    func cache(key: FunBox.CacheKey, data: Data?) {
+        FunBox.cachePool.cache(key: key.rawValue, data: data)
+    }
+    
+    func load(key: FunBox.CacheKey) -> Data? {
+        return FunBox.cachePool.loadCache(key: key.rawValue)
     }
 }
