@@ -11,10 +11,15 @@ import UIKit
 //public typealias FunTextView = FunBox.TextView
 //extension FunBox {
     open class FunTextView: UITextView {
-        public var placeholder: String?
+        public var placeholder: String? {
+            didSet {
+                placeholderLabel.text = placeholder
+                setNeedsLayout()
+            }
+        }
         public let placeholderLabel: UILabel
         
-        override init(frame: CGRect, textContainer: NSTextContainer?) {
+        public override init(frame: CGRect, textContainer: NSTextContainer?) {
             placeholderLabel = UILabel()
             super.init(frame: frame, textContainer: textContainer)
          
@@ -75,12 +80,16 @@ import UIKit
             }
         }
         
-        public var placeholderMargins: UIEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        public var placeholderMargins: UIEdgeInsets = UIEdgeInsets(top: -2, left: 5, bottom: 0, right: 5) {
+            didSet {
+                setNeedsLayout()
+            }
+        }
         
         open override func layoutSubviews() {
             super.layoutSubviews()
             
-            if placeholderLabel.alpha == 1 {
+//            if placeholderLabel.alpha == 1 {
                 let labelMargins = textContainerInset.fb.contect(placeholderMargins)
                 
                 let limitWidth = bounds.width - contentInset.fb.horizontalValue - labelMargins.fb.horizontalValue
@@ -89,7 +98,7 @@ import UIKit
                 labelSize.height = min(limitHeight, labelSize.height)
                 
                 placeholderLabel.frame = CGRect(x: labelMargins.left, y: labelMargins.top, width: labelSize.width, height: labelSize.height)
-            }
+//            }
         }
         
         open override func draw(_ rect: CGRect) {
