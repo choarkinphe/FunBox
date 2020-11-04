@@ -32,6 +32,18 @@ public extension FunNamespaceWrapper where T: UIView {
         }
         return nil
     }
+    
+    func removeAllSubviews<T>(type: T.Type?=nil) where T: UIView {
+        wrappedValue.subviews.forEach { (item) in
+            if type != nil {
+                if item is T {
+                    item.removeFromSuperview()
+                }
+            } else {
+                item.removeFromSuperview()
+            }
+        }
+    }
 }
 
 // MARK: - UIBarButtonItem
