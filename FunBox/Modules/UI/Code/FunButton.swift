@@ -62,7 +62,7 @@ import UIKit
             case .imageRight:
                 imageEdgeInsets = UIEdgeInsets(top: 0, left: label_size.width + 4, bottom: 0, right: -label_size.width - 4)
                 
-                titleEdgeInsets = UIEdgeInsets(top: 0, left: -image_size.width - 4, bottom: 0, right: -image_size.width + 4)
+                titleEdgeInsets = UIEdgeInsets(top: 0, left: -image_size.width - 4, bottom: 0, right: image_size.width + 4)
                 
             default:
                 break
