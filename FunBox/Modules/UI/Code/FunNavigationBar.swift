@@ -39,7 +39,7 @@ open class FunNavigationBar: UIView {
     
     public override init(frame: CGRect) {
         contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 0, bottom: 0, right: 0)
-        contentView = UIView()
+        contentView = UIView(frame: CGRect(x: contentInsets.left, y: contentInsets.top, width: frame.width - contentInsets.left - contentInsets.right, height: frame.height - contentInsets.bottom - contentInsets.top))
         titleLabel = FunLabel()
         backItem = UIButton()
         titleColor = FunNavigationBar.style.textColor
@@ -179,7 +179,7 @@ open class FunNavigationBar: UIView {
                     size = titleView.sizeThatFits(contentView.bounds.size)
                 }
                 
-                titleView.frame = CGRect(x: (contentView.frame.width - size.width / 2.0), y: contentView.bounds.height - size.height, width: size.width, height: size.height)
+                titleView.frame = CGRect(x: (contentView.frame.width - size.width) / 2.0, y: contentView.bounds.height - size.height, width: size.width, height: size.height)
                 
                 contentView.addSubview(titleView)
                 
