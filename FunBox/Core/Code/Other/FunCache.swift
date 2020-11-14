@@ -49,7 +49,8 @@ public extension FunBox {
         private lazy var fileManager = FileManager.default
         // 默认缓存时效为1周
         public var cacheTimeOut: TimeInterval = 604800
-        
+        // UserDefaults
+        private let ud = UserDefaults.standard
         
         /*
             缓存目录下增加一个索引文件
@@ -137,6 +138,11 @@ public extension FunBox {
                         // 放进缓存池
                         self.memoryCache.setObject(cacheData as NSData, forKey: NSString(string: cachePath))
                     }
+                    
+                    if options.asOptions().contains(.userDefaults) {
+                        // 写入到userDefaults
+                        self.ud.set(cacheData, forKey: cachePath)
+                    }
 
                     // 写入
                     if options.asOptions().contains(.disk) {
@@ -183,6 +189,11 @@ public extension FunBox {
                 return true
             }
             
+            // ud中查找
+            if ud.data(forKey: cachePath) != nil {
+                return true
+            }
+            
             // 查找磁盘缓存
             var exists = fileManager.fileExists(atPath: cachePath)
             
@@ -202,6 +213,12 @@ public extension FunBox {
             if let cacheData = memoryCache.object(forKey: NSString(string: cachePath)) {
                 return proving(key: key, data: cacheData as Data)
             }
+            
+            // ud中查找
+            if let cacheData = ud.data(forKey: cachePath) {
+                return proving(key: key, data: cacheData)
+            }
+            
             // 读取磁盘缓存
             if let cacheData = NSKeyedUnarchiver.unarchiveObject(withFile: cachePath) as? Data {
                 return proving(key: key, data: cacheData)
@@ -240,6 +257,8 @@ public extension FunBox {
                 guard let cachePath = self.cachePathForKey(key: key) else { return }
                 // 删除memory缓存
                 self.memoryCache.removeObject(forKey: NSString(string: cachePath))
+                // 删除ud数据
+                self.ud.removeObject(forKey: cachePath)
                 // 删除磁盘缓存
                 try? self.fileManager.removeItem(atPath: cachePath)
                 // 清除索引(如果有)
@@ -337,6 +356,7 @@ extension FunBox.Cache {
             self.rawValue = rawValue
         }
         public static let disk = Option(rawValue: "disk")
+        public static let userDefaults = Option(rawValue: "userDefaults")
         public static let memory = Option(rawValue: "memory")
         public static func timeOut(_ time: TimeInterval) -> Option {
             var timeOut = Option(rawValue: "timeOut")
