@@ -18,13 +18,19 @@ public extension FunNamespaceWrapper where T == UIDatePicker {
 
 public protocol FunDateConvertable {
     func asDate(formatter: DateFormatter) -> Date?
-
+    
+    func asString(formatter: DateFormatter) -> String?
 }
 
 extension Date: FunDateConvertable {
     
     public func asDate(formatter: DateFormatter) -> Date? {
         return self
+    }
+    
+    public func asString(formatter: DateFormatter) -> String? {
+        
+        return formatter.string(from: self)
     }
 }
 
@@ -33,17 +39,22 @@ extension String: FunDateConvertable {
         guard let date = formatter.date(from: self) else { return nil }
         return date
     }
+    
+    public func asString(formatter: DateFormatter) -> String? {
+        
+        return self
+    }
 }
 //public typealias HandlerByDateStr = ((String)->Void)
-public typealias FunDateHandler = ((Date,Formatter)->Void)
+public typealias FunDateHandler = (((date: Date, dateString: String?, formatter: DateFormatter))->Void)
 public extension FunBox {
     
+    
+    static var datePicker: DatePicker {
         
-        static var datePicker: DatePicker {
-            
-            return DatePicker.default
-        }
-        
+        return DatePicker.default
+    }
+    
     private struct DatePickerConfig {
         
         var position: DatePicker.Position = .default
@@ -53,12 +64,10 @@ public extension FunBox {
         var showAnimated: Bool = false
         
         var dateHandler: FunDateHandler?
-//        var dateStrHandler: HandlerByDateStr?
+        
     }
     
     class DatePicker: UIViewController {
-        
-        private var iPhoneXSeries: Bool = false
         
         public enum Position : Int {
             case `default`
@@ -111,23 +120,9 @@ public extension FunBox {
             modalTransitionStyle = .coverVertical
             modalPresentationStyle = .overFullScreen
             view.backgroundColor = UIColor.init(white: 0, alpha: 0)
-//            datePicker.calendar = Calendar.current
+            //            datePicker.calendar = Calendar.current
             datePicker.locale = Locale.current
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                
-                if let mainWindow = UIApplication.shared.delegate?.window {
-                    
-                    if #available(iOS 11.0, *) {
-                        if mainWindow!.safeAreaInsets.bottom > CGFloat(0.0) {
-                            
-                            iPhoneXSeries = true
-                        }
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }
-                
-            }
+            
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -164,7 +159,7 @@ public extension FunBox {
             let datePicker_h: CGFloat = 216.0
             let toolBar_h: CGFloat = toolBar.frame.size.height
             var datePicker_y = view.bounds.size.height - datePicker_h
-            if iPhoneXSeries {
+            if UIDevice.current.fb.isInfinity {
                 datePicker_y = datePicker_y - 24
                 safeBottomView.frame = CGRect.init(x: 0, y: view.bounds.size.height - 24, width: datePicker_w, height: 24)
             }
@@ -181,12 +176,8 @@ public extension FunBox {
         @objc private func selectedAction(sender: Any) {
             
             if let dateHandler = config.dateHandler {
-                dateHandler(datePicker.date,formatter)
+                dateHandler((datePicker.date,datePicker.date.asString(formatter: formatter),formatter))
             }
-            
-//            if let dateStrHandler = config.dateStrHandler {
-//                dateStrHandler(formatter.string(from: datePicker.date))
-//            }
             
             dismiss(animated: true, completion: nil)
             
@@ -271,9 +262,15 @@ public extension FunBox {
 }
 
 public extension FunBox.DatePicker {
-    func present(from: UIViewController? = nil) {
+    
+    func response(from viewController: UIViewController? = nil, handler: @escaping FunDateHandler) {
         
-        var rootViewController = from ?? UIApplication.shared.keyWindow?.rootViewController
+        dateHandler(handler).present(from: viewController)
+    }
+    
+    func present(from viewController: UIViewController? = nil) {
+        
+        var rootViewController = viewController ?? UIApplication.shared.keyWindow?.rootViewController
         
         if let presentedViewController = rootViewController?.presentedViewController {
             rootViewController = presentedViewController
@@ -305,12 +302,6 @@ public extension FunBox.DatePicker {
         return self
     }
     
-//    func handlerByDateStr(_ handlerByDateStr: @escaping HandlerByDateStr) -> Self {
-//        config.dateStrHandler = handlerByDateStr
-//
-//        return self
-//    }
-    
     func title(_ title: String) -> Self {
         toolBar.titleLabel.text = title
         
@@ -333,23 +324,11 @@ public extension FunBox.DatePicker {
         return self
     }
     
-//    func setDate(dateStr a_dateStr: String?, animated a_animated: Bool? = nil) -> Self {
-//
-//        if let dateStr = a_dateStr {
-//            guard let date = formatter.date(from: dateStr) else { return self }
-//
-//            return setDate(date: date, animated: a_animated)
-//        }
-//
-//        return self
-//    }
-    
-    func setDate(date a_date: FunDateConvertable?, animated a_animated: Bool? = nil) -> Self {
+    func set(date: FunDateConvertable?, animated: Bool = false) -> Self {
         
-        config.showDate = a_date?.asDate(formatter: formatter)
-        if let animated = a_animated {
-            config.showAnimated = animated
-        }
+        config.showDate = date?.asDate(formatter: formatter)
+        
+        config.showAnimated = animated
         
         return self
     }
