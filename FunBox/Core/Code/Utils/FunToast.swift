@@ -401,6 +401,8 @@ extension FunBox.Toast.Config {
         
         contentView.frame = CGRect(x: 0.0, y: 0.0, width: contentWidth, height: contentHeight)
         
+        contentView.identifier = identifier
+        
         return contentView
     }
     
@@ -420,6 +422,7 @@ public extension UIView {
         static var activeToasts = "com.funbox.toast.activeToasts"
         static var activityView = "com.funbox.toast.activityView"
         static var queue        = "com.funbox.toast.queue"
+        static var identifier   = "com.funbox.toast.identifier"
     }
     
     private class CompletionWrapper {
@@ -427,6 +430,15 @@ public extension UIView {
         
         init(_ completion: ((Bool) -> Void)?) {
             self.completion = completion
+        }
+    }
+    
+    fileprivate var identifier: String? {
+        get {
+            return objc_getAssociatedObject(self, &Keys.identifier) as? String
+        }
+        set {
+            objc_setAssociatedObject(self, &Keys.identifier, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
     }
     
@@ -506,6 +518,7 @@ public extension UIView {
     }
     
     func showToast(_ toast: UIView, duration: TimeInterval = FunBox.Toast.manager.duration, point: CGPoint, completion: ((_ didTap: Bool) -> Void)? = nil) {
+        
         objc_setAssociatedObject(toast, &Keys.completion, CompletionWrapper(completion), .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
         if FunBox.Toast.manager.isQueueEnabled, activeToasts.count > 0 {
@@ -656,8 +669,14 @@ public extension UIView {
             }
             
             if let nextToast = self.queue.first, let duration = objc_getAssociatedObject(nextToast, &Keys.duration) as? NSNumber, let point = objc_getAssociatedObject(nextToast, &Keys.point) as? NSValue {
-                self.queue.remove(at: 0)
-                self.showToast(nextToast, duration: duration.doubleValue, point: point.cgPointValue)
+                
+                if toast.identifier == nextToast.identifier {
+                    
+                    self.hideToast(nextToast, fromTap: false)
+                } else {
+                    self.queue.remove(at: 0)
+                    self.showToast(nextToast, duration: duration.doubleValue, point: point.cgPointValue)
+                }
             }
         }
     }
@@ -692,6 +711,9 @@ public extension FunBox.Toast {
         var completion: ((Bool) -> Void)?
         var progress: CGFloat = 0.0
         var mode: Mode = .default
+        var identifier: String? {
+            return "\(title ?? "")\(message ?? "")".fb.md5
+        }
     }
     
     enum Mode: Equatable {
