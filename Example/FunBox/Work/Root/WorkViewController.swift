@@ -28,6 +28,7 @@ import UIKit
         }
         
         @objc func popMenu(sender: UIButton) {
+            /*
             let manager = FunPopMenuManager.default
             // Set actions
 //            manager.actions =
@@ -37,9 +38,6 @@ import UIKit
                                 FunPopMenu(title: "Try it out!")
                                 ])
             manager.addActions(["标题1","标题2","标题3"])
-//            manager.addAction(FunPopMenu(title: "Pop another menu"))
-//            manager.addAction(FunPopMenu(title: "Try it out!"))
-            // Customize appearance
             manager.appearance.font = UIFont(name: "AvenirNext-DemiBold", size: 16)!
             manager.appearance.backgroundStyle = .dimmed(color: .clear, opacity: 0.2)
             manager.appearance.contentOffset = CGPoint(x: 0, y: 32)
@@ -51,6 +49,9 @@ import UIKit
             }
             // Present menu
             manager.present(sourceView: sender)
+            */
+
+            
         }
         
         override func viewDidLoad() {

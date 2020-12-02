@@ -235,7 +235,7 @@ extension FunBox.Toast.Config {
         }
         
 //        var style = self.style
-        
+        var verticalPadding = style.verticalPadding
         var imageView: UIImageView?
         var imageRect = CGRect.zero
         var titleLabel: UILabel?
@@ -243,16 +243,25 @@ extension FunBox.Toast.Config {
         var messageLabel: UILabel?
         var messageRect = CGRect.zero
         
+        if image == nil && (message == nil || title == nil) {
+            verticalPadding = 5.0
+        }
+
+        let contanier = UIView()
+        contanier.backgroundColor = style.backgroundColor
+        contanier.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        contanier.layer.cornerRadius = style.cornerRadius
+        
         let contentView = UIView()
-        contentView.backgroundColor = style.backgroundColor
-        contentView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        contentView.layer.cornerRadius = style.cornerRadius
+//        contentView.backgroundColor = style.backgroundColor
+//        contentView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+//        contentView.layer.cornerRadius = style.cornerRadius
         
         if style.displayShadow {
-            contentView.layer.shadowColor = UIColor.black.cgColor
-            contentView.layer.shadowOpacity = style.shadowOpacity
-            contentView.layer.shadowRadius = style.shadowRadius
-            contentView.layer.shadowOffset = style.shadowOffset
+            contanier.layer.shadowColor = UIColor.black.cgColor
+            contanier.layer.shadowOpacity = style.shadowOpacity
+            contanier.layer.shadowRadius = style.shadowRadius
+            contanier.layer.shadowOffset = style.shadowOffset
         }
         
         // 设置图片
@@ -336,13 +345,26 @@ extension FunBox.Toast.Config {
         
         var textWidth = max(titleRect.width, messageRect.width)
 //        let longerX = max(titleRect.origin.x, messageRect.origin.x)
-        var position = CGPoint(x: max(titleRect.origin.x, messageRect.origin.x), y: style.verticalPadding)
+        var position = CGPoint(x: max(titleRect.origin.x, messageRect.origin.x), y: verticalPadding)
         var contentWidth = max(imageRect.width, (position.x + textWidth + style.horizontalPadding))
-        var contentHeight = position.y + style.verticalPadding
+        var contentHeight = position.y + verticalPadding
         
         if style == .system {
-            contentHeight = position.y + titleRect.size.height + style.margin + messageRect.size.height + style.verticalPadding
-            contentWidth = min(imageRect.width + style.margin * 2 + textWidth + contentHeight, superView.frame.width - 2 * style.horizontalPadding)
+//            var vertical_margin = style.margin
+            var horizontal_margin = style.margin
+            if titleLabel == nil || messageLabel == nil {
+//                vertical_margin = 0
+                contentHeight = imageRect.height + 2 * style.margin
+                position.y = (contentHeight - titleRect.height - messageRect.height) / 2.0
+            } else {
+                contentHeight = position.y + titleRect.size.height + style.margin + messageRect.size.height + verticalPadding
+            }
+            if imageView == nil || (titleLabel == nil && messageLabel == nil) {
+                horizontal_margin = 0
+            }
+            
+//            contentHeight = max(contentHeight, imageRect.height + 2 * style.margin)
+            contentWidth = min(imageRect.width + horizontal_margin * 2 + textWidth + contentHeight, superView.frame.width - 2 * style.horizontalPadding)
             position.x = contentHeight / 2.0
         }
         
@@ -368,13 +390,18 @@ extension FunBox.Toast.Config {
         if let titleLabel = titleLabel {
             titleRect.size.width = textWidth
             if style == .system {
+                    titleRect.origin = position
                 
-                titleRect.origin = position
-                position.y = titleRect.maxY + style.margin
+                
             } else {
             
-            titleRect.origin.y = position.y
+                titleRect.origin.y = position.y
+//                position.y = titleRect.maxY + style.margin
+            }
+            if messageLabel != nil {
                 position.y = titleRect.maxY + style.margin
+            } else {
+                position.y = titleRect.maxY
             }
             titleLabel.frame = titleRect
             contentView.addSubview(titleLabel)
@@ -394,16 +421,22 @@ extension FunBox.Toast.Config {
         
         
         if style == .system {
-            contentView.layer.cornerRadius = contentHeight / 2.0
+            contanier.layer.cornerRadius = contentHeight / 2.0
         } else {
-            contentHeight = position.y + style.verticalPadding
+            contentHeight = position.y + verticalPadding
         }
         
-        contentView.frame = CGRect(x: 0.0, y: 0.0, width: contentWidth, height: contentHeight)
         
-        contentView.identifier = identifier
         
-        return contentView
+        
+        let contanierWidth = min(max(contentHeight, contentWidth), superView.frame.width - 2 * style.horizontalPadding)
+        contanier.frame = CGRect(x: 0.0, y: 0.0, width: contanierWidth, height: contentHeight)
+        contanier.addSubview(contentView)
+        contentView.frame = CGRect(x: (contanierWidth - contentWidth)/2.0, y: 0.0, width: contentWidth, height: contentHeight)
+        
+        contanier.identifier = identifier
+        
+        return contanier
     }
     
     
@@ -670,11 +703,11 @@ public extension UIView {
             
             if let nextToast = self.queue.first, let duration = objc_getAssociatedObject(nextToast, &Keys.duration) as? NSNumber, let point = objc_getAssociatedObject(nextToast, &Keys.point) as? NSValue {
                 
+                self.queue.remove(at: 0)
                 if toast.identifier == nextToast.identifier {
-                    
+                    // ignore same toast
                     self.hideToast(nextToast, fromTap: false)
                 } else {
-                    self.queue.remove(at: 0)
                     self.showToast(nextToast, duration: duration.doubleValue, point: point.cgPointValue)
                 }
             }
@@ -700,7 +733,7 @@ public extension FunBox.Toast {
     struct Config {
         var title: String?
         var message: String?
-        var inView: UIView?
+        var inView: UIView? = UIApplication.shared.fb.currentWindow
         var duration: TimeInterval = 2.5
         var point: CGPoint?
         var position: Position = .bottom
@@ -712,7 +745,8 @@ public extension FunBox.Toast {
         var progress: CGFloat = 0.0
         var mode: Mode = .default
         var identifier: String? {
-            return "\(title ?? "")\(message ?? "")".fb.md5
+            let text = "\(title ?? "")\(message ?? "")"
+            return text.fb.md5
         }
     }
     

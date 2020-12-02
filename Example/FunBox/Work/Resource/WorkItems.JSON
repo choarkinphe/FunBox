@@ -5,6 +5,11 @@
                     "icon": "APPkaifa",
                     "linkUrl": "funbox://main/home",
                     "name": "主页"
+                },
+                {
+                    "icon": "APPkaifa",
+                    "linkUrl": "funbox://toast",
+                    "name": "Toast"
                 }]
 },
 {

@@ -80,9 +80,18 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
         if let element = sections[indexPath.section].items?[indexPath.item] {
             Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
                 print(action.identifier)
-                switch action.identifier {
-                //                    case "popMenu":
-                
+                switch element.name {
+                    case "Toast":
+                        FunBox.toast.template(.info).style(.system).title("提示").message("静音模式开启").show()
+//                        FunBox.toast.title("提示").show()
+//                        FunBox.toast.title("提示").show()
+//                        FunBox.toast.title("提示").show()
+//                        FunBox.toast.title("提示").message("哈哈").show()
+//                        FunBox.toast.title("提示").message("哈哈").show()
+//                        FunBox.toast.title("提示").message("呵呵").show()
+//                        FunBox.toast.title("提示").show()
+//                        FunBox.toast.title("提示").message("嘻嘻").show()
+//                        FunBox.toast.title("提示").show()
                 default:
                     break
                 }
