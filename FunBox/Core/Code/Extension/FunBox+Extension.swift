@@ -101,7 +101,36 @@ public extension FunNamespaceWrapper where T == JSONSerialization {
             }
         }
         catch {
-            print("读取本地数据出现错误!",error.localizedDescription)
+            print("FunBox: load local file error!",error.localizedDescription)
+        }
+        
+        return nil
+    }
+    
+    static func decode<T>(fileName: String?, type: T.Type) -> T? where T: Codable {
+        guard var fileName = fileName else { return nil }
+        if ![".JSON",".json",",Json"].contains(fileName.fb.subString(from: fileName.count - 5)) {
+            fileName = fileName + ".JSON"
+        }
+
+        return decode(filePath: Bundle.main.path(forResource: fileName, ofType: nil), type: type)
+    }
+    
+    static func decode<T>(filePath: String?, type: T.Type) -> T? where T: Codable {
+        
+        guard let path = filePath else { return nil }
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            
+            let data = try Data(contentsOf: url)
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode(T.self, from: data)
+            
+            return jsonData
+        }
+        catch {
+            print("FunBox: load local file error!",error.localizedDescription)
         }
         
         return nil
@@ -154,14 +183,12 @@ public extension FunNamespaceWrapper where T == String {
         return nil
     }
     
-    //MARK:- 去除字符串两端的空白字符
+    //MARK:- remove trim
     var trimString: String {
         return wrappedValue.trimmingCharacters(in: .whitespaces)
     }
     
 
-
-    //MARK:- 截取到任意位置
     func subString(to: Int) -> String? {
         if to < 0 {
             return nil
@@ -173,7 +200,7 @@ public extension FunNamespaceWrapper where T == String {
         return String(wrappedValue.prefix(to))
     }
     
-    //MARK:- 从任意位置开始截取
+    
     func subString(from: Int) -> String? {
         if from < 0 {
             return nil
@@ -266,18 +293,18 @@ public extension FunNamespaceWrapper where T == String {
 extension URL: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == URL {
     /*
-     1 超文本标记语言文本 .html,.html text/html
-      2 普通文本 .txt text/plain
-      3 RTF文本 .rtf application/rtf
-      4 GIF图形 .gif image/gif
-      5 JPEG图形 .ipeg,.jpg image/jpeg
-      6 au声音文件 .au audio/basic
-      7 MIDI音乐文件 mid,.midi audio/midi,audio/x-midi
-      8 RealAudio音乐文件 .ra, .ram audio/x-pn-realaudio
-      9 MPEG文件 .mpg,.mpeg video/mpeg
-     10 AVI文件 .avi video/x-msvideo
-     11 GZIP文件 .gz application/x-gzip
-     12 TAR文件 .tar application/x-tar
+     .html,.html text/html
+     .txt text/plain
+     .rtf application/rtf
+     .gif image/gif
+     .ipeg,.jpg image/jpeg
+     .au audio/basic
+     .mid,.midi audio/midi,audio/x-midi
+     .ra, .ram audio/x-pn-realaudio
+     .mpg,.mpeg video/mpeg
+     .avi video/x-msvideo
+     .gz application/x-gzip
+     .tar application/x-tar
      */
     
     //根据后缀获取对应的Mime-Type
@@ -346,7 +373,7 @@ public extension FunNamespaceWrapper where T == Int {
             return "\(wrappedValue)"
         }
         if wrappedValue < 99999999 {
-            // 获取零头(只保留一位)
+            
             let odd = "\(wrappedValue%10000)".fb.subString(to: 1)
             
             return "\(wrappedValue/10000).\(odd ?? "0")万"

@@ -427,7 +427,29 @@ public extension FunNamespaceWrapper where T: UIColor {
         
 //        return wrappedValue.withAlphaComponent(a_aplha)
 //    }
-
+    
+    /// Get color rgba components in order.
+    var rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat){
+        let components = wrappedValue.cgColor.components
+        let numberOfComponents = wrappedValue.cgColor.numberOfComponents
+        
+        switch numberOfComponents {
+        case 4:
+            return (components![0], components![1], components![2], components![3])
+        case 2:
+            return (components![0], components![0], components![0], components![1])
+        default:
+            // FIXME: Fallback to black
+            return (0, 0, 0, 1)
+        }
+    }
+    
+    /// Check the black or white contrast on given color.
+    var contrasting: UIColor {
+        let rgbaT = rgba
+        let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
+        return value < 0.5 ? UIColor.black : UIColor.white
+    }
 }
 
 // MARK: - UIButton+Fun
@@ -473,6 +495,18 @@ public extension FunNamespaceWrapper where T: UILabel {
         return .zero
     }
     
+    func set(lineSpacing: CGFloat) {
+        guard let text = wrappedValue.text else { return }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.lineBreakMode = wrappedValue.lineBreakMode
+        paragraphStyle.alignment = wrappedValue.textAlignment
+        
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.setAttributes([.paragraphStyle:paragraphStyle], range: NSRange(location: 0, length: text.count))
+        
+        wrappedValue.attributedText = attributedString
+    }
     
 }
 public extension FunNamespaceWrapper where T: UIView {

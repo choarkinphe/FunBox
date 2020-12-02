@@ -16,9 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-            Service.router.hz.open(launchOptions: launchOptions)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+//            Service.router.hz.open(launchOptions: launchOptions)
+//        }
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        let rootVC = NavigationController.init(rootViewController: WorkViewController())
+        //        rootVC.options = launchOptions
+        window?.rootViewController = rootVC
+        window?.makeKeyAndVisible()
+//        rootVC.launchOptions(launchOptions)
         return true
     }
 

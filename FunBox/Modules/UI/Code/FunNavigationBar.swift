@@ -38,7 +38,7 @@ open class FunNavigationBar: UIView {
 //    }()
     
     public override init(frame: CGRect) {
-        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 0, bottom: 0, right: 0)
+        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 8, bottom: 0, right: 8)
         contentView = UIView(frame: CGRect(x: contentInsets.left, y: contentInsets.top, width: frame.width - contentInsets.left - contentInsets.right, height: frame.height - contentInsets.bottom - contentInsets.top))
         titleLabel = FunLabel()
         backItem = UIButton()

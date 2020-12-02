@@ -11,10 +11,15 @@ import FunBox
 import Photos
 class ViewController: UIViewController {
 
+    let work = WorkViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        addChild(work)
+        work.view.frame = view.bounds
+        view.addSubview(work.view)
 //        FunRouter.default.regist(url: "funbox://testList", class_name: "TableViewController")
         FunRouter.default.hz.regist()
         fb.observer.deviceOrientation { (orientation) in
