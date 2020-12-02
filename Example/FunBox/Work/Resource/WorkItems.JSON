@@ -1,0 +1,35 @@
+
+[{
+    "title": "开发模块",
+    "items":    [{
+                    "icon": "APPkaifa",
+                    "linkUrl": "funbox://main/home",
+                    "name": "主页"
+                }]
+},
+{
+    "title": "测试中",
+    "items":    [{
+                    "icon": "bug",
+                    "linkUrl": "funbox://dev/testTable",
+                    "name": "测试列表"
+                },
+                {
+                    "icon": "bug",
+                    "linkUrl": "funbox://dev/testOC",
+                    "name": "OC页面测试"
+                }]
+},
+{
+    "title": "工具",
+    "items":    [{
+                    "icon": "APPkaifa",
+                    "linkUrl": "funbox://webView?url=https://m.baidu.com",
+                    "name": "百度"
+                },
+                {
+                    "icon": "APPkaifa",
+                    "linkUrl": "funbox://team/page",
+                    "name": "自定义"
+                }]
+}]
