@@ -1,6 +1,6 @@
 //
-//  FunDrawingBoard.swift
-//  Alamofire
+//  UIView+Effect.swift
+//  FunBox
 //
 //  Created by choarkinphe on 2019/11/22.
 //

@@ -1,9 +1,9 @@
 //
-//  UIViewController+CKAdd.swift
-//  SelfService
+//  UIViewController+Fun.swift
+//  FunBox
 //
 //  Created by Choarkinphe on 2019/6/28.
-//  Copyright © 2019 whyq_dxj. All rights reserved.
+//  Copyright © 2019 choarkinphe. All rights reserved.
 //
 
 import UIKit

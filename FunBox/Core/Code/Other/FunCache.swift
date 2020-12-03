@@ -1,9 +1,9 @@
 //
-//  ResponseCache.swift
-//  ResponseCache
+//  FunCache.swift
+//  FunBox
 //
 //  Created by choarkinphe on 2019/9/9.
-//  Copyright © 2019 whyq_dxj. All rights reserved.
+//  Copyright © 2019 choarkinphe. All rights reserved.
 //
 
 import Foundation

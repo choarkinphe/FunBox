@@ -1,6 +1,6 @@
 //
 //  FunAuthorize.swift
-//  CommunityCircle
+//  FunBox
 //
 //  Created by choarkinphe on 2020/8/10.
 //  Copyright © 2020 Konnech. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  FunBox.swift
-//  Alamofire
+//  FunBox
 //
 //  Created by 肖华 on 2019/10/15.
 //
@@ -54,7 +54,10 @@ extension URL: FunURLConvertable {
 
 extension String: FunURLConvertable {
     public var realURL: URL? {
-        return URL.init(string: self)
+        if hasPrefix("http") {
+            return URL(string: self)
+        }
+        return nil
     }
 }
 
