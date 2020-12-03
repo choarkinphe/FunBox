@@ -10,6 +10,13 @@ import Foundation
 public extension UIView {
     class Effect {
         
+        public enum Direction {
+            case top
+            case left
+            case right
+            case bottom
+        }
+        
         private var config: Config?
         private var mask_name = Effect.Key.mask
         private var border_name = Effect.Key.border
@@ -115,6 +122,12 @@ public extension UIView {
             return self
         }
         
+        public func direction(_ direction: Direction) -> Self {
+            config?.direction = direction
+            
+            return self
+        }
+        
         public func clearLayer(identifier: String? = nil) {
             
             if let view = target {
@@ -168,12 +181,40 @@ public extension UIView {
                             draw_line(view: view,config: config)
                         case .gradientColor:
                             draw_gradientColors(view: view, config: config)
+                        case .ariangle:
+                            draw_ariangle(view: view, config: config)
                         }
                     }
                 }
             }
         }
         
+        private func draw_ariangle(view: UIView, config: Config) {
+            guard let rect = config.rect else { return }
+            let direction = config.direction
+            let bezierPath = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: .zero)
+//            let bezierPath = UIBezierPath(rect: rect)
+            
+            var strat_point = CGPoint(x: rect.minX, y: rect.maxY)
+            var center_point = CGPoint(x: rect.midX, y: rect.minY)
+            var end_point = CGPoint(x: rect.maxX, y: rect.maxY)
+            if direction == .bottom {
+                strat_point.y = rect.minY
+                center_point.y = rect.maxY
+                end_point.y = rect.minY
+            }
+            bezierPath.move(to: strat_point)
+            bezierPath.addLine(to: center_point)
+            bezierPath.addLine(to: end_point)
+            
+            let shaperLayer = CAShapeLayer()
+            shaperLayer.fillColor = config.borderColor?.cgColor
+//            shaperLayer.masksToBounds = true
+
+            view.layer.addSublayer(shaperLayer)
+            shaperLayer.path = bezierPath.cgPath
+            
+        }
         
         private func draw_gradientColors(view: UIView, config: Config) {
             guard let colors = config.gradientColors else { return }
@@ -315,6 +356,7 @@ public extension UIView.Effect {
         case corner = "corner"
         case line = "line"
         case gradientColor = "gradientColor"
+        case ariangle = "ariangle"
     }
     
     enum LinePosition: String {
@@ -335,6 +377,8 @@ public extension UIView.Effect {
         public var cornerRadius: CGFloat?
         
         public var rectCornerType: UIRectCorner?
+        
+        public var direction: Direction = .top
         
         public var rect: CGRect?
         

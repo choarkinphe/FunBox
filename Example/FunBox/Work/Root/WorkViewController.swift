@@ -25,31 +25,36 @@ import UIKit
             button.setTitleColor(.darkText, for: .normal)
             button.addTarget(self, action: #selector(popMenu(sender:)), for: .touchUpInside)
             navigationBar.rightView = button
+//            fb.bottomView = button
+            fb.contentInsets = UIEdgeInsets(top: navigationBar.frame.maxY, left: 0, bottom: 0, right: 0)
         }
         
         @objc func popMenu(sender: UIButton) {
-            /*
+
             let manager = FunPopMenuManager.default
             // Set actions
 //            manager.actions =
+
+//            manager.addActions(["标题1","标题2","标题3"])
+            manager.appearance.font = UIFont(name: "AvenirNext-DemiBold", size: 16)!
+            manager.appearance.backgroundStyle = .dimmed(color: .clear, opacity: 0.2)
+            manager.appearance.contentOffset = CGPoint(x: 10, y: 52)
+            manager.appearance.showAriangle = true
+            manager.appearance.colorStyle = .configure(background: .solid(fill: .darkGray), action: .tint(.white))
+            manager.appearance.showCutLine = true
+            manager.dismissOnSelection = false
             manager.addActions([
                                 FunPopMenu(title: "Click me to"),
                                 FunPopMenu(title: "Pop another menu"),
                                 FunPopMenu(title: "Try it out!")
                                 ])
-            manager.addActions(["标题1","标题2","标题3"])
-            manager.appearance.font = UIFont(name: "AvenirNext-DemiBold", size: 16)!
-            manager.appearance.backgroundStyle = .dimmed(color: .clear, opacity: 0.2)
-            manager.appearance.contentOffset = CGPoint(x: 0, y: 32)
-            manager.appearance.colorStyle = .configure(background: .solid(fill: .darkGray), action: .tint(.white))
-            manager.dismissOnSelection = false
 //                        manager.popMenuDelegate = self
             manager.select { (action) in
                 print(action.title)
             }
             // Present menu
             manager.present(sourceView: sender)
-            */
+
 
             
         }

@@ -32,7 +32,7 @@ public protocol PopMenuAction: PopMenuElement {
     var image: UIImage? { get }
 
     /// The handler of action.
-    var didSelect: PopMenuActionHandler? { get }
+//    var didSelect: PopMenuActionHandler? { get }
     
     /// The color to set for both label and icon.
     var tintColor: Color? { get }
@@ -43,6 +43,7 @@ public protocol PopMenuAction: PopMenuElement {
     /// Is the view highlighted by gesture.
     var highlighted: Bool { get set }
     
+//    var showCutLine: Bool { get set }
 }
 
 extension PopMenuAction {
@@ -266,7 +267,10 @@ extension PopMenu {
 // MARK: - ContentViewController
 extension PopMenu {
     final public class PMViewController: UIViewController {
-        
+        struct Ariangle {
+            var origin: CGPoint = .zero
+            var direction: UIView.Effect.Direction = .top
+        }
         // MARK: - Properties
         /// Appearance configuration.
         public var appearance = PopMenu.Manager.default.appearance
@@ -320,6 +324,8 @@ extension PopMenu {
         
         /// Handler for when the menu is dismissed.
         public var didDismiss: ((Bool) -> Void)?
+        
+        fileprivate var ariangle = Ariangle()
         
         // MARK: - Constraints
         
@@ -453,6 +459,8 @@ extension PopMenu {
 // MARK: - View Configurations
 extension PopMenu.PMViewController {
     
+
+    
     /// Setup the background view at the bottom.
     fileprivate func configureBackgroundView() {
         backgroundView.frame = view.frame
@@ -525,9 +533,9 @@ extension PopMenu.PMViewController {
     /// Activate necessary constraints.
     fileprivate func setupContentConstraints() {
         contentLeftConstraint = containerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: contentFrame.origin.x)
-        contentTopConstraint = containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: contentFrame.origin.y)
+        contentTopConstraint = containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: contentFrame.origin.y + ((appearance.showAriangle && ariangle.direction == .top) ? appearance.ariangleSize.height : 0))
         contentWidthConstraint = containerView.widthAnchor.constraint(equalToConstant: contentFrame.size.width)
-        contentHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: contentFrame.size.height)
+        contentHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: contentFrame.size.height - (appearance.showAriangle ? appearance.ariangleSize.height : 0))
         
         // Activate container view constraints
         NSLayoutConstraint.activate([
@@ -572,6 +580,8 @@ extension PopMenu.PMViewController {
         return CGRect(origin: origin, size: size)
     }
     
+    
+    
     /// Determine where the menu should display.
     ///
     /// - Returns: The source origin point
@@ -582,12 +592,29 @@ extension PopMenu.PMViewController {
         
         // Get desired content origin point
         let offsetX = (size.width - sourceFrame.size.width ) / 2
+//        let offsetY = (size.height - sourceFrame.size.width ) / 2
         var desiredOrigin = CGPoint(x: sourceFrame.origin.x - offsetX, y: sourceFrame.origin.y)
+        
+        ariangle.origin = CGPoint(x: (size.width - appearance.ariangleSize.width) / 2.0, y: -appearance.ariangleSize.height)
+        
         if (desiredOrigin.x + size.width) > maxContentPos {
             desiredOrigin.x = maxContentPos - size.width
+            ariangle.origin.x = size.width - appearance.cornerRadius - appearance.ariangleSize.width
         }
         if desiredOrigin.x < minContentPos {
             desiredOrigin.x = minContentPos
+            ariangle.origin.x = appearance.cornerRadius
+        }
+        
+//        var rect = CGRect(x: contentFrame.width - appearance.cornerRadius-appearance.ariangleSize.width, y: -appearance.ariangleSize.height, width: appearance.ariangleSize.width, height: appearance.ariangleSize.height)
+//        if appearance.showAriangle {
+            
+//        }
+        
+        if desiredOrigin.y + size.height > view.bounds.height {
+            desiredOrigin.y = min(desiredOrigin.y, sourceFrame.origin.y - size.height)
+            ariangle.origin.y = size.height
+            ariangle.direction = .bottom
         }
         
         // Move content in place
@@ -680,7 +707,9 @@ extension PopMenu.PMViewController {
         // Configure each action
         actions.forEach { action in
             let action_view = PopMenu.ActionItem(menu: action)
-
+            if action.title != actions.last?.title {
+                action_view.cutLine.isHidden = !appearance.showCutLine
+            }
             // Give separator to each action but the last
             if action.title != actions.last?.title {
                 addSeparator(to: view)
@@ -733,6 +762,14 @@ extension PopMenu.PMViewController {
                 actionsView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
             ])
         }
+        
+        if appearance.showAriangle, let color = appearance.colorStyle.backgroundColor.colors.last {
+            
+            let rect = CGRect(origin: ariangle.origin, size: appearance.ariangleSize)
+            
+            containerView.fb.effect(.ariangle).direction(ariangle.direction).rect(rect).borderColor(color).draw()
+        }
+
     }
     
     /// Add separator view for the given action view.
@@ -857,15 +894,17 @@ extension PopMenu.PMViewController {
             }
         }
         
-        // Notify delegate
-        didSelect?(actions[index])
-        
         // Should dismiss or not
         if dismissOnSelection {
             dismiss(animated: true) {
                 // Selection made.
                 self.didDismiss?(true)
+                // Notify delegate
+                self.didSelect?(self.actions[index])
             }
+        } else {
+            // Notify delegate
+            didSelect?(actions[index])
         }
     }
     
@@ -898,10 +937,11 @@ extension FunBox {
         public let image: UIImage?
         
         /// Handler of action when selected.
-        public let didSelect: PopMenuActionHandler?
+//        public let didSelect: PopMenuActionHandler?
 
         /// Text color of the label.
-        public var tintColor: Color? = PopMenu.Manager.default.appearance.colorStyle.actionColor.color
+        public var tintColor: Color?
+//            = PopMenu.Manager.default.appearance.colorStyle.actionColor.color
         
         public var font: UIFont = PopMenu.Manager.default.appearance.font
         
@@ -911,12 +951,14 @@ extension FunBox {
         /// Inidcates if the action is being highlighted.
         public var highlighted: Bool = false
         
+//        public var showCutLine: Bool = false
+        
         /// Initializer.
-        public init(title: String, image: UIImage? = nil, color: Color? = .white, didSelect: PopMenuActionHandler? = nil) {
+        public init(title: String, image: UIImage? = nil, color: Color = PopMenu.Manager.default.appearance.colorStyle.actionColor.color) {
             self.title = title
             self.image = image
             self.tintColor = color
-            self.didSelect = didSelect
+//            self.didSelect = didSelect
             
         }
         
@@ -1003,6 +1045,7 @@ extension PopMenu {
     class ActionItem: UIView {
         private var _backgroundColor: Color = .white
         let menu: PopMenuAction
+        var cutLine = UIView()
         init(menu: PopMenuAction, frame: CGRect = .zero) {
             self.menu = menu
             super.init(frame: frame)
@@ -1015,7 +1058,7 @@ extension PopMenu {
                 iconImageView.tintColor = tintColor
                 titleLabel.textColor = tintColor
                 _backgroundColor = tintColor.fb.contrasting
-                
+                cutLine.backgroundColor = tintColor.fb.light
             }
             if let image = menu.image {
                 hasImage = true
@@ -1037,10 +1080,25 @@ extension PopMenu {
                 titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
                 titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
+            
+            cutLine.isHidden = true
+            addSubview(cutLine)
+//            NSLayoutConstraint.activate([
+//                cutLine.trailingAnchor.constraint(equalTo: trailingAnchor),
+//                cutLine.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+//                cutLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+//                cutLine.heightAnchor.constraint(equalToConstant: 1)
+//            ])
         }
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            
+            cutLine.frame = CGRect(x: 12, y: bounds.height - 0.5, width: bounds.width - 12, height: 0.5)
         }
         
         /// Title label view instance.
@@ -1073,7 +1131,7 @@ extension PopMenu {
         /// When the action is selected.
         func actionSelected(animated: Bool) {
             // Trigger handler.
-            menu.didSelect?(self.menu)
+//            menu.didSelect?(self.menu)
             
             // Animate selection
             guard animated else { return }
@@ -1134,7 +1192,13 @@ extension PopMenu {
         public var statusBarStyle: UIStatusBarStyle?
         
         /// The presentation style
-        public var presentationStyle: PresentationStyle = .cover()
+//        public var presentationStyle: PresentationStyle = .cover()
+        
+        public var showCutLine: Bool = false
+        
+        public var showAriangle: Bool = false
+        
+        public var ariangleSize: CGSize = CGSize(width: 14, height: 14)
         
         // MARK: - Constants
         
@@ -1261,32 +1325,32 @@ extension PopMenu {
         
     }
     ///
-    public struct PresentationStyle {
-        
-        /// The direction enum for the menu.
-        public let direction: Direction
-        
-        /// Custom offset coordinates.
-        public let offset: CGPoint?
-        
-        /// The default presentation that covers the source view.
-        public static func cover() -> PresentationStyle {
-            return PresentationStyle(direction: .none, offset: nil)
-        }
-        
-        /// The custom presentation that shows near the source view in a direction and offset.
-        public static func near(_ direction: Direction, offset: CGPoint? = nil) -> PresentationStyle {
-            return PresentationStyle(direction: direction, offset: offset)
-        }
-    }
+//    public struct PresentationStyle {
+//
+//        /// The direction enum for the menu.
+//        public let direction: Direction
+//
+//        /// Custom offset coordinates.
+//        public let offset: CGPoint?
+//
+//        /// The default presentation that covers the source view.
+//        public static func cover() -> PresentationStyle {
+//            return PresentationStyle(direction: .none, offset: nil)
+//        }
+//
+//        /// The custom presentation that shows near the source view in a direction and offset.
+//        public static func near(_ direction: Direction, offset: CGPoint? = nil) -> PresentationStyle {
+//            return PresentationStyle(direction: direction, offset: offset)
+//        }
+//    }
     
-    public enum Direction {
-        case top
-        case left
-        case right
-        case bottom
-        case none
-    }
+//    public enum Direction {
+//        case top
+//        case left
+//        case right
+//        case bottom
+//        case none
+//    }
 }
 
 fileprivate extension UIView {

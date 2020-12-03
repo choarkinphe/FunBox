@@ -66,6 +66,7 @@ extension Work {
                 
                 addSubview(titleLabel)
 
+//                fb.ariangle(rect: CGRect(x: 20, y: -8, width: 8, height: 8), color: .red)
             }
             
             required init?(coder: NSCoder) {

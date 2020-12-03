@@ -450,6 +450,12 @@ public extension FunNamespaceWrapper where T: UIColor {
         let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
         return value < 0.5 ? UIColor.black : UIColor.white
     }
+    
+    var light: UIColor {
+        let rgbaT = rgba
+        let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
+        return value < 0.5 ? UIColor(white: 0.25, alpha: 1) : UIColor(white: 0.75, alpha: 1)
+    }
 }
 
 // MARK: - UIButton+Fun
@@ -510,9 +516,6 @@ public extension FunNamespaceWrapper where T: UILabel {
     
 }
 public extension FunNamespaceWrapper where T: UIView {
-//    func effect(_ style: UIView.Effect.Style) -> UIView.Effect {
-//        return UIView.Effect.default.target(wrappedValue).style(style)
-//    }
     
     var snapshot: UIImage? {
         
@@ -810,5 +813,4 @@ public extension FunNamespaceWrapper where T == UIEdgeInsets {
         return wrappedValue.top + wrappedValue.bottom
     }
 }
-
 
