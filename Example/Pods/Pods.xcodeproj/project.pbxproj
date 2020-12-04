@@ -29,9 +29,9 @@
 		45B8CC1C61E7A0BB28CFA8CE7C12FEBC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0440F4381D065FED6264EFBCDB7960 /* MultipartFormData.swift */; };
 		47FDBBBD2704901588C3A7C56BBC502D /* ServerTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24B13480173106997D3F6538CDE3CD /* ServerTrustEvaluation.swift */; };
 		4A73E2CC25771D8900CD4748 /* FunPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A73E2CB25771D8900CD4748 /* FunPopMenu.swift */; };
+		4AA718BF257A1A7200B25F27 /* FunPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA718BE257A1A7200B25F27 /* FunPan.swift */; };
 		4AEC050FA7D5ED52FDA9DF50EA3560DF /* ParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26220434118FCFC30E4850800AC3068 /* ParameterEncoder.swift */; };
 		4CB36185AF7EA45D762A88897F832ECA /* FunAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298C53D4294AB9FFF7FD74F718189FA /* FunAlert.swift */; };
-		5095AD0DDD4D173A074BF7AA40FF0967 /* FunPan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786F98A714A717D355F595FCA0D56A2D /* FunPan.swift */; };
 		57F576A7B297290F1399D850F400F89C /* FunNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1F3EA03CAD201CECA6157307048A75 /* FunNavigationBar.swift */; };
 		5A420763D8752180276A370EB524E194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F401E181BEA002337E464DED414F440 /* Foundation.framework */; };
 		6546D728B69398F93B506845141EBD61 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC45C560942C5BCAB401419728808D3 /* EventMonitor.swift */; };
@@ -154,6 +154,7 @@
 		4591D5844289F02F52985F30FFDA6BB5 /* Session.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Source/Session.swift; sourceTree = "<group>"; };
 		4A51D931D0AF17B859CD591948D7CA03 /* Pods-FunBox_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		4A73E2CB25771D8900CD4748 /* FunPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunPopMenu.swift; path = FunBox/Core/Code/Utils/FunPopMenu.swift; sourceTree = "<group>"; };
+		4AA718BE257A1A7200B25F27 /* FunPan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunPan.swift; path = FunBox/Core/Code/UI/FunPan.swift; sourceTree = "<group>"; };
 		4ABD9F54297FF27309F1F8A34F99417C /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
 		4D3E0E1E34DD4394C6023B622C262222 /* Alamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.debug.xcconfig; sourceTree = "<group>"; };
 		51BB5063650D66E661FD979273F90078 /* MultipartUpload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartUpload.swift; path = Source/MultipartUpload.swift; sourceTree = "<group>"; };
@@ -176,7 +177,6 @@
 		750E5082A0C73DA50351A472803BDD41 /* FunDatePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunDatePicker.swift; path = FunBox/Core/Code/Utils/FunDatePicker.swift; sourceTree = "<group>"; };
 		7678DC223CB786AD110AA2F2012FF799 /* FunSecurity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunSecurity.swift; path = FunBox/Core/Code/Utils/FunSecurity.swift; sourceTree = "<group>"; };
 		771B92ECE4F5FF4B540B974B9F2633BD /* Pods-FunBox_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FunBox_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		786F98A714A717D355F595FCA0D56A2D /* FunPan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunPan.swift; path = FunBox/Modules/UI/Code/FunPan.swift; sourceTree = "<group>"; };
 		79BFAE4F0928F95479DE70C637654FC5 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		79EB40D0E4136A2EBA646F9A9D0DA652 /* RedirectHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RedirectHandler.swift; path = Source/RedirectHandler.swift; sourceTree = "<group>"; };
 		7CF44973002904743BC757C97990B88E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -495,6 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				43D8DC38DD2A91610349F457EC64591C /* UIViewController+Fun.swift */,
+				4AA718BE257A1A7200B25F27 /* FunPan.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -505,7 +506,6 @@
 				F3D80DF5CA7637665DA7A4DB63BDDC6B /* FunButton.swift */,
 				EC2D9932018442FF9DBB4B7EF53AA449 /* FunLabel.swift */,
 				FA1F3EA03CAD201CECA6157307048A75 /* FunNavigationBar.swift */,
-				786F98A714A717D355F595FCA0D56A2D /* FunPan.swift */,
 				D708D17160B14EC9F3F284EBCD6D3BF2 /* FunTextView.swift */,
 			);
 			name = FunUI;
@@ -825,6 +825,7 @@
 				A27B777BBB6BCD9AA935D7E8EEC5942F /* FunBox.swift in Sources */,
 				8DA3D010E5B8F9AF54ABED3D62948E56 /* FunButton.swift in Sources */,
 				23E377AF576EABDC66416DF0E5CD7EC6 /* FunCache.swift in Sources */,
+				4AA718BF257A1A7200B25F27 /* FunPan.swift in Sources */,
 				1A4038137848B0751F9EE76D2401CE6E /* FunDatePicker.swift in Sources */,
 				D93077263EC8ABB301DB6AF6A103DBC5 /* FunDebug.swift in Sources */,
 				DBD4727A1CEDD357042FE994A3460788 /* FunDownloadManager.swift in Sources */,
@@ -835,7 +836,6 @@
 				09CA93E5258CE209E4D6C62178FB7D9A /* FunNetworkKit+Cache.swift in Sources */,
 				A5E5F922BC918C8C31416C91D5195399 /* FunNetworkKit+Codable.swift in Sources */,
 				E57C470C23E58F4CA3F285FFE616D04D /* FunNetworkKit.swift in Sources */,
-				5095AD0DDD4D173A074BF7AA40FF0967 /* FunPan.swift in Sources */,
 				9359B3561F478CDDEFD7C28F50222765 /* FunRouter.swift in Sources */,
 				F5F721F3097EBCBCEF0D065539327FCE /* FunSecurity.swift in Sources */,
 				4A73E2CC25771D8900CD4748 /* FunPopMenu.swift in Sources */,

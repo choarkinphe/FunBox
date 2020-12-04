@@ -18,6 +18,24 @@ extension FunBox {
     }
 }
 
+public protocol DateFormatterable {
+    func asFormatter() -> DateFormatter
+}
+
+extension DateFormatter: DateFormatterable {
+    public func asFormatter() -> DateFormatter {
+        return self
+    }
+}
+
+extension String: DateFormatterable  {
+    public func asFormatter() -> DateFormatter {
+        let fomatter = DateFormatter()
+        fomatter.dateFormat = self
+        return fomatter
+    }
+}
+
 extension NSObject: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T: NSObject {
     var identifier: String? {
@@ -288,6 +306,17 @@ public extension FunNamespaceWrapper where T == String {
         return from ..< to
     }
     
+    func date(fomatter: DateFormatterable) -> Date? {
+        return fomatter.asFormatter().date(from: wrappedValue)
+    }
+    
+}
+
+extension Date: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == Date {
+    func string(fomatter: DateFormatterable) -> String? {
+        return fomatter.asFormatter().string(from: wrappedValue)
+    }
 }
 
 extension URL: FunNamespaceWrappable {}

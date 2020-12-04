@@ -1,16 +1,15 @@
 //
 //  FunPan.swift
-//  HZCommon
+//  FunBox
 //
-//  Created by choarkinphe on 2020/8/25.
-//  Copyright © 2020 hongzheng. All rights reserved.
+//  Created by choarkinphe on 2020/12/4.
 //
 
-import Foundation
+import UIKit
 public typealias FunPanHandler = ((Set<UITouch>,UIEvent)->Void)
-//public typealias FunPan = FunBox.Pan
-//public extension FunBox {
-    open class FunPan: UIPanGestureRecognizer {
+public typealias FunPan = FunBox.Pan
+public extension FunBox {
+    class Pan: UIPanGestureRecognizer {
         
         private var beganHandler: FunPanHandler?
         public func touchesBegan(_ handler: FunPanHandler?) {
@@ -60,4 +59,4 @@ public typealias FunPanHandler = ((Set<UITouch>,UIEvent)->Void)
             }
         }
     }
-//}
+}

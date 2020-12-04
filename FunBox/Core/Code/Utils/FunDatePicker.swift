@@ -17,30 +17,30 @@ public extension FunNamespaceWrapper where T == UIDatePicker {
 }
 
 public protocol FunDateConvertable {
-    func asDate(formatter: DateFormatter) -> Date?
+    func asDate(formatter: DateFormatterable) -> Date?
     
-    func asString(formatter: DateFormatter) -> String?
+    func asString(formatter: DateFormatterable) -> String?
 }
 
 extension Date: FunDateConvertable {
     
-    public func asDate(formatter: DateFormatter) -> Date? {
+    public func asDate(formatter: DateFormatterable) -> Date? {
         return self
     }
     
-    public func asString(formatter: DateFormatter) -> String? {
+    public func asString(formatter: DateFormatterable) -> String? {
         
-        return formatter.string(from: self)
+        return self.fb.string(fomatter: formatter)
     }
 }
 
 extension String: FunDateConvertable {
-    public func asDate(formatter: DateFormatter) -> Date? {
-        guard let date = formatter.date(from: self) else { return nil }
+    public func asDate(formatter: DateFormatterable) -> Date? {
+        guard let date = self.fb.date(fomatter: formatter) else { return nil }
         return date
     }
     
-    public func asString(formatter: DateFormatter) -> String? {
+    public func asString(formatter: DateFormatterable) -> String? {
         
         return self
     }
