@@ -15,6 +15,19 @@ public class FunBox {
         }
         return nil
     }
+    
+    public static var manager = Static.instance
+    fileprivate struct Static {
+        static let instance = FunBox()
+    }
+    
+    public var config = Config()
+    
+}
+extension FunBox {
+    public struct Config: Codable {
+        public var keyboardAutoDismiss: Bool = true
+    }
 }
 
 // MARK: - NameSpace

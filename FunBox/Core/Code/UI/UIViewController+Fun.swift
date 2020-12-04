@@ -24,6 +24,23 @@ extension UIViewController: FunSwizz {
     @objc func swizzled_viewDidLoad() {
         swizzled_viewDidLoad()
         
+        if fb.touchDismissKeyboard {
+            let pan = FunPan()
+            view.addGestureRecognizer(pan)
+            pan.touchesBegan { [weak self] (touches, event) in
+                
+                if let contentView = self?.view,
+                   let position = touches.first?.location(in: contentView),
+                   let target = contentView.hitTest(position, with: event) {
+                    
+                    if target is UITextView || target is UITextField {
+    //                    target.becomeFirstResponder()
+                    } else {
+                        contentView.endEditing(true)
+                    }
+                }
+            }
+        }
         
     }
     
@@ -152,6 +169,8 @@ public extension FunBox {
         private var observations: [NSKeyValueObservation]
         
         public var contentInsets: UIEdgeInsets = .zero
+        
+        public var touchDismissKeyboard: Bool = FunBox.manager.config.keyboardAutoDismiss
         
         private weak var viewController: UIViewController?
         

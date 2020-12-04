@@ -40,9 +40,11 @@ import UIKit
             manager.appearance.backgroundStyle = .dimmed(color: .clear, opacity: 0.2)
             manager.appearance.contentOffset = CGPoint(x: 10, y: 52)
             manager.appearance.showAriangle = true
+            manager.appearance.ariangleSize = CGSize(width: 12, height: 12)
+            manager.appearance.cornerRadius = 12
             manager.appearance.colorStyle = .configure(background: .solid(fill: .darkGray), action: .tint(.white))
             manager.appearance.showCutLine = true
-            manager.dismissOnSelection = false
+            manager.dismissOnSelection = true
             manager.addActions([
                                 FunPopMenu(title: "Click me to"),
                                 FunPopMenu(title: "Pop another menu"),
@@ -51,6 +53,8 @@ import UIKit
 //                        manager.popMenuDelegate = self
             manager.select { (action) in
                 print(action.title)
+                
+//                self.present(WorkViewController(), animated: true, completion: nil)
             }
             // Present menu
             manager.present(sourceView: sender)
