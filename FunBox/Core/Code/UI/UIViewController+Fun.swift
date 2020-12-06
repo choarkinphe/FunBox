@@ -31,7 +31,9 @@ extension UIViewController: FunSwizz {
         swizzled_viewWillAppear(animated: animated)
         fb.addObservations()
         //        debugPrint("willappear",self)
-//        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        if !(navigationController?.interactivePopGestureRecognizer?.delegate is Self) {
+            navigationController?.interactivePopGestureRecognizer?.delegate = fb
+        }
 
     }
     
@@ -511,8 +513,11 @@ public extension FunBox {
 
 extension FunBox.FunController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        print(gestureRecognizer)
+        if let navigationController = viewController?.navigationController, gestureRecognizer == navigationController.interactivePopGestureRecognizer {
+            
+            return navigationController.viewControllers.count > 1
+            
+        }
         
         return true
     }

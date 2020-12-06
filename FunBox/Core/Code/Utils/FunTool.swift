@@ -30,7 +30,6 @@ public extension FunBox {
         }
         
         private var deviceOrientation: ((UIDeviceOrientation)->Void)?
-        
         public func deviceOrientation(_ handler: ((UIDeviceOrientation)->Void)?) {
             deviceOrientation = handler
             if let handler = handler {
@@ -46,6 +45,8 @@ public extension FunBox {
 
         }
 
+        public var keyboardShow: Bool = false
+        
         private var keyboardHandler: (((isShow: Bool, rect: CGRect))->Void)?
         public func keyboardShow(_ handler: (((isShow: Bool, rect: CGRect))->Void)?) {
             keyboardHandler = handler
@@ -57,14 +58,16 @@ public extension FunBox {
         }
         
         @objc fileprivate func keyboardWillShow(notification: Notification) {
-            keyboardChanged(isShow: true, notification: notification)
+            keyboardShow = true
+            keyboardChanged(notification: notification)
         }
         
         @objc fileprivate func keyboardWillHidden(notification: Notification) {
-            keyboardChanged(isShow: false, notification: notification)
+            keyboardShow = false
+            keyboardChanged(notification: notification)
         }
         
-        private func keyboardChanged(isShow: Bool, notification: Notification) {
+        private func keyboardChanged(notification: Notification) {
             guard let userInfo = notification.userInfo,
                   let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
                     return
@@ -74,12 +77,12 @@ public extension FunBox {
             let duration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double) ?? 0.25
             
             if let handler = self.keyboardWillShowHandler {
-                handler((isShow,duration,keyboardRect))
+                handler((keyboardShow,duration,keyboardRect))
             }
             
             UIView.animate(withDuration: duration, delay: 0, options: .allowAnimatedContent, animations: {
                 if let handler = self.keyboardHandler {
-                    handler((isShow,keyboardRect))
+                    handler((self.keyboardShow,keyboardRect))
                 }
             }) { (complete) in
                 

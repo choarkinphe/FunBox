@@ -113,8 +113,7 @@ public extension FunBox.Sheet {
     
     // 设置头部提示标语
     func setHeaderTips(_ tips: String?) -> Self {
-        
-//        sheetController.toolBar.tipLabel.text = tips
+
         sheetController.toolBar.titleLabel.text = tips
         
         return self
@@ -198,7 +197,7 @@ public extension FunBox.Sheet {
         // 单选回调
         public var handler: FunActionSheetHandler? {
             didSet {
-//                toolBar.isMultiSelector = false
+                //                toolBar.isMultiSelector = false
                 toolBar.isMultiple = false
             }
         }
@@ -206,8 +205,6 @@ public extension FunBox.Sheet {
         public var multiHandler: FunActionSheetMultiHandler? {
             didSet {
                 // 多选样式时，设置按钮标题
-//                toolBar.doneButton.setTitle("Done".fb.localized, for: .normal)
-//                toolBar.cancelButton.setTitle("Cancel".fb.localized, for: .normal)
                 toolBar.isMultiple = true
             }
         }
@@ -259,11 +256,6 @@ public extension FunBox.Sheet {
             return _toolBar
         }()
         
-//        public func handler(_ a_handler: @escaping FunActionSheetHandler) {
-//            handler = a_handler
-//
-//        }
-        
         public var actions: [FunBox.Sheet.Action]? {
             didSet {
                 // 初始化actions
@@ -301,12 +293,9 @@ public extension FunBox.Sheet {
         
         open override func viewDidLoad() {
             super.viewDidLoad()
-            
-            
             let tapGes = UITapGestureRecognizer(target: self, action: #selector(tapDismissAction(_:)))
             tapGes.delegate = self
             view.addGestureRecognizer(tapGes)
-            
             
             topView = toolBar
         }
@@ -335,12 +324,12 @@ public extension FunBox.Sheet {
             if let a_topView = topView {
                 rect_topView = CGRect.init(x: config.contentInsets.left, y: rect_tableView.origin.y, width: contentW, height: a_topView.bounds.size.height)
                 if a_topView == toolBar {
-//                    a_topView.backgroundColor = .white
-//                    if !toolBar.isMultiSelector, toolBar.tipLabel.text == nil {
-//                        rect_topView = CGRect.init(x: config.contentInsets.left, y: rect_tableView.origin.y, width: contentW, height: 8)
-//                        a_topView.backgroundColor = .clear
-//                    }
-//                    if multiHandler == nil, toolBar.tipLabel.text == nil { // 单选状态，并且没有标题时
+                    //                    a_topView.backgroundColor = .white
+                    //                    if !toolBar.isMultiSelector, toolBar.tipLabel.text == nil {
+                    //                        rect_topView = CGRect.init(x: config.contentInsets.left, y: rect_tableView.origin.y, width: contentW, height: 8)
+                    //                        a_topView.backgroundColor = .clear
+                    //                    }
+                    //                    if multiHandler == nil, toolBar.tipLabel.text == nil { // 单选状态，并且没有标题时
                     if multiHandler == nil, toolBar.titleLabel.text == nil { // 单选状态，并且没有标题时
                         rect_topView = CGRect.init(x: config.contentInsets.left, y: rect_tableView.origin.y, width: contentW, height: max(8, config.cornerRadius ?? 0))
                         a_topView.backgroundColor = .clear
@@ -372,8 +361,12 @@ public extension FunBox.Sheet {
         }
         
         
-        @objc private func tapDismissAction(_ tapGes : UITapGestureRecognizer){
-            self.dismiss(animated: true, completion: nil)
+        @objc private func tapDismissAction(_ tapGes : UITapGestureRecognizer) {
+            if FunBox.observer.keyboardShow {
+                self.view.endEditing(true)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
         }
         
         open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -467,10 +460,8 @@ public extension FunBox.Sheet {
                     cell.selectionStyle = .none
                 }
                 
-//                if let color = config.tintColor {
-                    cell.selectedBackgroundView?.backgroundColor = config.tintColor
-                    cell.tintColor = config.tintColor
-//                }
+                cell.selectedBackgroundView?.backgroundColor = config.tintColor
+                cell.tintColor = config.tintColor
                 
                 cell.img_normal = config.normalImage
                 cell.img_selected = config.selectImage
@@ -484,19 +475,17 @@ public extension FunBox.Sheet {
             
             if config.selectType == .single {
                 // 单选模式
-//                dismiss(animated: true) {
-                        
-                        if let action = self.actions?[indexPath.row] {
-                            
-                            if let actionHandler = self.handler {
-                                // 直接给出回调
-                                DispatchQueue.main.async {
-                                actionHandler(action)
-                            }
-                            
+                
+                if let action = self.actions?[indexPath.row] {
+                    
+                    if let actionHandler = self.handler {
+                        // 直接给出回调
+                        DispatchQueue.main.async {
+                            actionHandler(action)
                         }
+                        
                     }
-//                }
+                }
                 
                 dismiss(animated: true, completion: nil)
                 
@@ -514,7 +503,6 @@ public extension FunBox.Sheet {
                         cell.accessoryType = action.isSelected ? .checkmark : .none
                     }
                 }
-//                tableView.reloadData()
             }
             
         }
@@ -545,9 +533,7 @@ public extension FunBox.Sheet {
             
             override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
                 super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-//                selectedBackgroundView = UIView()
-//                selectedBackgroundView?.backgroundColor = .clear
-//                selectionStyle = .
+                
                 if #available(iOS 13.0, *) {
                     textLabel?.textColor = UIColor.label
                 } else {
@@ -555,12 +541,12 @@ public extension FunBox.Sheet {
                 }
                 textLabel?.font = UIFont.systemFont(ofSize: 15)
                 textLabel?.numberOfLines = 0
-             if #available(iOS 13.0, *) {
-                line.backgroundColor = UIColor.systemGray6.cgColor
-             } else {
-                 // Fallback on earlier versions
-                line.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1).cgColor
-             }
+                if #available(iOS 13.0, *) {
+                    line.backgroundColor = UIColor.systemGray6.cgColor
+                } else {
+                    // Fallback on earlier versions
+                    line.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1).cgColor
+                }
                 contentView.layer.addSublayer(line)
             }
             
@@ -570,8 +556,6 @@ public extension FunBox.Sheet {
             
             override func layoutSubviews() {
                 super.layoutSubviews()
-                
-//                selectedBackgroundView?.frame = frame
                 
             }
             
@@ -591,101 +575,9 @@ public extension FunBox.Sheet {
 }
 
 extension FunBox.Sheet {
-    // 默认的ToolBar
-    /*
-    class ToolBar: UIView {
-        
-        public lazy var tipLabel = UILabel()
-        
-        public lazy var cancelButton = UIButton()
-        
-        public lazy var doneButton = UIButton()
-        
-        override var tintColor: UIColor! {
-            didSet {
-                tipLabel.textColor = tintColor
-                
-                cancelButton.setTitleColor(tintColor, for: .normal)
-                
-                doneButton.setTitleColor(tintColor, for: .normal)
-            }
-        }
-        
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-//            backgroundColor = .white
-//            if #available(iOS 13.0, *) {
-//                tintColor = .label
-//            } else {
-//                tintColor = .darkText
-//                // Fallback on earlier versions
-//            }
-            
-            tipLabel.font = UIFont.systemFont(ofSize: 14)
-            tipLabel.textColor = tintColor
-            tipLabel.textAlignment = .center
-            addSubview(tipLabel)
-            
-            cancelButton.setTitleColor(tintColor, for: .normal)
-            //            cancelButton.setTitle("Cancel", for: .normal)
-            addSubview(cancelButton)
-            cancelButton.addTarget(self, action: #selector(cancelAction(sender:)), for: .touchUpInside)
-            
-            doneButton.setTitleColor(tintColor, for: .normal)
-            //            doneButton.setTitle("Done", for: .normal)
-            addSubview(doneButton)
-            doneButton.addTarget(self, action: #selector(doneAction(sender:)), for: .touchUpInside)
-        }
-        
-        required public init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        @objc func cancelAction(sender: UIButton) {
-            if let handler = cancelHandler {
-                DispatchQueue.main.async {
-                    
-                    handler()
-                }
-            }
-        }
-        
-        @objc func doneAction(sender: UIButton) {
-            if let handler = doneHandler {
-                DispatchQueue.main.async {
-                    
-                    handler()
-                }
-            }
-        }
-        
-        private var doneHandler: (()->Void)?
-        public final func doneHandler(_ a_doneHandler: @escaping (()->Void)) {
-            doneHandler = a_doneHandler
-        }
-        
-        private var cancelHandler: (()->Void)?
-        public final func cancelHandler(_ a_cancelHandler: @escaping (()->Void)) {
-            cancelHandler = a_cancelHandler
-        }
-        
-        open override func layoutSubviews() {
-            super.layoutSubviews()
-            cancelButton.frame = CGRect(x: 12, y: 4, width: cancelButton.fb.fitSize.width, height: bounds.size.height - 8)
-//            cancelButton.frame = CGRect(origin: CGPoint(x: 12, y: 4), size: cancelButton.fitSize)
-//            cancelButton.center = CGPoint(x: 12.0 + cancelButton.fitSize.width / 2.0, y: center.y)
-            doneButton.frame = CGRect(x: bounds.size.width - 12 - doneButton.fb.fitSize.width, y: 4, width: cancelButton.fb.fitSize.width, height: bounds.size.height - 8)
-//            doneButton.frame = CGRect(origin: CGPoint(x: bounds.size.width - 12 - doneButton.fitSize.width, y: 4), size: doneButton.fitSize)
-//            doneButton.center = CGPoint(x: bounds.size.width - 12 - doneButton.fitSize.width / 2.0, y: center.y)
-            
-            tipLabel.bounds = CGRect(origin: .zero, size: tipLabel.fb.fitSize)
-            tipLabel.center = center
-        }
-    }
-    */
+    
     class ToolBar: UIToolbar {
-
+        
         var isMultiple: Bool = false {
             didSet {
                 if isMultiple {
