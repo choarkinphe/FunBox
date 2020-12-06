@@ -44,6 +44,16 @@ public extension FunNamespaceWrapper where T: UIView {
             }
         }
     }
+    
+    var firstResponder: UIView? {
+        guard !wrappedValue.isFirstResponder else { return wrappedValue }
+        for subview in wrappedValue.subviews {
+            if let firstResponder = subview.fb.firstResponder {
+                return firstResponder
+            }
+        }
+        return nil
+    }
 }
 
 // MARK: - UIBarButtonItem

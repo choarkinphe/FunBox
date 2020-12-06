@@ -159,6 +159,14 @@ public extension FunBox {
         
         private weak var viewController: UIViewController?
         
+        public private(set) var keyboardShow: Bool = false
+        
+        public var firstResponder: UIView? {
+
+            return viewController?.view.fb.firstResponder
+            
+        }
+
         fileprivate func addObservations() {
             
             observations.removeAll()
@@ -472,27 +480,31 @@ public extension FunBox {
             pan.delegate = self
             pan.touchesBegan { [weak self] (touches, event) in
 
-                if let contentView = self?.viewController?.view,
+                if let firstResponder = self?.firstResponder,
+                   let contentView = self?.viewController?.view,
                    let position = touches.first?.location(in: contentView),
                    let target = contentView.hitTest(position, with: event) {
-
+                    
                     if target is UITextView || target is UITextField {
-    //                    target.becomeFirstResponder()
-                    } else {
-                        contentView.endEditing(true)
+                        
+                    } else if firstResponder != target {
+                        firstResponder.endEditing(true)
                     }
+
                 }
             }
             return pan
         }()
         
         @objc fileprivate func keyboardWillShow(notification: Notification) {
+            keyboardShow = true
             if touchDismissKeyboard {
                 viewController?.view.addGestureRecognizer(dismissPan)
             }
         }
         
         @objc fileprivate func keyboardWillHidden(notification: Notification) {
+            keyboardShow = false
             if viewController?.view.gestureRecognizers?.contains(dismissPan) == true {
                 viewController?.view.removeGestureRecognizer(dismissPan)
             }
