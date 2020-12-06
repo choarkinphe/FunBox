@@ -24,24 +24,6 @@ extension UIViewController: FunSwizz {
     @objc func swizzled_viewDidLoad() {
         swizzled_viewDidLoad()
         
-        if fb.touchDismissKeyboard {
-            let pan = FunPan()
-            view.addGestureRecognizer(pan)
-            pan.touchesBegan { [weak self] (touches, event) in
-                
-                if let contentView = self?.view,
-                   let position = touches.first?.location(in: contentView),
-                   let target = contentView.hitTest(position, with: event) {
-                    
-                    if target is UITextView || target is UITextField {
-    //                    target.becomeFirstResponder()
-                    } else {
-                        contentView.endEditing(true)
-                    }
-                }
-            }
-        }
-        
     }
     
     
@@ -49,7 +31,8 @@ extension UIViewController: FunSwizz {
         swizzled_viewWillAppear(animated: animated)
         fb.addObservations()
         //        debugPrint("willappear",self)
-        navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
+//        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
     }
     
     
@@ -164,7 +147,7 @@ extension UIViewController: FunSwizz {
 
 
 public extension FunBox {
-    class FunController {
+    class FunController: NSObject {
         
         private var observations: [NSKeyValueObservation]
         
@@ -225,6 +208,7 @@ public extension FunBox {
         init(target: UIViewController?) {
             UIViewController.swizzleMethod()
             observations = [NSKeyValueObservation]()
+            super.init()
             if let target = target {
                 viewController = target
                 
@@ -233,6 +217,13 @@ public extension FunBox {
                 //                observations?.append(target.observe(\UIViewController.hidesBottomBarWhenPushed) { (_, change) in
                 //                    target.view.setNeedsLayout()
                 //                })
+                
+                // 监听键盘弹出
+                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+                // 监听键盘隐藏
+                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+                
+                
             }
             
         }
@@ -473,8 +464,41 @@ public extension FunBox {
             
         }
         
+        fileprivate lazy var dismissPan: FunPan = {
+            let pan = FunPan()
+//            view.addGestureRecognizer(pan)
+            pan.delegate = self
+            pan.touchesBegan { [weak self] (touches, event) in
+
+                if let contentView = self?.viewController?.view,
+                   let position = touches.first?.location(in: contentView),
+                   let target = contentView.hitTest(position, with: event) {
+
+                    if target is UITextView || target is UITextField {
+    //                    target.becomeFirstResponder()
+                    } else {
+                        contentView.endEditing(true)
+                    }
+                }
+            }
+            return pan
+        }()
+        
+        @objc fileprivate func keyboardWillShow(notification: Notification) {
+            if touchDismissKeyboard {
+                viewController?.view.addGestureRecognizer(dismissPan)
+            }
+        }
+        
+        @objc fileprivate func keyboardWillHidden(notification: Notification) {
+            if viewController?.view.gestureRecognizers?.contains(dismissPan) == true {
+                viewController?.view.removeGestureRecognizer(dismissPan)
+            }
+        }
+        
         deinit {
             debugPrint("funController die")
+            NotificationCenter.default.removeObserver(self)
             navigationBar = nil
             bottomView = nil
             contentView = nil
@@ -485,4 +509,11 @@ public extension FunBox {
     
 }
 
-
+extension FunBox.FunController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        print(gestureRecognizer)
+        
+        return true
+    }
+}
