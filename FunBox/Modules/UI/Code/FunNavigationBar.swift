@@ -362,7 +362,7 @@ extension FunNavigationBar {
         public let moreItem: UIButton
         public let closeItem: UIButton
         private let cutLine: UIView
-        override init(frame: CGRect) {
+        public override init(frame: CGRect) {
             container = UIView()
             moreItem = UIButton()
             closeItem = UIButton()

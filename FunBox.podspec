@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunBox'
-    s.version          = '0.4.14'
+    s.version          = '0.4.16'
     s.summary          = 'FunBox 饭盒？'
     s.swift_version    = '5.0'
     
@@ -58,6 +58,9 @@ Pod::Spec.new do |s|
         #            sss.public_header_files = 'FunBox/Core/Code/FunBox.swift'
         ss.source_files = 'FunBox/Core/Code/*','FunBox/Core/Code/Other/**/*'
         #            sss.source_files = 'FunBox/Core/Code/*'
+        ss.resource_bundles = {
+            'FunBox' => ['FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+        }
     end
     s.subspec 'Utils' do |ss|
         # 核心库路径
@@ -77,9 +80,9 @@ Pod::Spec.new do |s|
     end
     
     # 公共Bundle地址
-    s.resource_bundles = {
-        'FunBox' => ['FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
-    }
+#    s.resource_bundles = {
+#        'FunBox' => ['FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+#    }
     
     # 组件库
     s.subspec 'Modules' do |modules|
