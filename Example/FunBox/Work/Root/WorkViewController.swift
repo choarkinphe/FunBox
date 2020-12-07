@@ -20,13 +20,17 @@ import UIKit
         var viewModel = Work.ViewModel()
         
         func initNavigationBar(navigationBar: FunNavigationBar) {
-            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-            button.setTitle("POP ", for: .normal)
-            button.setTitleColor(.darkText, for: .normal)
-            button.addTarget(self, action: #selector(popMenu(sender:)), for: .touchUpInside)
-            navigationBar.rightView = button
+//            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+//            button.setTitle("POP ", for: .normal)
+//            button.setTitleColor(.darkText, for: .normal)
+//            button.addTarget(self, action: #selector(popMenu(sender:)), for: .touchUpInside)
+//            navigationBar.rightView = button
 //            fb.bottomView = button
             fb.contentInsets = UIEdgeInsets(top: navigationBar.frame.maxY, left: 0, bottom: 0, right: 0)
+            
+            navigationBar.clipBar.moreAction { (sender) in
+                self.popMenu(sender: sender)
+            }
         }
         
         @objc func popMenu(sender: UIButton) {
@@ -99,7 +103,7 @@ import UIKit
 //                })
 //
 //            }).disposed(by: viewModel.disposeBag)
-            let navigationBar = FunNavigationBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: UIDevice.current.fb.isInfinity ? 88 : 64))
+            let navigationBar = FunNavigationBar(template: .container)
             fb.navigationBar = navigationBar
             
             initNavigationBar(navigationBar: navigationBar)

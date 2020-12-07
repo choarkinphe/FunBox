@@ -37,7 +37,40 @@ open class FunNavigationBar: UIView {
 //        return titleLabel
 //    }()
     
-    public override init(frame: CGRect) {
+    public lazy var clipBar: ClipBar = {
+        let clipBar = ClipBar(frame: CGRect(x: 0, y: 0, width: 81, height: 44))
+        return clipBar
+    }()
+    
+    public struct Template: Equatable {
+        public static func == (lhs: Template, rhs: Template) -> Bool {
+            return lhs.rawValue == rhs.rawValue
+        }
+        
+        fileprivate var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+        public static let `default` = Template(rawValue: "default")
+        public static let container = Template(rawValue: "container")
+        
+        public var height: CGFloat {
+            switch self {
+            
+            default:
+                return UIDevice.current.fb.isInfinity ? 88 : 64
+            }
+        }
+    }
+    public struct Config {
+        
+    }
+    
+    public init(template: Template = .default, frame: CGRect = .zero) {
+        var frame = frame
+        if frame == .zero {
+            frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: max(frame.height, template.height))
+        }
         contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 8, bottom: 0, right: 8)
         contentView = UIView(frame: CGRect(x: contentInsets.left, y: contentInsets.top, width: frame.width - contentInsets.left - contentInsets.right, height: frame.height - contentInsets.bottom - contentInsets.top))
         titleLabel = FunLabel()
@@ -46,7 +79,7 @@ open class FunNavigationBar: UIView {
         titleFont = FunNavigationBar.style.font
         super.init(frame: frame)
         
-        
+
         
         addSubview(contentView)
         titleLabel.verticalAlignment = .center
@@ -57,15 +90,45 @@ open class FunNavigationBar: UIView {
         contentView.addSubview(titleLabel)
         contentView.addSubview(backItem)
         
-        setUp()
+        setUp(template: template)
         
     }
     
-    private func setUp() {
+//    public override init(frame: CGRect) {
+//        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 8, bottom: 0, right: 8)
+//        contentView = UIView(frame: CGRect(x: contentInsets.left, y: contentInsets.top, width: frame.width - contentInsets.left - contentInsets.right, height: frame.height - contentInsets.bottom - contentInsets.top))
+//        titleLabel = FunLabel()
+//        backItem = UIButton()
+//        titleColor = FunNavigationBar.style.textColor
+//        titleFont = FunNavigationBar.style.font
+//        super.init(frame: frame)
+//
+//
+//
+//        addSubview(contentView)
+//        titleLabel.verticalAlignment = .center
+//        titleLabel.textColor = titleColor
+//        titleLabel.font = titleFont
+//        titleLabel.textAlignment = .center
+//        //        self.titleView = titleLabel
+//        contentView.addSubview(titleLabel)
+//        contentView.addSubview(backItem)
+//
+//        setUp()
+//
+//    }
+    
+    private func setUp(template: Template) {
         backItem.addTarget(self, action: #selector(backItemAction(sender:)), for: .touchUpInside)
         backgroundColor = FunNavigationBar.style.backgroundColor
         backgroundImage = FunNavigationBar.style.backgroundImage
         backItemImage = FunNavigationBar.style.backItemImage
+        
+        if template == .container {
+            
+            tintColor = UIColor(white: 0.35, alpha: 1)
+            rightView = clipBar
+        }
     }
     
     required public init?(coder: NSCoder) {
@@ -76,7 +139,11 @@ open class FunNavigationBar: UIView {
         
         backHandle?(sender)
         if isBackEnable {
-            fb.controller?.navigationController?.popViewController(animated: true)
+            if let nav = fb.controller as? UINavigationController {
+                nav.popViewController(animated: true)
+            } else {
+                fb.controller?.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
@@ -289,3 +356,124 @@ open class FunNavigationBar: UIView {
 }
 
 //}
+extension FunNavigationBar {
+    public class ClipBar: UIView {
+        private let container: UIView
+        public let moreItem: UIButton
+        public let closeItem: UIButton
+        private let cutLine: UIView
+        override init(frame: CGRect) {
+            container = UIView()
+            moreItem = UIButton()
+            closeItem = UIButton()
+            cutLine = UIView()
+            super.init(frame: frame)
+            
+            container.layer.borderWidth = 0.5
+            container.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).cgColor
+            container.layer.masksToBounds = true
+            addSubview(container)
+            
+            cutLine.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
+            container.addSubview(cutLine)
+            
+            closeItem.setImage(UIImage(named: "fb_nav_close", in: FunBox.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+            closeItem.imageEdgeInsets = UIEdgeInsets(top: 5, left: 9, bottom: 5, right: 13)
+            closeItem.addTarget(self, action: #selector(itemAction(sender:)), for: .touchUpInside)
+            closeItem.setBackgroundImage(UIImage.fb.color(tintColor.fb.contrasting), for: .highlighted)
+            container.addSubview(closeItem)
+
+            moreItem.imageEdgeInsets = UIEdgeInsets(top: 5, left: 13, bottom: 5, right: 9)
+            moreItem.setImage(UIImage(named: "fb_nav_more", in: FunBox.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
+            moreItem.addTarget(self, action: #selector(itemAction(sender:)), for: .touchUpInside)
+            moreItem.setBackgroundImage(UIImage.fb.color(tintColor.fb.contrasting), for: .highlighted)
+            container.addSubview(moreItem)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        open override func layoutSubviews() {
+            super.layoutSubviews()
+            container.layer.cornerRadius = 15
+            container.frame = CGRect(x: 0, y: (bounds.height - 30) / 2.0, width: bounds.width, height: 30)
+            let margin = (bounds.width - container.frame.height * 2.0) / 3.0
+            closeItem.frame = CGRect(x: bounds.width / 2.0, y: 0, width: bounds.width / 2.0, height: container.frame.height)
+            moreItem.frame = CGRect(x: 0, y: 0, width: bounds.width / 2.0, height: container.frame.height)
+            cutLine.frame = CGRect(x: container.frame.midX, y: margin / 2.0, width: 0.5, height: container.frame.height - margin)
+        }
+        
+        @objc private func itemAction(sender: UIButton) {
+            
+            if sender == closeItem {
+                if let closeHandle = closeHandle {
+                    closeHandle(sender)
+                } else {
+                    if let vc = fb.controller?.navigationController {
+                        vc.dismiss(animated: true, completion: nil)
+                    } else {
+                        fb.controller?.dismiss(animated: true, completion: nil)
+                    }
+                }
+            } else if sender == moreItem {
+                moreHandle?(sender)
+            }
+
+        }
+        
+        private var closeHandle: ((UIButton)->Void)?
+        public func closeAction(_ handle: ((UIButton)->Void)?) {
+            closeHandle = handle
+        }
+        private var moreHandle: ((UIButton)->Void)?
+        public func moreAction(_ handle: ((UIButton)->Void)?) {
+            moreHandle = handle
+        }
+        
+        public override func draw(_ rect: CGRect) {
+            super.draw(rect)
+            
+            closeItem.fb.effect(.corner).cornerRadius(container.bounds.height / 2.0).rectCornerType([.topRight,.bottomRight]).draw()
+            moreItem.fb.effect(.corner).cornerRadius(container.bounds.height / 2.0).rectCornerType([.topLeft,.bottomLeft]).draw()
+        }
+    }
+}
+
+public extension FunNamespaceWrapper where T: UINavigationItem {
+//public extension UINavigationItem {
+    func set(rightItem newValue: UIView?) {
+        if let rightItem = newValue {
+            wrappedValue.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
+        } else {
+            wrappedValue.rightBarButtonItem = nil
+        }
+    }
+    var rightItem: UIView? {
+        return wrappedValue.rightBarButtonItem?.customView
+    }
+    
+    func set(leftItem newValue: UIView?) {
+        if let leftItem = newValue {
+            wrappedValue.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
+        } else {
+            wrappedValue.leftBarButtonItem = nil
+        }
+    }
+    var leftItem: UIView? {
+        return wrappedValue.leftBarButtonItem?.customView
+        
+    }
+//    var titleView: UIView? {
+//        get {
+//            return rightBarButtonItem?.customView
+//        }
+//        set {
+//            if let rightView = newValue {
+//                rightBarButtonItem = UIBarButtonItem(customView: rightView)
+//            } else {
+//                rightBarButtonItem = nil
+//            }
+//        }
+//    }
+}
