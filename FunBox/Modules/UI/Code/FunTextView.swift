@@ -18,6 +18,11 @@ import UIKit
             }
         }
         public let placeholderLabel: UILabel
+        open override var text: String! {
+            didSet {
+                handleTextChanged(notic: nil)
+            }
+        }
         
         public override init(frame: CGRect, textContainer: NSTextContainer?) {
             placeholderLabel = UILabel()
@@ -43,27 +48,27 @@ import UIKit
         }
         
         
-        @objc private func handleTextChanged(notic: Notification) {
+        @objc private func handleTextChanged(notic: Notification?) {
             // 输入字符的时候，placeholder隐藏
             if let placeholder = placeholder, !placeholder.isEmpty {
                 updatePlaceholderLabelHidden()
             }
             
-            if let textView = notic.object as? FunTextView {
-                if !textView.isEditable {
+//            if let textView = notic?.object as? FunTextView {
+                if !isEditable {
                     return// 不可编辑的 textView 不会显示光标
                 }
                 
                 // 计算高度
-                let resultHeight = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: CGFloat(MAXFLOAT))).height
+                let resultHeight = sizeThatFits(CGSize(width: bounds.width, height: CGFloat(MAXFLOAT))).height
                 
                 // 回调通知更新textView的高度
-                if resultHeight != textView.bounds.height {
+                if resultHeight != bounds.height {
 
                     newHeightAfterTextChanged?(resultHeight)
                 }
 
-            }
+//            }
         }
         
         private var newHeightAfterTextChanged: ((CGFloat)->Void)?
@@ -112,5 +117,3 @@ import UIKit
         }
     }
 //}
-
-
