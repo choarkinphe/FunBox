@@ -6,7 +6,7 @@
 //  Copyright © 2020 Konnech. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Photos
 public typealias FunAuthorize = FunBox.Authorize
 public extension FunBox {

@@ -5,7 +5,7 @@
 //  Created by choarkinphe on 2019/11/22.
 //
 
-import Foundation
+import UIKit
 
 public extension UIView {
     class Effect {

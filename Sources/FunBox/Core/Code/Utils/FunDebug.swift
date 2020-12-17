@@ -5,7 +5,7 @@
 //  Created by choarkinphe on 2020/10/28.
 //
 
-import Foundation
+import UIKit
 public typealias FunLoger = FunBox.Debug.Loger
 extension FunBox {
     public struct Debug { }

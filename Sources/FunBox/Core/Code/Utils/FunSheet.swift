@@ -5,7 +5,7 @@
 //  Created by 肖华 on 2019/10/15.
 //
 
-import Foundation
+import UIKit
 public typealias FunActionSheetHandler = (FunBox.Sheet.Action) -> Void
 public typealias FunActionSheetMultiHandler = ([FunBox.Sheet.Action]) -> Void
 public typealias FunSheet = FunBox.Sheet

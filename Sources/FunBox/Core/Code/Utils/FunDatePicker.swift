@@ -5,7 +5,7 @@
 //  Created by choarkinphe on 2019/10/21.
 //
 
-import Foundation
+import UIKit
 public typealias FunDatePicker = FunBox.DatePicker
 //extension UIDatePicker: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == UIDatePicker {
