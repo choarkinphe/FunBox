@@ -18,7 +18,7 @@ let package = Package(
             targets: ["Core"]),
         .library(
             name: "FunUI",
-            targets: ["UI","Core"])
+            targets: ["UI"])
 //        .library(
 //            name: "FunNetworking",
 //            targets: ["Networking"])

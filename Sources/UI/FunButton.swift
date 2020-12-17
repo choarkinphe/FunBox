@@ -4,7 +4,9 @@
 //
 //  Created by choarkinphe on 2020/8/25.
 //
-
+#if !COCOAPODS
+import FunBox
+#endif
 import UIKit
 // MARK: - CustomView
 //public typealias FunButton = FunBox.Button

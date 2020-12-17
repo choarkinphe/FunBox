@@ -5,7 +5,9 @@
 //  Created by choarkinphe on 2020/8/14.
 //  Copyright © 2020 hongzheng. All rights reserved.
 //
-
+#if !COCOAPODS
+import FunBox
+#endif
 import UIKit
 // MARK: - CustomView
 //public typealias FunLabel = FunBox.Label

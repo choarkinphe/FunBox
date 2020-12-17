@@ -4,7 +4,9 @@
 //
 //  Created by 肖华 on 2020/9/14.
 //
-
+#if !COCOAPODS
+import FunBox
+#endif
 import UIKit
 //public typealias FunNavigationBar = FunBox.NavigationBar
 //extension FunBox {
