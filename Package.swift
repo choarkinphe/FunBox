@@ -34,13 +34,13 @@ let package = Package(
         .target(
             name: "FunBox",
 //            path: "./Sources/FunBox/Core/Code",
-            exclude: ["Example","README.MD"]
+            exclude: ["Example","README.MD","LICENSE"]
 //            publicHeadersPath: "./Sources/FunBox/Core/Code"
 //            sources: ["./Sources/FunBox/Core/Code/FunBox.swift"]
 //            exclude: [
 //                "mbedtls",
 //                "LICENSE"
-//            ],
+//            ]
 //            resources: [
 //                .copy(".")
 //            ]
@@ -50,13 +50,13 @@ let package = Package(
             dependencies: [
                 "FunBox"
             ],
+            exclude: ["Example","README.MD","LICENSE"]
 //            path: "./Sources/FunBox/Modules/UI/Code",
-            exclude: ["Example","README.MD"]
 //            publicHeadersPath: "./Sources/FunBox/Core/Code"
 //            exclude: [
 //                "mbedtls",
 //                "LICENSE"
-//            ],
+//            ]
 //            resources: [
 //                .copy(".")
 //            ]
