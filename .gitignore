@@ -19,6 +19,11 @@ DerivedData
 *.hmap
 *.ipa
 
+.build
+.swiftpm
+FunBox.xcodeproj
+FunBox.podspec
+
 # Bundler
 .bundle
 

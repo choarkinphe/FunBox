@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.3.20",
+  "version": "0.4.20",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,17 +14,12 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.3.20"
+    "tag": "0.4.20"
   },
   "platforms": {
     "ios": "10.0"
   },
-  "source_files": "FunBox/Core/Code/*",
-  "resource_bundles": {
-    "FunBox": [
-      "FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
-    ]
-  },
+  "source_files": "Sources/FunBox/Core/Code/*",
   "subspecs": [
     {
       "name": "Core",
@@ -45,7 +40,7 @@
     },
     {
       "name": "Extension",
-      "source_files": "FunBox/Core/Code/Extension/**/*",
+      "source_files": "Sources/FunBox/Core/Code/Extension/**/*",
       "dependencies": {
         "FunBox/Main": [
 
@@ -55,13 +50,18 @@
     {
       "name": "Main",
       "source_files": [
-        "FunBox/Core/Code/*",
-        "FunBox/Core/Code/Other/**/*"
-      ]
+        "Sources/FunBox/Core/Code/*",
+        "Sources/FunBox/Core/Code/Other/**/*"
+      ],
+      "resource_bundles": {
+        "FunBox": [
+          "Sources/FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+        ]
+      }
     },
     {
       "name": "Utils",
-      "source_files": "FunBox/Core/Code/Utils/**/*",
+      "source_files": "Sources/FunBox/Core/Code/Utils/**/*",
       "dependencies": {
         "FunBox/Extension": [
 
@@ -73,7 +73,7 @@
     },
     {
       "name": "UI",
-      "source_files": "FunBox/Core/Code/UI/**/*",
+      "source_files": "Sources/FunBox/Core/Code/UI/**/*",
       "dependencies": {
         "FunBox/Extension": [
 
@@ -88,7 +88,7 @@
       "subspecs": [
         {
           "name": "Networking",
-          "source_files": "FunBox/Modules/Networking/Code/**/*",
+          "source_files": "Sources/FunBox/Modules/Networking/Code/**/*",
           "dependencies": {
             "FunBox/Core": [
 
@@ -100,7 +100,7 @@
         },
         {
           "name": "FunUI",
-          "source_files": "FunBox/Modules/UI/Code/**/*",
+          "source_files": "Sources/FunBox/Modules/UI/Code/**/*",
           "dependencies": {
             "FunBox/Core": [
 

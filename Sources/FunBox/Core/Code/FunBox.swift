@@ -67,8 +67,8 @@ extension URL: FunURLConvertable {
 
 extension String: FunURLConvertable {
     public var realURL: URL? {
-        if hasPrefix("http") {
-            return URL(string: self.lowercased())
+        if self.lowercased().hasPrefix("http") {
+            return URL(string: self)
         } else if let url = URL(string: self) {
             if url.scheme != nil {
                 return url
