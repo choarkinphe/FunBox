@@ -18,7 +18,7 @@ let package = Package(
             targets: ["Core"]),
         .library(
             name: "FunUI",
-            targets: ["UI"]),
+            targets: ["UI","Core"])
 //        .library(
 //            name: "FunNetworking",
 //            targets: ["Networking"])
@@ -34,8 +34,8 @@ let package = Package(
         .target(
             name: "Core",
 //            path: "./Sources/FunBox/Core/Code",
-            exclude: ["Example","README.MD"],
-            publicHeadersPath: "./Sources/FunBox/Core/Code"
+            exclude: ["Example","README.MD"]
+//            publicHeadersPath: "./Sources/FunBox/Core/Code"
 //            sources: ["./Sources/FunBox/Core/Code/FunBox.swift"]
 //            exclude: [
 //                "mbedtls",
