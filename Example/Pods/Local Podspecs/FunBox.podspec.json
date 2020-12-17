@@ -19,7 +19,7 @@
   "platforms": {
     "ios": "10.0"
   },
-  "source_files": "Sources/Core/Code/*",
+  "source_files": "Sources/FunBox/Code/*",
   "subspecs": [
     {
       "name": "Core",
@@ -41,12 +41,12 @@
     {
       "name": "Main",
       "source_files": [
-        "Sources/Core/Code/*",
-        "Sources/FunBox/Core/Code/Other/**/*"
+        "Sources/FunBox/Code/*",
+        "Sources/FunBox/Code/Other/**/*"
       ],
       "resource_bundles": {
         "FunBox": [
-          "Sources/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+          "Sources/FunBox/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
         ]
       }
     },
@@ -55,7 +55,7 @@
       "subspecs": [
         {
           "name": "Extension",
-          "source_files": "Sources/Core/Code/Extension/**/*",
+          "source_files": "Sources/FunBox/Code/Extension/**/*",
           "dependencies": {
             "FunBox/Main": [
 
@@ -64,7 +64,7 @@
         },
         {
           "name": "Utils",
-          "source_files": "Sources/Core/Code/Utils/**/*",
+          "source_files": "Sources/FunBox/Code/Utils/**/*",
           "dependencies": {
             "FunBox/Box/Extension": [
 
@@ -76,7 +76,7 @@
         },
         {
           "name": "UI",
-          "source_files": "Sources/Core/Code/UI/**/*",
+          "source_files": "Sources/FunBox/Code/UI/**/*",
           "dependencies": {
             "FunBox/Box/Extension": [
 
@@ -105,7 +105,7 @@
         },
         {
           "name": "FunUI",
-          "source_files": "Sources/UI/**/*",
+          "source_files": "Sources/FunUI/**/*",
           "dependencies": {
             "FunBox/Core": [
 

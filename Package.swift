@@ -15,10 +15,10 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "FunBox",
-            targets: ["Core"]),
+            targets: ["FunBox"]),
         .library(
             name: "FunUI",
-            targets: ["UI"])
+            targets: ["FunUI"])
 //        .library(
 //            name: "FunNetworking",
 //            targets: ["Networking"])
@@ -32,7 +32,7 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "Core",
+            name: "FunBox",
 //            path: "./Sources/FunBox/Core/Code",
             exclude: ["Example","README.MD"]
 //            publicHeadersPath: "./Sources/FunBox/Core/Code"
@@ -46,9 +46,9 @@ let package = Package(
 //            ]
         ),
         .target(
-            name: "UI",
+            name: "FunUI",
             dependencies: [
-                "Core"
+                "FunBox"
             ],
 //            path: "./Sources/FunBox/Modules/UI/Code",
             exclude: ["Example","README.MD"]
@@ -88,6 +88,6 @@ let package = Package(
 //            dependencies: []),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["Core","UI"]),
+            dependencies: ["FunBox","FunUI"])
     ]
 )
