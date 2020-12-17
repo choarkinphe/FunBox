@@ -1,32 +1,32 @@
 PODS:
   - Alamofire (5.2.2)
-  - FunBox (0.4.20):
-    - FunBox/Core (= 0.4.20)
-    - FunBox/Extension (= 0.4.20)
-    - FunBox/Main (= 0.4.20)
-    - FunBox/Modules (= 0.4.20)
-    - FunBox/UI (= 0.4.20)
-    - FunBox/Utils (= 0.4.20)
-  - FunBox/Core (0.4.20):
+  - FunBox (0.4.22):
+    - FunBox/Core (= 0.4.22)
+    - FunBox/Extension (= 0.4.22)
+    - FunBox/Main (= 0.4.22)
+    - FunBox/Modules (= 0.4.22)
+    - FunBox/UI (= 0.4.22)
+    - FunBox/Utils (= 0.4.22)
+  - FunBox/Core (0.4.22):
     - FunBox/Extension
     - FunBox/Main
     - FunBox/UI
     - FunBox/Utils
-  - FunBox/Extension (0.4.20):
+  - FunBox/Extension (0.4.22):
     - FunBox/Main
-  - FunBox/Main (0.4.20)
-  - FunBox/Modules (0.4.20):
-    - FunBox/Modules/FunUI (= 0.4.20)
-    - FunBox/Modules/Networking (= 0.4.20)
-  - FunBox/Modules/FunUI (0.4.20):
+  - FunBox/Main (0.4.22)
+  - FunBox/Modules (0.4.22):
+    - FunBox/Modules/FunUI (= 0.4.22)
+    - FunBox/Modules/Networking (= 0.4.22)
+  - FunBox/Modules/FunUI (0.4.22):
     - FunBox/Core
-  - FunBox/Modules/Networking (0.4.20):
+  - FunBox/Modules/Networking (0.4.22):
     - Alamofire (~> 5.2.2)
     - FunBox/Core
-  - FunBox/UI (0.4.20):
+  - FunBox/UI (0.4.22):
     - FunBox/Extension
     - FunBox/Main
-  - FunBox/Utils (0.4.20):
+  - FunBox/Utils (0.4.22):
     - FunBox/Extension
     - FunBox/Main
 
@@ -43,7 +43,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  FunBox: 31a1b82479f2605159fce43f1972c607f1cec00c
+  FunBox: bf97e8e568b723a6bd0059e314140d9a127110e9
 
 PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 

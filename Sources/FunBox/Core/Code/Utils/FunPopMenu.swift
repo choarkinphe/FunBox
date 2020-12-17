@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 #if os(macOS)
 public typealias Color = NSColor
 #else

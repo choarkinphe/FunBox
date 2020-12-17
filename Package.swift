@@ -33,7 +33,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "Core",
-            path: "./Sources/FunBox/Core/Code"
+            path: "./Sources/FunBox/Core/Code",
+            exclude: ["Example","README.MD"],
+            publicHeadersPath: "./Sources/FunBox/Core/Code"
+//            sources: ["./Sources/FunBox/Core/Code/FunBox.swift"]
 //            exclude: [
 //                "mbedtls",
 //                "LICENSE"
