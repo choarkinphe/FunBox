@@ -50,7 +50,9 @@ let package = Package(
             dependencies: [
                 "Core"
             ],
-            path: "./Sources/FunBox/Modules/UI/Code"
+            path: "./Sources/FunBox/Modules/UI/Code",
+            exclude: ["Example","README.MD"],
+            publicHeadersPath: "./Sources/FunBox/Core/Code"
 //            exclude: [
 //                "mbedtls",
 //                "LICENSE"
