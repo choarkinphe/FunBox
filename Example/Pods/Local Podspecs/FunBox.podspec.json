@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.4.22",
+  "version": "0.4.23",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,34 +14,25 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.4.22"
+    "tag": "0.4.23"
   },
   "platforms": {
     "ios": "10.0"
   },
-  "source_files": "Sources/FunBox/Core/Code/*",
+  "source_files": "Sources/Core/Code/*",
   "subspecs": [
     {
       "name": "Core",
       "dependencies": {
-        "FunBox/Extension": [
+        "FunBox/Box/Extension": [
 
         ],
-        "FunBox/Utils": [
+        "FunBox/Box/Utils": [
 
         ],
-        "FunBox/Main": [
+        "FunBox/Box/UI": [
 
         ],
-        "FunBox/UI": [
-
-        ]
-      }
-    },
-    {
-      "name": "Extension",
-      "source_files": "Sources/FunBox/Core/Code/Extension/**/*",
-      "dependencies": {
         "FunBox/Main": [
 
         ]
@@ -50,38 +41,52 @@
     {
       "name": "Main",
       "source_files": [
-        "Sources/FunBox/Core/Code/*",
+        "Sources/Core/Code/*",
         "Sources/FunBox/Core/Code/Other/**/*"
       ],
       "resource_bundles": {
         "FunBox": [
-          "Sources/FunBox/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+          "Sources/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
         ]
       }
     },
     {
-      "name": "Utils",
-      "source_files": "Sources/FunBox/Core/Code/Utils/**/*",
-      "dependencies": {
-        "FunBox/Extension": [
+      "name": "Box",
+      "subspecs": [
+        {
+          "name": "Extension",
+          "source_files": "Sources/Core/Code/Extension/**/*",
+          "dependencies": {
+            "FunBox/Main": [
 
-        ],
-        "FunBox/Main": [
+            ]
+          }
+        },
+        {
+          "name": "Utils",
+          "source_files": "Sources/Core/Code/Utils/**/*",
+          "dependencies": {
+            "FunBox/Box/Extension": [
 
-        ]
-      }
-    },
-    {
-      "name": "UI",
-      "source_files": "Sources/FunBox/Core/Code/UI/**/*",
-      "dependencies": {
-        "FunBox/Extension": [
+            ],
+            "FunBox/Main": [
 
-        ],
-        "FunBox/Main": [
+            ]
+          }
+        },
+        {
+          "name": "UI",
+          "source_files": "Sources/Core/Code/UI/**/*",
+          "dependencies": {
+            "FunBox/Box/Extension": [
 
-        ]
-      }
+            ],
+            "FunBox/Main": [
+
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Modules",
@@ -100,7 +105,7 @@
         },
         {
           "name": "FunUI",
-          "source_files": "Sources/FunBox/Modules/UI/Code/**/*",
+          "source_files": "Sources/UI/**/*",
           "dependencies": {
             "FunBox/Core": [
 
