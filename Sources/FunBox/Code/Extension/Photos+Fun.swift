@@ -37,19 +37,19 @@ public extension FunAuthorize {
                 
                 clouse(status)
             } else {
-                FunBox.alert.title("照片访问受限").message("点击“设置”，允许访问您的照片").addAction(title: "取消", style: .cancel).addAction(title: "设置", style: .default) { (action) in
-                    let url = URL(string: UIApplication.openSettingsURLString)
-                    if let url = url, UIApplication.shared.canOpenURL(url) {
-                        if #available(iOS 10, *) {
-                            UIApplication.shared.open(url, options: [:],
-                                                      completionHandler: {
-                                                        (success) in
-                                                      })
-                        } else {
-                            UIApplication.shared.openURL(url)
-                        }
-                    }
-                }.present()
+//                FunBox.alert.title("照片访问受限").message("点击“设置”，允许访问您的照片").addAction(title: "取消", style: .cancel).addAction(title: "设置", style: .default) { (action) in
+//                    let url = URL(string: UIApplication.openSettingsURLString)
+//                    if let url = url, UIApplication.shared.canOpenURL(url) {
+//                        if #available(iOS 10, *) {
+//                            UIApplication.shared.open(url, options: [:],
+//                                                      completionHandler: {
+//                                                        (success) in
+//                                                      })
+//                        } else {
+//                            UIApplication.shared.openURL(url)
+//                        }
+//                    }
+//                }.present()
                 
                 clouse(status)
             }
@@ -70,19 +70,19 @@ public extension FunAuthorize {
             })
         } else {
             
-            FunBox.alert.title("相机访问受限").message("点击“设置”，允许访问您的相机").addAction(title: "取消", style: .cancel).addAction(title: "设置", style: .default) { (action) in
-                let url = URL(string: UIApplication.openSettingsURLString)
-                if let url = url, UIApplication.shared.canOpenURL(url) {
-                    if #available(iOS 10, *) {
-                        UIApplication.shared.open(url, options: [:],
-                                                  completionHandler: {
-                                                    (success) in
-                                                  })
-                    } else {
-                        UIApplication.shared.openURL(url)
-                    }
-                }
-            }.present()
+//            FunBox.alert.title("相机访问受限").message("点击“设置”，允许访问您的相机").addAction(title: "取消", style: .cancel).addAction(title: "设置", style: .default) { (action) in
+//                let url = URL(string: UIApplication.openSettingsURLString)
+//                if let url = url, UIApplication.shared.canOpenURL(url) {
+//                    if #available(iOS 10, *) {
+//                        UIApplication.shared.open(url, options: [:],
+//                                                  completionHandler: {
+//                                                    (success) in
+//                                                  })
+//                    } else {
+//                        UIApplication.shared.openURL(url)
+//                    }
+//                }
+//            }.present()
             
             clouse(status)
         }

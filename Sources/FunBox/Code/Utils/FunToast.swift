@@ -270,8 +270,10 @@ extension FunBox.Toast.Config {
             imageView = UIImageView(image: image.withRenderingMode(style.imageRenderingMode))
             imageView?.tintColor = style.imageColor
             imageView?.contentMode = .scaleAspectFit
-            imageRect.size.width = style.imageSize.width
-            imageRect.size.height = style.imageSize.height
+            imageRect.size = image.size
+            if style.imageSize != .zero {
+                imageRect.size = style.imageSize
+            }
         }
         
         // activity不允许和image共存
@@ -923,7 +925,7 @@ public extension FunBox.Toast {
         /**
          The image size. The default is 80 x 80.
          */
-        public var imageSize = CGSize(width: 40.0, height: 40.0)
+        public var imageSize: CGSize = .zero
         
         public var activitySize = CGSize(width: 40.0, height: 40.0)
         
