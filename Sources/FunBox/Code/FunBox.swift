@@ -102,3 +102,20 @@ extension FunSwizz {
 }
 
 
+public typealias FunAuthorize = FunBox.Authorize
+public extension FunBox {
+    // 获取权限
+    struct Authorize { }
+}
+
+
+public extension FunBox {
+    struct Options {
+        struct Application {
+            static func openExternalURL(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+                return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+            }
+        }
+        
+    }
+}

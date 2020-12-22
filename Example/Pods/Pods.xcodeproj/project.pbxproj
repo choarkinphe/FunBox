@@ -23,13 +23,14 @@
 		30151886BC268DEDF95578D1FC49F9DC /* FunTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1177FFCA27B79235A5CF4C09EAEAE015 /* FunTextView.swift */; };
 		375FC52353CF87076C849ADA810D0C6A /* Pods-FunBox_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD6674589BFDDF9607C2A196C09FE62 /* Pods-FunBox_Example-dummy.m */; };
 		381FF05F8B4F611EE9C2FDBE4457BB89 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72312136F76CCB5AC50BCDD37ED4A2 /* SessionDelegate.swift */; };
-		39CFEAE3ACA9422D3A470798843768FB /* FunTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD2AC59CD02BA9E5656C0AB56068E58 /* FunTool.swift */; };
+		39CFEAE3ACA9422D3A470798843768FB /* FunObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD2AC59CD02BA9E5656C0AB56068E58 /* FunObserver.swift */; };
 		3FC01D5B6940F1DE320B3DA74244CD00 /* FunNetworkKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F809C6CBB894D65EB0DB5175783D13 /* FunNetworkKit.swift */; };
 		45B8CC1C61E7A0BB28CFA8CE7C12FEBC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0440F4381D065FED6264EFBCDB7960 /* MultipartFormData.swift */; };
 		47FDBBBD2704901588C3A7C56BBC502D /* ServerTrustEvaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24B13480173106997D3F6538CDE3CD /* ServerTrustEvaluation.swift */; };
 		4ABDAA2E2591BB1B009E8C9A /* Photos+Fun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABDAA2D2591BB1B009E8C9A /* Photos+Fun.swift */; };
+		4ABDAA842591E549009E8C9A /* FunRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABDAA832591E549009E8C9A /* FunRefresher.swift */; };
+		4ABDAA8B2591E573009E8C9A /* FunHaptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABDAA8A2591E573009E8C9A /* FunHaptic.swift */; };
 		4AEC050FA7D5ED52FDA9DF50EA3560DF /* ParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26220434118FCFC30E4850800AC3068 /* ParameterEncoder.swift */; };
-		4F26A2B41DD71145A98756A77A9F1ED3 /* FunAuthorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE621400409EB892AE089196B3A968DF /* FunAuthorize.swift */; };
 		4F9B306C56AE58DEE638567A643AB732 /* FunSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75E843E5D085317834C817DE6F2C411 /* FunSheet.swift */; };
 		58A20EBB33620CEA86AD19D27A0A5A08 /* FunCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BAAEC4D848CF13C219A1013A57FC1 /* FunCache.swift */; };
 		5A420763D8752180276A370EB524E194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F401E181BEA002337E464DED414F440 /* Foundation.framework */; };
@@ -158,6 +159,8 @@
 		4A51D931D0AF17B859CD591948D7CA03 /* Pods-FunBox_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FunBox_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		4ABD9F54297FF27309F1F8A34F99417C /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
 		4ABDAA2D2591BB1B009E8C9A /* Photos+Fun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Photos+Fun.swift"; path = "Sources/FunBox/Code/Extension/Photos+Fun.swift"; sourceTree = "<group>"; };
+		4ABDAA832591E549009E8C9A /* FunRefresher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunRefresher.swift; path = Sources/FunBox/Code/UI/FunRefresher.swift; sourceTree = "<group>"; };
+		4ABDAA8A2591E573009E8C9A /* FunHaptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FunHaptic.swift; path = Sources/FunBox/Code/Utils/FunHaptic.swift; sourceTree = "<group>"; };
 		4D3E0E1E34DD4394C6023B622C262222 /* Alamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.debug.xcconfig; sourceTree = "<group>"; };
 		51BB5063650D66E661FD979273F90078 /* MultipartUpload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartUpload.swift; path = Source/MultipartUpload.swift; sourceTree = "<group>"; };
 		51D45A2AF061C99B2355F19EC47243D9 /* Protected.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Protected.swift; path = Source/Protected.swift; sourceTree = "<group>"; };
@@ -189,7 +192,7 @@
 		970C386BD824FE4AD000560950399556 /* URLSessionConfiguration+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URLSessionConfiguration+Alamofire.swift"; path = "Source/URLSessionConfiguration+Alamofire.swift"; sourceTree = "<group>"; };
 		9812CD857E74F6E336ED9D03B67776EB /* FunAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunAlert.swift; path = Sources/FunBox/Code/Utils/FunAlert.swift; sourceTree = "<group>"; };
 		998E57E5CB536D68D4A97BC1B56E62B8 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
-		9BD2AC59CD02BA9E5656C0AB56068E58 /* FunTool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunTool.swift; path = Sources/FunBox/Code/Utils/FunTool.swift; sourceTree = "<group>"; };
+		9BD2AC59CD02BA9E5656C0AB56068E58 /* FunObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunObserver.swift; path = Sources/FunBox/Code/Utils/FunObserver.swift; sourceTree = "<group>"; };
 		9C1741D7ACD43E5D0E9DBE557F396581 /* RequestInterceptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RequestInterceptor.swift; path = Source/RequestInterceptor.swift; sourceTree = "<group>"; };
 		9C44EFF4AE1CC95C361F6A007EDBD6E7 /* RetryPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RetryPolicy.swift; path = Source/RetryPolicy.swift; sourceTree = "<group>"; };
 		9CD6C3EF8E26D496B81835EC8F2D1B85 /* FunBox+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FunBox+Extension.swift"; path = "Sources/FunBox/Code/Extension/FunBox+Extension.swift"; sourceTree = "<group>"; };
@@ -233,7 +236,6 @@
 		F71BBCEF1586B8C48F6C090283FD70AA /* Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Alamofire-Info.plist"; sourceTree = "<group>"; };
 		F75E843E5D085317834C817DE6F2C411 /* FunSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunSheet.swift; path = Sources/FunBox/Code/Utils/FunSheet.swift; sourceTree = "<group>"; };
 		FA24B13480173106997D3F6538CDE3CD /* ServerTrustEvaluation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustEvaluation.swift; path = Source/ServerTrustEvaluation.swift; sourceTree = "<group>"; };
-		FE621400409EB892AE089196B3A968DF /* FunAuthorize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunAuthorize.swift; path = Sources/FunBox/Code/Utils/FunAuthorize.swift; sourceTree = "<group>"; };
 		FF72312136F76CCB5AC50BCDD37ED4A2 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -472,6 +474,7 @@
 			children = (
 				6AEDC5C63DB8CE1A6DF470A45DF7ADD4 /* FunPan.swift */,
 				1F0A43A4AF566048C81F42E3DB32AAE0 /* UIViewController+Fun.swift */,
+				4ABDAA832591E549009E8C9A /* FunRefresher.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -480,7 +483,6 @@
 			isa = PBXGroup;
 			children = (
 				9812CD857E74F6E336ED9D03B67776EB /* FunAlert.swift */,
-				FE621400409EB892AE089196B3A968DF /* FunAuthorize.swift */,
 				F2FF60D532706847DDA3E3DD34C432BC /* FunDatePicker.swift */,
 				F087E7990B94E63C0917FCF53CD4264A /* FunDebug.swift */,
 				882A2C6CAACE776878B7677A9DF11914 /* FunLocation.swift */,
@@ -489,7 +491,8 @@
 				563FFBFCBC3850F1C2499AB87D2A4F23 /* FunSecurity.swift */,
 				F75E843E5D085317834C817DE6F2C411 /* FunSheet.swift */,
 				9E1D4984ACD45BFAC13F493B92D939E8 /* FunToast.swift */,
-				9BD2AC59CD02BA9E5656C0AB56068E58 /* FunTool.swift */,
+				9BD2AC59CD02BA9E5656C0AB56068E58 /* FunObserver.swift */,
+				4ABDAA8A2591E573009E8C9A /* FunHaptic.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -829,12 +832,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ABDAA8B2591E573009E8C9A /* FunHaptic.swift in Sources */,
 				240B985A98C9F9D5634AA54983209B4A /* FunAlert.swift in Sources */,
-				4F26A2B41DD71145A98756A77A9F1ED3 /* FunAuthorize.swift in Sources */,
 				C27183C1F84B89893EE621D615799FFC /* FunBox+Extension.swift in Sources */,
 				2B361D562DE6E01931542F09C98BE19C /* FunBox-dummy.m in Sources */,
 				2CC10217405233EAF9BDD798BD780FF5 /* FunBox.swift in Sources */,
 				0D1B5AD6CDD05B3D3C6CCA81D0325461 /* FunButton.swift in Sources */,
+				4ABDAA842591E549009E8C9A /* FunRefresher.swift in Sources */,
 				58A20EBB33620CEA86AD19D27A0A5A08 /* FunCache.swift in Sources */,
 				DBAD8626207BC13ECF492ACD1FDB4671 /* FunDatePicker.swift in Sources */,
 				730BD414EF3EB0818339106915DCD337 /* FunDebug.swift in Sources */,
@@ -854,7 +858,7 @@
 				4F9B306C56AE58DEE638567A643AB732 /* FunSheet.swift in Sources */,
 				30151886BC268DEDF95578D1FC49F9DC /* FunTextView.swift in Sources */,
 				9DFB5E8C91A3E92B5B5FC37D543809A0 /* FunToast.swift in Sources */,
-				39CFEAE3ACA9422D3A470798843768FB /* FunTool.swift in Sources */,
+				39CFEAE3ACA9422D3A470798843768FB /* FunObserver.swift in Sources */,
 				759E963569582F460F8521D2F208DCE0 /* UIView+Effect.swift in Sources */,
 				A4622FF9233EA5A23DF438A63D0923F5 /* UIView+Fun.swift in Sources */,
 				B3DCC18096574327A3D33532F0139224 /* UIViewController+Fun.swift in Sources */,
