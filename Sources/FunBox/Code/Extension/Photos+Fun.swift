@@ -50,26 +50,8 @@ public extension FunNamespaceWrapper where T: PHAsset {
 }
  
 
-public protocol FunPhotoResource {
-    func asChangeRequest() -> PHAssetChangeRequest?
-}
 
-extension URL: FunPhotoResource {
-    public func asChangeRequest() -> PHAssetChangeRequest? {
-        guard isFileURL else { return nil}
-        if ["mp4","mov"].contains(pathExtension) {
-            return PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self)
-        }
-        return PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: self)
-    }
-}
-
-extension UIImage: FunPhotoResource {
-    public func asChangeRequest() -> PHAssetChangeRequest? {
-        return PHAssetChangeRequest.creationRequestForAsset(from: self)
-    }
-}
-
+/*
 public extension FunNamespaceWrapper where T: PHPhotoLibrary {
 //extension PHPhotoLibrary {
     
@@ -135,4 +117,146 @@ public extension FunNamespaceWrapper where T: PHPhotoLibrary {
         })
     }
 }
+*/
+//public protocol PhotoResource {
+//    func asAssetRequest() -> PHAssetChangeRequest?
+//}
+//
+//extension UIImage: PhotoResource {
+//    public func asAssetRequest() -> PHAssetChangeRequest? {
+//        return PHAssetChangeRequest.creationRequestForAsset(from: self)
+//    }
+//}
 
+public protocol PhotoResource {
+    func asChangeRequest() -> PHAssetChangeRequest?
+}
+//
+//extension URL: PhotoResource {
+//    public func asChangeRequest() -> PHAssetChangeRequest? {
+//        guard isFileURL else { return nil}
+//        if ["mp4","mov"].contains(pathExtension) {
+//            return PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self)
+//        }
+//        return PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: self)
+//    }
+//}
+
+extension UIImage: PhotoResource {
+    public func asChangeRequest() -> PHAssetChangeRequest? {
+        return PHAssetChangeRequest.creationRequestForAsset(from: self)
+    }
+}
+
+extension URL: PhotoResource {
+    
+    public func asChangeRequest() -> PHAssetChangeRequest? {
+    
+        if isFileURL {
+            // 获取文件类型
+            let mimeType = fb.mimeType
+            
+            if mimeType.contains("video") {// 视频类型
+                return PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self)
+            } else if mimeType.contains("image") { // 图片类型
+                return PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: self)
+            }
+        }
+        
+        return nil
+    }
+}
+
+extension PHPhotoLibrary {
+    
+    public struct Album: Equatable {
+        public let name: String
+        public init(name: String) {
+            self.name = name
+        }
+        
+        public static var `default`: Album {
+            
+            if let title = UIApplication.shared.fb.appName {
+                return Album(name: title)
+            }
+            
+            return Album(name: "New")
+        }
+        
+        func toCollectionRequest() -> PHAssetCollectionChangeRequest {
+            var collection: PHAssetCollectionChangeRequest?
+            // 1. 创建搜索集合
+            let result = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: nil)
+            // 2. 遍历搜索集合并取出对应的相册，返回当前的相册changeRequest
+            result.enumerateObjects { (assetCollection, index, pointer) in
+                if let localizedTitle = assetCollection.localizedTitle, localizedTitle.contains(name) {
+                    
+                    collection = PHAssetCollectionChangeRequest.init(for: assetCollection)
+                }
+            }
+            
+            if let collection = collection {
+                return collection
+            }
+            
+            // 如果不存在，创建一个名字为albumName的相册changeRequest
+            return PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: name)
+        }
+        
+        
+    }
+    
+   
+}
+
+
+//extension PHPhotoLibrary: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == PHPhotoLibrary {
+    //照片保存
+    static func save(album: PHPhotoLibrary.Album = .default, resource: PhotoResource?, complete: @escaping (((asset: PHAsset?, error: Error?))->Void)) {
+        guard let resource = resource else { return }
+        // 尝试获取相册保存权限
+        FunBox.Authorize.Photo.save({ (status) in
+            if status == .authorized {
+                
+                let library = PHPhotoLibrary.shared()
+                
+                var localIdentifier: String?
+                
+                library.performChanges({
+                    // 创建一个相册变动请求
+                    let collectionRequest = album.toCollectionRequest()
+                    
+                    // 根据传入的照片，创建照片变动请求
+                    let assetRequest = resource.asChangeRequest()
+                    
+                    // 创建一个占位对象
+                    if let placeholder = assetRequest?.placeholderForCreatedAsset {
+                        localIdentifier = placeholder.localIdentifier
+                        // 将占位对象添加到相册请求中
+                        collectionRequest.addAssets(NSArray(object: placeholder))
+                    }
+                    
+                }) { (success, error) in
+                    
+                    if success, let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject {
+                        DispatchQueue.main.async {
+                            
+                            complete((asset,error))
+                        }
+                        
+                        
+                    } else {
+                        DispatchQueue.main.async {
+                            
+                            complete((nil,error))
+                        }
+                        
+                    }
+                }
+                
+            }
+        })
+    }
+}
