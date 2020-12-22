@@ -77,9 +77,11 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
  
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+
+        
         if let element = sections[indexPath.section].items?[indexPath.item] {
-            Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
-                print(action.identifier)
+
                 switch element.name {
                     case "Toast":
                         FunBox.toast.template(.info).style(.system).title("提示").message("静音模式开启").show()
@@ -93,9 +95,10 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                        FunBox.toast.title("提示").message("嘻嘻").show()
 //                        FunBox.toast.title("提示").show()
                 default:
-                    break
+                    Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
+                        print(action.identifier)
+                    })
                 }
-            })
         }
     }
 }
