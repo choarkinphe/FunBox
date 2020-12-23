@@ -5,7 +5,7 @@
 //  Created by choarkinphe on 2020/12/22.
 //
 
-import Foundation
+import UIKit
 public typealias FunHaptic = FunBox.Haptic
 extension FunBox {
     /// Haptic Generator Helper.
