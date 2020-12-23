@@ -5,7 +5,7 @@
 //  Created by 肖华 on 2019/10/15.
 //
 
-import Foundation
+import UIKit
 
 public class FunBox {
     public static var bundle: Bundle? {
