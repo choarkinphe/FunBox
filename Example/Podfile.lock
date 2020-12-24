@@ -1,34 +1,34 @@
 PODS:
   - Alamofire (5.2.2)
-  - FunBox (0.4.23):
-    - FunBox/Box (= 0.4.23)
-    - FunBox/Core (= 0.4.23)
-    - FunBox/Main (= 0.4.23)
-    - FunBox/Modules (= 0.4.23)
-  - FunBox/Box (0.4.23):
-    - FunBox/Box/Extension (= 0.4.23)
-    - FunBox/Box/UI (= 0.4.23)
-    - FunBox/Box/Utils (= 0.4.23)
-  - FunBox/Box/Extension (0.4.23):
+  - FunBox (0.4.40):
+    - FunBox/Box (= 0.4.40)
+    - FunBox/Core (= 0.4.40)
+    - FunBox/Main (= 0.4.40)
+    - FunBox/Modules (= 0.4.40)
+  - FunBox/Box (0.4.40):
+    - FunBox/Box/Extension (= 0.4.40)
+    - FunBox/Box/UI (= 0.4.40)
+    - FunBox/Box/Utils (= 0.4.40)
+  - FunBox/Box/Extension (0.4.40):
     - FunBox/Main
-  - FunBox/Box/UI (0.4.23):
+  - FunBox/Box/UI (0.4.40):
     - FunBox/Box/Extension
     - FunBox/Main
-  - FunBox/Box/Utils (0.4.23):
+  - FunBox/Box/Utils (0.4.40):
     - FunBox/Box/Extension
     - FunBox/Main
-  - FunBox/Core (0.4.23):
+  - FunBox/Core (0.4.40):
     - FunBox/Box/Extension
     - FunBox/Box/UI
     - FunBox/Box/Utils
     - FunBox/Main
-  - FunBox/Main (0.4.23)
-  - FunBox/Modules (0.4.23):
-    - FunBox/Modules/FunUI (= 0.4.23)
-    - FunBox/Modules/Networking (= 0.4.23)
-  - FunBox/Modules/FunUI (0.4.23):
+  - FunBox/Main (0.4.40)
+  - FunBox/Modules (0.4.40):
+    - FunBox/Modules/FunUI (= 0.4.40)
+    - FunBox/Modules/Networking (= 0.4.40)
+  - FunBox/Modules/FunUI (0.4.40):
     - FunBox/Core
-  - FunBox/Modules/Networking (0.4.23):
+  - FunBox/Modules/Networking (0.4.40):
     - Alamofire (~> 5.2.2)
     - FunBox/Core
 
@@ -45,8 +45,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  FunBox: d116afbcef9909fa8387abec50222b988a14c3c9
+  FunBox: 022e2a1283b417c1012190d0bae2280e6a1f51ba
 
 PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.10.0

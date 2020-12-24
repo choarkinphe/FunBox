@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.4.23",
+  "version": "0.4.40",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.4.23"
+    "tag": "0.4.40"
   },
   "platforms": {
     "ios": "10.0"
@@ -93,7 +93,7 @@
       "subspecs": [
         {
           "name": "Networking",
-          "source_files": "FunNetworking/Code/**/*",
+          "source_files": "Sources/FunNetworking/Code/**/*",
           "dependencies": {
             "FunBox/Core": [
 

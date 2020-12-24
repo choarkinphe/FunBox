@@ -18,15 +18,15 @@ let package = Package(
             targets: ["FunBox"]),
         .library(
             name: "FunUI",
-            targets: ["FunUI"])
-//        .library(
-//            name: "FunNetworking",
-//            targets: ["Networking"])
+            targets: ["FunUI"]),
+        .library(
+            name: "FunNetworking",
+            targets: ["FunNetworking"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-//        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.0"))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -61,12 +61,12 @@ let package = Package(
 //                .copy(".")
 //            ]
         ),
-//        .target(
-//            name: "Networking",
-//            dependencies: [
-//                "Core",
-//                "Alamofire"
-//            ],
+        .target(
+            name: "FunNetworking",
+            dependencies: [
+                "FunBox",
+                "Alamofire"
+            ],
 //            platforms: [.macOS(.v10_12),
 //                        .iOS(.v10),
 //                        .tvOS(.v10),
@@ -75,19 +75,16 @@ let package = Package(
 //            platforms: [.iOS]
 //            linkerSettings: [.linkedFramework("CFNetwork",
 //                                              .when(platforms: [.iOS]))])
-//            exclude: [
-//                "mbedtls",
-//                "LICENSE"
-//            ],
+            exclude: ["Example","README.MD","LICENSE"]
 //            resources: [
 //                .copy("."),
 //            ]
-//        ),
+        ),
 //        .target(
 //            name: "FunBox",
 //            dependencies: []),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["FunBox","FunUI"])
+            dependencies: ["FunBox","FunUI","FunNetworking"])
     ]
 )
