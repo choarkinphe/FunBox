@@ -533,4 +533,17 @@ extension FunBox.FunController: UIGestureRecognizerDelegate {
         
         return true
     }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        if gestureRecognizer == dismissPan {
+            if touch.view is UIControl {
+                return false
+            } else if touch.view?.gestureRecognizers != nil {
+                return false
+            }
+        }
+        
+        return true
+    }
 }
