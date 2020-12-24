@@ -25,7 +25,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.0"))
     ],
     targets: [
@@ -33,17 +32,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "FunBox",
-//            path: "./Sources/FunBox/Core/Code",
-            exclude: ["Example","README.MD","LICENSE"]
-//            publicHeadersPath: "./Sources/FunBox/Core/Code"
-//            sources: ["./Sources/FunBox/Core/Code/FunBox.swift"]
-//            exclude: [
-//                "mbedtls",
-//                "LICENSE"
-//            ]
-//            resources: [
-//                .copy(".")
-//            ]
+            exclude: ["Example","README.MD","LICENSE"],
+            resources: [
+                .process("FunBox.xcassets")
+            ]
         ),
         .target(
             name: "FunUI",
@@ -67,12 +59,6 @@ let package = Package(
                 "FunBox",
                 "Alamofire"
             ],
-//            platforms: [.macOS(.v10_12),
-//                        .iOS(.v10),
-//                        .tvOS(.v10),
-//                        .watchOS(.v3)],
-//            path: "./Sources/FunBox/Modules/Networking/Code"
-//            platforms: [.iOS]
 //            linkerSettings: [.linkedFramework("CFNetwork",
 //                                              .when(platforms: [.iOS]))])
             exclude: ["Example","README.MD","LICENSE"]
@@ -80,9 +66,6 @@ let package = Package(
 //                .copy("."),
 //            ]
         ),
-//        .target(
-//            name: "FunBox",
-//            dependencies: []),
         .testTarget(
             name: "FunBoxTests",
             dependencies: ["FunBox","FunUI","FunAlamofire"])
