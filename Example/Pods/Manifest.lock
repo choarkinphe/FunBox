@@ -24,12 +24,12 @@ PODS:
     - FunBox/Main
   - FunBox/Main (0.4.40)
   - FunBox/Modules (0.4.40):
+    - FunBox/Modules/FunAlamofire (= 0.4.40)
     - FunBox/Modules/FunUI (= 0.4.40)
-    - FunBox/Modules/Networking (= 0.4.40)
-  - FunBox/Modules/FunUI (0.4.40):
-    - FunBox/Core
-  - FunBox/Modules/Networking (0.4.40):
+  - FunBox/Modules/FunAlamofire (0.4.40):
     - Alamofire (~> 5.2.2)
+    - FunBox/Core
+  - FunBox/Modules/FunUI (0.4.40):
     - FunBox/Core
 
 DEPENDENCIES:
@@ -45,7 +45,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  FunBox: 022e2a1283b417c1012190d0bae2280e6a1f51ba
+  FunBox: 5b67044c05a162eefc22a4015bbfc3fa0577b3e8
 
 PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 

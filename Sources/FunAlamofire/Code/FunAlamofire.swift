@@ -14,33 +14,31 @@ import FunBox
 import UIKit
 // 缓存用的线程
 fileprivate let FunNetworkCachePathName = "com.funfreedom.funnetwork.cache"
-public typealias FunNetworking = FunBox.Networking
+public typealias FunAlamofire = FunBox.Networking
 
 // MARK: - NetworkKit
-public extension FunBox {
+//public extension FunBox {
+//
+//
+//    static var request: FunAlamofire {
+//
+//        return FunAlamofire.default
+//    }
+//
+//    static var requestManager: FunAlamofire.Manager {
+//        return Static.instance
+//    }
+//
 
-    
-    static var networking: FunNetworking {
-        
-        return FunNetworking.default
-    }
-    
-    static var networkManager: FunNetworking.Manager {
-        return Static.instance
-    }
-
-    private struct Static {
-        
-        static var instance: FunNetworking.Manager = FunNetworking.Manager()
-        
-    }
-    
-}
+//
+//}
 
 public extension FunBox {
+    
     
     // 构建请求
     class Networking {
+        
         
         // 创建一个请求时就会对应的创建组请求的数据
         public lazy var element = RequestElement()
@@ -53,6 +51,10 @@ public extension FunBox {
             let _kit = Networking(sessionManager: Session.sessionManager)
             
             return _kit
+        }
+        
+        public static var manager: Manager {
+            return Manager.Static.shared
         }
         
         public init(sessionManager: Session) {
@@ -101,7 +103,7 @@ public extension FunBox {
 }
 
 // 请求&响应信息
-public extension FunNetworking {
+public extension FunAlamofire {
     // 请求响应内容
     struct RequestResponse {
         // 上传&下载进度
@@ -150,9 +152,9 @@ public extension FunNetworking {
         // 请求参数
         public var params: [String: Any]?
         // baseURL
-        public var baseUrl: String? = FunBox.networkManager.baseUrl
+        public var baseUrl: String? = FunAlamofire.manager.baseUrl
         // 请求头
-        public var headers: HTTPHeaders? = FunBox.networkManager.headers
+        public var headers: HTTPHeaders? = FunAlamofire.manager.headers
         // body体
         public var formDataHandler: ((MultipartFormData)->Void)?
         // 储存路径
@@ -200,7 +202,7 @@ public extension FunNetworking {
 }
 
 // 最终发出请求响应
-public extension FunNetworking {
+public extension FunAlamofire {
     
     class Responder {
         deinit {
@@ -209,11 +211,11 @@ public extension FunNetworking {
         // 请求实体
         var request: Request?
         
-        let manager: FunNetworking?
+        let manager: FunAlamofire?
         
         public var progressHandler: ((Progress) -> Void)?
         
-        init(manager: FunNetworking?) {
+        init(manager: FunAlamofire?) {
             self.manager = manager
         }
         
@@ -223,7 +225,7 @@ public extension FunNetworking {
             return self
         }
         
-        public func response(_ completion: ((FunNetworking.RequestResponse)-> Void)?) {
+        public func response(_ completion: ((FunAlamofire.RequestResponse)-> Void)?) {
             guard let request = request, let element = manager?.element else { return }
             
             // 请求开启关闭响应者事件
@@ -233,7 +235,7 @@ public extension FunNetworking {
                 
                 if let result = completion {
                     
-                    var response = FunNetworking.RequestResponse(request: request.request, response: request.response, fileURL: nil, resumeData: nil)
+                    var response = FunAlamofire.RequestResponse(request: request.request, response: request.response, fileURL: nil, resumeData: nil)
                     response.data = data
                     result(response)
                 }
@@ -252,7 +254,7 @@ public extension FunNetworking {
                 // 开启请求任务
                 dataRequest.responseData {[weak self] (data_response) in
                     if let result = completion {
-                        var response = FunNetworking.RequestResponse(request: request.request, response: request.response, fileURL: nil, resumeData: nil)
+                        var response = FunAlamofire.RequestResponse(request: request.request, response: request.response, fileURL: nil, resumeData: nil)
                         
                         // 处理结果
                         switch data_response.result {
@@ -274,7 +276,7 @@ public extension FunNetworking {
                             response.error = error
                             
                             // 默认的错误HUD
-                            if FunBox.networkManager.errorHUD {
+                            if FunAlamofire.manager.errorHUD {
                                 FunBox.toast.message(error.localizedDescription).show()
                             }
                             
@@ -297,7 +299,7 @@ public extension FunNetworking {
                     if let result = completion {
                         
                         
-                        var response = FunNetworking.RequestResponse(request: request.request, response: request.response, fileURL: download_response.fileURL, resumeData: nil)
+                        var response = FunAlamofire.RequestResponse(request: request.request, response: request.response, fileURL: download_response.fileURL, resumeData: nil)
                         // 内部回调
                         
                         switch download_response.result {
@@ -312,7 +314,7 @@ public extension FunNetworking {
                             response.error = error
                             
                             // 默认的错误HUD
-                            if FunBox.networkManager.errorHUD {
+                            if FunAlamofire.manager.errorHUD {
                                 FunBox.toast.message(error.localizedDescription).show()
                             }
                         }
@@ -329,7 +331,7 @@ public extension FunNetworking {
     }
 }
 
-extension FunNetworking {
+extension FunAlamofire {
     
     // 用来检测所有请求，方便处理公共事件
     fileprivate class Monitor: EventMonitor {
@@ -347,7 +349,7 @@ extension FunNetworking {
 }
 
 // MARK: - 快速创建请求信息
-public extension FunNetworking {
+public extension FunAlamofire {
     
     func body(_ body: ((MultipartFormData) -> Void)?) -> Self {
         element.formDataHandler = body
@@ -421,8 +423,12 @@ public extension FunNetworking {
 }
 
 
-public extension FunNetworking {
+public extension FunAlamofire {
     class Manager {
+        
+        fileprivate struct Static {
+            static var shared: Manager = Manager()
+        }
         
         public var baseUrl: String?
         public var headers: HTTPHeaders?
@@ -449,7 +455,7 @@ extension Session {
         let configuration = URLSessionConfiguration.default
         configuration.headers = .default
         configuration.timeoutIntervalForRequest = 15
-        return Session(configuration: configuration, eventMonitors: [FunNetworking.Monitor.default])
+        return Session(configuration: configuration, eventMonitors: [FunAlamofire.Monitor.default])
         
     }()
 }

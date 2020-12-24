@@ -10,22 +10,22 @@ import Foundation
 #if !COCOAPODS
 import FunBox
 #endif
-public extension FunNetworking {
+public extension FunAlamofire {
     
-    func cache_request(element: FunNetworking.RequestElement, response: Data?) {
-        FunBox.networkManager.request_cache.cache_request(element, response: response)
+    func cache_request(element: FunAlamofire.RequestElement, response: Data?) {
+        FunAlamofire.manager.request_cache.cache_request(element, response: response)
     }
     
-    func remove_request(element: FunNetworking.RequestElement) {
-        FunBox.networkManager.request_cache.remove_request(element)
+    func remove_request(element: FunAlamofire.RequestElement) {
+        FunAlamofire.manager.request_cache.remove_request(element)
     }
     
     func remove_request(identifier: String?) {
-        FunBox.networkManager.request_cache.remove_request(identifier: identifier)
+        FunAlamofire.manager.request_cache.remove_request(identifier: identifier)
     }
     
-    func load_request(element: FunNetworking.RequestElement) -> Data? {
-        return FunBox.networkManager.request_cache.load_request(element)
+    func load_request(element: FunAlamofire.RequestElement) -> Data? {
+        return FunAlamofire.manager.request_cache.load_request(element)
     }
     
     
@@ -33,7 +33,7 @@ public extension FunNetworking {
 
 private extension FunBox.Cache {
     // 缓存
-    func cache_request(_ element: FunNetworking.RequestElement, response: Data?) {
+    func cache_request(_ element: FunAlamofire.RequestElement, response: Data?) {
         guard let key_str = element.identifier else { return }
         
         cache(key: key_str, data: response, options: [.memory,.disk,.timeOut(element.cacheTimeOut ?? 60)])
@@ -41,7 +41,7 @@ private extension FunBox.Cache {
         debugPrint("cache_request=",element.urlString ?? "")
     }
     // 按完整请求信息删除对应缓存
-    func remove_request(_ element: FunNetworking.RequestElement) {
+    func remove_request(_ element: FunAlamofire.RequestElement) {
         guard let key_str = element.identifier else { return }
         
         removeCache(key: key_str)
@@ -58,7 +58,7 @@ private extension FunBox.Cache {
     }
     
     // 读取缓存
-    func load_request(_ element: FunNetworking.RequestElement) -> Data? {
+    func load_request(_ element: FunAlamofire.RequestElement) -> Data? {
         guard let key_str = element.identifier,
             let cache_data = loadCache(key: key_str)
             else { return nil}

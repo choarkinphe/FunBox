@@ -20,8 +20,8 @@ let package = Package(
             name: "FunUI",
             targets: ["FunUI"]),
         .library(
-            name: "FunNetworking",
-            targets: ["FunNetworking"])
+            name: "FunAlamofire",
+            targets: ["FunAlamofire"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -62,7 +62,7 @@ let package = Package(
 //            ]
         ),
         .target(
-            name: "FunNetworking",
+            name: "FunAlamofire",
             dependencies: [
                 "FunBox",
                 "Alamofire"
@@ -85,6 +85,6 @@ let package = Package(
 //            dependencies: []),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["FunBox","FunUI","FunNetworking"])
+            dependencies: ["FunBox","FunUI","FunAlamofire"])
     ]
 )

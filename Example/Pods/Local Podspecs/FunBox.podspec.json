@@ -92,8 +92,8 @@
       "name": "Modules",
       "subspecs": [
         {
-          "name": "Networking",
-          "source_files": "Sources/FunNetworking/Code/**/*",
+          "name": "FunAlamofire",
+          "source_files": "Sources/FunAlamofire/Code/**/*",
           "dependencies": {
             "FunBox/Core": [
 

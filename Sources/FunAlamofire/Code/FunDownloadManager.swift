@@ -623,7 +623,7 @@ extension FunDownloadManager: URLSessionTaskDelegate, URLSessionDownloadDelegate
 }
 
 
-public extension FunNetworking {
+public extension FunAlamofire {
     var downloadResponder: FunDownloadManager.Responder? {
         
         if let request = element.request {
