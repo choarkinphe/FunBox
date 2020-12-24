@@ -12,7 +12,6 @@ import FunBox
 #endif
 @_exported import RxSwift
 @_exported import RxCocoa
-//@_exported import HandyJSON
 @_exported import RxDataSources
 
 typealias FunTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
@@ -373,9 +372,8 @@ extension FunViewModelable {
     }
 }
 
-open class BaseViewModel<Section,Element>: FunViewModelable {
+open class FunViewModel<Section,Element>: FunViewModelable {
     fileprivate var holderBehavior = BehaviorRelay<UIView.Holder?>(value: nil)
-    
     
     public var holderType: UIView.Holder? {
         get {
@@ -413,12 +411,7 @@ open class BaseViewModel<Section,Element>: FunViewModelable {
     }
     // 订阅数据
     public private(set) var sections = BehaviorSubject<[SectionModel<Section?,Element>]>(value: [SectionModel(model: nil, items: [Element]())])
-    
-    // 订阅数据（不建议使用）
-    @available(*, deprecated, message: "use sections instand of it")
-    public private(set) var dataList = BehaviorSubject<[SectionModel<String?,Element>]>(value: [SectionModel(model: "", items: [Element]())])
-    
-    
+
     open var isEmpty: Bool {
         if let sections = try? sections.value(), sections.count > 0 {
             
@@ -428,19 +421,16 @@ open class BaseViewModel<Section,Element>: FunViewModelable {
         return true
     }
 }
-// MARK: UIScrollViewViewModel
-extension UIScrollView {
-    open class SectionViewModel<Section,Element>: BaseViewModel<Section,Element> {
-        
-        
-    }
-    
-}
 
 // MARK: UITableViewViewModel
+public typealias FunTableViewSectionViewModel = UICollectionView.FunViewModel.Section
+public typealias FunTableViewViewModel = UICollectionView.FunViewModel.Single
 extension UITableView {
+    public class FunViewModel { }
+}
+extension UITableView.FunViewModel {
     
-    open class SectionViewModel<Section,Element>: UIScrollView.SectionViewModel<Section, Element> {
+    open class Section<Section,Element>: FunViewModel<Section, Element> {
         
         public override init() {
             super.init()
@@ -488,7 +478,7 @@ extension UITableView {
     
     
     
-    open class ViewModel<Element>: SectionViewModel<String,Element> {
+    open class Single<Element>: UITableView.FunViewModel.Section<String,Element> {
         
         public override init() {
             super.init()
@@ -523,8 +513,13 @@ extension UITableView {
 
 
 // MARK: UICollectionViewViewModel
+public typealias FunCollectionSectionViewModel = UICollectionView.FunViewModel.Section
+public typealias FunCollectionViewModel = UICollectionView.FunViewModel.Single
 extension UICollectionView {
-    open class SectionViewModel<Section,Element>: UIScrollView.SectionViewModel<Section,Element> {
+    public class FunViewModel { }
+}
+extension UICollectionView.FunViewModel {
+    open class Section<Section,Element>: FunViewModel<Section,Element> {
         public override init() {
             super.init()
         }
@@ -562,7 +557,7 @@ extension UICollectionView {
 
     }
     
-    open class ViewModel<Element>: SectionViewModel<String,Element> {
+    open class Single<Element>: UICollectionView.FunViewModel.Section<String,Element> {
         public override init() {}
         
         public override func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
