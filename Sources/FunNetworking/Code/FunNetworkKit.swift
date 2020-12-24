@@ -8,7 +8,10 @@
 
 import Foundation
 import Alamofire
-
+#if !COCOAPODS
+import FunBox
+#endif
+import UIKit
 // 缓存用的线程
 fileprivate let FunNetworkCachePathName = "com.funfreedom.funnetwork.cache"
 public typealias FunNetworking = FunBox.Networking

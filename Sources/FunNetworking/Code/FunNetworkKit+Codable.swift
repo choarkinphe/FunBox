@@ -6,7 +6,9 @@
 //
 
 import Foundation
-
+#if !COCOAPODS
+import FunBox
+#endif
 public extension FunNetworking.Responder {
     
 //    func request<T>(_ type: T.Type?, _ completion: @escaping Responder<T?>) where T: Codable {

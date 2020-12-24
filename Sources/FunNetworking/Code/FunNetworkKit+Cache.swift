@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if !COCOAPODS
+import FunBox
+#endif
 public extension FunNetworking {
     
     func cache_request(element: FunNetworking.RequestElement, response: Data?) {

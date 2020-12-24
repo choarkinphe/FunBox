@@ -7,7 +7,9 @@
 
 import Foundation
 import Alamofire
-
+#if !COCOAPODS
+import FunBox
+#endif
 fileprivate let FunDownloadLocalResponderPathName = "com.funfreedom.FunDownloadLocalResponderPathName"
 // 默认的缓存路径
 fileprivate let localResponderPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! + "/\(FunDownloadLocalResponderPathName)"
