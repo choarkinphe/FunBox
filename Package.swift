@@ -19,12 +19,17 @@ let package = Package(
         .library(
             name: "FunUI",
             targets: ["FunUI"]),
-//        .library(
-//            name: "FunAlamofire",
-//            targets: ["FunAlamofire"])
+        .library(
+            name: "RxFunBox",
+            targets: ["RxFunBox"]),
+        .library(
+            name: "FunAlamofire",
+            targets: ["FunAlamofire"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", from: "4.0.0"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.0"))
     ],
     targets: [
@@ -53,21 +58,39 @@ let package = Package(
 //                .copy(".")
 //            ]
         ),
-//        .target(
-//            name: "FunAlamofire",
-//            dependencies: [
-//                "FunBox",
-//                "Alamofire"
-//            ],
-////            linkerSettings: [.linkedFramework("CFNetwork",
-////                                              .when(platforms: [.iOS]))])
-//            exclude: ["Example","README.MD","LICENSE"]
-////            resources: [
-////                .copy("."),
-////            ]
-//        ),
+        .target(
+            name: "RxFunBox",
+            dependencies: [
+                "FunBox",
+                "RxSwift",
+                "RxDataSources"
+            ],
+            exclude: ["Example","README.MD","LICENSE"]
+//            path: "./Sources/FunBox/Modules/UI/Code",
+//            publicHeadersPath: "./Sources/FunBox/Core/Code"
+//            exclude: [
+//                "mbedtls",
+//                "LICENSE"
+//            ]
+//            resources: [
+//                .copy(".")
+//            ]
+        ),
+        .target(
+            name: "FunAlamofire",
+            dependencies: [
+                "FunBox",
+                "Alamofire"
+            ],
+//            linkerSettings: [.linkedFramework("CFNetwork",
+//                                              .when(platforms: [.iOS]))])
+            exclude: ["Example","README.MD","LICENSE"]
+//            resources: [
+//                .copy("."),
+//            ]
+        ),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["FunBox","FunUI"])
+            dependencies: ["FunBox","FunUI","RxFunBox","FunAlamofire"])
     ]
 )

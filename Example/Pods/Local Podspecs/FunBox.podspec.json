@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.4.40",
+  "version": "0.4.44",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.4.40"
+    "tag": "0.4.44"
   },
   "platforms": {
     "ios": "10.0"
@@ -109,6 +109,24 @@
           "dependencies": {
             "FunBox/Core": [
 
+            ]
+          }
+        },
+        {
+          "name": "RxFunBox",
+          "source_files": "Sources/RxFunBox/**/*",
+          "dependencies": {
+            "FunBox/Core": [
+
+            ],
+            "RxDataSources": [
+              "~> 4.0.1"
+            ],
+            "RxSwift": [
+              "~> 5.1.1"
+            ],
+            "RxCocoa": [
+              "~> 5.1.1"
             ]
           }
         }
