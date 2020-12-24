@@ -423,8 +423,8 @@ open class FunViewModel<Section,Element>: FunViewModelable {
 }
 
 // MARK: UITableViewViewModel
-public typealias FunTableViewSectionViewModel = UICollectionView.FunViewModel.Section
-public typealias FunTableViewViewModel = UICollectionView.FunViewModel.Single
+public typealias FunTableViewSectionViewModel = UITableView.FunViewModel.Section
+public typealias FunTableViewViewModel = UITableView.FunViewModel.Single
 extension UITableView {
     public class FunViewModel { }
 }
