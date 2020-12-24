@@ -12,6 +12,8 @@ public class FunBox {
         
         if let url = Bundle(for: self).url(forResource: "FunBox", withExtension: "bundle") {
             return Bundle(url: url)
+        } else if let url = Bundle(for: FunBox.self).path(forResource: "FunBox_FunBox.bundle", ofType: nil) {
+            return Bundle(path: url)
         }
         return nil
     }

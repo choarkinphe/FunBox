@@ -19,9 +19,9 @@ let package = Package(
         .library(
             name: "FunUI",
             targets: ["FunUI"]),
-        .library(
-            name: "FunAlamofire",
-            targets: ["FunAlamofire"])
+//        .library(
+//            name: "FunAlamofire",
+//            targets: ["FunAlamofire"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -53,21 +53,21 @@ let package = Package(
 //                .copy(".")
 //            ]
         ),
-        .target(
-            name: "FunAlamofire",
-            dependencies: [
-                "FunBox",
-                "Alamofire"
-            ],
-//            linkerSettings: [.linkedFramework("CFNetwork",
-//                                              .when(platforms: [.iOS]))])
-            exclude: ["Example","README.MD","LICENSE"]
-//            resources: [
-//                .copy("."),
-//            ]
-        ),
+//        .target(
+//            name: "FunAlamofire",
+//            dependencies: [
+//                "FunBox",
+//                "Alamofire"
+//            ],
+////            linkerSettings: [.linkedFramework("CFNetwork",
+////                                              .when(platforms: [.iOS]))])
+//            exclude: ["Example","README.MD","LICENSE"]
+////            resources: [
+////                .copy("."),
+////            ]
+//        ),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["FunBox","FunUI","FunAlamofire"])
+            dependencies: ["FunBox","FunUI"])
     ]
 )
