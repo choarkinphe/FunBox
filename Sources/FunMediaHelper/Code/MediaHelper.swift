@@ -12,60 +12,51 @@ import FunBox
 #endif
 
 public typealias FunMediaHelper = FunBox.MediaHelper
+typealias HUD = FunBox.HUD
 extension FunBox {
     public class MediaHelper {
-        public typealias Resource = (image: UIImage?,asset: PHAsset?)
-        public typealias Handler = ([Resource]?)->Void
         
-    }
-}
-extension FunMediaHelper {
-    public static var bundle: Bundle? {
-        
-        if let url = Bundle(for: self).url(forResource: "MediaHelper", withExtension: "bundle") {
-            return Bundle(url: url)
-        }
-        return nil
-    }
-}
-
-extension FunMediaHelper {
-    public static func preview(resource: [FunMediaHelper.Resource], index: Int) {
-        
-        trans(for: resource) { (sources) in
-            preview(resource: sources, index: index)
+        public static var bundle: Bundle? {
+            
+            if let url = Bundle(for: self).url(forResource: "MediaHelper", withExtension: "bundle") {
+                return Bundle(url: url)
+                
+            } else if let url = Bundle(for: FunBox.self).path(forResource: "FunBox_FunMediaHelper.bundle", ofType: nil) {
+                return Bundle(path: url)
+            }
+            return nil
         }
     }
     
-    static func trans(for resource: [FunMediaHelper.Resource], complete: @escaping (([UIImage])->Void)) {
-        var sources = [UIImage]()
-        
-        let group = DispatchGroup()
-        resource.forEach { (item) in
-            if let image = item.image {
-                group.enter()
-                sources.append(image)
-                group.leave()
-            } else if let asset = item.asset {
-                group.enter()
-                asset.fb.requestData { (data) in
-                    if let data = data, let image = UIImage(data: data) {
-                        sources.append(image)
-                        group.leave()
-                    }
-                }
-//                asset.data { (data) in
-//                    if let data = data, let image = UIImage(data: data) {
-//                        sources.append(image)
-//                        group.leave()
-//                    }
-//                }
-            }
+    class HUD: NSObject {
+        public enum `Type` {
+            case info
+            case error
+            case success
+            case loading
+        }
+        private static var window = UIApplication.shared.fb.currentWindow!
+        public static func dismiss(inView: UIView?=nil) {
+            FunBox.toast.dismiss(inView: inView)
         }
         
-        group.notify(queue: .main) {
-            complete(sources)
+        public static func dismissActivity(inView: UIView?=nil) {
+            FunBox.toast.dismissActivity(inView: inView ?? window)
+        }
+        
+        public static func toast(_ type: Type, message: String?, inView: UIView?=nil) {
+            dismiss(inView: inView)
+            
+            switch type {
+                case .info:
+                    FunBox.toast.template(.info).message(message).inView(inView ?? window).position(.center).show()
+                case .success:
+                    FunBox.toast.template(.done).message(message).inView(inView ?? window).position(.center).show()
+                case .error:
+                    FunBox.toast.template(.error).message(message).inView(inView ?? window).position(.center).show()
+                case .loading:
+                    FunBox.toast.message(message).inView(inView ?? window).position(.center).mode(.activity).show()
+            }
         }
     }
 }
-

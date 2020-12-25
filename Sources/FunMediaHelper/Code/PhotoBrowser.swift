@@ -10,26 +10,32 @@ import FunBox
 import JXPhotoBrowser
 import Photos
 import UIKit
-//import Kingfisher
+
 public typealias FunPhotoBrowser = FunMediaHelper.PhotoBrowser
-public protocol MediaPreviewResource {
+
+public protocol FunMediaPreviewResource {
     var source_image: UIImage? { get }
     var source_url: String? { get }
 }
+
 extension FunMediaHelper {
     
-    public static func preview(resource: [MediaPreviewResource?], index: Int=0) {
+    public static func preview(resource: [FunMediaPreviewResource?], index: Int=0) {
         let browser = PhotoBrowser(resource: resource)
         
         browser.pageIndex = index
         
         browser.show()
     }
+}
+
+// MARK: - PhotoBrowser
+extension FunMediaHelper {
     
     public class PhotoBrowser: JXPhotoBrowser {
         
-        var resource: [MediaPreviewResource?]?
-        init(resource: [MediaPreviewResource?]?=nil) {
+        var resource: [FunMediaPreviewResource?]?
+        init(resource: [FunMediaPreviewResource?]?=nil) {
             super.init()
             self.resource = resource
         }
@@ -45,7 +51,8 @@ extension FunMediaHelper {
             pageIndicator = JXPhotoBrowserNumberPageIndicator()
             
             moreButton.addTarget(self, action: #selector(moreAction(sender:)), for: .touchUpInside)
-//            moreButton.setImage(Theme.Image.more, for: .normal)
+            
+            moreButton.setImage(UIImage(named: "fb_nav_more", in: FunBox.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
             moreButton.tintColor = .white
             
             view.addSubview(moreButton)
@@ -68,7 +75,7 @@ extension FunMediaHelper {
                     if let image = browserCell?.imageView.image {
                         PHPhotoLibrary.fb.save(resource: image) { (asset) in
                             
-//                            HZHUD.toast(.success, message: "保存成功")
+                            HUD.toast(.success, message: "保存成功")
                             
                         }
                     }
@@ -128,27 +135,23 @@ extension FunMediaHelper {
             }
             
             private var playAction: ((UIButton)->Void)?
-            func set(resource: MediaPreviewResource?) {
+            func set(resource: FunMediaPreviewResource?) {
                 if let image = resource?.source_image {
                     imageView.image = image
                 } else if let url = resource?.source_url {
-                    /*
-                    imageView.webImage.options([.transition(.fade(0.5))]).resource(url).progress({ [weak self] (received, total) in
-                        
+                    imageView.fb.webImageSource(url).options([.transition(.fade(0.5))]).progress { [weak self]  (received, total) in
                         // progress
                         let progress = CGFloat(received)/CGFloat(total)
                         self?.progressView.progress = progress
                         self?.progressView.isHidden = false
-                        
-                    }).show { [weak self] (result) in
-                        
+                    }.response { [weak self] (result) in
                         DispatchQueue.main.async {
                             self?.imageView.image = result.image
                             self?.progressView.isHidden = true
                             self?.setNeedsLayout()
                         }
-                        
                     }
+                    
                     if url.hasSuffix("mp4") {
                         playButton.isHidden = false
                         playAction = { (sender) in
@@ -161,7 +164,7 @@ extension FunMediaHelper {
                     } else {
                         playButton.isHidden = true
                     }
-                    */
+                    
                 }
                 
             }
@@ -248,12 +251,12 @@ extension FunPhotoBrowser.ImageCell {
     }
 }
 
-extension String: MediaPreviewResource {
+extension String: FunMediaPreviewResource {
     public var source_image: UIImage? { return nil }
     public var source_url: String? { return self }
 }
 
-extension UIImage: MediaPreviewResource {
+extension UIImage: FunMediaPreviewResource {
     public var source_image: UIImage? { return self }
     public var source_url: String? { return nil }
 }

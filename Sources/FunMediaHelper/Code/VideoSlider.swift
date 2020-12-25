@@ -47,15 +47,15 @@ extension VideoHelper {
             
             // 加载完先返回第一帧，设置时间为第0s
             helper.thumbnailSize(UIScreen.main.bounds.size).percent(0).image { [weak self] (image) in
-//                guard let this = self else { return }
+                //                guard let this = self else { return }
                 DispatchQueue.main.async {
-//                    HZHUD.dismissActivity()
-                if let image = image {
-                    self?.timeLabel.text = String(format: "%.1fs", 0)
-                    self?.image_completion?((0.0,image))
-                } else {
-//                    HZHUD.toast(.error, message: "加载失败")
-                }
+                    HUD.dismissActivity()
+                    if let image = image {
+                        self?.timeLabel.text = String(format: "%.1fs", 0)
+                        self?.image_completion?((0.0,image))
+                    } else {
+                        HUD.toast(.error, message: "加载失败")
+                    }
                 }
             }
             

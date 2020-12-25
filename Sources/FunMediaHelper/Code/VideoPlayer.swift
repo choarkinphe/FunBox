@@ -17,11 +17,6 @@ extension VideoHelper {
     // 视频播放器
     open class Player: UIView {
         
-//        private var timeObserver: Any?
-        // 监听对象
-//        private var observation_loadedTimeRanges: NSKeyValueObservation?
-//        private var observation_status: NSKeyValueObservation?
-        
         // 视频显示layer
         private var playerLayer: AVPlayerLayer {
             return layer as! AVPlayerLayer
@@ -85,7 +80,7 @@ extension VideoHelper {
             playerLayer.videoGravity = .resizeAspect
             playerLayer.contentsScale = UIScreen.main.scale
             
-
+            
             
             addSubview(activityIndicatorView)
             activityIndicatorView.color = .white
@@ -128,15 +123,15 @@ extension VideoHelper {
         
         @objc func playing(notic: Notification) {
             switch notic.name {
-            case .AVPlayerItemDidPlayToEndTime: // 播放完成
-                state = .playToEnd
-                
-                // 重播
-                if cyclePlay {
-                    replay()
-                }
-            default:
-                break
+                case .AVPlayerItemDidPlayToEndTime: // 播放完成
+                    state = .playToEnd
+                    
+                    // 重播
+                    if cyclePlay {
+                        replay()
+                    }
+                default:
+                    break
             }
         }
         
@@ -202,32 +197,14 @@ extension VideoHelper {
                 return
             }
             
-            // 监听缓冲进度改变
-//            observation_loadedTimeRanges = item.observe(\AVPlayerItem.loadedTimeRanges) { (playerItem, change) in
-//                print(change)
-//                print(item.loadedTimeRanges)
-//            }
-//
-//            // 监听状态改变
-//            observation_status = item.observe(\AVPlayerItem.status) { (playerItem, change) in
-//                print(change)
-//                print(playerItem.status)
-//            }
-            
             player = Core(playerItem: item)
-            
-//            timeObserver = player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1.0, preferredTimescale: item.asset.duration.timescale), queue: .main, using: { [weak self] (time) in
-//
-//                debugPrint("CurrentPeriodicTime:",time.seconds)
-//
-//                self?.activityIndicatorView.stopAnimating()
-//            })
             
             player?.timeObserver(forInterval: CMTime(seconds: 1.0, preferredTimescale: item.asset.duration.timescale), queue: .main, using: { [weak self] (time) in
                 debugPrint("CurrentPeriodicTime:",time.seconds)
-
+                
                 self?.activityIndicatorView.stopAnimating()
             })
+            
             // 执行播放
             if autoPlay {
                 play()
@@ -247,12 +224,8 @@ extension VideoHelper {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemTimeJumped, object: nil)
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemPlaybackStalled, object: nil)
             
-            
             debugPrint("AVPlayer Die")
-//            if let timeObserver = timeObserver {
-//                player?.removeTimeObserver(timeObserver)
-//            }
-//            timeObserver = nil
+            
         }
     }
 }
@@ -368,7 +341,7 @@ extension VideoPlayer {
             view.backgroundColor = .init(white: 0, alpha: 0.97)
             fb.contentView = player
             
-//            close.setImage(HZImage.close, for: .normal)
+            //            close.setImage(HZImage.close, for: .normal)
             close.addTarget(self, action: #selector(close(sender:)), for: .touchUpInside)
             view.addSubview(close)
             
@@ -399,123 +372,3 @@ extension VideoPlayer {
         }
     }
 }
-/*
-extension VideoPlayer {
-    class ControlView: UIView {
-        // 结束时间
-        public var endTime: TimeInterval {
-            if timeRange.end > 0.0 {
-                return timeRange.end
-            }
-            if let totalTime = player?.totalTime {
-                return totalTime
-            }
-            
-            return 0.0
-        }
-        
-        // 播放范围
-        public var timeRange: VideoHelper.TimeRange = (0.0,0.0)
-        
-        private var player: VideoPlayer?
-        private var timer: DispatchSourceTimer?
-        func bind(player: VideoPlayer) {
-            self.player = player
-            player.stateChanged { [weak self] (state) in
-                if state == .playing {
-                    // 播放时创建一个计时器
-                    self?.timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())
-                    // 每0.1s执行一次
-                    self?.timer?.schedule(wallDeadline: .now(), repeating: .milliseconds(100), leeway: .milliseconds(0))
-                    
-                    // 开启计时器
-                    self?.timer?.setEventHandler {
-                        // 获取当前播放进度
-                        DispatchQueue.main.async {
-//                            var endTime = self?.player?.timeRange.end
-//                            if endTime == 0.0 {
-//                                endTime = player.totalTime
-//                            }
-//                            let endTime = player.totalTime
-//                            let current_time = player.currentTime
-                            if let endTime = self?.endTime,
-                               player.currentTime >= endTime {
-                                // 播放到选择的最后时间段，直接暂停
-                                player.pause()
-                                
-                            }
-                        }
-                    }
-                    
-                    self?.timer?.resume()
-                } else {
-                    // 停止播放时
-                    self?.playButton.isSelected = false
-                    
-                    // 完成时取消计时
-                    self?.timer?.cancel()
-                }
-            }
-        }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            addSubview(coverImage)
-            addSubview(playButton)
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            
-            coverImage.frame = bounds
-//            playButton.frame = CGRect(x: center.x - 27, y: bounds.height / 2.0 - 27, width: 54, height: 54)
-            playButton.center = center
-            playButton.bounds = CGRect(x: 0, y: 0, width: 54, height: 54)
-        }
-        
-        // 当前封面图展示框
-        let coverImage = UIImageView()
-        
-        private lazy var playButton: UIButton = {
-            let playButton = UIButton()
-            
-            playButton.setImage(UIImage(named: "video_editor_play.png", in: MediaHelper.bundle, compatibleWith: .none)?.withRenderingMode(.alwaysTemplate), for: .normal)
-            playButton.setImage(UIImage(named: "video_editor_pause.png", in: MediaHelper.bundle, compatibleWith: .none)?.withRenderingMode(.alwaysTemplate), for: .selected)
-            playButton.tintColor = .white
-            playButton.addTarget(self, action: #selector(to_play(sender:)), for: .touchUpInside)
-            return playButton
-        }()
-        
-        @objc private func to_play(sender: UIButton) {
-            sender.isSelected = !sender.isSelected
-            if sender.isSelected {
-                // 移动到选择范围开始的地方，然后开始播放
-//                player.seek(to: slider.timeRange.start)
-                
-                UIView.animate(withDuration: 0.15, animations: {
-                    self.coverImage.alpha = 0
-                }) { (finished) in
-                    self.player?.play()
-                }
-            } else {
-                self.player?.pause()
-                UIView.animate(withDuration: 0.15, animations: {
-                    self.coverImage.alpha = 1
-                }) { (finished) in
-                    
-                }
-            }
-            
-        }
-        
-        deinit {
-            timer = nil
-        }
-    }
-}
- */

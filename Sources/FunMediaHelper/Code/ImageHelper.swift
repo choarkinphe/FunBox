@@ -103,18 +103,18 @@ extension FunMediaHelper {
                     
                     guard let asset = asset else { return }
                     
-//                    let editor = VideoEditor()
-//                    editor.source = asset
-//                    editor.completion { (result) in
-//                        picker.dismiss(animated: false) {
-//
-//                            var resource = T()
-//                            resource.image = coverImage
-//                            resource.asset = asset
-//                            complete([resource])
-//                        }
-//                    }
-//                    picker.pushViewController(editor, animated: true)
+                    let editor = VideoEditor()
+                    editor.source = asset
+                    editor.completion { (result) in
+                        picker.dismiss(animated: false) {
+                            
+                            var resource = T()
+                            resource.image = coverImage
+                            resource.asset = asset
+                            complete([resource])
+                        }
+                    }
+                    picker.pushViewController(editor, animated: true)
                 }
                 
                 
