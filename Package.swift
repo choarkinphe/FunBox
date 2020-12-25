@@ -121,10 +121,10 @@ let package = Package(
             ],
 //            linkerSettings: [.linkedFramework("CFNetwork",
 //                                              .when(platforms: [.iOS]))])
-            exclude: ["Example","README.MD","LICENSE"]
-//            resources: [
-//                .copy("."),
-//            ]
+            exclude: ["Example","README.MD","LICENSE"],
+            resources: [
+                .process("FunBox.xcassets")
+            ]
         ),
         .testTarget(
             name: "FunBoxTests",
