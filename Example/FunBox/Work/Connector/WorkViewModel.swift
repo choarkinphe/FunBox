@@ -84,7 +84,7 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 
                 switch element.name {
                     case "Toast":
-                        FunBox.toast.template(.info).style(.system).title("提示").message("静音模式开启").show()
+                        FunBox.toast.template(.info).title("提示").message("静音模式开启").show()
 //                        FunBox.toast.title("提示").show()
 //                        FunBox.toast.title("提示").show()
 //                        FunBox.toast.title("提示").show()

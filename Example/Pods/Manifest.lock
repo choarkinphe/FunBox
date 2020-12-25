@@ -1,39 +1,39 @@
 PODS:
   - Alamofire (5.2.2)
   - Differentiator (4.0.1)
-  - FunBox (0.4.44):
-    - FunBox/Box (= 0.4.44)
-    - FunBox/Core (= 0.4.44)
-    - FunBox/Main (= 0.4.44)
-    - FunBox/Modules (= 0.4.44)
-  - FunBox/Box (0.4.44):
-    - FunBox/Box/Extension (= 0.4.44)
-    - FunBox/Box/UI (= 0.4.44)
-    - FunBox/Box/Utils (= 0.4.44)
-  - FunBox/Box/Extension (0.4.44):
+  - FunBox (0.5.3):
+    - FunBox/Box (= 0.5.3)
+    - FunBox/Core (= 0.5.3)
+    - FunBox/Main (= 0.5.3)
+    - FunBox/Modules (= 0.5.3)
+  - FunBox/Box (0.5.3):
+    - FunBox/Box/Extension (= 0.5.3)
+    - FunBox/Box/UI (= 0.5.3)
+    - FunBox/Box/Utils (= 0.5.3)
+  - FunBox/Box/Extension (0.5.3):
     - FunBox/Main
-  - FunBox/Box/UI (0.4.44):
+  - FunBox/Box/UI (0.5.3):
     - FunBox/Box/Extension
     - FunBox/Main
-  - FunBox/Box/Utils (0.4.44):
+  - FunBox/Box/Utils (0.5.3):
     - FunBox/Box/Extension
     - FunBox/Main
-  - FunBox/Core (0.4.44):
+  - FunBox/Core (0.5.3):
     - FunBox/Box/Extension
     - FunBox/Box/UI
     - FunBox/Box/Utils
     - FunBox/Main
-  - FunBox/Main (0.4.44)
-  - FunBox/Modules (0.4.44):
-    - FunBox/Modules/FunAlamofire (= 0.4.44)
-    - FunBox/Modules/FunUI (= 0.4.44)
-    - FunBox/Modules/RxFunBox (= 0.4.44)
-  - FunBox/Modules/FunAlamofire (0.4.44):
+  - FunBox/Main (0.5.3)
+  - FunBox/Modules (0.5.3):
+    - FunBox/Modules/FunAlamofire (= 0.5.3)
+    - FunBox/Modules/FunUI (= 0.5.3)
+    - FunBox/Modules/RxFunBox (= 0.5.3)
+  - FunBox/Modules/FunAlamofire (0.5.3):
     - Alamofire (~> 5.2.2)
     - FunBox/Core
-  - FunBox/Modules/FunUI (0.4.44):
+  - FunBox/Modules/FunUI (0.5.3):
     - FunBox/Core
-  - FunBox/Modules/RxFunBox (0.4.44):
+  - FunBox/Modules/RxFunBox (0.5.3):
     - FunBox/Core
     - RxCocoa (~> 5.1.1)
     - RxDataSources (~> 4.0.1)
@@ -68,7 +68,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  FunBox: 74632523d30b298def4c2ac0949ec28126e11794
+  FunBox: a47875e274adb715a696bc6cade277898c9df864
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
@@ -76,4 +76,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.0.beta.2

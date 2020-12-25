@@ -10,30 +10,31 @@ import Foundation
 #if !COCOAPODS
 import FunBox
 #endif
+
 public extension FunAlamofire {
     
-    func cache_request(element: FunAlamofire.RequestElement, response: Data?) {
-        FunAlamofire.manager.request_cache.cache_request(element, response: response)
-    }
-    
-    func remove_request(element: FunAlamofire.RequestElement) {
-        FunAlamofire.manager.request_cache.remove_request(element)
-    }
-    
-    func remove_request(identifier: String?) {
-        FunAlamofire.manager.request_cache.remove_request(identifier: identifier)
-    }
-    
-    func load_request(element: FunAlamofire.RequestElement) -> Data? {
-        return FunAlamofire.manager.request_cache.load_request(element)
-    }
+//    func cache_request(element: FunAlamofire.Task, response: Data?) {
+//        FunAlamofire.manager.request_cache.cache_request(element, response: response)
+//    }
+//
+//    func remove_request(element: FunAlamofire.Task) {
+//        FunAlamofire.manager.request_cache.remove_request(element)
+//    }
+//
+//    func remove_request(identifier: String?) {
+//        FunAlamofire.manager.request_cache.remove_request(identifier: identifier)
+//    }
+//
+//    func load_request(element: FunAlamofire.Task) -> Data? {
+//        return FunAlamofire.manager.request_cache.load_request(element)
+//    }
     
     
 }
-
+/*
 private extension FunBox.Cache {
     // 缓存
-    func cache_request(_ element: FunAlamofire.RequestElement, response: Data?) {
+    func cache_request(_ element: FunAlamofire.Task, response: Data?) {
         guard let key_str = element.identifier else { return }
         
         cache(key: key_str, data: response, options: [.memory,.disk,.timeOut(element.cacheTimeOut ?? 60)])
@@ -41,7 +42,7 @@ private extension FunBox.Cache {
         debugPrint("cache_request=",element.urlString ?? "")
     }
     // 按完整请求信息删除对应缓存
-    func remove_request(_ element: FunAlamofire.RequestElement) {
+    func remove_request(_ element: FunAlamofire.Task) {
         guard let key_str = element.identifier else { return }
         
         removeCache(key: key_str)
@@ -58,7 +59,7 @@ private extension FunBox.Cache {
     }
     
     // 读取缓存
-    func load_request(_ element: FunAlamofire.RequestElement) -> Data? {
+    func load_request(_ element: FunAlamofire.Task) -> Data? {
         guard let key_str = element.identifier,
             let cache_data = loadCache(key: key_str)
             else { return nil}
@@ -87,4 +88,4 @@ private extension FunBox.Cache {
 //        return key
 //    }
 }
-
+ */

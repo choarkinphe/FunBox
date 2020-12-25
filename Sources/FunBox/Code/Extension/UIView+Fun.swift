@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//import Photos
 extension FunKey {
     struct TextField {
         static var contentRegular = "com.funbox.key.contentRegular"

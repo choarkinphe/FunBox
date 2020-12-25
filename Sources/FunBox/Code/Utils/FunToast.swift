@@ -5,9 +5,11 @@
 //  Created by 肖华 on 2019/10/22.
 //
 
-import UIKit
-public typealias FunToast = FunBox.Toast
 
+import UIKit
+
+
+public typealias FunToast = FunBox.Toast
 public extension FunBox {
     static var toast: Toast {
         return Toast.default

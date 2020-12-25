@@ -6,16 +6,6 @@
 //
 
 import UIKit
-//public protocol FunHolderType {
-//    var holderType: UIView.Holder? { get }
-//}
-//
-//extension FunHolderType {
-//    public var holderType: UIView.Holder? {
-//        return nil
-//    }
-//}
-
 extension UIView: HolderNamespaceWrappable {
     public struct Holder {
         let imageName: String

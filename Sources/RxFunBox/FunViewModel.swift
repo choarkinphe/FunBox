@@ -6,14 +6,18 @@
 //  Copyright © 2020 Konnech. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 #if !COCOAPODS
 import FunBox
 #endif
 @_exported import RxSwift
 @_exported import RxCocoa
 @_exported import RxDataSources
-
+#if os(iOS)
 typealias FunTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
 typealias FunCollectionViewDataSource<Section, Element> = RxCollectionViewSectionedReloadDataSource<SectionModel<Section, Element>>
 
@@ -584,3 +588,4 @@ extension UICollectionView.FunViewModel {
         }
     }
 }
+#endif

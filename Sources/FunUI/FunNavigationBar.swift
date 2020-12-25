@@ -7,9 +7,8 @@
 #if !COCOAPODS
 import FunBox
 #endif
+
 import UIKit
-//public typealias FunNavigationBar = FunBox.NavigationBar
-//extension FunBox {
 open class FunNavigationBar: UIView {
     
     public struct Style {
@@ -28,16 +27,16 @@ open class FunNavigationBar: UIView {
     public let backItem: UIButton
     
     private let titleLabel: FunLabel
-//    private lazy var titleLabel: FunLabel = {
-//        let titleLabel = FunLabel()
-//        titleLabel.verticalAlignment = .center
-////        titleLabel.textColor = FunNavigationBar.style.textColor
-////        titleLabel.font = FunNavigationBar.style.font
-//        titleLabel.textAlignment = .center
-//        //        self.titleView = titleLabel
-//        contentView.addSubview(titleLabel)
-//        return titleLabel
-//    }()
+    //    private lazy var titleLabel: FunLabel = {
+    //        let titleLabel = FunLabel()
+    //        titleLabel.verticalAlignment = .center
+    ////        titleLabel.textColor = FunNavigationBar.style.textColor
+    ////        titleLabel.font = FunNavigationBar.style.font
+    //        titleLabel.textAlignment = .center
+    //        //        self.titleView = titleLabel
+    //        contentView.addSubview(titleLabel)
+    //        return titleLabel
+    //    }()
     
     public lazy var clipBar: ClipBar = {
         let clipBar = ClipBar(frame: CGRect(x: 0, y: 0, width: 81, height: 44))
@@ -81,7 +80,7 @@ open class FunNavigationBar: UIView {
         titleFont = FunNavigationBar.style.font
         super.init(frame: frame)
         
-
+        
         
         addSubview(contentView)
         titleLabel.verticalAlignment = .center
@@ -96,29 +95,29 @@ open class FunNavigationBar: UIView {
         
     }
     
-//    public override init(frame: CGRect) {
-//        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 8, bottom: 0, right: 8)
-//        contentView = UIView(frame: CGRect(x: contentInsets.left, y: contentInsets.top, width: frame.width - contentInsets.left - contentInsets.right, height: frame.height - contentInsets.bottom - contentInsets.top))
-//        titleLabel = FunLabel()
-//        backItem = UIButton()
-//        titleColor = FunNavigationBar.style.textColor
-//        titleFont = FunNavigationBar.style.font
-//        super.init(frame: frame)
-//
-//
-//
-//        addSubview(contentView)
-//        titleLabel.verticalAlignment = .center
-//        titleLabel.textColor = titleColor
-//        titleLabel.font = titleFont
-//        titleLabel.textAlignment = .center
-//        //        self.titleView = titleLabel
-//        contentView.addSubview(titleLabel)
-//        contentView.addSubview(backItem)
-//
-//        setUp()
-//
-//    }
+    //    public override init(frame: CGRect) {
+    //        contentInsets = UIEdgeInsets(top: UIDevice.current.fb.isInfinity ? 24 : 22, left: 8, bottom: 0, right: 8)
+    //        contentView = UIView(frame: CGRect(x: contentInsets.left, y: contentInsets.top, width: frame.width - contentInsets.left - contentInsets.right, height: frame.height - contentInsets.bottom - contentInsets.top))
+    //        titleLabel = FunLabel()
+    //        backItem = UIButton()
+    //        titleColor = FunNavigationBar.style.textColor
+    //        titleFont = FunNavigationBar.style.font
+    //        super.init(frame: frame)
+    //
+    //
+    //
+    //        addSubview(contentView)
+    //        titleLabel.verticalAlignment = .center
+    //        titleLabel.textColor = titleColor
+    //        titleLabel.font = titleFont
+    //        titleLabel.textAlignment = .center
+    //        //        self.titleView = titleLabel
+    //        contentView.addSubview(titleLabel)
+    //        contentView.addSubview(backItem)
+    //
+    //        setUp()
+    //
+    //    }
     
     private func setUp(template: Template) {
         backItem.addTarget(self, action: #selector(backItemAction(sender:)), for: .touchUpInside)
@@ -283,7 +282,7 @@ open class FunNavigationBar: UIView {
         }
     }
     
-
+    
     
     public var backgroundImage: UIImage? {
         didSet {
@@ -349,8 +348,8 @@ open class FunNavigationBar: UIView {
             //            let offset = (contentView.bounds.height - textSize.height) / 2.0
             //            titleLabel.sizeToFit()
             //            titleLabel.center = CGPoint(x: contentView.center.x, y: contentView.bounds.height / 2.0 - offset)
-//            titleLabel.sizeThatFits(bounds.size)
-//            titleLabel.center = CGPoint(x: center.x, y: rect.size.height - 22)
+            //            titleLabel.sizeThatFits(bounds.size)
+            //            titleLabel.center = CGPoint(x: center.x, y: rect.size.height - 22)
             titleLabel.frame = CGRect(x: 44, y: rect.height - 44, width: bounds.width-88, height: 44)
         }
     }
@@ -384,7 +383,7 @@ extension FunNavigationBar {
             closeItem.addTarget(self, action: #selector(itemAction(sender:)), for: .touchUpInside)
             closeItem.setBackgroundImage(UIImage.fb.color(tintColor.fb.contrasting), for: .highlighted)
             container.addSubview(closeItem)
-
+            
             moreItem.imageEdgeInsets = UIEdgeInsets(top: 5, left: 13, bottom: 5, right: 9)
             moreItem.setImage(UIImage(named: "fb_nav_more", in: FunBox.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate), for: .normal)
             moreItem.addTarget(self, action: #selector(itemAction(sender:)), for: .touchUpInside)
@@ -421,7 +420,7 @@ extension FunNavigationBar {
             } else if sender == moreItem {
                 moreHandle?(sender)
             }
-
+            
         }
         
         private var closeHandle: ((UIButton)->Void)?
@@ -443,7 +442,7 @@ extension FunNavigationBar {
 }
 
 public extension FunNamespaceWrapper where T: UINavigationItem {
-//public extension UINavigationItem {
+    //public extension UINavigationItem {
     func set(rightItem newValue: UIView?) {
         if let rightItem = newValue {
             wrappedValue.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
@@ -466,16 +465,16 @@ public extension FunNamespaceWrapper where T: UINavigationItem {
         return wrappedValue.leftBarButtonItem?.customView
         
     }
-//    var titleView: UIView? {
-//        get {
-//            return rightBarButtonItem?.customView
-//        }
-//        set {
-//            if let rightView = newValue {
-//                rightBarButtonItem = UIBarButtonItem(customView: rightView)
-//            } else {
-//                rightBarButtonItem = nil
-//            }
-//        }
-//    }
+    //    var titleView: UIView? {
+    //        get {
+    //            return rightBarButtonItem?.customView
+    //        }
+    //        set {
+    //            if let rightView = newValue {
+    //                rightBarButtonItem = UIBarButtonItem(customView: rightView)
+    //            } else {
+    //                rightBarButtonItem = nil
+    //            }
+    //        }
+    //    }
 }

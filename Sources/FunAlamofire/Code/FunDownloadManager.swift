@@ -10,6 +10,8 @@ import Alamofire
 #if !COCOAPODS
 import FunBox
 #endif
+
+
 fileprivate let FunDownloadLocalResponderPathName = "com.funfreedom.FunDownloadLocalResponderPathName"
 // 默认的缓存路径
 fileprivate let localResponderPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! + "/\(FunDownloadLocalResponderPathName)"
@@ -626,14 +628,14 @@ extension FunDownloadManager: URLSessionTaskDelegate, URLSessionDownloadDelegate
 public extension FunAlamofire {
     var downloadResponder: FunDownloadManager.Responder? {
         
-        if let request = element.request {
+//        if let task = task {
             
-            let responder = FunDownloadManager.default.buildResponder(request: request)
-            
-            responder?.destinationURL = element.destinationURL
-            
-            return responder
-        }
+//            let responder = FunDownloadManager.default.buildResponder(request: request)
+//
+//            responder?.destinationURL = task.destinationURL
+//
+//            return responder
+//        }
         
         return nil
         

@@ -56,7 +56,7 @@
 		4A73E2DB25771FC900CD4748 /* WorkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkViewController.swift; sourceTree = "<group>"; };
 		4A73E2DD25771FC900CD4748 /* RouteTable.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RouteTable.JSON; sourceTree = "<group>"; };
 		4A73E2DE25771FC900CD4748 /* WorkItems.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WorkItems.JSON; sourceTree = "<group>"; };
-		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; };
+		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* FunBox_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunBox_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
