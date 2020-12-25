@@ -5,7 +5,9 @@
 //  Created by 肖华 on 2020/7/25.
 //  Copyright © 2020 Konnech. All rights reserved.
 //
-
+#if !COCOAPODS
+import FunBox
+#endif
 import AVFoundation
 import Photos
 import UIKit

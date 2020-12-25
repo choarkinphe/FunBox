@@ -5,7 +5,9 @@
 //  Created by choarkinphe on 2020/9/10.
 //  Copyright © 2020 CocoaPods. All rights reserved.
 //
-
+#if !COCOAPODS
+import FunBox
+#endif
 import TZImagePickerController
 import JXPhotoBrowser
 import Photos

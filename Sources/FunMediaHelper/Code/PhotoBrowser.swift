@@ -4,7 +4,9 @@
 //
 //  Created by choarkinphe on 2020/10/30.
 //
-
+#if !COCOAPODS
+import FunBox
+#endif
 import JXPhotoBrowser
 import Photos
 import UIKit

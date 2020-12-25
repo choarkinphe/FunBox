@@ -7,6 +7,9 @@
 
 import Foundation
 import Alamofire
+#if !COCOAPODS
+import FunBox
+#endif
 // MARK: - Reachability
 public typealias FunReachability = FunBox.Reachability
 extension FunBox {
