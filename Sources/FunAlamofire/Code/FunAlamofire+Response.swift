@@ -9,7 +9,7 @@ import Foundation
 #if !COCOAPODS
 import FunBox
 #endif
-
+import UIKit
 // 最终发出请求响应
 public typealias FunResponse = FunAlamofire.Response
 public extension FunAlamofire {
