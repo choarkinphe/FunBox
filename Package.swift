@@ -24,13 +24,23 @@ let package = Package(
             targets: ["RxFunBox"]),
         .library(
             name: "FunAlamofire",
-            targets: ["FunAlamofire"])
+            targets: ["FunAlamofire"]),
+        .library(
+            name: "FunWebImage",
+            targets: ["FunWebImage"]),
+        .library(
+            name: "FunMediaHelper",
+            targets: ["FunMediaHelper"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "5.0.0")),
         .package(url: "https://github.com/RxSwiftCommunity/RxDataSources.git", from: "4.0.0"),
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.0"))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.0")),
+        .package(url: "https://github.com/banchichen/TZImagePickerController.git", .upToNextMajor(from: "3.5.8")),
+        .package(name: "JXPhotoBrowser", url: "https://github.com/JiongXing/PhotoBrowser.git", .upToNextMajor(from: "3.1.2")),
+//        .package(url: "https://github.com/SDWebImage/libwebp-Xcode", from: "1.0.0"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.15.8")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -89,8 +99,35 @@ let package = Package(
 //                .copy("."),
 //            ]
         ),
+        .target(
+            name: "FunWebImage",
+            dependencies: [
+                "FunBox",
+                "Kingfisher"
+            ],
+//            linkerSettings: [.linkedFramework("CFNetwork",
+//                                              .when(platforms: [.iOS]))])
+            exclude: ["Example","README.MD","LICENSE"]
+//            resources: [
+//                .copy("."),
+//            ]
+        ),
+        .target(
+            name: "FunMediaHelper",
+            dependencies: [
+                "FunBox",
+                "TZImagePickerController",
+                "JXPhotoBrowser"
+            ],
+//            linkerSettings: [.linkedFramework("CFNetwork",
+//                                              .when(platforms: [.iOS]))])
+            exclude: ["Example","README.MD","LICENSE"]
+//            resources: [
+//                .copy("."),
+//            ]
+        ),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["FunBox","FunUI","RxFunBox","FunAlamofire"])
+            dependencies: ["FunBox","FunUI","RxFunBox","FunAlamofire","FunWebImage","FunMediaHelper"])
     ]
 )

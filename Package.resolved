@@ -11,6 +11,24 @@
         }
       },
       {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
+        "state": {
+          "branch": null,
+          "revision": "2a10bf41da75599a9f8e872dbd44fe0155a2e00c",
+          "version": "5.15.8"
+        }
+      },
+      {
+        "package": "JXPhotoBrowser",
+        "repositoryURL": "https://github.com/JiongXing/PhotoBrowser.git",
+        "state": {
+          "branch": null,
+          "revision": "1fa04a63ceee8cd68aff9d8df8822432ebf38fa1",
+          "version": "3.1.2"
+        }
+      },
+      {
         "package": "RxDataSources",
         "repositoryURL": "https://github.com/RxSwiftCommunity/RxDataSources.git",
         "state": {
@@ -26,6 +44,15 @@
           "branch": null,
           "revision": "002d325b0bdee94e7882e1114af5ff4fe1e96afa",
           "version": "5.1.1"
+        }
+      },
+      {
+        "package": "TZImagePickerController",
+        "repositoryURL": "https://github.com/banchichen/TZImagePickerController.git",
+        "state": {
+          "branch": null,
+          "revision": "dc168fd1fdf34948fb7854196e83bf349feb58d0",
+          "version": "3.5.8"
         }
       }
     ]
