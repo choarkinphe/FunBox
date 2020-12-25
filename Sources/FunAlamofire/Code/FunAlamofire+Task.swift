@@ -187,7 +187,7 @@ public extension FunAlamofire.Task {
                 dataRequest.uploadProgress(closure: progress)
             }
             // 开启请求任务
-            dataRequest.responseData { [weak self] (data_response) in
+            dataRequest.responseData { (data_response) in
                 
                 let response = FunResponse(request: request.request, response: request.response)
                 
@@ -229,7 +229,7 @@ public extension FunAlamofire.Task {
             if let progress = progress {
                 downloadRequest.downloadProgress(closure: progress)
             }
-            downloadRequest.responseData { [weak self] (download_response) in
+            downloadRequest.responseData { (download_response) in
                 
                 let response = FunResponse(request: request.request, response: request.response, fileURL: download_response.fileURL)
                 
