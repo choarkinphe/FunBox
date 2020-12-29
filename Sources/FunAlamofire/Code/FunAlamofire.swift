@@ -34,6 +34,12 @@ extension FunRequestable {
 
 }
 
+extension String: FunRequestable {
+    public var path: String {
+        return self
+    }
+}
+
 public extension FunBox {
     
     // 构建请求

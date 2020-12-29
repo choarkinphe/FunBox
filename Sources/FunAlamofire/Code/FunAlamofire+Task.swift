@@ -35,6 +35,8 @@ extension FunAlamofire {
         public var baseURL: URLConvertible? = FunAlamofire.manager.baseURL
         // 请求头
         public var headers: HTTPHeaders? = FunAlamofire.manager.headers
+        // encoding
+        public var encoding: ParameterEncoding = URLEncoding.default
         // body体
         public var formDataHandler: ((MultipartFormData)->Void)?
         // 储存路径
@@ -73,10 +75,10 @@ extension FunAlamofire {
                 
                 case .default: // 创建普通请求
                     
-                    return session?.request(url, method: method, parameters: params, encoding: URLEncoding.default, headers: headers)
+                    return session?.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
                     
                 case .download: // 创建下载请求
-                    return session?.download(url, method: method, parameters: params, headers: headers, to: destination)
+                    return session?.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
                     
                 case .upload: // 创建上传请求
                     let formData = MultipartFormData(fileManager: FileManager.default)
@@ -122,6 +124,10 @@ public extension FunAlamofire.Task {
     }
     func headers(_ headers: HTTPHeaders?) -> Self {
         self.headers = headers
+        return self
+    }
+    func encoding(_ encoding: ParameterEncoding) -> Self {
+        self.encoding = encoding
         return self
     }
     func body(_ body: ((MultipartFormData) -> Void)?) -> Self {
