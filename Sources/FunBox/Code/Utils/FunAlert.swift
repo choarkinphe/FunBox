@@ -178,7 +178,9 @@ public extension FunBox {
         
         public func present(from: UIViewController? = nil) {
             
-            let alertController = UIAlertController.init(title: config.title, message: config.message, preferredStyle: self.style)
+            let alertController = UIAlertController(title: config.title, message: config.message, preferredStyle: self.style)
+            
+            alertController.view.backgroundColor = .white
             
             if var title = config.title {
                 if style == .actionSheet {

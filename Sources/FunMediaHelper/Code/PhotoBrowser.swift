@@ -110,7 +110,7 @@ extension FunMediaHelper {
             }
         }
         
-        var moreHandler: ((UIAlertAction)->Void)?
+        fileprivate var moreHandler: ((UIAlertAction)->Void)?
         
         @objc private func moreAction(sender: UIButton) {
             DispatchQueue.main.async {
@@ -295,7 +295,7 @@ extension FunMediaHelper {
     public class ImageLayoutView<T>: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource where T: FunMediaPreviewResource {
         
         public var layout: FunWaterFallLayout
-
+        
         public init(frame: CGRect) {
             self.layout = FunWaterFallLayout()
             super.init(frame: frame, collectionViewLayout: layout)
@@ -305,15 +305,15 @@ extension FunMediaHelper {
                 guard let this = self else { return .zero }
                 let width = this.layout.flowWidth
                 let height = this.layout.flowWidth
-//                if self?.mediaType == .video, let video = self?.resource?.first, !video.isAdd {
-//                    self.layout.flowCount = 2
-//                    if let image = video.image {
-//                        height = image.size.height / image.size.width * layout.flowWidth
-//                    } else if video.height > 0,
-//                              video.width > 0 {
-//                        height = video.height / video.width * layout.flowWidth
-//                    }
-//                }
+                //                if self?.mediaType == .video, let video = self?.resource?.first, !video.isAdd {
+                //                    self.layout.flowCount = 2
+                //                    if let image = video.image {
+                //                        height = image.size.height / image.size.width * layout.flowWidth
+                //                    } else if video.height > 0,
+                //                              video.width > 0 {
+                //                        height = video.height / video.width * layout.flowWidth
+                //                    }
+                //                }
                 
                 return CGSize(width: width, height: height)
             }
@@ -337,12 +337,35 @@ extension FunMediaHelper {
         
         public var maxCount: Int = 9
         
-        public private(set) var resource: [T]?
+        public private(set) var resource = [T]()
         
-        public func set(resource: [T]) {
-            self.resource = resource
+        public func set(resource: [T]?) {
+            if let resource = resource {
+                
+                self.resource = resource.suffix(9)
+                
+            } else {
+                self.resource.removeAll()
+            }
+            
             reloadData()
         }
+        public func add(resource: [T]?) {
+            if let item = resource {
+                
+                if item.count <= (maxCount - self.resource.count) {
+                    self.resource.append(contentsOf: item)
+                } else {
+                    self.resource.append(contentsOf: item.suffix(maxCount - item.count))
+                }
+                
+                reloadData()
+            }
+            else {
+                set(resource: resource)
+            }
+        }
+        
         
         private var add: (()->Void)?
         public func add(_ handle: (()->Void)?) {
@@ -363,7 +386,7 @@ extension FunMediaHelper {
                 imageV.layer.masksToBounds = true
                 contentView.addSubview(imageV)
                 
-                del_button.setImage(UIImage(named: "cc_close"), for: .normal)
+                del_button.setImage(UIImage(named: "image_close.png", in: FunMediaHelper.bundle, compatibleWith: .none), for: .normal)
                 del_button.addTarget(self, action: #selector(action(sender:)), for: .touchUpInside)
                 contentView.addSubview(del_button)
             }
@@ -391,22 +414,22 @@ extension FunMediaHelper {
         }
         
         public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            if let resource = resource {
+//            if let resource = resource {
                 
                 var count = resource.count
                 if maxCount > 0 {
-                    count = count + 1
+                    count = resource.count + 1
                 }
                 return count
-            }
+//            }
             
-            return 1
+//            return 1
         }
         
         public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FunBox.MediaHelper.ImageLayoutViewCellID, for: indexPath) as! Cell
-            if let resource = resource, indexPath.item < resource.count {
+            if indexPath.item < resource.count {
                 
                 if let image = resource[indexPath.item].source_image {
                     cell.imageV.image = image
@@ -415,7 +438,7 @@ extension FunMediaHelper {
                 }
                 cell.del_button.isHidden = false
                 cell.delete { (sender) in
-                    self.resource?.remove(at: indexPath.item)
+                    self.resource.remove(at: indexPath.item)
                     collectionView.reloadData()
                 }
             } else {
@@ -428,7 +451,7 @@ extension FunMediaHelper {
         
         public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             
-            if let resource = resource, indexPath.item < resource.count {
+            if indexPath.item < resource.count {
                 // 预览
                 if let preview = preview {
                     
