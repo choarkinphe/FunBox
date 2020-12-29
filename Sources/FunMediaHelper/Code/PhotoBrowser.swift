@@ -6,6 +6,7 @@
 //
 #if !COCOAPODS
 import FunBox
+import FunWebImage
 #endif
 import JXPhotoBrowser
 import Photos
