@@ -37,7 +37,7 @@ extension UICollectionView {
         /// 水流高度 垂直瀑布是列高度 水平瀑布是行高度
         private var flowHeights = [CGFloat]()
         /// 水流宽度
-        private(set) var flowWidth: CGFloat = 0.0
+        public private(set) var flowWidth: CGFloat = 0.0
         /// 瀑布宽度
         private var waterfallWidth: CGFloat = 0.0
         /// 缓存布局属性数组
