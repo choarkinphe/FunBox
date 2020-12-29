@@ -418,7 +418,7 @@ extension FunMediaHelper {
                     collectionView.reloadData()
                 }
             } else {
-                cell.imageV.image = UIImage(named: "cc_add")
+                cell.imageV.image = UIImage(named: "image_add.png", in: FunMediaHelper.bundle, compatibleWith: .none)
                 cell.del_button.isHidden = true
             }
             
