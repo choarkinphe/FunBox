@@ -109,8 +109,8 @@ extension FunMediaHelper {
                         picker.dismiss(animated: false) {
                             
                             var resource = T()
-                            resource.image = coverImage
-                            resource.asset = asset
+                            resource.image = result.image
+                            resource.asset = result.asset
                             complete([resource])
                         }
                     }
