@@ -9,9 +9,9 @@
 //import FunBox
 import UIKit
 
-public typealias FunWaterFallLayout = UICollectionView.WaterFallLayout
-extension UICollectionView {
-    public class WaterFallLayout: UICollectionViewLayout {
+//public typealias FunWaterFallLayout = UICollectionView.WaterFallLayout
+//extension UICollectionView {
+    public class FunWaterFallLayout: UICollectionViewLayout {
         public enum Style {
             case vertical
             case horizontal
@@ -145,7 +145,7 @@ extension UICollectionView {
             }
         }
     }
-}
+//}FunWaterFallLayoutFunWaterFallLayoutFunWaterFallLayout
 
 // MARK: - Helper
 private extension FunWaterFallLayout {
