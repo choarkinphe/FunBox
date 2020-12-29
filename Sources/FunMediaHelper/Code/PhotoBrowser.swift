@@ -165,6 +165,7 @@ extension FunMediaHelper {
             func set(resource: FunMediaPreviewResource?) {
                 if let image = resource?.source_image {
                     imageView.image = image
+                    progressView.isHidden = true
                 } else if let url = resource?.source_url {
                     imageView.fb.webImageSource(url).options([.transition(.fade(0.5))]).progress { [weak self]  (received, total) in
                         // progress
