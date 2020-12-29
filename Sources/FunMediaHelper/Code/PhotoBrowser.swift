@@ -7,6 +7,7 @@
 #if !COCOAPODS
 import FunBox
 import FunWebImage
+import FunUI
 #endif
 import JXPhotoBrowser
 import Photos
@@ -17,6 +18,31 @@ public typealias FunPhotoBrowser = FunMediaHelper.PhotoBrowser
 public protocol FunMediaPreviewResource {
     var source_image: UIImage? { get }
     var source_url: String? { get }
+    var source_asset: PHAsset? { get }
+    var mediaType: PHAssetMediaType? { get }
+}
+
+extension FunMediaPreviewResource {
+    public var mediaType: PHAssetMediaType? {
+        if let asset = source_asset {
+            return asset.mediaType
+        }
+        if let source_url = source_url,
+           let mimeType = URL(string: source_url)?.fb.mimeType.lowercased() {
+            if mimeType.contains("video") {
+                return .video
+            } else if mimeType.contains("au") {
+                return .audio
+            } else if mimeType.contains("image") {
+                return .image
+            }
+        }
+        return .image
+    }
+    
+    public var source_asset: PHAsset? {
+        return nil
+    }
 }
 
 extension FunMediaHelper {
@@ -260,4 +286,164 @@ extension String: FunMediaPreviewResource {
 extension UIImage: FunMediaPreviewResource {
     public var source_image: UIImage? { return self }
     public var source_url: String? { return nil }
+}
+
+extension FunMediaHelper {
+    
+    fileprivate static let ImageLayoutViewCellID = "com.funbox.mediahelper.imageLayout.cell.id"
+    public class ImageLayoutView<T>: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource where T: FunMediaPreviewResource {
+        
+        public var layout: FunWaterFallLayout
+
+        public init(frame: CGRect) {
+            self.layout = FunWaterFallLayout()
+            super.init(frame: frame, collectionViewLayout: layout)
+            
+            layout.flowCount = 3
+            layout.itemSize { [weak self] (indexPath) -> CGSize in
+                guard let this = self else { return .zero }
+                let width = this.layout.flowWidth
+                let height = this.layout.flowWidth
+//                if self?.mediaType == .video, let video = self?.resource?.first, !video.isAdd {
+//                    self.layout.flowCount = 2
+//                    if let image = video.image {
+//                        height = image.size.height / image.size.width * layout.flowWidth
+//                    } else if video.height > 0,
+//                              video.width > 0 {
+//                        height = video.height / video.width * layout.flowWidth
+//                    }
+//                }
+                
+                return CGSize(width: width, height: height)
+            }
+            
+            backgroundColor = .clear
+            isScrollEnabled = false
+            register(Cell.self, forCellWithReuseIdentifier: FunBox.MediaHelper.ImageLayoutViewCellID)
+            delegate = self
+            dataSource = self
+            
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            superview?.endEditing(true)
+        }
+        
+        public var maxCount: Int = 9
+        
+        public private(set) var resource: [T]?
+        
+        public func set(resource: [T]) {
+            self.resource = resource
+            reloadData()
+        }
+        
+        private var add: (()->Void)?
+        public func add(_ handle: (()->Void)?) {
+            add = handle
+        }
+        
+        private var preview: (((index: Int, item: T))->Void)?
+        public func preview(_ handle: @escaping (((index: Int, item: T))->Void)) {
+            preview = handle
+        }
+        
+        class Cell: UICollectionViewCell {
+            var imageV = UIImageView()
+            var del_button = UIButton()
+            override init(frame: CGRect) {
+                super.init(frame: frame)
+                imageV.contentMode = .scaleAspectFill
+                imageV.layer.masksToBounds = true
+                contentView.addSubview(imageV)
+                
+                del_button.setImage(UIImage(named: "cc_close"), for: .normal)
+                del_button.addTarget(self, action: #selector(action(sender:)), for: .touchUpInside)
+                contentView.addSubview(del_button)
+            }
+            
+            required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+            }
+            
+            override func layoutSubviews() {
+                super.layoutSubviews()
+                
+                imageV.frame = bounds
+                del_button.frame = CGRect(x: bounds.width - 22, y: 2, width: 20, height: 20)
+                del_button.accessibilityFrame = CGRect(x: bounds.width - 30, y: 0, width: 30, height: 30)
+            }
+            
+            private var delete: ((UIButton)->Void)?
+            func delete(_ handler: @escaping (UIButton)->Void) {
+                delete = handler
+            }
+            @objc private func action(sender: UIButton) {
+                delete?(sender)
+            }
+            
+        }
+        
+        public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            if let resource = resource {
+                
+                var count = resource.count
+                if maxCount > 0 {
+                    count = count + 1
+                }
+                return count
+            }
+            
+            return 1
+        }
+        
+        public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FunBox.MediaHelper.ImageLayoutViewCellID, for: indexPath) as! Cell
+            if let resource = resource, indexPath.item < resource.count {
+                
+                if let image = resource[indexPath.item].source_image {
+                    cell.imageV.image = image
+                } else {
+                    cell.imageV.fb.webImageSource(resource[indexPath.item].source_url).response()
+                }
+                cell.del_button.isHidden = false
+                cell.delete { (sender) in
+                    self.resource?.remove(at: indexPath.item)
+                    collectionView.reloadData()
+                }
+            } else {
+                cell.imageV.image = UIImage(named: "cc_add")
+                cell.del_button.isHidden = true
+            }
+            
+            return cell
+        }
+        
+        public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            
+            if let resource = resource, indexPath.item < resource.count {
+                // 预览
+                if let preview = preview {
+                    
+                    preview((indexPath.item,resource[indexPath.item]))
+                } else {
+                    FunMediaHelper.preview(resource: resource, index: indexPath.item)
+                }
+                
+            } else {
+                // 添加 (一直未选时才允许添加视频)
+                add?()
+            }
+            
+        }
+        
+        
+    }
+    
 }

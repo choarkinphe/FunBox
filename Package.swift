@@ -116,6 +116,7 @@ let package = Package(
             name: "FunMediaHelper",
             dependencies: [
                 "FunBox",
+                "FunUI",
                 "TZImagePickerController",
                 "JXPhotoBrowser"
             ],
