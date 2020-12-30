@@ -1,8 +1,8 @@
 //
-//  HZScanController.swift
-//  hangzhou-pd
+//  FunScanController.swift
+//  FunBox
 //
-//  Created by jiang junhui on 2020/10/15.
+//  Created by choarkinphe on 2020/10/15.
 //  Copyright © 2020 Konnech. All rights reserved.
 //
 
@@ -24,7 +24,7 @@ extension FunScan {
         // 扫码结果的回调
         var handle: ((String?)->Void)?
         
-        private var disposeBag = DisposeBag()
+//        private var disposeBag = DisposeBag()
         
         // 预览图层
         private let previewLayer = AVCaptureVideoPreviewLayer()

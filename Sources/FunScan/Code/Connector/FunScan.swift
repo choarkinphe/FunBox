@@ -1,8 +1,8 @@
 //
-//  ScanAPI.swift
-//  hangzhou-pd
+//  FunScan.swift
+//  FunBox
 //
-//  Created by jiang junhui on 2020/10/16.
+//  Created by choarkinphe on 2020/10/16.
 //  Copyright © 2020 Konnech. All rights reserved.
 //
 

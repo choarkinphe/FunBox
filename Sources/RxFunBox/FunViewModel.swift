@@ -14,9 +14,9 @@ import AppKit
 #if !COCOAPODS
 import FunBox
 #endif
-@_exported import RxSwift
-@_exported import RxCocoa
-@_exported import RxDataSources
+import RxSwift
+import RxCocoa
+import RxDataSources
 #if os(iOS)
 typealias FunTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
 typealias FunCollectionViewDataSource<Section, Element> = RxCollectionViewSectionedReloadDataSource<SectionModel<Section, Element>>
