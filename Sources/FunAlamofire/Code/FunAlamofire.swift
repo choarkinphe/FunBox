@@ -23,7 +23,6 @@ public protocol FunRequestable {
     var params: [String: Any]? { get }
     var headers: HTTPHeaders? { get }
     var baseURL: URLConvertible? { get }
-
 }
 
 extension FunRequestable {
@@ -31,12 +30,39 @@ extension FunRequestable {
     public var params: [String: Any]? { return nil }
     public var headers: HTTPHeaders? { return FunAlamofire.manager.headers }
     public var baseURL: URLConvertible? { return FunAlamofire.manager.baseURL }
-
 }
 
 extension String: FunRequestable {
     public var path: String {
         return self
+    }
+}
+
+extension URLRequest: FunRequestable {
+    public var path: String {
+        return url?.relativePath ?? ""
+    }
+    public var methed: HTTPMethod {
+        return HTTPMethod(rawValue: httpMethod?.uppercased() ?? "POST")
+    }
+    public var params: [String : Any]? {
+        if let httpBody = httpBody {
+            return try? JSONSerialization.jsonObject(with: httpBody, options: .allowFragments) as? [String : Any]
+        }
+        return nil
+    }
+    public var headers: HTTPHeaders? {
+        if let allHTTPHeaderFields = allHTTPHeaderFields {
+            var headers = HTTPHeaders()
+            allHTTPHeaderFields.forEach { (item) in
+                headers.add(name: item.key, value: item.value)
+            }
+            return headers
+        }
+        return nil
+    }
+    public var baseURL: URLConvertible? {
+        return url?.host
     }
 }
 
@@ -46,7 +72,7 @@ public extension FunBox {
     class Funfreedom {
         
         // 请求管理器
-        private let session: Session
+        fileprivate let session: Session
         public init(session: Session = Session.sessionManager) {
             self.session = session
         }
@@ -64,6 +90,9 @@ public extension FunBox {
         
         public func request(to request: FunRequestable) -> FunAlamofire.Task {
             // 创建基本的请求任务
+            if let request = request as? URLRequest {
+                return FunAlamofire.Task(request: request)
+            }
             let task = FunAlamofire.Task(path: request.path)
             task.params = request.params
             task.headers = request.headers

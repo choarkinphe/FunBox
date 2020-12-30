@@ -21,9 +21,19 @@ extension FunAlamofire {
             case upload = "upload"
         }
         // 请求地址
-        var path: String
-        init(path: String) {
-            self.path = path
+        var path: String?
+        fileprivate var url_request: URLRequest?
+        init(path: String?=nil, request: URLRequest?=nil) {
+            if let request = request {
+                self.url_request = request
+                self.baseURL = request.baseURL
+                self.path = request.path
+                self.method = request.method ?? .post
+                self.headers = request.headers
+                self.params = request.params
+            } else {
+                self.path = path
+            }
         }
         // 请求类型
         var type: Type = .default
@@ -55,13 +65,16 @@ extension FunAlamofire {
         
         // 请求的真实地址
         fileprivate var url: URL? {
-            var url = URL(string: path)
-            
-            if !path.hasPrefix("http"), let baseURL = try? baseURL?.asURL() {
-                url = baseURL.appendingPathComponent(path)
+            if let path = path {
+                var url = URL(string: path)
+                
+                if !path.hasPrefix("http"), let baseURL = try? baseURL?.asURL() {
+                    url = baseURL.appendingPathComponent(path)
+                }
+                
+                return url
             }
-            
-            return url
+            return nil
         }
         
         // 管理session
@@ -70,22 +83,31 @@ extension FunAlamofire {
         // 真实请求
         fileprivate var request: Request? {
             guard let url = url else { return nil }
+            let formData = MultipartFormData(fileManager: FileManager.default)
             
+            if let formDataHandler = formDataHandler {
+                formDataHandler(formData)
+            }
             switch type {
                 
                 case .default: // 创建普通请求
                     
-                    return session?.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
+                    if var url_request = url_request {
+                        if let body = try? formData.encode() {
+                            url_request.httpBody = body
+                        }
+
+                        return session?.request(url_request)
+                        
+                    } else {
+                        
+                        return session?.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
+                    }
                     
                 case .download: // 创建下载请求
                     return session?.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
                     
                 case .upload: // 创建上传请求
-                    let formData = MultipartFormData(fileManager: FileManager.default)
-                    
-                    if let formDataHandler = formDataHandler {
-                        formDataHandler(formData)
-                    }
                     
                     return session?.upload(multipartFormData: formData, to: url, method: method, headers: headers)
                     
