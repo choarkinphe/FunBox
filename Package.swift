@@ -30,7 +30,10 @@ let package = Package(
             targets: ["FunWebImage"]),
         .library(
             name: "FunMediaHelper",
-            targets: ["FunMediaHelper"])
+            targets: ["FunMediaHelper"]),
+        .library(
+            name: "FunScan",
+            targets: ["FunScan"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
