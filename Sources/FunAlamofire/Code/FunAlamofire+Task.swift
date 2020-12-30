@@ -17,11 +17,11 @@ extension FunAlamofire {
         // 管理session
         let session: Session
         
-        public enum `Type`: String {
-            case `default` = "default"
-            case download = "download"
-            case upload = "upload"
-        }
+//        public enum `Type`: String {
+//            case `default` = "default"
+//            case download = "download"
+//            case upload = "upload"
+//        }
         // 请求地址
         var path: String?
         fileprivate var url_request: URLRequest?
@@ -39,7 +39,7 @@ extension FunAlamofire {
             }
         }
         // 请求类型
-        var type: Type = .default
+//        var type: Type = .default
         // method
         public var method: HTTPMethod = .post
         // 请求参数
@@ -52,14 +52,7 @@ extension FunAlamofire {
         public var encoding: ParameterEncoding = URLEncoding.default
         // body体
         public var formDataHandler: ((MultipartFormData)->Void)?
-        // 储存路径
-        public var destinationURL: URL?
-        fileprivate var destination = DownloadRequest.suggestedDownloadDestination(
-            for: .cachesDirectory,
-            in: .userDomainMask,
-            options: .removePreviousFile
-        )
-        
+
         // 请求配置
         public var options: [FunAlamofire.Option] = [.toast(FunAlamofire.manager.toast)]
         
@@ -83,35 +76,25 @@ extension FunAlamofire {
         // 真实请求
         fileprivate var request: Request? {
             guard let url = url else { return nil }
-            let formData = MultipartFormData(fileManager: FileManager.default)
-            
-            if let formDataHandler = formDataHandler {
-                formDataHandler(formData)
-            }
-            switch type {
+            if let url_request = url_request {
                 
-                case .default: // 创建普通请求
-                    
-                    if var url_request = url_request {
-//                        if let body = try? formData.encode() {
-//                            url_request.httpBody = body
-//                        }
-
-                        return session.request(url_request)
-                        
-                    } else {
-                        
-                        return session.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
-                    }
-                    
-                case .download: // 创建下载请求
-                    return session.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
-                    
-                case .upload: // 创建上传请求
-                    
-                    return session.upload(multipartFormData: formData, to: url, method: method, headers: headers)
-                    
+                return session.request(url_request)
+            } else {
+                return session.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
             }
+//            switch type {
+//
+//                case .default: // 创建普通请求
+//
+//
+//                case .download: // 创建下载请求
+//                    return session.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
+//
+//                case .upload: // 创建上传请求
+//
+//                    return session.upload(multipartFormData: formData, to: url, method: method, headers: headers)
+//
+//            }
             
         }
         
@@ -119,6 +102,31 @@ extension FunAlamofire {
             debugPrint("FunAlamofire.Task die")
         }
         
+    }
+    
+    public class DownLoadTask: FunAlamofire.Task {
+        // 储存路径
+        public var destinationURL: URL?
+        fileprivate var destination = DownloadRequest.suggestedDownloadDestination(
+            for: .cachesDirectory,
+            in: .userDomainMask,
+            options: .removePreviousFile
+        )
+        override var request: Request? {
+            guard let url = url else { return nil }
+            return session.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
+        }
+    }
+    public class UpLoadTask: FunAlamofire.Task {
+        override var request: Request? {
+            guard let url = url else { return nil }
+            let formData = MultipartFormData(fileManager: FileManager.default)
+            
+            if let formDataHandler = formDataHandler {
+                formDataHandler(formData)
+            }
+            return session.upload(multipartFormData: formData, to: url, method: method, headers: headers)
+        }
     }
 }
 
@@ -128,10 +136,10 @@ public extension FunAlamofire.Task {
         self.path = path
         return self
     }
-    func taskType(_ type: Type) -> Self {
-        self.type = type
-        return self
-    }
+//    func taskType(_ type: Type) -> Self {
+//        self.type = type
+//        return self
+//    }
     func method(_ method: HTTPMethod) -> Self {
         self.method = method
         return self
@@ -156,16 +164,7 @@ public extension FunAlamofire.Task {
         self.formDataHandler = body
         return self
     }
-    func destinationURL(_ destinationURL: URL?) -> Self {
-        self.destinationURL = destinationURL
-        self.destination = { temporaryURL, response in
-            
-            let url = destinationURL?.appendingPathComponent(response.suggestedFilename!) ?? temporaryURL
-            
-            return (url, .removePreviousFile)
-        }
-        return self
-    }
+
     
     func options(_ options: [FunAlamofire.Option]) -> Self {
         self.options = options
@@ -175,6 +174,19 @@ public extension FunAlamofire.Task {
     
     func progress(_ handler: @escaping ((Progress) -> Void)) -> Self {
         progress = handler
+        return self
+    }
+}
+
+public extension FunAlamofire.DownLoadTask {
+    func destinationURL(_ destinationURL: URL?) -> Self {
+        self.destinationURL = destinationURL
+        self.destination = { temporaryURL, response in
+            
+            let url = destinationURL?.appendingPathComponent(response.suggestedFilename!) ?? temporaryURL
+            
+            return (url, .removePreviousFile)
+        }
         return self
     }
 }

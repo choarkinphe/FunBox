@@ -100,6 +100,30 @@ public extension FunBox {
             return task
         }
         
+        public func download(to request: FunRequestable) -> FunAlamofire.DownLoadTask {
+            // 创建基本的请求任务
+            if let request = request as? URLRequest {
+                return FunAlamofire.DownLoadTask(session: session, request: request)
+            }
+            let task = FunAlamofire.DownLoadTask(session: session, path: request.path)
+            task.params = request.params
+            task.headers = request.headers
+            task.baseURL = request.baseURL
+            return task
+        }
+        
+        public func upload(to request: FunRequestable) -> FunAlamofire.UpLoadTask {
+            // 创建基本的请求任务
+            if let request = request as? URLRequest {
+                return FunAlamofire.UpLoadTask(session: session, request: request)
+            }
+            let task = FunAlamofire.UpLoadTask(session: session, path: request.path)
+            task.params = request.params
+            task.headers = request.headers
+            task.baseURL = request.baseURL
+            return task
+        }
+        
     }
     
 }
