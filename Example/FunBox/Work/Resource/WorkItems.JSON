@@ -34,6 +34,10 @@
                 },
                 {
                     "icon": "APPkaifa",
+                    "linkUrl": null,
+                    "name": "扫码"
+                },{
+                    "icon": "APPkaifa",
                     "linkUrl": "funbox://team/page",
                     "name": "自定义"
                 }]

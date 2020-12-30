@@ -51,5 +51,11 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The APP needs your permission to access the album to upload/publish information of photos. If it is banned, it cannot upload/publish information of photos</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Your permission is required to save the picture to the album</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The APP needs your consent to access the camera to take product information. If prohibited, it will not be able to take pictures and update information</string>
 </dict>
 </plist>

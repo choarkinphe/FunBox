@@ -124,11 +124,24 @@ let package = Package(
 //                                              .when(platforms: [.iOS]))])
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
-                .process("FunBox.xcassets")
+                .process("FunMediaHelper.xcassets")
+            ]
+        ),
+        .target(
+            name: "FunScan",
+            dependencies: [
+                "FunBox",
+                "FunUI"
+            ],
+//            linkerSettings: [.linkedFramework("CFNetwork",
+//                                              .when(platforms: [.iOS]))])
+            exclude: ["Example","README.MD","LICENSE"],
+            resources: [
+                .process("FunScan.xcassets")
             ]
         ),
         .testTarget(
             name: "FunBoxTests",
-            dependencies: ["FunBox","FunUI","RxFunBox","FunAlamofire","FunWebImage","FunMediaHelper"])
+            dependencies: ["FunBox","FunUI","RxFunBox","FunAlamofire","FunWebImage","FunMediaHelper","FunScan"])
     ]
 )

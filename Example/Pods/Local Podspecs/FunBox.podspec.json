@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.5.4",
+  "version": "0.5.13",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.5.4"
+    "tag": "0.5.13"
   },
   "platforms": {
     "ios": "10.0"
@@ -95,14 +95,16 @@
     },
     {
       "name": "Modules",
+      "dependencies": {
+        "FunBox/Core": [
+
+        ]
+      },
       "subspecs": [
         {
           "name": "FunAlamofire",
           "source_files": "Sources/FunAlamofire/Code/**/*",
           "dependencies": {
-            "FunBox/Core": [
-
-            ],
             "Alamofire": [
               "~> 5.2.2"
             ]
@@ -110,20 +112,12 @@
         },
         {
           "name": "FunUI",
-          "source_files": "Sources/FunUI/**/*",
-          "dependencies": {
-            "FunBox/Core": [
-
-            ]
-          }
+          "source_files": "Sources/FunUI/**/*"
         },
         {
           "name": "RxFunBox",
           "source_files": "Sources/RxFunBox/**/*",
           "dependencies": {
-            "FunBox/Core": [
-
-            ],
             "RxDataSources": [
               "~> 4.0.1"
             ],
@@ -137,10 +131,14 @@
         },
         {
           "name": "FunWebImage",
-          "source_files": "Sources/FunWebImage/**/*",
-          "dependencies": {
-            "FunBox/Core": [
-
+          "source_files": "Sources/FunWebImage/**/*"
+        },
+        {
+          "name": "FunScan",
+          "source_files": "Sources/FunScan/Code/**/*",
+          "resource_bundles": {
+            "FunScan": [
+              "Sources/FunScan/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,js,gif,md}"
             ]
           }
         },
@@ -153,10 +151,10 @@
             ]
           },
           "dependencies": {
-            "FunBox/Core": [
+            "FunBox/Modules/FunWebImage": [
 
             ],
-            "FunBox/Modules/FunWebImage": [
+            "FunBox/Modules/FunUI": [
 
             ],
             "JXPhotoBrowser": [

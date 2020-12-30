@@ -121,3 +121,10 @@ public extension FunBox {
         
     }
 }
+
+
+public protocol FunModuleProtocol: class {
+    
+    static var bundle: Bundle? { get }
+    
+}

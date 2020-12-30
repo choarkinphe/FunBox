@@ -94,6 +94,17 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                        FunBox.toast.title("提示").show()
 //                        FunBox.toast.title("提示").message("嘻嘻").show()
 //                        FunBox.toast.title("提示").show()
+                    case "扫码":
+                        var style = FunScan.Style()
+                        style.boardColor = .blue
+                        FunScan.default.feed(style: style).response { (navigation) in
+                            print(navigation.content)
+//                            self.navigationController?.pushViewController(WebViewController(), animated: true)
+//                            navigation.dismiss(true)
+                            DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                                navigation.dismiss(false)
+                            }
+                        }
                 default:
                     Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
                         print(action.identifier)
