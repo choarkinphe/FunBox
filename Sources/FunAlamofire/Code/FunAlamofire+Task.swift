@@ -14,6 +14,8 @@ import UIKit
 
 extension FunAlamofire {
     public class Task {
+        // 管理session
+        let session: Session
         
         public enum `Type`: String {
             case `default` = "default"
@@ -23,7 +25,8 @@ extension FunAlamofire {
         // 请求地址
         var path: String?
         fileprivate var url_request: URLRequest?
-        init(path: String?=nil, request: URLRequest?=nil) {
+        init(session: Session, path: String?=nil, request: URLRequest?=nil) {
+            self.session = session
             if let request = request {
                 self.url_request = request
                 self.baseURL = request.baseURL
@@ -77,9 +80,6 @@ extension FunAlamofire {
             return nil
         }
         
-        // 管理session
-        var session: Session?
-        
         // 真实请求
         fileprivate var request: Request? {
             guard let url = url else { return nil }
@@ -97,19 +97,19 @@ extension FunAlamofire {
                             url_request.httpBody = body
                         }
 
-                        return session?.request(url_request)
+                        return session.request(url_request)
                         
                     } else {
                         
-                        return session?.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
+                        return session.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
                     }
                     
                 case .download: // 创建下载请求
-                    return session?.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
+                    return session.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
                     
                 case .upload: // 创建上传请求
                     
-                    return session?.upload(multipartFormData: formData, to: url, method: method, headers: headers)
+                    return session.upload(multipartFormData: formData, to: url, method: method, headers: headers)
                     
             }
             

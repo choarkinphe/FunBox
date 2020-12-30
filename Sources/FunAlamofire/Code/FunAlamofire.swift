@@ -91,13 +91,12 @@ public extension FunBox {
         public func request(to request: FunRequestable) -> FunAlamofire.Task {
             // 创建基本的请求任务
             if let request = request as? URLRequest {
-                return FunAlamofire.Task(request: request)
+                return FunAlamofire.Task(session: session, request: request)
             }
-            let task = FunAlamofire.Task(path: request.path)
+            let task = FunAlamofire.Task(session: session, path: request.path)
             task.params = request.params
             task.headers = request.headers
             task.baseURL = request.baseURL
-            task.session = session
             return task
         }
         
