@@ -57,7 +57,8 @@ extension FunAlamofire {
         public var options: [FunAlamofire.Option] = [.toast(FunAlamofire.manager.toast)]
         
         // 任务进度
-        fileprivate var progress: ((Progress) -> Void)?
+        fileprivate var up_progress: ((Progress) -> Void)?
+        fileprivate var down_progress: ((Progress) -> Void)?
         
         // 请求的真实地址
         fileprivate var url: URL? {
@@ -127,8 +128,11 @@ extension FunAlamofire {
             // 普通任务（包含上传）
             if let dataRequest = request as? DataRequest {
                 
-                if let progress = progress {
+                if let progress = up_progress {
                     dataRequest.uploadProgress(closure: progress)
+                }
+                if let progress = down_progress {
+                    dataRequest.downloadProgress(closure: progress)
                 }
                 // 开启请求任务
                 dataRequest.responseData { (data_response) in
@@ -202,7 +206,10 @@ extension FunAlamofire {
             option.sender?.isUserInteractionEnabled = false
             
             if let downloadRequest = request as? DownloadRequest {
-                if let progress = progress {
+                if let progress = up_progress {
+                    downloadRequest.uploadProgress(closure: progress)
+                }
+                if let progress = down_progress {
                     downloadRequest.downloadProgress(closure: progress)
                 }
                 downloadRequest.responseData { (download_response) in
@@ -288,8 +295,12 @@ public extension FunAlamofire.Task {
         return self
     }
     
-    func progress(_ handler: @escaping ((Progress) -> Void)) -> Self {
-        progress = handler
+    func progress(upload handler: @escaping ((Progress) -> Void)) -> Self {
+        up_progress = handler
+        return self
+    }
+    func progress(download handler: @escaping ((Progress) -> Void)) -> Self {
+        down_progress = handler
         return self
     }
 }
