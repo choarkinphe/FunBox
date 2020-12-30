@@ -12,43 +12,53 @@ import FunBox
 import UIKit
 // 最终发出请求响应
 public typealias FunResponse = FunAlamofire.Response
+public typealias FunDownloadResponse = FunAlamofire.DownloadResponse
 public extension FunAlamofire {
     
     class Response {
         
         // 上传&下载进度
         public var progress: Progress?
-        
-        // 下载恢复文件
-        public let resumeData: Data?
-        
+
         // 真实的下载请求
-        public let request: URLRequest?
+        public var request: URLRequest?
         
         /// The server's response to the URL request.
-        public let response: HTTPURLResponse?
+        public var response: HTTPURLResponse?
         
         // 请求结果
         public var data: Data?
         // 错误信息
         public var error: Error?
-        // 下载任务的地址
-        public let fileURL: URL?
+
         
         
         public init(request: URLRequest?,
-                    response: HTTPURLResponse?,
-                    fileURL: URL?=nil,
-                    resumeData: Data?=nil) {
+                    response: HTTPURLResponse?) {
             self.request = request
             self.response = response
-            self.fileURL = fileURL
-            self.resumeData = resumeData
             
         }
         
         
 
+    }
+    
+    class DownloadResponse: Response {
+        // 下载恢复文件
+        public let resumeData: Data?
+        // 下载任务的地址
+        public let fileURL: URL?
+        
+        public init(request: URLRequest?,
+                    response: HTTPURLResponse?,
+                    fileURL: URL?=nil,
+                    resumeData: Data?=nil) {
+            self.fileURL = fileURL
+            self.resumeData = resumeData
+            super.init(request: request, response: response)
+            
+        }
     }
 }
 
