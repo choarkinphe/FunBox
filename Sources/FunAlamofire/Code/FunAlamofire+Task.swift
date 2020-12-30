@@ -93,9 +93,9 @@ extension FunAlamofire {
                 case .default: // 创建普通请求
                     
                     if var url_request = url_request {
-                        if let body = try? formData.encode() {
-                            url_request.httpBody = body
-                        }
+//                        if let body = try? formData.encode() {
+//                            url_request.httpBody = body
+//                        }
 
                         return session.request(url_request)
                         
