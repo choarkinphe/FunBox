@@ -10,6 +10,7 @@ import AVFoundation
 import UIKit
 #if !COCOAPODS
 import FunBox
+import FunUI
 #endif
 public typealias FunScanController = FunScan.ScanViewController
 
