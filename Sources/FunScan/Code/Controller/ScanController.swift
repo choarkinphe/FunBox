@@ -94,7 +94,7 @@ extension FunScan {
             
             fb.contentInsets = UIEdgeInsets(top: 0.01, left: 0, bottom: 0, right: 0)
             
-
+            fb.isNavigationBarHidden = true
 
         }
         
@@ -105,21 +105,6 @@ extension FunScan {
             navigationBar.backAction { (sender) in
                 self.dismiss(animated: true, completion: nil)
             }
-        }
-        
-        private var isNavigationBarHiddenFlag: Bool = false
-        
-        public override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            isNavigationBarHiddenFlag = navigationController?.isNavigationBarHidden ?? false
-//            navigationController?.setNavigationBarHidden(true, animated: false)
-            navigationController?.navigationBar.isHidden = true
-        }
-        
-        public override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            navigationController?.navigationBar.isHidden = isNavigationBarHiddenFlag
-//            navigationController?.setNavigationBarHidden(isNavigationBarHiddenFlag, animated: false)
         }
         
         // 页面显示后开启扫描

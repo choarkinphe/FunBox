@@ -34,6 +34,8 @@ extension UIViewController: FunSwizz {
         if !(navigationController?.interactivePopGestureRecognizer?.delegate is Self) {
             navigationController?.interactivePopGestureRecognizer?.delegate = fb
         }
+        
+        navigationController?.setNavigationBarHidden(fb.isNavigationBarHidden, animated: false)
 
     }
     
@@ -158,6 +160,8 @@ public extension FunBox {
         public var touchDismissKeyboard: Bool = FunBox.manager.config.keyboardAutoDismiss
         
         private weak var viewController: UIViewController?
+        
+        public var isNavigationBarHidden: Bool = FunBox.manager.config.navigationBarHidden
         
         public private(set) var keyboardShow: Bool = false
         

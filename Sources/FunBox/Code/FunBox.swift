@@ -29,6 +29,7 @@ public class FunBox {
 extension FunBox {
     public struct Config: Codable {
         public var keyboardAutoDismiss: Bool = true
+        public var navigationBarHidden: Bool = false
     }
 }
 
