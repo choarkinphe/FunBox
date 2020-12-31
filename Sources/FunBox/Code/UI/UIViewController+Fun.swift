@@ -28,6 +28,7 @@ extension UIViewController: FunSwizz {
     
     
     @objc func swizzled_viewWillAppear(animated: Bool) {
+        navigationController?.setNavigationBarHidden(fb.isNavigationBarHidden, animated: false)
         swizzled_viewWillAppear(animated: animated)
         fb.addObservations()
         //        debugPrint("willappear",self)
@@ -35,7 +36,6 @@ extension UIViewController: FunSwizz {
             navigationController?.interactivePopGestureRecognizer?.delegate = fb
         }
         
-        navigationController?.setNavigationBarHidden(fb.isNavigationBarHidden, animated: false)
 
     }
     
