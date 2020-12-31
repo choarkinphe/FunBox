@@ -112,13 +112,14 @@ extension FunScan {
         public override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             isNavigationBarHiddenFlag = navigationController?.isNavigationBarHidden ?? false
-            navigationController?.setNavigationBarHidden(true, animated: false)
+//            navigationController?.setNavigationBarHidden(true, animated: false)
+            navigationController?.navigationBar.isHidden = true
         }
         
         public override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            
-            navigationController?.setNavigationBarHidden(isNavigationBarHiddenFlag, animated: false)
+            navigationController?.navigationBar.isHidden = isNavigationBarHiddenFlag
+//            navigationController?.setNavigationBarHidden(isNavigationBarHiddenFlag, animated: false)
         }
         
         // 页面显示后开启扫描
