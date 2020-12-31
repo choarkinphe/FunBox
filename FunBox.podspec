@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunBox'
-    s.version          = '0.5.35'
+    s.version          = '0.5.42'
     s.summary          = 'FunBox 饭盒？'
     s.swift_version    = '5.0'
     
@@ -36,10 +36,8 @@ Pod::Spec.new do |s|
 
     s.subspec 'Core' do |ss|
         # 核心库依赖
-#        ss.dependency 'FunBox/Box/Extension'
-        ss.dependency 'FunBox/Box/Utils'
-        ss.dependency 'FunBox/Box/UI'
         ss.dependency 'FunBox/Fun'
+        ss.dependency 'FunBox/Box'
     end
     
     s.subspec 'Fun' do |ss|
@@ -115,7 +113,7 @@ Pod::Spec.new do |s|
 
             # MediaHelper依赖
 #            item.dependency 'FunBox/Core'
-            s.dependency 'Kingfisher', '~> 5.15.0'
+            item.dependency 'Kingfisher', '~> 5.15.0'
 #            s.dependency 'KingfisherWebP', '~> 1.0.0'
         end
         

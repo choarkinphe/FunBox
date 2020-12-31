@@ -29,7 +29,7 @@ extension FunScan {
         
         public var scanInsets: UIEdgeInsets = UIEdgeInsets(top: 120, left: 0, bottom: 80, right: 0)
         
-        public var title: String? = "ScanTitle".fb.localized(in: FunScan.bundle)
+        public var title: String? = "ScanTitle".fb.localized(in: FunScan.bundle, table: "ScanLocalizable")
         
         static let `default` = Style()
         
@@ -44,7 +44,7 @@ extension FunScan {
 }
 
 extension FunTips {
-    static let title = FunTips("Scan", bundle: FunScan.bundle).localized
-    static let empty_code = FunTips("ScanError", bundle: FunScan.bundle).localized
+    static let title = FunTips("Scan", table: "ScanLocalizable").localized
+    static let empty_code = FunTips("ScanError", table: "ScanLocalizable").localized
 //    static let handleing = FunTips("处理中", bundle: FunScan.bundle).localized
 }

@@ -19,9 +19,9 @@ extension FunBox {
         public typealias Handle<T> = (((content: T?, dismiss: ((Bool)->Void)))->Void) where T: FunURLConvertable
         
         public static var bundle: Bundle? {
-            if let url = Bundle(for: self).url(forResource: "FunScan", withExtension: "bundle") {
+            if let url = Bundle(for: FunScan.self).url(forResource: "FunScan", withExtension: "bundle") {
                 return Bundle(url: url)
-            } else if let url = Bundle(for: FunBox.self).path(forResource: "FunBox_FunScan.bundle", ofType: nil) {
+            } else if let url = Bundle(for: FunScan.self).path(forResource: "FunBox_FunScan.bundle", ofType: nil) {
                 return Bundle(path: url)
             }
             return nil

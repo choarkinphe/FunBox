@@ -28,8 +28,8 @@ extension FunBox {
         public static let unknow = FunTips("Unknow").localized
         
         public let localized: String
-        public init(_ rawValue: String, bundle: Bundle? = nil) {
-            localized = rawValue.fb.localized(in: bundle ?? FunBox.bundle)
+        public init(_ rawValue: String, bundle: Bundle? = nil, table: String? = nil) {
+            localized = rawValue.fb.localized(in: bundle ?? FunBox.bundle, table: table ?? "FunLocalization")
         }
     }
     

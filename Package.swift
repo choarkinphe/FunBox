@@ -54,7 +54,7 @@ let package = Package(
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
                 .process("FunBox.xcassets"),
-                .process("Localization.strings")
+                .process("FunLocalization.strings")
             ]
         ),
         .target(
@@ -130,7 +130,7 @@ let package = Package(
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
                 .process("FunMediaHelper.xcassets"),
-                .process("Localization.strings")
+                .process("MediaLocalization.strings")
             ]
         ),
         .target(
@@ -144,7 +144,7 @@ let package = Package(
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
                 .process("FunScan.xcassets"),
-                .process("Localization.strings")
+                .process("ScanLocalization.strings")
             ]
         ),
         .testTarget(
