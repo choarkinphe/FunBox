@@ -22,7 +22,7 @@ DerivedData
 .build
 .swiftpm
 FunBox.xcodeproj
-FunBox.podspec
+#FunBox.podspec
 
 # Bundler
 .bundle
