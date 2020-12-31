@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunBox'
-    s.version          = '0.5.42'
+    s.version          = '0.5.43'
     s.summary          = 'FunBox 饭盒？'
     s.swift_version    = '5.0'
     
