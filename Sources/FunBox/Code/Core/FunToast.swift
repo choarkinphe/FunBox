@@ -20,7 +20,7 @@ public extension FunBox {
         
         public static var `default`: Toast {
             let toast = Toast()
-            Manager.shared.isTapToDismissEnabled = true
+//            Manager.shared.isTapToDismissEnabled = true
             return toast
         }
         
@@ -92,11 +92,18 @@ public extension FunBox {
             return self
         }
         
-        public func isTapToDismissEnabled(_ isTapToDismissEnabled: Bool) -> Self {
-            Manager.shared.isTapToDismissEnabled = isTapToDismissEnabled
+        public func tapToDismiss(_ tapToDismiss: Bool) -> Self {
+            config.isTapToDismissEnabled = tapToDismiss
             
             return self
         }
+        
+        public func haptic(_ isHaptic: Bool) -> Self {
+            config.isHaptic = isHaptic
+            
+            return self
+        }
+        
         
         public func show(_ completion: ((Bool)->Void)? = nil) {
             
@@ -439,6 +446,8 @@ extension FunBox.Toast.Config {
         contentView.frame = CGRect(x: (contanierWidth - contentWidth)/2.0, y: 0.0, width: contentWidth, height: contentHeight)
         
         contanier.identifier = identifier
+        contanier.isTapDismiss = isTapToDismissEnabled
+        contanier.isHaptic = isHaptic
         
         return contanier
     }
@@ -460,6 +469,8 @@ public extension UIView {
         static var activityView = "com.funbox.toast.activityView"
         static var queue        = "com.funbox.toast.queue"
         static var identifier   = "com.funbox.toast.identifier"
+        static var tapDismiss   = "com.funbox.toast.tapDismiss"
+        static var haptic       = "com.funbox.toast.haptic"
     }
     
     private class CompletionWrapper {
@@ -478,6 +489,25 @@ public extension UIView {
             objc_setAssociatedObject(self, &Keys.identifier, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
     }
+    
+    fileprivate var isTapDismiss: Bool {
+        get {
+            return objc_getAssociatedObject(self, &Keys.tapDismiss) as? Bool ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, &Keys.tapDismiss, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
+    
+    fileprivate var isHaptic: Bool {
+        get {
+            return objc_getAssociatedObject(self, &Keys.haptic) as? Bool ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, &Keys.haptic, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
+    
     
     private var activityView: UIView? {
         get {
@@ -592,10 +622,20 @@ public extension UIView {
             toast.center = point
         }
         
-        UIView.animate(withDuration: FunBox.Toast.manager.fadeDuration, delay: 0.0, options: .curveEaseOut, animations: {
+        if toast.isHaptic {
+            FunHaptic.impact(.medium).generate()
+        }
+        
+        UIView.animate(withDuration: FunBox.Toast.manager.fadeDuration, delay: 0, options: .curveEaseOut) {
             toast.alpha = 1.0
             toast.center = point
-        })
+            toast.transform = CGAffineTransform.identity.scaledBy(x: 1.115, y: 1.115)
+        } completion: { (finished) in
+            UIView.animate(withDuration: 0.175, animations: {
+                toast.transform = .identity
+            })
+        }
+
     }
     
     // MARK: - Private Show/Hide Methods
@@ -604,7 +644,7 @@ public extension UIView {
         
         toast.alpha = 0.0
         
-        if FunBox.Toast.Manager.shared.isTapToDismissEnabled {
+        if toast.isTapDismiss {
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(UIView.handleToastTapped(_:)))
             toast.addGestureRecognizer(recognizer)
             toast.isUserInteractionEnabled = true
@@ -622,14 +662,23 @@ public extension UIView {
         } else {
             toast.center = point
         }
-//
+        if toast.isHaptic {
+            FunHaptic.impact(.medium).generate()
+        }
         UIView.animate(withDuration: FunBox.Toast.manager.fadeDuration, delay: 0.0, options: [.curveEaseOut, .allowUserInteraction], animations: {
             toast.alpha = 1.0
             toast.center = point
+            toast.transform = CGAffineTransform.identity.scaledBy(x: 1.115, y: 1.115)
         }) { _ in
+            UIView.animate(withDuration: 0.175, animations: {
+                toast.transform = .identity
+            })
             let timer = Timer(timeInterval: duration, target: self, selector: #selector(UIView.toastTimerDidFinish(_:)), userInfo: toast, repeats: false)
             RunLoop.main.add(timer, forMode: .common)
             objc_setAssociatedObject(toast, &Keys.timer, timer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+
+            
         }
     }
     
@@ -742,7 +791,8 @@ public extension FunBox.Toast {
         var point: CGPoint?
         var position: Position = .bottom
         var image: UIImage?
-        
+        var isTapToDismissEnabled: Bool = Manager.shared.isTapToDismiss
+        var isHaptic: Bool = Manager.shared.isHaptic
         var style: Style = Style.default
         // dismiss后的回调
         var completion: ((Bool) -> Void)?
@@ -967,7 +1017,9 @@ public extension FunBox.Toast {
         /**
          是否点击屏幕关闭toast
          */
-        public var isTapToDismissEnabled = true
+        public var isTapToDismiss = true
+        
+        public var isHaptic = false
         
         /**
          默认开启显示队列

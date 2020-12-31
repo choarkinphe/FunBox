@@ -833,7 +833,7 @@ extension PopMenu.PMViewController {
                 guard !action.highlighted else { return }
                 
                 if haptics {
-                    FunBox.Haptic.selection.generate()
+                    FunHaptic.selection.generate()
                 }
                 
                 // Highlight current action view.
@@ -891,7 +891,7 @@ extension PopMenu.PMViewController {
         if haptics {
             // Generate haptics
             if #available(iOS 10.0, *) {
-                FunBox.Haptic.impact(.medium).generate()
+                FunHaptic.impact(.medium).generate()
             }
         }
         

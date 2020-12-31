@@ -897,7 +897,7 @@
 		38BF86A70E167F3250C0740139EE9347 /* RxPickerViewDataSourceType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RxPickerViewDataSourceType.swift; path = RxCocoa/iOS/Protocols/RxPickerViewDataSourceType.swift; sourceTree = "<group>"; };
 		39E802012A6450123B14C990545F81A5 /* Sample.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sample.swift; path = RxSwift/Observables/Sample.swift; sourceTree = "<group>"; };
 		39F8727F3575BE80188581C01EAA757C /* RxSwift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "RxSwift-Info.plist"; sourceTree = "<group>"; };
-		3A2A7D8561761D98631B486E31D5B163 /* FunHaptic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FunHaptic.swift; path = Sources/FunBox/Code/Utils/FunHaptic.swift; sourceTree = "<group>"; };
+		3A2A7D8561761D98631B486E31D5B163 /* FunHaptic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunHaptic.swift; sourceTree = "<group>"; };
 		3A7558990804C12CD2526BCF039604DE /* EventMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EventMonitor.swift; path = Source/EventMonitor.swift; sourceTree = "<group>"; };
 		3AC82BAE0DC37E07D53FF0C79373E151 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACAD5E8F6979206EE1360728184FD3B /* FunAlert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FunAlert.swift; sourceTree = "<group>"; };
@@ -1569,7 +1569,6 @@
 				B44F94E4A41D2B630EF7F9FD0E65982E /* FunCall.swift */,
 				74F1CC481EA37FC04347A07EA8BEA8D5 /* FunDatePicker.swift */,
 				E5BEC7A0E12DFDDB08A4BEB468D52C61 /* FunDebug.swift */,
-				3A2A7D8561761D98631B486E31D5B163 /* FunHaptic.swift */,
 				18D075286ACBC35E69AC5428A45DD505 /* FunLocation.swift */,
 				281624CD2FC925CF048F559A8392BD30 /* FunObserver.swift */,
 				93977371F35DBAE12BC98CE9E6BE310B /* FunPopMenu.swift */,
@@ -1915,6 +1914,7 @@
 		65C71312608FF25C6B4C5187E0B2E1AE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3A2A7D8561761D98631B486E31D5B163 /* FunHaptic.swift */,
 				6B91D71C88C4D76B9849B93179D8584E /* Foundation+Fun.swift */,
 				3ACAD5E8F6979206EE1360728184FD3B /* FunAlert.swift */,
 				84DDE1292DD32D35A9B351A5AECB9149 /* FunCache.swift */,

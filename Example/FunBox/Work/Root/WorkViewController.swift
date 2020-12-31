@@ -48,7 +48,7 @@ import UIKit
             manager.appearance.cornerRadius = 12
             manager.appearance.colorStyle = .configure(background: .solid(fill: .darkGray), action: .tint(.white))
             manager.appearance.showCutLine = true
-            manager.dismissOnSelection = true
+            manager.dismissOnSelection = false
             manager.addActions([
                                 FunPopMenu(title: "Click me to"),
                                 FunPopMenu(title: "Pop another menu"),

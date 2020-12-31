@@ -84,16 +84,16 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 
                 switch element.name {
                     case "Toast":
-                        FunBox.toast.template(.info).title("提示").message("静音模式开启").show()
-//                        FunBox.toast.title("提示").show()
-//                        FunBox.toast.title("提示").show()
-//                        FunBox.toast.title("提示").show()
-//                        FunBox.toast.title("提示").message("哈哈").show()
-//                        FunBox.toast.title("提示").message("哈哈").show()
-//                        FunBox.toast.title("提示").message("呵呵").show()
-//                        FunBox.toast.title("提示").show()
-//                        FunBox.toast.title("提示").message("嘻嘻").show()
-//                        FunBox.toast.title("提示").show()
+                        FunBox.toast.template(.info).style(.system).title("提示").duration(2.5).tapToDismiss(false).message("静音模式开启").haptic(true).show()
+//                        FunBox.toast.title("提示").haptic(true).show()
+//                        FunBox.toast.title("提示").haptic(true).show()
+//                        FunBox.toast.title("提示").haptic(true).show()
+//                        FunBox.toast.title("提示").haptic(true).message("哈哈").show()
+//                        FunBox.toast.title("提示").haptic(true).message("哈哈").show()
+//                        FunBox.toast.title("提示").haptic(true).message("呵呵").show()
+//                        FunBox.toast.title("提示").haptic(true).show()
+//                        FunBox.toast.title("提示").haptic(true).message("嘻嘻").show()
+//                        FunBox.toast.title("提示").haptic(true).show()
                     case "扫码":
                         var style = FunScan.Style()
                         style.boardColor = .blue
