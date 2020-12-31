@@ -103,7 +103,7 @@ extension FunScan {
             navigationBar.backgroundColor = .clear
             navigationBar.backItemImage = UIImage(named: "ic_scan_back", in: FunScan.bundle, compatibleWith: nil)
             navigationBar.backAction { (sender) in
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss()
             }
         }
         
