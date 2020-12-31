@@ -47,7 +47,7 @@
       "name": "Main",
       "source_files": [
         "Sources/FunBox/Code/*",
-        "Sources/FunBox/Code/Other/**/*"
+        "Sources/FunBox/Code/Core/**/*"
       ],
       "resource_bundles": {
         "FunBox": [

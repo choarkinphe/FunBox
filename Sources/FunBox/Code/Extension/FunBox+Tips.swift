@@ -21,7 +21,7 @@ extension FunBox {
         public static let loading = FunTips("Loading").localized
         public static let noData = FunTips("NoData").localized
         public static let repairing = FunTips("Repairing").localized
-        public static let loadingException = FunTips("LoadingException").localized
+        public static let notFound = FunTips("NotFound").localized
         public static let processing = FunTips("Processing").localized
         public static let saving = FunTips("Saving").localized
         public static let saveSuccess = FunTips("SaveSuccess").localized

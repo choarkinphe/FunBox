@@ -44,7 +44,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'Main' do |ss|
         # 核心库路径
-        ss.source_files = 'Sources/FunBox/Code/*','Sources/FunBox/Code/Other/**/*'
+        ss.source_files = 'Sources/FunBox/Code/*','Sources/FunBox/Code/Core/**/*'
         # Bundle地址
         ss.resource_bundles = {
             'FunBox' => ['Sources/FunBox/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md,strings}']

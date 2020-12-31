@@ -16,7 +16,7 @@
 "Loading" = "Loading...";
 "NoData" = "No data";
 "Repairing" = "Repairing";
-"LoadingException" = "Loading exception";
+"NotFound" = "Not found";
 "Processing" = "Processing";
 "Saving" = "Saving...";
 "SaveSuccess" = "Save success";

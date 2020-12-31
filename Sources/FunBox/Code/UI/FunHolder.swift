@@ -15,11 +15,11 @@ extension UIView: HolderNamespaceWrappable {
             self.description = description
         }
         
-        public static var faild = Holder(imageName: "fb_holder_image_faild", description: "加载失败")
-        public static var load = Holder(imageName: "fb_holder_image_load", description: "加载中")
-        public static var empty = Holder(imageName: "fb_holder_image_empty", description: "暂无数据")
-        public static var fix = Holder(imageName: "fb_holder_image_fix", description: "修复中")
-        public static var notFound = Holder(imageName: "fb_holder_image_notFound", description: "加载异常")
+        public static var faild = Holder(imageName: "fb_holder_image_faild", description: FunTips.loadFailed)
+        public static var load = Holder(imageName: "fb_holder_image_load", description: FunTips.loading)
+        public static var empty = Holder(imageName: "fb_holder_image_empty", description: FunTips.noData)
+        public static var fix = Holder(imageName: "fb_holder_image_fix", description: FunTips.repairing)
+        public static var notFound = Holder(imageName: "fb_holder_image_notFound", description: FunTips.notFound)
     }
     
     fileprivate struct Key {

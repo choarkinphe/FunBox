@@ -9,25 +9,25 @@ import UIKit
 
 
 
-typealias FunHUD = FunBox.Toast
+public typealias FunHUD = FunBox.Toast
 extension FunHUD {
     //    class HUD {
-    enum `Type` {
+    public enum `Type` {
         case info
         case error
         case success
         case loading
     }
     private static var window = UIApplication.shared.fb.currentWindow!
-    static func dismiss(inView: UIView?=nil) {
+    public static func dismiss(inView: UIView?=nil) {
         FunBox.toast.dismiss(inView: inView)
     }
     
-    static func dismissActivity(inView: UIView?=nil) {
+    public static func dismissActivity(inView: UIView?=nil) {
         FunBox.toast.dismissActivity(inView: inView ?? window)
     }
     
-    static func toast(_ type: Type, message: String?, inView: UIView?=nil) {
+    public static func toast(_ type: Type, message: String?, inView: UIView?=nil) {
         dismiss(inView: inView)
         
         switch type {
