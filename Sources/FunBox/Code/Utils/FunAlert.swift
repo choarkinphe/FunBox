@@ -180,7 +180,7 @@ public extension FunBox {
             
             let alertController = UIAlertController(title: config.title, message: config.message, preferredStyle: self.style)
             
-            alertController.view.backgroundColor = .white
+            alertController.view.backgroundColor = .clear
             
             if var title = config.title {
                 if style == .actionSheet {
