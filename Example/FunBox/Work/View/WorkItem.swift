@@ -97,7 +97,7 @@ extension Work {
 //                    make.centerX.equalTo(self.contentView)
 //                    make.width.height.equalTo(49)
 //                }
-                
+                titleLabel.textColor = .darkText
                 titleLabel.textAlignment = .center
                 contentView.addSubview(titleLabel)
 //                titleLabel.snp.makeConstraints { (make) in

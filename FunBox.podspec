@@ -47,7 +47,7 @@ Pod::Spec.new do |s|
         ss.source_files = 'Sources/FunBox/Code/*','Sources/FunBox/Code/Other/**/*'
         # Bundle地址
         ss.resource_bundles = {
-            'FunBox' => ['Sources/FunBox/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}']
+            'FunBox' => ['Sources/FunBox/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md,strings}']
         }
     end
     
@@ -127,7 +127,7 @@ Pod::Spec.new do |s|
             # FunScan依赖
 #            item.dependency 'FunBox/Core'
             item.resource_bundles = {
-                'FunScan' => ['Sources/FunScan/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,js,gif,md}']
+                'FunScan' => ['Sources/FunScan/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,js,gif,md,strings}']
             }
             item.dependency 'FunBox/Modules/FunUI'
 #            s.dependency 'Kingfisher', '~> 5.15.0'
@@ -140,7 +140,7 @@ Pod::Spec.new do |s|
             item.source_files = 'Sources/FunMediaHelper/Code/**/*'
             # MediaHelper的Bundle地址
             item.resource_bundles = {
-                'MediaHelper' => ['Sources/FunMediaHelper/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,md}']
+                'MediaHelper' => ['Sources/FunMediaHelper/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,md,strings}']
             }
             # MediaHelper依赖
 #            item.dependency 'FunBox/Core'

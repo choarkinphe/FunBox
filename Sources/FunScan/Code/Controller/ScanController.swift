@@ -54,6 +54,8 @@ extension FunScan {
         // 覆层（动画层）
         private let maskView = MaskView()
         
+        public var metadataObjectTypes: [AVMetadataObject.ObjectType] = [.ean13, .ean8, .upce, .code39, .code93, .code128, .code39Mod43, .qr]
+        
         // 初始化
         public override func viewDidLoad() {
             super.viewDidLoad()
@@ -187,7 +189,7 @@ extension FunScanController {
         }
         
         // 设置元数据处理类型(注意, 一定要将设置元数据处理类型的代码添加到  会话添加输出之后)
-        outPut.metadataObjectTypes = [.ean13, .ean8, .upce, .code39, .code93, .code128, .code39Mod43, .qr]
+        outPut.metadataObjectTypes = metadataObjectTypes
         
         // 添加预览图层
         if view.layer.sublayers?.contains(previewLayer) != true {

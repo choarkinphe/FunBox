@@ -39,12 +39,17 @@ extension FunBox {
             return self
         }
         
+        public func metadataObjectTypes(_ metadataObjectTypes: [AVMetadataObject.ObjectType]) -> Self {
+            scaner?.metadataObjectTypes = metadataObjectTypes
+            return self
+        }
+        
         public func response(navigation: @escaping Handle<String>) {
             // 首先检测权限
             let status = AVCaptureDevice.authorizationStatus(for: .video)
             // 未授权的先跳转去设置再说
             if status == .restricted || status == .denied {
-                FunBox.alert.title("提示\n").message("请去-> [设置 - 隐私 - 相机 - 打开访问开关").addAction(title: "拒绝", style: .cancel).addAction(title: "设置", style: .default) { (action) in
+                FunBox.alert.title("\(FunTips.tips)\n").message(FunTips.cameraAuthorize).addAction(title: FunTips.cancel, style: .cancel).addAction(title: FunTips.setting, style: .default) { (action) in
                     if let URL = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(URL, options: [:], completionHandler: nil)
                     }

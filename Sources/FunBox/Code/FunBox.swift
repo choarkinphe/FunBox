@@ -128,3 +128,4 @@ public protocol FunModuleProtocol: class {
     static var bundle: Bundle? { get }
     
 }
+

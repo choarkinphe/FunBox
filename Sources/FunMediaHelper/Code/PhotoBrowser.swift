@@ -102,7 +102,7 @@ extension FunMediaHelper {
                     if let image = browserCell?.imageView.image {
                         PHPhotoLibrary.fb.save(resource: image) { (asset) in
                             
-                            HUD.toast(.success, message: "保存成功")
+                            FunHUD.toast(.success, message: FunTips.saveSuccess)
                             
                         }
                     }

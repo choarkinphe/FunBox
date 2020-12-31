@@ -14,11 +14,11 @@ import FunBox
 
 extension FunScan {
     
-    struct Tips {
-        static let title = "扫码"
-        static let empty_code = "无法识别二维码"
-        static let handleing = "处理中"
-    }
+//    struct Tips {
+//        static let title = "扫码"
+//        static let empty_code = "无法识别二维码"
+//        static let handleing = "处理中"
+//    }
     
     public struct Style {
         public  var boardColor: UIColor = .red
@@ -29,7 +29,7 @@ extension FunScan {
         
         public var scanInsets: UIEdgeInsets = UIEdgeInsets(top: 120, left: 0, bottom: 80, right: 0)
         
-        public var title: String? = "扫一扫"
+        public var title: String? = "ScanTitle".fb.localized(in: FunScan.bundle)
         
         static let `default` = Style()
         
@@ -41,4 +41,10 @@ extension FunScan {
         
         var stringValue: String?
     }
+}
+
+extension FunTips {
+    static let title = FunTips("Scan", bundle: FunScan.bundle).localized
+    static let empty_code = FunTips("ScanError", bundle: FunScan.bundle).localized
+//    static let handleing = FunTips("处理中", bundle: FunScan.bundle).localized
 }

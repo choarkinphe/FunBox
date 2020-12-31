@@ -1,0 +1,23 @@
+/* 
+  Localization.strings
+  Pods
+
+  Created by choarkinphe on 2020/12/31.
+  
+*/
+"NoContactInformation" = "没有联系方式";
+"CameraAuthorize" = "APP需要您的同意才能访问相机以获取产品信息。如果被禁止，它将不能拍照和更新信息";
+"AlbumSaveAuthorize" = "需要您的许可才能将图片保存到相册中";
+"AlbumAuthorize" = "APP需要您的许可才能访问相册，上传/发布照片信息。如果被禁止，则不能上传/发布照片信息";
+"Setting" = "设置";
+"Cancel" = "取消";
+"Sure" = "好的";
+"LoadFailed" = "加载失败";
+"Loading" = "加载中...";
+"NoData" = "暂无数据";
+"Repairing" = "修复中";
+"LoadingException" = "加载异常";
+"Processing" = "处理中";
+"Saving" = "正在保存...";
+"SaveSuccess" = "保存成功";
+"Unknow" = "未知";

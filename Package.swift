@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "FunBox",
+    defaultLocalization: "en",
     platforms: [
 //        .macOS(.v10_15),
         .iOS(.v10)
@@ -52,7 +53,8 @@ let package = Package(
             name: "FunBox",
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
-                .process("FunBox.xcassets")
+                .process("FunBox.xcassets"),
+                .process("Localization.strings")
             ]
         ),
         .target(
@@ -127,7 +129,8 @@ let package = Package(
 //                                              .when(platforms: [.iOS]))])
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
-                .process("FunMediaHelper.xcassets")
+                .process("FunMediaHelper.xcassets"),
+                .process("Localization.strings")
             ]
         ),
         .target(
@@ -140,7 +143,8 @@ let package = Package(
 //                                              .when(platforms: [.iOS]))])
             exclude: ["Example","README.MD","LICENSE"],
             resources: [
-                .process("FunScan.xcassets")
+                .process("FunScan.xcassets"),
+                .process("Localization.strings")
             ]
         ),
         .testTarget(

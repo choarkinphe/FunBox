@@ -8,7 +8,7 @@
 import MessageUI
 import UIKit
 
-typealias FunCall = FunBox.Call
+public typealias FunCall = FunBox.Call
 public protocol FunPhoneNumber {
     func asPhoneNumbers() -> [String]?
 }
@@ -29,7 +29,8 @@ extension FunBox {
         
         public static func call(_ phone: String?, complete: ((Bool)->Void)?=nil) {
             guard let phone = phone, let url = "telprompt://\(phone)".realURL else {
-                FunBox.toast.template(.info).message("没有联系方式").position(.center).show()
+//                FunBox.toast.template(.info).message(FunTips.noContactInformation).position(.center).show()
+                FunHUD.toast(.info, message: FunTips.noContactInformation)
                 return
             }
             UIApplication.shared.open(url, options: [:], completionHandler: complete)
@@ -37,7 +38,8 @@ extension FunBox {
         
         public static func sms(_ phone: FunPhoneNumber?, complete: ((Bool)->Void)?=nil) {
             guard let phone = phone else {
-                FunBox.toast.template(.info).message("没有联系方式").position(.center).show()
+//                FunBox.toast.template(.info).message(FunTips.noContactInformation.fb.localized(in: FunBox.bundle)).position(.center).show()
+                FunHUD.toast(.info, message: FunTips.noContactInformation)
                 return
             }
             

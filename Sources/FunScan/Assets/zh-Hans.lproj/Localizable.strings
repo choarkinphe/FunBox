@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  Pods
+
+  Created by choarkinphe on 2020/12/31.
+  
+*/
+"ScanTitle"="扫一扫";
+"Scan"="扫码";
+"ScanError"="无法识别二维码";

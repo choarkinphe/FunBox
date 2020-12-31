@@ -23,6 +23,11 @@
                     "icon": "bug",
                     "linkUrl": "funbox://dev/testOC",
                     "name": "OC页面测试"
+                },
+                {
+                    "icon": "bug",
+                    "linkUrl": null,
+                    "name": "Call"
                 }]
 },
 {

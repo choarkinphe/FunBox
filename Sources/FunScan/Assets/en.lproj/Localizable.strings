@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  Pods
+
+  Created by choarkinphe on 2020/12/31.
+  
+*/
+"ScanTitle"="Scan";
+"Scan"="Scan";
+"ScanError"="Unable to recognize QR code";

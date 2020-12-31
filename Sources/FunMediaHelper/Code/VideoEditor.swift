@@ -56,10 +56,10 @@ extension FunMediaHelper {
         
         public var source: PHAsset? {
             didSet {
-                HUD.toast(.loading, message: "加载中...")
+                FunHUD.toast(.loading, message: FunTips.loading)
                 source?.fb.requestAVAsset({ [weak self] (source_asset) in
                     self?.asset = source_asset
-                    HUD.dismissActivity()
+                    FunHUD.dismissActivity()
                 })
             }
         }
@@ -114,22 +114,22 @@ extension FunMediaHelper {
                 }
                 
             } else {
-                debugPrint("视频分辨率:  ",source.pixelWidth,"X",source.pixelHeight)
+                debugPrint("Pixel:  ",source.pixelWidth,"X",source.pixelHeight)
                 
                 // 新增模式下，直接转码操作
-                HUD.toast(.loading, message: "转码中，请稍候...")
+                FunHUD.toast(.loading, message: FunTips.transcoding)
                 
                 helper?.progress({ (progress) in
                     // 转码进度
-                }).export(name: asset.asURLAsset()?.url.pathExtension ?? "未知视频", start: slider.timeRange.start, end: slider.timeRange.end) { [weak self] (fileUrl) in
-                    HUD.dismissActivity()
+                }).export(name: asset.asURLAsset()?.url.pathExtension ?? FunTips.unknow, start: slider.timeRange.start, end: slider.timeRange.end) { [weak self] (fileUrl) in
+                    FunHUD.dismissActivity()
                     // 保存到相册
-                    HUD.toast(.loading, message: "正在保存...")
+                    FunHUD.toast(.loading, message: FunTips.saving)
                     PHPhotoLibrary.fb.save(resource: fileUrl) { (result) in
                         DispatchQueue.main.async {
                             
                             self?.completion?((self?.imageView.image,result.asset))
-                            HUD.dismissActivity()
+                            FunHUD.dismissActivity()
                         }
                     }
                     
@@ -146,7 +146,7 @@ extension FunMediaHelper {
             let slider = VideoHelper.Slider()
             
             slider.currentFrame(thumbnailSize: imageView.bounds.size) { [weak self] (result) in
-                HUD.dismissActivity()
+                FunHUD.dismissActivity()
                 // 拖动选择封面图
                 self?.imageView.image = result.image
                 

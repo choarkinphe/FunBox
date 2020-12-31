@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.5.13",
+  "version": "0.5.35",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.5.13"
+    "tag": "0.5.35"
   },
   "platforms": {
     "ios": "10.0"
@@ -51,7 +51,7 @@
       ],
       "resource_bundles": {
         "FunBox": [
-          "Sources/FunBox/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md}"
+          "Sources/FunBox/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,md,strings}"
         ]
       }
     },
@@ -138,7 +138,12 @@
           "source_files": "Sources/FunScan/Code/**/*",
           "resource_bundles": {
             "FunScan": [
-              "Sources/FunScan/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,js,gif,md}"
+              "Sources/FunScan/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,js,gif,md,strings}"
+            ]
+          },
+          "dependencies": {
+            "FunBox/Modules/FunUI": [
+
             ]
           }
         },
@@ -147,7 +152,7 @@
           "source_files": "Sources/FunMediaHelper/Code/**/*",
           "resource_bundles": {
             "MediaHelper": [
-              "Sources/FunMediaHelper/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,md}"
+              "Sources/FunMediaHelper/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,md,strings}"
             ]
           },
           "dependencies": {

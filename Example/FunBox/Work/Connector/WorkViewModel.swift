@@ -105,6 +105,8 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
                                 navigation.dismiss(false)
                             }
                         }
+                    case "Call":
+                        FunCall.call(nil)
                 default:
                     Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
                         print(action.identifier)

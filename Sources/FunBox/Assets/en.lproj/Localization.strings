@@ -1,0 +1,23 @@
+/* 
+  Localization.strings
+  Pods
+
+  Created by choarkinphe on 2020/12/31.
+  
+*/
+"NoContactInformation" = "No contact information";
+"CameraAuthorize" = "The APP needs your consent to access the camera to take product information. If prohibited, it will not be able to take pictures and update information";
+"AlbumSaveAuthorize" = "Your permission is required to save the picture to the album";
+"AlbumAuthorize" = "The APP needs your permission to access the album to upload/publish information of photos. If it is banned, it cannot upload/publish information of photos";
+"Setting" = "Setting";
+"Cancel" = "Cancel";
+"Sure" = "Sure";
+"LoadFailed" = "Load failed";
+"Loading" = "Loading...";
+"NoData" = "No data";
+"Repairing" = "Repairing";
+"LoadingException" = "Loading exception";
+"Processing" = "Processing";
+"Saving" = "Saving...";
+"SaveSuccess" = "Save success";
+"Unknow" = "Unknow";

@@ -49,12 +49,12 @@ extension VideoHelper {
             helper.thumbnailSize(UIScreen.main.bounds.size).percent(0).image { [weak self] (image) in
                 //                guard let this = self else { return }
                 DispatchQueue.main.async {
-                    HUD.dismissActivity()
+                    FunHUD.dismissActivity()
                     if let image = image {
                         self?.timeLabel.text = String(format: "%.1fs", 0)
                         self?.image_completion?((0.0,image))
                     } else {
-                        HUD.toast(.error, message: "加载失败")
+                        FunHUD.toast(.error, message: FunTips.loadFailed)
                     }
                 }
             }
@@ -251,12 +251,12 @@ extension VideoHelper {
             // 获取触摸的点在selector上的坐标
             if position.x <= Slider.tag_width {
                 // 触摸点在开始滑块上
-                print("触摸点在开始滑块上")
+//                print("触摸点在开始滑块上")
                 change = .start
             }
             if position.x >= self.selector.bounds.width - Slider.tag_width {
                 // 触摸点在结束滑块上
-                print("触摸点在结束滑块上")
+//                print("触摸点在结束滑块上")
                 change = .end
             }
             

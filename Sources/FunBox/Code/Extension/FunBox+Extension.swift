@@ -271,8 +271,11 @@ public extension FunNamespaceWrapper where T == String {
         return wrappedValue.boundingRect(with: CGSize(width: maxWidth, height: CGFloat(MAXFLOAT)), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).size
     }
     
-    var localized: String {
-        return NSLocalizedString(wrappedValue, tableName: nil, bundle: .main, value: "", comment: "")
+//    var localized: String {
+//        return NSLocalizedString(wrappedValue, tableName: nil, bundle: .main, value: "", comment: "")
+//    }
+    func localized(in bundle: Bundle? = nil, table: String? = nil) -> String {
+        return NSLocalizedString(wrappedValue, tableName: table ?? "Localization", bundle: bundle ?? .main, value: "", comment: "")
     }
     
     func underline(text: String?=nil, color: UIColor) -> NSAttributedString {
