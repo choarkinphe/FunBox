@@ -29,22 +29,19 @@
     {
       "name": "Core",
       "dependencies": {
-        "FunBox/Box/Extension": [
-
-        ],
         "FunBox/Box/Utils": [
 
         ],
         "FunBox/Box/UI": [
 
         ],
-        "FunBox/Main": [
+        "FunBox/Fun": [
 
         ]
       }
     },
     {
-      "name": "Main",
+      "name": "Fun",
       "source_files": [
         "Sources/FunBox/Code/*",
         "Sources/FunBox/Code/Core/**/*"
@@ -59,22 +56,10 @@
       "name": "Box",
       "subspecs": [
         {
-          "name": "Extension",
-          "source_files": "Sources/FunBox/Code/Extension/**/*",
-          "dependencies": {
-            "FunBox/Main": [
-
-            ]
-          }
-        },
-        {
           "name": "Utils",
           "source_files": "Sources/FunBox/Code/Utils/**/*",
           "dependencies": {
-            "FunBox/Box/Extension": [
-
-            ],
-            "FunBox/Main": [
+            "FunBox/Fun": [
 
             ]
           }
@@ -83,10 +68,7 @@
           "name": "UI",
           "source_files": "Sources/FunBox/Code/UI/**/*",
           "dependencies": {
-            "FunBox/Box/Extension": [
-
-            ],
-            "FunBox/Main": [
+            "FunBox/Fun": [
 
             ]
           }

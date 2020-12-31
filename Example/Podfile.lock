@@ -4,32 +4,25 @@ PODS:
   - FunBox (0.5.35):
     - FunBox/Box (= 0.5.35)
     - FunBox/Core (= 0.5.35)
-    - FunBox/Main (= 0.5.35)
+    - FunBox/Fun (= 0.5.35)
     - FunBox/Modules (= 0.5.35)
     - Kingfisher (~> 5.15.0)
   - FunBox/Box (0.5.35):
-    - FunBox/Box/Extension (= 0.5.35)
     - FunBox/Box/UI (= 0.5.35)
     - FunBox/Box/Utils (= 0.5.35)
     - Kingfisher (~> 5.15.0)
-  - FunBox/Box/Extension (0.5.35):
-    - FunBox/Main
-    - Kingfisher (~> 5.15.0)
   - FunBox/Box/UI (0.5.35):
-    - FunBox/Box/Extension
-    - FunBox/Main
+    - FunBox/Fun
     - Kingfisher (~> 5.15.0)
   - FunBox/Box/Utils (0.5.35):
-    - FunBox/Box/Extension
-    - FunBox/Main
+    - FunBox/Fun
     - Kingfisher (~> 5.15.0)
   - FunBox/Core (0.5.35):
-    - FunBox/Box/Extension
     - FunBox/Box/UI
     - FunBox/Box/Utils
-    - FunBox/Main
+    - FunBox/Fun
     - Kingfisher (~> 5.15.0)
-  - FunBox/Main (0.5.35):
+  - FunBox/Fun (0.5.35):
     - Kingfisher (~> 5.15.0)
   - FunBox/Modules (0.5.35):
     - FunBox/Core
@@ -105,7 +98,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  FunBox: 2a4a64fd5896299ca409e35c598cdf6103795089
+  FunBox: f1f6e208d0e0011f9a7e38c4c4ea901622e68a0a
   JXPhotoBrowser: 7f0bc11f02fbc84ae06829f922f32ce822aa9661
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601

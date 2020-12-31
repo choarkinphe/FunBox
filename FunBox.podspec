@@ -36,13 +36,13 @@ Pod::Spec.new do |s|
 
     s.subspec 'Core' do |ss|
         # 核心库依赖
-        ss.dependency 'FunBox/Box/Extension'
+#        ss.dependency 'FunBox/Box/Extension'
         ss.dependency 'FunBox/Box/Utils'
         ss.dependency 'FunBox/Box/UI'
-        ss.dependency 'FunBox/Main'
+        ss.dependency 'FunBox/Fun'
     end
     
-    s.subspec 'Main' do |ss|
+    s.subspec 'Fun' do |ss|
         # 核心库路径
         ss.source_files = 'Sources/FunBox/Code/*','Sources/FunBox/Code/Core/**/*'
         # Bundle地址
@@ -52,26 +52,26 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'Box' do |ss|
-        ss.subspec 'Extension' do |sss|
-            # 路径
-            sss.source_files = 'Sources/FunBox/Code/Extension/**/*'
-            # 依赖
-            sss.dependency 'FunBox/Main'
-            
-        end
+#        ss.subspec 'Extension' do |sss|
+#            # 路径
+#            sss.source_files = 'Sources/FunBox/Code/Extension/**/*'
+#            # 依赖
+#            sss.dependency 'FunBox/Main'
+#
+#        end
         ss.subspec 'Utils' do |sss|
             # 路径
             sss.source_files = 'Sources/FunBox/Code/Utils/**/*'
             # 依赖
-            sss.dependency 'FunBox/Box/Extension'
-            sss.dependency 'FunBox/Main'
+#            sss.dependency 'FunBox/Box/Extension'
+            sss.dependency 'FunBox/Fun'
         end
         ss.subspec 'UI' do |sss|
             # 路径
             sss.source_files = 'Sources/FunBox/Code/UI/**/*'
             # 依赖
-            sss.dependency 'FunBox/Box/Extension'
-            sss.dependency 'FunBox/Main'
+#            sss.dependency 'FunBox/Box/Extension'
+            sss.dependency 'FunBox/Fun'
         end
     end
 
