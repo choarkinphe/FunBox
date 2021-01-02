@@ -12,12 +12,12 @@ import UIKit
 public typealias FunHUD = FunBox.Toast
 extension FunHUD {
     //    class HUD {
-    public enum `Type` {
-        case info
-        case error
-        case success
-        case loading
-    }
+//    public enum `Type` {
+//        case info
+//        case error
+//        case success
+//        case loading
+//    }
     private static var window = UIApplication.shared.fb.currentWindow!
     public static func dismiss(inView: UIView?=nil) {
         FunBox.toast.dismiss(inView: inView)
@@ -27,21 +27,25 @@ extension FunHUD {
         FunBox.toast.dismissActivity(inView: inView ?? window)
     }
     
-    public static func toast(_ type: Type, message: String?, inView: UIView?=nil) {
+    public static func toast(_ template: Template, message: String?, inView: UIView?=nil) {
         dismiss(inView: inView)
-        
-        switch type {
-            case .info:
-                FunBox.toast.template(.info).message(message).inView(inView ?? window).position(.center).show()
-            case .success:
-                FunBox.toast.template(.done).message(message).inView(inView ?? window).position(.center).show()
-            case .error:
-                FunBox.toast.template(.error).message(message).inView(inView ?? window).position(.center).show()
-            case .loading:
-                FunBox.toast.message(message).inView(inView ?? window).position(.center).mode(.activity).show()
-        }
+        FunToast(template).message(message).inView(inView ?? window).position(.center).show()
+//        FunBox.toast.template(template).message(message).inView(inView ?? window).position(.center).show()
+//        switch type {
+//            case .info:
+//            case .success:
+//                FunBox.toast.template(.done).message(message).inView(inView ?? window).position(.center).show()
+//            case .error:
+//                FunBox.toast.template(.error).message(message).inView(inView ?? window).position(.center).show()
+//            case .loading:
+//                FunBox.toast.message(message).inView(inView ?? window).position(.center).mode(.activity).show()
+//        }
     }
     //    }
+}
+
+extension FunHUD.Template {
+    public static let success = FunHUD.Template.done
 }
 
 //fileprivate extension String {

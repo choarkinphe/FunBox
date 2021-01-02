@@ -16,15 +16,17 @@ public extension FunBox {
     }
     class Toast {
         
-        fileprivate var config = Config()
+        fileprivate var config: Config
         
         public static var `default`: Toast {
             let toast = Toast()
-//            Manager.shared.isTapToDismissEnabled = true
+            //            Manager.shared.isTapToDismissEnabled = true
             return toast
         }
         
-        public init() {}
+        public init(_ template: Template = .none) {
+            self.config = template.config
+        }
         
         public func title(_ title: String?) -> Self {
             config.title = title
@@ -43,10 +45,10 @@ public extension FunBox {
             
             return self
         }
-        public func progress(_ progress: CGFloat) -> Self {
-            config.progress = progress
-            return self
-        }
+        //        public func progress(_ progress: CGFloat) -> Self {
+        //            config.progress = progress
+        //            return self
+        //        }
         
         public func inView(_ inView: UIView?) -> Self {
             config.inView = inView
@@ -86,11 +88,11 @@ public extension FunBox {
             return self
         }
         
-        public func template(_ template: Template) -> Self {
-            config = template.config
-            
-            return self
-        }
+//        public func template(_ template: Template) -> Self {
+//            config.image = template.config.image
+//            config.mode = template.config.mode
+//            return self
+//        }
         
         public func tapToDismiss(_ tapToDismiss: Bool) -> Self {
             config.isTapToDismissEnabled = tapToDismiss
@@ -106,29 +108,30 @@ public extension FunBox {
         
         
         public func show(_ completion: ((Bool)->Void)? = nil) {
-            
-            config.completion = completion
-            
-            let targetView = config.inView ?? UIApplication.shared.fb.frontController?.view ?? UIApplication.shared.fb.currentWindow
-            
-            targetView?.makeToast(config: config)
+            DispatchQueue.main.async {
+                self.config.completion = completion
+                
+                let targetView = self.config.inView ?? UIApplication.shared.fb.currentWindow
+                
+                targetView?.makeToast(config: self.config)
+            }
             
         }
         
         public func dismiss(inView: UIView? = nil) {
-            let targetView = inView ?? UIApplication.shared.fb.frontController?.view ?? UIApplication.shared.fb.currentWindow
+            let targetView = inView ?? UIApplication.shared.fb.currentWindow
             
             targetView?.hideToast()
         }
         
         public func dismissAll(includeActivity: Bool = false, inView: UIView? = nil) {
-            let targetView = inView ?? UIApplication.shared.fb.frontController?.view ?? UIApplication.shared.fb.currentWindow
+            let targetView = inView ?? UIApplication.shared.fb.currentWindow
             
             targetView?.hideAllToasts(includeActivity: includeActivity, clearQueue: true)
         }
         
         public func dismissActivity(inView: UIView? = nil) {
-            let targetView = inView ?? UIApplication.shared.fb.frontController?.view ?? UIApplication.shared.fb.currentWindow
+            let targetView = inView ?? UIApplication.shared.fb.currentWindow
             targetView?.hideToastActivity()
         }
         
@@ -235,15 +238,14 @@ public extension FunBox.Toast {
 }
 
 extension FunBox.Toast.Config {
-    fileprivate func buildToast() throws -> UIView {
+    fileprivate func buildToast(inView: UIView?) throws -> UIView {
         
         guard let superView = inView else { throw FunBox.Toast.ToastError.missingSuperView }
         // sanity
         guard message != nil || title != nil || image != nil else {
             throw FunBox.Toast.ToastError.missingParameters
         }
-        
-//        var style = self.style
+        //        var style = self.style
         var verticalPadding = style.verticalPadding
         var imageView: UIImageView?
         var imageRect = CGRect.zero
@@ -252,19 +254,19 @@ extension FunBox.Toast.Config {
         var messageLabel: UILabel?
         var messageRect = CGRect.zero
         
-        if image == nil && (message == nil || title == nil) {
+        if image == nil && mode == .default && (message == nil || title == nil) {
             verticalPadding = 5.0
         }
-
+        
         let contanier = UIView()
         contanier.backgroundColor = style.backgroundColor
         contanier.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
         contanier.layer.cornerRadius = style.cornerRadius
         
         let contentView = UIView()
-//        contentView.backgroundColor = style.backgroundColor
-//        contentView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-//        contentView.layer.cornerRadius = style.cornerRadius
+        //        contentView.backgroundColor = style.backgroundColor
+        //        contentView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        //        contentView.layer.cornerRadius = style.cornerRadius
         
         if style.displayShadow {
             contanier.layer.shadowColor = UIColor.black.cgColor
@@ -275,7 +277,7 @@ extension FunBox.Toast.Config {
         
         // 设置图片
         if let image = image {
-//            style.verticalPadding = max(style.verticalPadding, 20)
+            //            style.verticalPadding = max(style.verticalPadding, 20)
             imageView = UIImageView(image: image.withRenderingMode(style.imageRenderingMode))
             imageView?.tintColor = style.imageColor
             imageView?.contentMode = .scaleAspectFit
@@ -287,12 +289,12 @@ extension FunBox.Toast.Config {
         
         // activity不允许和image共存
         if mode == .activity {
-//            style.verticalPadding = max(style.verticalPadding, 20)
+            //            style.verticalPadding = max(style.verticalPadding, 20)
             imageView = UIImageView(image: UIImage.fb.color(.clear, size: style.activitySize))
             
             imageRect.size.width = style.activitySize.width
             imageRect.size.height = style.activitySize.height
-            let activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
+            let activityIndicatorView = UIActivityIndicatorView(style: style == .default ? .whiteLarge : .white)
             activityIndicatorView.center = CGPoint(x: imageRect.width / 2.0, y: imageRect.height / 2.0)
             
             imageView?.addSubview(activityIndicatorView)
@@ -301,7 +303,7 @@ extension FunBox.Toast.Config {
         }
         
         if mode == .progress {
-//            style.verticalPadding = max(style.verticalPadding, 20)
+            //            style.verticalPadding = max(style.verticalPadding, 20)
             imageView = UIImageView(image: UIImage.fb.color(.clear, size: style.progressSize))
             imageRect.size.width = style.progressSize.width
             imageRect.size.height = style.progressSize.height
@@ -355,16 +357,16 @@ extension FunBox.Toast.Config {
         
         
         var textWidth = max(titleRect.width, messageRect.width)
-//        let longerX = max(titleRect.origin.x, messageRect.origin.x)
+        //        let longerX = max(titleRect.origin.x, messageRect.origin.x)
         var position = CGPoint(x: max(titleRect.origin.x, messageRect.origin.x), y: verticalPadding)
         var contentWidth = max(imageRect.width, (position.x + textWidth + style.horizontalPadding))
         var contentHeight = position.y + verticalPadding
         
         if style == .system {
-//            var vertical_margin = style.margin
+            //            var vertical_margin = style.margin
             var horizontal_margin = style.margin
             if titleLabel == nil || messageLabel == nil {
-//                vertical_margin = 0
+                //                vertical_margin = 0
                 contentHeight = imageRect.height + 2 * style.margin
                 position.y = (contentHeight - titleRect.height - messageRect.height) / 2.0
             } else {
@@ -374,7 +376,7 @@ extension FunBox.Toast.Config {
                 horizontal_margin = 0
             }
             
-//            contentHeight = max(contentHeight, imageRect.height + 2 * style.margin)
+            //            contentHeight = max(contentHeight, imageRect.height + 2 * style.margin)
             contentWidth = min(imageRect.width + horizontal_margin * 2 + textWidth + contentHeight, superView.frame.width - 2 * style.horizontalPadding)
             position.x = contentHeight / 2.0
         }
@@ -401,13 +403,13 @@ extension FunBox.Toast.Config {
         if let titleLabel = titleLabel {
             titleRect.size.width = textWidth
             if style == .system {
-                    titleRect.origin = position
+                titleRect.origin = position
                 
                 
             } else {
-            
+                
                 titleRect.origin.y = position.y
-//                position.y = titleRect.maxY + style.margin
+                //                position.y = titleRect.maxY + style.margin
             }
             if messageLabel != nil {
                 position.y = titleRect.maxY + style.margin
@@ -423,8 +425,8 @@ extension FunBox.Toast.Config {
             if style == .system {
                 messageRect.origin = position
             } else {
-            messageRect.origin.y = position.y
-            position.y = messageRect.maxY
+                messageRect.origin.y = position.y
+                position.y = messageRect.maxY
             }
             messageLabel.frame = messageRect
             contentView.addSubview(messageLabel)
@@ -432,6 +434,7 @@ extension FunBox.Toast.Config {
         
         
         if style == .system {
+//            contentHeight = max(contentHeight, 24)
             contanier.layer.cornerRadius = contentHeight / 2.0
         } else {
             contentHeight = position.y + verticalPadding
@@ -553,27 +556,31 @@ public extension UIView {
         do {
             // 默认样式执行无限创建
             if config.mode == .default {
-                let toast = try config.buildToast()
+                let toast = try config.buildToast(inView: self)
                 let point = config.point ?? config.position.centerPoint(forToast: toast, style: config.style, inSuperview: self)
                 showToast(toast, duration: config.duration, point: point, completion: config.completion)
             } else {
                 // 动态样式，先判断有没有活动中的activity
-                if let toast = activityView, let progressView = toast.viewWithTag(10180) as? FunToast.ProgressView {
-                    // 动态设置进度条
-                    progressView.progress = config.progress
+                
+                if activityView == nil {
                     
-                    if config.progress >= 1.0 {
+                    let toast = try config.buildToast(inView: self)
+                    let point = config.point ?? config.position.centerPoint(forToast: toast, style: config.style, inSuperview: self)
+                    showActivity(toast, point: point)
+                }
+                
+                if let progressView = activityView?.viewWithTag(10180) as? FunToast.ProgressView,
+                   let progress = config.mode.params as? CGFloat {
+                    // 动态设置进度条
+                    progressView.progress = progress
+                    
+                    if progress >= 1.0 {
                         // 回调出去
                         config.completion?(true)
                         // 进度完成时，隐藏进度条
                         
                         hideToastActivity()
                     }
-                } else {
-                    // 创建activity
-                    let toast = try config.buildToast()
-                    let point = config.point ?? config.position.centerPoint(forToast: toast, style: config.style, inSuperview: self)
-                    showActivity(toast, point: point)
                 }
             }
             
@@ -594,6 +601,7 @@ public extension UIView {
             
             queue.append(toast)
         } else {
+            
             showToast(toast, duration: duration, point: point)
         }
     }
@@ -613,7 +621,7 @@ public extension UIView {
         activityView = toast
         
         self.addSubview(toast)
-        
+        self.bringSubviewToFront(toast)
         if point.y - toast.frame.height < csSafeAreaInsets.top {
             toast.center = CGPoint(x: point.x, y: point.y - toast.frame.height)
         } else if point.y + toast.frame.height > self.frame.maxY {
@@ -635,7 +643,7 @@ public extension UIView {
                 toast.transform = .identity
             })
         }
-
+        
     }
     
     // MARK: - Private Show/Hide Methods
@@ -655,6 +663,7 @@ public extension UIView {
         
         //        activeToasts.add(toast)
         self.addSubview(toast)
+        self.bringSubviewToFront(toast)
         if point.y - toast.frame.height < csSafeAreaInsets.top {
             toast.center = CGPoint(x: point.x, y: point.y - toast.frame.height)
         } else if point.y + toast.frame.height > self.frame.maxY {
@@ -676,8 +685,6 @@ public extension UIView {
             let timer = Timer(timeInterval: duration, target: self, selector: #selector(UIView.toastTimerDidFinish(_:)), userInfo: toast, repeats: false)
             RunLoop.main.add(timer, forMode: .common)
             objc_setAssociatedObject(toast, &Keys.timer, timer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
-
             
         }
     }
@@ -716,9 +723,9 @@ public extension UIView {
                 } else if toast.center.y + toast.frame.height > self.frame.maxY {
                     toast.center = CGPoint(x: toast.center.x, y: toast.center.y + toast.frame.height)
                 }
-//                else {
-//                    toast.center = toast.center
-//                }
+                //                else {
+                //                    toast.center = toast.center
+                //                }
                 toast.alpha = 0.0
             }) { _ in
                 toast.removeFromSuperview()
@@ -786,17 +793,28 @@ public extension FunBox.Toast {
     struct Config {
         var title: String?
         var message: String?
-        var inView: UIView? = UIApplication.shared.fb.currentWindow
+        var inView: UIView?// = UIApplication.shared.fb.currentWindow
         var duration: TimeInterval = 2.5
         var point: CGPoint?
         var position: Position = .bottom
         var image: UIImage?
         var isTapToDismissEnabled: Bool = Manager.shared.isTapToDismiss
         var isHaptic: Bool = Manager.shared.isHaptic
-        var style: Style = Style.default
+        var style: Style = Style.default {
+            didSet {
+                if style == .system {
+                    if title == nil {
+                        title = FunBox.Tips.tips
+                    }
+                    if image == nil {
+                        image = UIImage(named: "fb_tips_info", in: FunBox.bundle, compatibleWith: nil)
+                    }
+                }
+            }
+        }
         // dismiss后的回调
         var completion: ((Bool) -> Void)?
-        var progress: CGFloat = 0.0
+        //        var progress: CGFloat = 0.0
         var mode: Mode = .default
         var identifier: String? {
             let text = "\(title ?? "")\(message ?? "")"
@@ -804,10 +822,23 @@ public extension FunBox.Toast {
         }
     }
     
-    enum Mode: Equatable {
-        case `default`
-        case activity
-        case progress
+    struct Mode: Equatable {
+        public static func == (lhs: FunBox.Toast.Mode, rhs: FunBox.Toast.Mode) -> Bool {
+            return lhs.rawValue == rhs.rawValue
+        }
+        public static let `default` = Mode(rawValue: "default")
+        public static let activity = Mode(rawValue: "activity")
+        fileprivate static let progress = Mode(rawValue: "progress")
+        public static func progress(_ value: CGFloat) -> Mode {
+            var progress = Mode(rawValue: "progress")
+            progress.params = value
+            return progress
+        }
+        fileprivate let rawValue: String
+        fileprivate var params: Any?
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
     }
     
     struct Template {
@@ -815,11 +846,16 @@ public extension FunBox.Toast {
         public init(config: Config) {
             self.config = config
         }
+        public static let none = Template(config: Config())
         public static let error = Template(config: Config(image: UIImage(named: "fb_tips_error", in: FunBox.bundle, compatibleWith: nil)))
         public static let done = Template(config: Config(image: UIImage(named: "fb_tips_done", in: FunBox.bundle, compatibleWith: nil)))
         public static let info = Template(config: Config(image: UIImage(named: "fb_tips_info", in: FunBox.bundle, compatibleWith: nil)))
+        public static let loading = Template(config: Config(mode: .activity))
+        public static func progress(_ progress: CGFloat) -> Template {
+            return Template(config: Config(mode: .progress(progress)))
+        }
     }
-
+    
     // MARK: - Toast Style
     
     struct Style: Equatable {
@@ -834,6 +870,7 @@ public extension FunBox.Toast {
             self.identifier = identifier
             if identifier == "system" {
                 backgroundColor = .white
+                activityIndicatorColor = .init(white: 0.1, alpha: 1)
                 imageColor = .init(white: 0.1, alpha: 1)
                 titleColor = .init(white: 0.1, alpha: 1)
                 titleFont = .systemFont(ofSize: 12)
@@ -843,6 +880,8 @@ public extension FunBox.Toast {
                 verticalPadding = 5
                 margin = 5
                 imageSize = CGSize(width: 24, height: 24)
+                progressSize = CGSize(width: 24, height: 24)
+                activitySize = CGSize(width: 24, height: 24)
             }
         }
         
@@ -986,7 +1025,7 @@ public extension FunBox.Toast {
         /**
          The fade in/out animation duration. Default is 0.2.
          */
-//        public var fadeDuration: TimeInterval = 0.2
+        //        public var fadeDuration: TimeInterval = 0.2
         
         /**
          Activity indicator color. Default is `.white`.
@@ -1012,7 +1051,7 @@ public extension FunBox.Toast {
         /**
          通用的样式
          */
-//        public var style = Style()
+        //        public var style = Style()
         
         /**
          是否点击屏幕关闭toast

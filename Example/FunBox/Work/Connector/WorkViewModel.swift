@@ -12,6 +12,7 @@ extension Work {
     class ViewModel: NSObject {
         var collectionView: UICollectionView?
         var sections = [Work.Element]()
+        let timer = DispatchSource.makeTimerSource()
         
 //
 //        private var tabsHandler: (([Work.Tab])->Void)?
@@ -84,7 +85,19 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 
                 switch element.name {
                     case "Toast":
-                        FunBox.toast.template(.info).style(.system).title("提示").duration(2.5).tapToDismiss(false).message("静音模式开启").haptic(true).show()
+//                        var progress: CGFloat = 0.01
+//                        timer.schedule(deadline: .now(), repeating: .seconds(1), leeway: .microseconds(10))
+//
+//                        timer.setEventHandler {
+//                            progress = progress + 0.01
+//                        FunBox.toast.style(.system).duration(2.5).mode(.progress(0.5)).tapToDismiss(false).title("提示").message("静音模式开启").haptic(true).show()
+//                            FunHUD.toast(.success, message: "dgdgdg")
+                        FunHUD(.none).style(.system).message("ddd").show()
+//
+//                        }
+//
+//                        timer.resume()
+                        
 //                        FunBox.toast.title("提示").haptic(true).show()
 //                        FunBox.toast.title("提示").haptic(true).show()
 //                        FunBox.toast.title("提示").haptic(true).show()
@@ -94,6 +107,8 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                        FunBox.toast.title("提示").haptic(true).show()
 //                        FunBox.toast.title("提示").haptic(true).message("嘻嘻").show()
 //                        FunBox.toast.title("提示").haptic(true).show()
+//                        FunHUD.toast(.loading, message: "等等等等")
+                        
                     case "扫码":
                         var style = FunScan.Style()
                         style.boardColor = .blue
@@ -106,8 +121,10 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
                             }
                         }
                     case "Call":
-                        FunCall.call(nil)
+//                        FunCall.call(nil)
+                        FunHUD.toast(.success, message: "等等等等")
                 default:
+                    FunHUD.dismissActivity()
                     Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
                         print(action.identifier)
                     })
