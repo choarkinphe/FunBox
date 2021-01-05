@@ -383,7 +383,7 @@ public extension FunNamespaceWrapper where T == Data {
     
     /// Data to base64 String
     var base64String: String {
-        return wrappedValue.base64EncodedString(options: NSData.Base64EncodingOptions())
+        return wrappedValue.base64EncodedString(options: .lineLength64Characters)
     }
     
     /// Array of UInt8

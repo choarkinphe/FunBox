@@ -265,7 +265,31 @@ public extension FunNamespaceWrapper where T: UIImage {
         return codeImage
     }
 
-
+//
+//    static func QRCodeImage(content: String?, size: CGSize?=nil) -> UIImage? {
+//        guard let stringData = content?.data(using: String.Encoding.utf8) else { return nil }
+//
+//        let qrFilter = CIFilter(name: "CIQRCodeGenerator")
+//        qrFilter?.setValue(stringData, forKey: "inputMessage")
+//        qrFilter?.setValue("H", forKey: "inputCorrectionLevel")
+//
+//        let colorFilter = CIFilter(name: "CIFalseColor")
+//        colorFilter?.setDefaults()
+//        colorFilter?.setValuesForKeys(["inputImage" : (qrFilter?.outputImage)!,"inputColor0":CIColor.init(cgColor: UIColor.black.cgColor),"inputColor1":CIColor.init(cgColor: UIColor.white.cgColor)])
+//
+//        let qrImage = colorFilter?.outputImage
+//        let cgImage = CIContext(options: nil).createCGImage(qrImage!, from: (qrImage?.extent)!)
+//
+//        UIGraphicsBeginImageContext(size ?? CGSize(width: 1024, height: 1024))
+//        let context = UIGraphicsGetCurrentContext()
+//        context?.interpolationQuality = .none
+//        context?.scaleBy(x: 1.0, y: -1.0)
+//        context?.draw(cgImage!, in: (context?.boundingBoxOfClipPath)!)
+//        let codeImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return codeImage
+//    }
+    
     /**
     *  修正图片信息
     *
@@ -354,21 +378,30 @@ public extension FunNamespaceWrapper where T: UIImage {
         
         return scaledImage
     }
+    
+    func encode(to encoder: FunEncoder = .base64) -> String? {
+        guard let data = wrappedValue.jpegData(compressionQuality: 1) else { return nil }
+        switch encoder {
+            case .base64:
+                return data.fb.base64String
+            default:
+                return nil
+        }
+    }
 
 }
 // MARK: - UIColor+Fun
 public protocol Colourful {
-    var rgb: (r:CGFloat,g:CGFloat,b:CGFloat)? { get }
+    var rgb: (red: CGFloat, green: CGFloat, blue: CGFloat)? { get }
 }
 extension String: Colourful {
-    public var rgb: (r: CGFloat, g: CGFloat, b: CGFloat)? {
+    public var rgb: (red: CGFloat, green: CGFloat, blue: CGFloat)? {
         
         var hex = self.hasPrefix("#")
           ? String(self.dropFirst())
           : self
         guard hex.count == 3 || hex.count == 6
           else {
-//            self.init(white: 1.0, alpha: 0.0)
             return (1,1,1)
         }
         if hex.count == 3 {
@@ -378,12 +411,8 @@ extension String: Colourful {
         }
         
         guard let intCode = Int(hex, radix: 16) else {
-//          self.init(white: 1.0, alpha: 0.0)
-//          return
             return (1,1,1)
         }
-        
-        
           let red = CGFloat((intCode >> 16) & 0xFF) / 255.0
           let green = CGFloat((intCode >> 8) & 0xFF) / 255.0
           let blue = CGFloat((intCode) & 0xFF) / 255.0
@@ -395,7 +424,7 @@ extension String: Colourful {
 
 fileprivate typealias Ints = [Int]
 extension Ints: Colourful {
-    public var rgb: (r: CGFloat, g: CGFloat, b: CGFloat)? {
+    public var rgb: (red: CGFloat, green: CGFloat, blue: CGFloat)? {
         if self.count >= 3 {
             let red = CGFloat(self[0]) / 255.0
             let green = CGFloat(self[1]) / 255.0
@@ -422,23 +451,14 @@ public extension FunNamespaceWrapper where T: UIColor {
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    static func RGB(_ element: Colourful, alpha: CGFloat?=nil) -> UIColor {
+    static func RGB(_ element: Colourful, alpha: CGFloat=1) -> UIColor {
         
         guard let rgb = element.rgb else { return UIColor(white: 1, alpha: 0) }
-        return UIColor(red: rgb.r, green: rgb.g, blue: rgb.b, alpha: alpha ?? 1)
+        return UIColor(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha: alpha)
     }
-    
-//    func alpha(_ a_aplha: CGFloat) -> UIColor {
-//        if let components = wrappedValue.cgColor.components {
-//            let color = UIColor.init(red: components[0], green: components[1], blue: components[2], alpha: a_aplha)
-//            return color
-//        }
         
-//        return wrappedValue.withAlphaComponent(a_aplha)
-//    }
-    
     /// Get color rgba components in order.
-    var rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat){
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         let components = wrappedValue.cgColor.components
         let numberOfComponents = wrappedValue.cgColor.numberOfComponents
         
@@ -456,13 +476,13 @@ public extension FunNamespaceWrapper where T: UIColor {
     /// Check the black or white contrast on given color.
     var contrasting: UIColor {
         let rgbaT = rgba
-        let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
+        let value = 1 - ((0.299 * rgbaT.red) + (0.587 * rgbaT.green) + (0.114 * rgbaT.blue));
         return value < 0.5 ? UIColor.black : UIColor.white
     }
     
     var light: UIColor {
         let rgbaT = rgba
-        let value = 1 - ((0.299 * rgbaT.r) + (0.587 * rgbaT.g) + (0.114 * rgbaT.b));
+        let value = 1 - ((0.299 * rgbaT.red) + (0.587 * rgbaT.green) + (0.114 * rgbaT.blue));
         return value < 0.5 ? UIColor(white: 0.25, alpha: 1) : UIColor(white: 0.75, alpha: 1)
     }
 }
