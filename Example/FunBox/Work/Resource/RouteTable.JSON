@@ -2,5 +2,6 @@
     "funbox://mian/home": "ViewController",
     "funbox://dev/testTable": "TableViewController",
     "funbox://webView":"WebViewController",
-    "funbox://dev/testOC":"OCViewController"
+    "funbox://dev/testOC":"OCViewController",
+    "funbox://dev/testScan":"ScanUnitSwapController"
 }

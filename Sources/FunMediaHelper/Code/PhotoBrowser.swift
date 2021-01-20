@@ -377,6 +377,10 @@ extension FunMediaHelper {
             preview = handle
         }
         
+        public func clear() {
+            set(resource: nil)
+        }
+        
         class Cell: UICollectionViewCell {
             var imageV = UIImageView()
             var del_button = UIButton()

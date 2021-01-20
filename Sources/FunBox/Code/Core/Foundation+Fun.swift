@@ -397,7 +397,13 @@ public extension FunNamespaceWrapper where T == Data {
 
 }
 
-
+extension Double: FunNamespaceWrappable {}
+public extension FunNamespaceWrapper where T == Double {
+    func round(to places: Int) -> Double {
+        let divisor = pow(10.0,Double(places))
+        return (wrappedValue * divisor).rounded() / divisor
+    }
+}
 extension Int: FunNamespaceWrappable {}
 public extension FunNamespaceWrapper where T == Int {
     var format2Han: String {
