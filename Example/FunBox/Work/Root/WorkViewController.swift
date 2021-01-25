@@ -26,7 +26,7 @@ import UIKit
 //            button.addTarget(self, action: #selector(popMenu(sender:)), for: .touchUpInside)
 //            navigationBar.rightView = button
 //            fb.bottomView = button
-            fb.contentInsets = UIEdgeInsets(top: navigationBar.frame.maxY, left: 0, bottom: 0, right: 0)
+            fb.contentInsets = UIEdgeInsets(top: navigationBar.frame.maxY, left: 15, bottom: 0, right: 15)
             
             navigationBar.clipBar.moreAction { (sender) in
                 self.popMenu(sender: sender)
@@ -70,6 +70,7 @@ import UIKit
         override func viewDidLoad() {
             super.viewDidLoad()
             
+            view.backgroundColor = .purple
 //            HZCoreKit.router.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
             Router.default.scheme = "funbox"
             Router.default.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */; };
 		49C2937C24FA2B54005880AD /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937B24FA2B54005880AD /* Router.swift */; };
 		49C2937E24FA2BE3005880AD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937D24FA2BE3005880AD /* Service.swift */; };
 		49C2938424FBE2F6005880AD /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2938324FBE2F6005880AD /* OCViewController.m */; };
@@ -25,7 +26,6 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
-		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		BE18932D05AF67F49E8D109B /* Pods_FunBox_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 214F32D937AF825BEA63634D /* Pods_FunBox_Example.framework */; };
 		D80F4FC7229C17BE758CDE6C /* Pods_FunBox_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6ED1BDFEA0E3F39F2848A0B /* Pods_FunBox_Tests.framework */; };
@@ -44,6 +44,7 @@
 /* Begin PBXFileReference section */
 		13229E97BF991B9B97ABF914 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunBox_Example.release.xcconfig"; path = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
 		214F32D937AF825BEA63634D /* Pods_FunBox_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunBox_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		49C2937B24FA2B54005880AD /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		49C2937D24FA2BE3005880AD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunBox_Example-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -59,8 +60,6 @@
 		4A73E2DB25771FC900CD4748 /* WorkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkViewController.swift; sourceTree = "<group>"; };
 		4A73E2DD25771FC900CD4748 /* RouteTable.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RouteTable.JSON; sourceTree = "<group>"; };
 		4A73E2DE25771FC900CD4748 /* WorkItems.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WorkItems.JSON; sourceTree = "<group>"; };
-		4AA9F7F9259DD02B005A20A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		4AA9F804259DD267005A20A9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		4AF9768825AFE6ED00A1CC9C /* ScanUnitSwapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanUnitSwapController.swift; sourceTree = "<group>"; };
 		4AF9768D25AFE6ED00A1CC9C /* ScanInputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanInputer.swift; sourceTree = "<group>"; };
 		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -233,9 +232,9 @@
 				49C2938224FBE2F6005880AD /* OCViewController.h */,
 				49C2938324FBE2F6005880AD /* OCViewController.m */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				49C2937D24FA2BE3005880AD /* Service.swift */,
 				49C2937B24FA2B54005880AD /* Router.swift */,
+				4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */,
 			);
@@ -387,7 +386,7 @@
 			files = (
 				4A73E2E425771FC900CD4748 /* RouteTable.JSON in Resources */,
 				4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */,
-				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
+				4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,18 +522,6 @@
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4AA9F7F9259DD02B005A20A9 /* Base */,
-				4AA9F804259DD267005A20A9 /* zh-Hans */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		607FACED1AFB9204008FA782 /* Debug */ = {

@@ -52,9 +52,11 @@ extension UIViewController: FunSwizz {
         // 只要在标记需要更新布局时才会更新
         guard fb.isNeedLayout else { return }
         
-        var rect = view.bounds
+        var rect = view.bounds//.inset(by: fb.safeAeraInsets)
         // 默认偏移出安全区域
         rect.origin.y = fb.safeAeraInsets.top
+        rect.origin.x = fb.safeAeraInsets.left
+        rect.size.width = rect.width - fb.safeAeraInsets.left - fb.safeAeraInsets.right
         
         if edgesForExtendedLayout != .init(rawValue: 0), edgesForExtendedLayout != .top {
             /*
@@ -88,7 +90,7 @@ extension UIViewController: FunSwizz {
         
         if let navigationBar = fb.navigationBar, !navigationBar.isHidden {
             // 自定义导航栏未隐藏时，设置导航栏frame
-            navigationBar.frame = CGRect.init(x: 0, y: 0, width: view.frame.size.width, height: navigationBar.bounds.size.height)
+            navigationBar.frame = CGRect.init(x: rect.minX, y: 0, width: rect.width, height: navigationBar.bounds.height)
             
             view.bringSubviewToFront(navigationBar)
         }
@@ -101,11 +103,11 @@ extension UIViewController: FunSwizz {
             
             // 存在fillView时，设置fillView的frame
             if let fillView = fb.topFillView {
-                fillView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: rect.origin.y)
+                fillView.frame = CGRect(x: rect.minX, y: 0, width: view.frame.size.width, height: rect.minY)
             }
             
             // 利用上面改过的content_y（content顶部的实际可布局位置）
-            topView.frame = CGRect.init(x: 0, y: rect.origin.y, width: view.frame.size.width, height: topView.bounds.size.height)
+            topView.frame = CGRect.init(x: rect.minX, y: rect.minY, width: rect.width, height: topView.bounds.height)
             // 再次调整rect的位置
             rect.origin.y = topView.frame.maxY
             
@@ -114,18 +116,20 @@ extension UIViewController: FunSwizz {
         if let bottomView = fb.bottomView, !bottomView.isHidden {
             
             rect.size.height = rect.size.height - bottomView.frame.size.height - fb.safeAeraInsets.bottom
-            bottomView.frame = CGRect.init(x: 0, y: rect.maxY, width: view.frame.size.width, height: bottomView.frame.size.height)
+            bottomView.frame = CGRect.init(x: rect.minX, y: rect.maxY, width: rect.width, height: bottomView.frame.height)
             
             // 存在fillView时，设置fillView的frame
             if let fillView = fb.bottomFillView {
-                fillView.frame = CGRect(x: 0, y: bottomView.frame.maxY, width: view.frame.size.width, height: fb.safeAeraInsets.bottom)
+                fillView.frame = CGRect(x: rect.minX, y: bottomView.frame.maxY, width: rect.width, height: fb.safeAeraInsets.bottom)
             }
         }
         
         
         guard let contentView = fb.contentView else { return }
         
-        contentView.frame = rect
+        contentView.frame = rect.inset(by: fb.contentViewInsets)
+        
+        view.sendSubviewToBack(contentView)
         
     }
     
@@ -156,6 +160,8 @@ public extension FunBox {
         private var observations: [NSKeyValueObservation]
         
         public var contentInsets: UIEdgeInsets = .zero
+        
+        public var contentViewInsets: UIEdgeInsets = .zero
         
         public var touchDismissKeyboard: Bool = FunBox.manager.config.keyboardAutoDismiss
         
@@ -303,6 +309,12 @@ public extension FunBox {
             if contentInsets.bottom != 0 {
                 safeAeraInsets.bottom = contentInsets.bottom
             }
+            if contentInsets.left != 0 {
+                safeAeraInsets.left = contentInsets.left
+            }
+            if contentInsets.right != 0 {
+                safeAeraInsets.right = contentInsets.right
+            }
             return safeAeraInsets
         }
         
@@ -317,7 +329,7 @@ public extension FunBox {
                 
                 if let navigationBar = navigationBar {
                     // 存在旧对象时，先移除
-                    navigationBar.frame = CGRect.init(x: 0, y: -navigationBar.frame.size.height, width: navigationBar.frame.size.width, height: navigationBar.frame.size.height)
+                    navigationBar.frame = CGRect.init(x: safeAeraInsets.left, y: -navigationBar.frame.size.height, width: navigationBar.frame.size.width, height: navigationBar.frame.size.height)
                     navigationBar.removeFromSuperview()
                     
                 }
@@ -328,9 +340,9 @@ public extension FunBox {
                     viewController.navigationController?.setNavigationBarHidden(true, animated: false)
                     var size = navigationBar.frame.size
                     if size == .zero {
-                        size = navigationBar.sizeThatFits(viewController.view.bounds.size)
+                        size = navigationBar.systemLayoutSizeFitting(viewController.view.bounds.inset(by: safeAeraInsets).size)//.sizeThatFits(viewController.view.bounds.size)
                     }
-                    navigationBar.frame = CGRect.init(x: 0, y: 0, width: viewController.view.frame.size.width, height: size.height)
+                    navigationBar.frame = CGRect.init(x: safeAeraInsets.left, y: 0, width: viewController.view.frame.inset(by: safeAeraInsets).size.width, height: size.height)
                     viewController.view.addSubview(navigationBar)
                     
                     addObservations()
@@ -348,31 +360,31 @@ public extension FunBox {
                 
                 if let topView = topView {
                     // 存在旧对象时，先移除
-                    topView.frame = CGRect.init(x: 0, y: -topView.frame.size.height, width: topView.frame.size.width, height: topView.frame.size.height)
+                    topView.frame = CGRect.init(x: safeAeraInsets.left, y: -topView.frame.size.height, width: topView.frame.size.width, height: topView.frame.size.height)
                     topView.removeFromSuperview()
                     
                 }
             }
             didSet {
                 if let topView = topView, let viewController = viewController {
-                    var topView_y: CGFloat = 0.0
+                    var topView_y: CGFloat = safeAeraInsets.top
                     var size = topView.frame.size
                     if size == .zero {
-                        size = topView.sizeThatFits(viewController.view.bounds.size)
+                        size = topView.systemLayoutSizeFitting(viewController.view.bounds.inset(by: safeAeraInsets).size)//.sizeThatFits(viewController.view.bounds.size)
                     }
                     // 有navigationBar时，调整topView的frame
                     if let navigationBar = navigationBar {
-                        topView_y = navigationBar.frame.origin.y + navigationBar.frame.size.height
+                        topView_y = navigationBar.frame.maxY
                     }
                     if safeAeraInsets.top > 0 {
-                        let fillView = UIView(frame: CGRect(x: 0, y: topView_y, width: topView.frame.width, height: safeAeraInsets.top))
+                        let fillView = UIView(frame: CGRect(x: safeAeraInsets.left, y: 0, width: topView.frame.width, height: topView_y))
                         fillView.backgroundColor = topView.backgroundColor
                         topFillView = fillView
                         
                         viewController.view.addSubview(fillView)
                     }
-                    topView_y = topView_y + safeAeraInsets.top
-                    topView.frame = CGRect.init(x: 0.0, y: topView_y, width: viewController.view.frame.size.width, height: size.height)
+//                    topView_y = topView_y + safeAeraInsets.top
+                    topView.frame = CGRect.init(x: safeAeraInsets.left, y: topView_y, width: viewController.view.frame.inset(by: safeAeraInsets).size.width, height: size.height)
                     viewController.view.addSubview(topView)
                     
                     addObservations()
@@ -399,7 +411,7 @@ public extension FunBox {
             didSet {
                 if let contentView = contentView, let viewController = viewController {
                     
-                    contentView.frame = viewController.view.bounds
+                    contentView.frame = viewController.view.bounds.inset(by: safeAeraInsets)
                     
                     viewController.view.addSubview(contentView)
                     
@@ -418,7 +430,7 @@ public extension FunBox {
                 
                 if let bottomView = bottomView, let viewController = viewController {
                     
-                    bottomView.frame = CGRect.init(x: 0, y: viewController.view.frame.size.height, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
+                    bottomView.frame = CGRect.init(x: safeAeraInsets.left, y: viewController.view.frame.maxY, width: viewController.view.frame.inset(by: safeAeraInsets).width, height: bottomView.frame.height)
                     bottomView.removeFromSuperview()
                     bottomFillView?.removeFromSuperview()
                 }
@@ -429,15 +441,15 @@ public extension FunBox {
                 if let bottomView = bottomView, let viewController = viewController {
                     var size = bottomView.frame.size
                     if size == .zero {
-                        size = bottomView.sizeThatFits(viewController.view.bounds.size)
+                        size = bottomView.systemLayoutSizeFitting(viewController.view.bounds.inset(by: safeAeraInsets).size)//.sizeThatFits(viewController.view.bounds.size)
                     }
-                    let bottom_y = viewController.view.frame.height - size.height - safeAeraInsets.bottom
-                    bottomView.frame = CGRect.init(x: 0, y: bottom_y, width: viewController.view.frame.size.width, height: bottomView.frame.size.height)
+                    let bottom_y = viewController.view.frame.maxY - size.height - safeAeraInsets.bottom
+                    bottomView.frame = CGRect.init(x: safeAeraInsets.left, y: bottom_y, width: viewController.view.frame.inset(by: safeAeraInsets).width, height: bottomView.frame.height)
                     
                     viewController.view.addSubview(bottomView)
                     
                     if safeAeraInsets.bottom > 0 {
-                        let fillView = UIView(frame: CGRect(x: 0, y: bottomView.frame.maxY, width: bottomView.frame.width, height: safeAeraInsets.bottom))
+                        let fillView = UIView(frame: CGRect(x: safeAeraInsets.left, y: bottomView.frame.maxY, width: bottomView.frame.width, height: safeAeraInsets.bottom))
                         fillView.backgroundColor = bottomView.backgroundColor
                         bottomFillView = fillView
                         

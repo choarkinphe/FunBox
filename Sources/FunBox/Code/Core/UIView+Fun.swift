@@ -119,6 +119,18 @@ public extension FunNamespaceWrapper where T == UITableViewCell {
     }
 }
 
+//public extension FunNamespaceWrapper where T == CGRect {
+//    func rect(inset: UIEdgeInsets) -> CGRect {
+//        var rect = wrappedValue
+//        rect.origin.x = inset.left
+//        rect.origin.y = inset.top
+//        rect.size.width = rect.width - inset.left - inset.right
+//        rect.size.height = rect.height - inset.top - inset.bottom
+//        return rect
+//        
+//    }
+//}
+
 // MARK: - CGRect+Fun
 extension CGSize {
     init(string: String?) {
