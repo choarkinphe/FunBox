@@ -23,10 +23,10 @@ extension FunBox {
         public static let repairing = FunTips("Repairing").localized
         public static let notFound = FunTips("NotFound").localized
         public static let processing = FunTips("Processing").localized
+        public static let save = FunTips("Save").localized
         public static let saving = FunTips("Saving").localized
         public static let saveSuccess = FunTips("SaveSuccess").localized
         public static let unknow = FunTips("Unknow").localized
-        
         public let localized: String
         public init(_ rawValue: String, bundle: Bundle? = nil, table: String? = nil) {
             localized = rawValue.fb.localized(in: bundle ?? FunBox.bundle, table: table ?? "FunLocalization")

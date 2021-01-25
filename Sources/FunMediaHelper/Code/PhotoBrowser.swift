@@ -114,7 +114,7 @@ extension FunMediaHelper {
         
         @objc private func moreAction(sender: UIButton) {
             DispatchQueue.main.async {
-                FunBox.alert.style(.actionSheet).title("提示").addAction(title: "保存", style: .default, handler: self.moreHandler).addAction(title: "取消", style: .cancel).present()
+                FunBox.alert.style(.actionSheet).title(FunTips.tips).addAction(title: FunTips.save, style: .default, handler: self.moreHandler).addAction(title: FunTips.cancel, style: .cancel).present()
             }
         }
         
@@ -375,6 +375,10 @@ extension FunMediaHelper {
         private var preview: (((index: Int, item: T))->Void)?
         public func preview(_ handle: @escaping (((index: Int, item: T))->Void)) {
             preview = handle
+        }
+        
+        public func clear() {
+            set(resource: nil)
         }
         
         class Cell: UICollectionViewCell {

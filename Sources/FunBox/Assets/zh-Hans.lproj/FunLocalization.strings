@@ -18,6 +18,7 @@
 "Repairing" = "修复中";
 "NotFound" = "加载异常";
 "Processing" = "处理中";
+"Save" = "报错";
 "Saving" = "正在保存...";
 "SaveSuccess" = "保存成功";
 "Unknow" = "未知";

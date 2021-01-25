@@ -129,4 +129,13 @@ public protocol FunModuleProtocol: class {
     static var bundle: Bundle? { get }
     
 }
-
+public typealias FunEncoder = FunBox.Encoder
+extension FunBox {
+    public struct Encoder: Equatable {
+        let rawValue: String
+        init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+        public static let base64 = Encoder(rawValue: "base64")
+    }
+}

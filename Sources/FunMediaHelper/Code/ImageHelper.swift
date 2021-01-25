@@ -33,7 +33,7 @@ extension FunMediaHelper {
                 picker.allowPickingVideo = true
                 
                 // 设置默认语言
-                picker.preferredLanguage = "zh-Hans"
+//                picker.preferredLanguage = "zh-Hans"
                 // 当照片选择张数达到上限时，其它照片置灰
                 picker.showPhotoCannotSelectLayer = true
                 // pick不会自己dismiss
