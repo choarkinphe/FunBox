@@ -1,6 +1,6 @@
 {
   "name": "FunBox",
-  "version": "0.5.35",
+  "version": "0.5.56",
   "summary": "FunBox 饭盒？",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,28 +14,20 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.5.35"
+    "tag": "0.5.56"
   },
   "platforms": {
     "ios": "10.0"
   },
   "source_files": "Sources/FunBox/Code/*",
-  "dependencies": {
-    "Kingfisher": [
-      "~> 5.15.0"
-    ]
-  },
   "subspecs": [
     {
       "name": "Core",
       "dependencies": {
-        "FunBox/Box/Utils": [
-
-        ],
-        "FunBox/Box/UI": [
-
-        ],
         "FunBox/Fun": [
+
+        ],
+        "FunBox/Box": [
 
         ]
       }
@@ -113,7 +105,12 @@
         },
         {
           "name": "FunWebImage",
-          "source_files": "Sources/FunWebImage/**/*"
+          "source_files": "Sources/FunWebImage/**/*",
+          "dependencies": {
+            "Kingfisher": [
+              "~> 5.15.0"
+            ]
+          }
         },
         {
           "name": "FunScan",
