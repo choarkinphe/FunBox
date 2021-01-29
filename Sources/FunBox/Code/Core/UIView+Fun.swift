@@ -150,7 +150,7 @@ extension CGSize {
 }
 
 // MARK: - UIImage+Fun
-fileprivate var imageCache: NSCache<UIColor, UIImage>!
+fileprivate var imageCache: NSCache<NSString, UIImage>!
 public extension FunNamespaceWrapper where T: UIImage {
     static func size(url: FunURLConvertable?) -> CGSize {
         guard let tempUrl = url?.realURL,
@@ -221,12 +221,15 @@ public extension FunNamespaceWrapper where T: UIImage {
         DispatchQueue.fb.once {
             imageCache = NSCache()
         }
+        let image_size = size ?? CGSize(width: 1, height: 1)
+        
+        let key = "\(color.fb.rgba.red).\(color.fb.rgba.green)\(color.fb.rgba.blue).\(color.fb.rgba.alpha).\(image_size.width).\(image_size.height)"
 
-        if let image = imageCache.object(forKey: color) {
+        if let image = imageCache.object(forKey: key as NSString) {
             return image
         }
         
-        let image_size = size ?? CGSize(width: 1, height: 1)
+        
         let rect = CGRect(x: 0, y: 0, width: image_size.width, height: image_size.height)
         UIGraphicsBeginImageContext(image_size)
 
@@ -239,7 +242,7 @@ public extension FunNamespaceWrapper where T: UIImage {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        imageCache.setObject(image, forKey: color)
+        imageCache.setObject(image, forKey: key as NSString)
         
         return image
     }

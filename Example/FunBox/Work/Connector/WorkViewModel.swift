@@ -92,7 +92,7 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                            progress = progress + 0.01
 //                        FunBox.toast.style(.system).duration(2.5).mode(.progress(0.5)).tapToDismiss(false).title("提示").message("静音模式开启").haptic(true).show()
 //                            FunHUD.toast(.success, message: "dgdgdg")
-                        FunHUD(.none).style(.system).message("ddd").show()
+                        FunHUD(.loading).style(.system).message("ddd").show()
 //
 //                        }
 //
