@@ -28,7 +28,14 @@
                     "icon": "bug",
                     "linkUrl": null,
                     "name": "Call"
+                },
+                {
+                    "icon": "bug",
+                    "linkUrl": "funbox://dev/testA",
+                    "name": "testA"
                 }]
+    
+    
 },
 {
     "title": "工具",

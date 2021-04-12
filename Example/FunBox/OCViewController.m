@@ -9,7 +9,28 @@
 #import "OCViewController.h"
 #import <FunBox/FunBox-Swift.h>
 #import "FunBox_Example-Swift.h"
+
+@interface OCModel: NSObject
+
+@property (nonatomic , copy) NSString *jjLenth;
+
+@end
+
+@interface CellConfig : NSObject
+
+@property (nonatomic , copy) NSString *value;
+
+@property (nonatomic , copy) NSString *key;
+
+@end
+
 @interface OCViewController ()
+
+@property (nonatomic , strong) UITextField *textField;
+
+@property (nonatomic , strong) OCModel *model;
+
+@property (nonatomic , strong) NSArray<CellConfig *> *source;
 
 @end
 
@@ -17,14 +38,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     
-    self.view.backgroundColor = [UIColor redColor];
-    
-    NSDictionary *dict = self.rt_params;
-    
-    NSLog(@"%@",dict);
-    
+    for (CellConfig *config in self.source) {
+        
+        [self.model setValue:config.value forKey:config.key];
+
+    }
     
 }
 

@@ -3,5 +3,7 @@
     "funbox://dev/testTable": "TableViewController",
     "funbox://webView":"WebViewController",
     "funbox://dev/testOC":"OCViewController",
+    "funbox://dev/testA":"TestTableViewCController",
     "funbox://dev/testScan":"ScanUnitSwapController"
+    
 }

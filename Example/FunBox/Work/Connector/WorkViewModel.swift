@@ -84,6 +84,9 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
         if let element = sections[indexPath.section].items?[indexPath.item] {
 
                 switch element.name {
+//                case "百度":
+                    
+                    
                     case "Toast":
 //                        var progress: CGFloat = 0.01
 //                        timer.schedule(deadline: .now(), repeating: .seconds(1), leeway: .microseconds(10))
@@ -122,7 +125,8 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
                         }
                     case "Call":
 //                        FunCall.call(nil)
-                        FunHUD.toast(.success, message: "等等等等")
+//                        FunHUD.toast(.success, message: "等等等等")
+                        FunBox.datePicker.set(date: "2021/1/24").present()
                 default:
                     FunHUD.dismissActivity()
                     Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in

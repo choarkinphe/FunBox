@@ -12,7 +12,10 @@ import UIKit
         override func viewDidLoad() {
             super.viewDidLoad()
 
-
+            FunBox.alert.title("dd").message("aaa").addAction(title: "取消", style: .cancel).addAction(title: "确定", style: .default, color: .red, handler: { (action) in
+                
+            }).present()
+        
         }
     }
     class WorkViewController: UIViewController {
@@ -26,7 +29,7 @@ import UIKit
 //            button.addTarget(self, action: #selector(popMenu(sender:)), for: .touchUpInside)
 //            navigationBar.rightView = button
 //            fb.bottomView = button
-            fb.contentInsets = UIEdgeInsets(top: navigationBar.frame.maxY, left: 15, bottom: 0, right: 15)
+            fb.contentInsets = UIEdgeInsets(top: navigationBar.frame.maxY, left: 0, bottom: 0, right: 0)
             
             navigationBar.clipBar.moreAction { (sender) in
                 self.popMenu(sender: sender)
@@ -88,6 +91,8 @@ import UIKit
 //            navigationItem.hidesSearchBarWhenScrolling = true
             
             fb.contentView = collectionView
+            
+            collectionView.rx.itemSelected
 //            collectionView.rx.modelSelected(Work.Tab.self).subscribe(onNext: { (element) in
 //                guard !(element.linkUrl?.isEmpty ?? true) else {
 //                    HZHUD.toast(.error, message: Work.Tips.working)

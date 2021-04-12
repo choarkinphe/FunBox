@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */; };
+		4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938EDB125D25EC100E0862E /* TestTableViewController.swift */; };
+		4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* HandyJSON */; };
+		4938EDBD25D2666300E0862E /* Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4938EDBA25D260C600E0862E /* Test.json */; };
 		49C2937C24FA2B54005880AD /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937B24FA2B54005880AD /* Router.swift */; };
 		49C2937E24FA2BE3005880AD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937D24FA2BE3005880AD /* Service.swift */; };
 		49C2938424FBE2F6005880AD /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2938324FBE2F6005880AD /* OCViewController.m */; };
@@ -45,6 +48,8 @@
 		13229E97BF991B9B97ABF914 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunBox_Example.release.xcconfig"; path = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
 		214F32D937AF825BEA63634D /* Pods_FunBox_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunBox_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4938EDB125D25EC100E0862E /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
+		4938EDBA25D260C600E0862E /* Test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Test.json; sourceTree = "<group>"; };
 		49C2937B24FA2B54005880AD /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		49C2937D24FA2BE3005880AD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunBox_Example-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */,
 				BE18932D05AF67F49E8D109B /* Pods_FunBox_Example.framework in Frameworks */,
 				4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */,
 			);
@@ -109,6 +115,23 @@
 				DBEBF45FD1F31E0A5AA86516 /* Pods-FunBox_Tests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		4938EDAD25D25E9B00E0862E /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				4938EDAE25D25EA500E0862E /* Controller */,
+			);
+			path = Table;
+			sourceTree = "<group>";
+		};
+		4938EDAE25D25EA500E0862E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4938EDB125D25EC100E0862E /* TestTableViewController.swift */,
+				4938EDBA25D260C600E0862E /* Test.json */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		4A73E2D225771FC900CD4748 /* Work */ = {
@@ -168,6 +191,7 @@
 		4AF9768425AFE6D700A1CC9C /* Moudules */ = {
 			isa = PBXGroup;
 			children = (
+				4938EDAD25D25E9B00E0862E /* Table */,
 				4AF9768525AFE6ED00A1CC9C /* Scan */,
 			);
 			path = Moudules;
@@ -306,6 +330,7 @@
 			name = FunBox_Example;
 			packageProductDependencies = (
 				4AF9769725AFE79F00A1CC9C /* SnapKit */,
+				4938EDB625D2605A00E0862E /* HandyJSON */,
 			);
 			productName = FunBox;
 			productReference = 607FACD01AFB9204008FA782 /* FunBox_Example.app */;
@@ -368,6 +393,7 @@
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
 				4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -388,6 +414,7 @@
 				4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */,
 				4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				4938EDBD25D2666300E0862E /* Test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +526,7 @@
 				4A73E2E125771FC900CD4748 /* WorkItem.swift in Sources */,
 				4A73E2E325771FC900CD4748 /* WorkViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */,
 				4AF9768F25AFE6ED00A1CC9C /* ScanUnitSwapController.swift in Sources */,
 				4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */,
 				4A73E2E225771FC900CD4748 /* WorkHeader.swift in Sources */,
@@ -774,6 +802,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alibaba/HandyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 		4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -785,6 +821,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4938EDB625D2605A00E0862E /* HandyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */;
+			productName = HandyJSON;
+		};
 		4AF9769725AFE79F00A1CC9C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */;

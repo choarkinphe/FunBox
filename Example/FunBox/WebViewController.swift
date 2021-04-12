@@ -8,6 +8,11 @@
 
 import UIKit
 import WebKit
+
+struct User {
+    var name: String?
+}
+
 class WebViewController: UIViewController {
     lazy var contentView: WKWebView = {
 //        let userContentController = WKUserContentController()
@@ -26,6 +31,8 @@ class WebViewController: UIViewController {
     
     var url = "http://rdhangzhouapi.hz.com/H5/Index?openid=1f6f630482e4f5f9cdd9e6b65fb142c0#pages/Directories/RegionList"
     
+    var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +45,12 @@ class WebViewController: UIViewController {
         contentView.load(request)
         
         contentView.configuration.userContentController.add(self, name: "telMobile")
+        
+        if var name = user.name {
+//            name = ""
+            outPut(name: name)
+        }
+//
     }
     
     deinit {
@@ -50,6 +63,11 @@ class WebViewController: UIViewController {
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
+    }
+    
+    func outPut(name: String) -> String {
+        
+        return "姓名:\(name)"
     }
 }
 
