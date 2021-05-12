@@ -9,7 +9,7 @@ import UIKit
 
 public typealias FunRouter = FunBox.Router
 
-public protocol FunRouterable: class {
+public protocol FunRouterable: AnyObject {
     
     // 唤起路由事件
     func open(url: FunRouterPathable?, handler: ((FunRouter.Response)->Void)?)

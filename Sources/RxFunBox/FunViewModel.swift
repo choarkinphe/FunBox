@@ -39,7 +39,7 @@ extension IndexPath: FunIndexable {
     }
 }
 
-public protocol FunViewModelable: class {
+public protocol FunViewModelable: AnyObject {
     associatedtype Section
     associatedtype Element
     

@@ -84,7 +84,7 @@ extension String: FunURLConvertable {
 /*
     方法交换
  */
-protocol FunSwizz: class {
+protocol FunSwizz: AnyObject {
     static func swizzlingForClass(_ forClass: AnyClass, originalSelector: Selector, swizzledSelector: Selector)
 }
 
@@ -124,7 +124,7 @@ public extension FunBox {
 }
 
 
-public protocol FunModuleProtocol: class {
+public protocol FunModuleProtocol: AnyObject {
     
     static var bundle: Bundle? { get }
     

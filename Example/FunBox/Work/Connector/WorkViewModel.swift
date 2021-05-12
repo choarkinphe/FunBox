@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct AAA<T> {
+    var a: T?
+}
+
 extension Work {
     class ViewModel: NSObject {
         var collectionView: UICollectionView?
@@ -23,7 +27,6 @@ extension Work {
         func reloadData(_ complete: (([Work.Element])->Void)? = nil) {
             if let source = JSONSerialization.fb.decode(fileName: "WorkItems.JSON", type:[Work.Element].self) {
 //                if let source = try? JSONDecoder().decode([Work.Element].self, from: json) {
-
 
                     sections = source
                     

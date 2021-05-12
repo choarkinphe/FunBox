@@ -32,7 +32,7 @@ extension UIViewController: FunSwizz {
         swizzled_viewWillAppear(animated: animated)
         fb.addObservations()
         //        debugPrint("willappear",self)
-        if !(navigationController?.interactivePopGestureRecognizer?.delegate is Self) {
+        if navigationController?.interactivePopGestureRecognizer?.delegate == nil {
             navigationController?.interactivePopGestureRecognizer?.delegate = fb
         }
         
