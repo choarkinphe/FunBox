@@ -155,9 +155,11 @@ extension VideoHelper {
         
         public func replay() {
             // 回到起点
-            player?.currentItem?.seek(to: .zero)
-            // 执行播放
-            play()
+            player?.currentItem?.seek(to: .zero, completionHandler: { [weak self] success in
+                // 执行播放
+                self?.play()
+            })
+            
         }
         
         public func play() {

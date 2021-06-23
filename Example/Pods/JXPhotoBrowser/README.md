@@ -12,6 +12,11 @@
 </div>
 (截图待更新)
 
+## 说明
+
+> 新项目Lantern在本库的基础上优化迭代。Lantern由丰巢团队维护，未来会投入更多的开发资源，问题反馈和解决更及时，推荐大家关注。
+> https://github.com/fcbox/Lantern
+
 ## 特性
 
 - [x] 支持图片、视频、图片与视频混合浏览
@@ -25,6 +30,18 @@
 - [x] 支持添加附加控件，框架提供了两种页面指示器的实现，以及在例子工程提供了加载进度环的实现
 
 ## 版本更新记录
+
+### Version 3.1.3
+
+> 2021/02/20
+
+- 优化JXPhotoBrowserImageCell，监听imageView的image赋值，自动layout
+
+### Version 3.1.2
+
+> 2020/05/30
+
+- 优化JXPhotoBrowserImageCell，暴露方法支持子类自定义创建视图
 
 ### Version 3.1.1
 

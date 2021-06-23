@@ -1,7 +1,7 @@
 use_frameworks!
 
 target 'FunBox_Example' do
-  platform :ios, '10.0'
+  platform :ios, '11.0'
   pod 'FunBox', :path => '../'
 #  pod 'Toast-swift'
 

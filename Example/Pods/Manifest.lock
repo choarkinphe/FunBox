@@ -1,53 +1,53 @@
 PODS:
   - Alamofire (5.2.2)
   - Differentiator (4.0.1)
-  - FunBox (0.5.56):
-    - FunBox/Box (= 0.5.56)
-    - FunBox/Core (= 0.5.56)
-    - FunBox/Fun (= 0.5.56)
-    - FunBox/Modules (= 0.5.56)
-  - FunBox/Box (0.5.56):
-    - FunBox/Box/UI (= 0.5.56)
-    - FunBox/Box/Utils (= 0.5.56)
-  - FunBox/Box/UI (0.5.56):
+  - FunBox (0.5.80):
+    - FunBox/Box (= 0.5.80)
+    - FunBox/Core (= 0.5.80)
+    - FunBox/Fun (= 0.5.80)
+    - FunBox/Modules (= 0.5.80)
+  - FunBox/Box (0.5.80):
+    - FunBox/Box/UI (= 0.5.80)
+    - FunBox/Box/Utils (= 0.5.80)
+  - FunBox/Box/UI (0.5.80):
     - FunBox/Fun
-  - FunBox/Box/Utils (0.5.56):
+  - FunBox/Box/Utils (0.5.80):
     - FunBox/Fun
-  - FunBox/Core (0.5.56):
+  - FunBox/Core (0.5.80):
     - FunBox/Box
     - FunBox/Fun
-  - FunBox/Fun (0.5.56)
-  - FunBox/Modules (0.5.56):
+  - FunBox/Fun (0.5.80)
+  - FunBox/Modules (0.5.80):
     - FunBox/Core
-    - FunBox/Modules/FunAlamofire (= 0.5.56)
-    - FunBox/Modules/FunMediaHelper (= 0.5.56)
-    - FunBox/Modules/FunScan (= 0.5.56)
-    - FunBox/Modules/FunUI (= 0.5.56)
-    - FunBox/Modules/FunWebImage (= 0.5.56)
-    - FunBox/Modules/RxFunBox (= 0.5.56)
-  - FunBox/Modules/FunAlamofire (0.5.56):
+    - FunBox/Modules/FunAlamofire (= 0.5.80)
+    - FunBox/Modules/FunMediaHelper (= 0.5.80)
+    - FunBox/Modules/FunScan (= 0.5.80)
+    - FunBox/Modules/FunUI (= 0.5.80)
+    - FunBox/Modules/FunWebImage (= 0.5.80)
+    - FunBox/Modules/RxFunBox (= 0.5.80)
+  - FunBox/Modules/FunAlamofire (0.5.80):
     - Alamofire (~> 5.2.2)
     - FunBox/Core
-  - FunBox/Modules/FunMediaHelper (0.5.56):
+  - FunBox/Modules/FunMediaHelper (0.5.80):
     - FunBox/Core
     - FunBox/Modules/FunUI
     - FunBox/Modules/FunWebImage
     - JXPhotoBrowser (~> 3.1.2)
     - TZImagePickerController (= 3.4.8)
-  - FunBox/Modules/FunScan (0.5.56):
+  - FunBox/Modules/FunScan (0.5.80):
     - FunBox/Core
     - FunBox/Modules/FunUI
-  - FunBox/Modules/FunUI (0.5.56):
+  - FunBox/Modules/FunUI (0.5.80):
     - FunBox/Core
-  - FunBox/Modules/FunWebImage (0.5.56):
+  - FunBox/Modules/FunWebImage (0.5.80):
     - FunBox/Core
     - Kingfisher (~> 5.15.0)
-  - FunBox/Modules/RxFunBox (0.5.56):
+  - FunBox/Modules/RxFunBox (0.5.80):
     - FunBox/Core
     - RxCocoa (~> 5.1.1)
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
-  - JXPhotoBrowser (3.1.2)
+  - JXPhotoBrowser (3.1.3)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
@@ -60,7 +60,7 @@ PODS:
     - RxSwift (~> 5.0)
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.1.1)
+  - RxSwift (5.1.2)
   - TZImagePickerController (3.4.8)
 
 DEPENDENCIES:
@@ -85,15 +85,15 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  FunBox: 003a63d957829bc2b3cd762c22857b08bd0cfd17
-  JXPhotoBrowser: 7f0bc11f02fbc84ae06829f922f32ce822aa9661
+  FunBox: a14b245682b3e7f74ffe1a9ce08f9de8d85c3c75
+  JXPhotoBrowser: d32e94e1226d43bf5ed83164e3f5b651fed625e0
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  RxSwift: 1e2e1f9570186967f617e49128ed26ccf1bafc8e
   TZImagePickerController: 6685e6d81b8fd5453e80ba369dd4ebd6e97276ee
 
-PODFILE CHECKSUM: 14ea27deabf175d829abd82be6933c9d811ffef9
+PODFILE CHECKSUM: 5d3b032515c506483361a792ba4b2ee170a46e5a
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

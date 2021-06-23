@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */; };
 		4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938EDB125D25EC100E0862E /* TestTableViewController.swift */; };
-		4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* HandyJSON */; };
+		4938EDB725D2605A00E0862E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* SwiftPackageProductDependency */; };
 		4938EDBD25D2666300E0862E /* Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4938EDBA25D260C600E0862E /* Test.json */; };
 		49C2937C24FA2B54005880AD /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937B24FA2B54005880AD /* Router.swift */; };
 		49C2937E24FA2BE3005880AD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937D24FA2BE3005880AD /* Service.swift */; };
@@ -25,7 +25,7 @@
 		4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 4A73E2DE25771FC900CD4748 /* WorkItems.JSON */; };
 		4AF9768F25AFE6ED00A1CC9C /* ScanUnitSwapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9768825AFE6ED00A1CC9C /* ScanUnitSwapController.swift */; };
 		4AF9769125AFE6ED00A1CC9C /* ScanInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9768D25AFE6ED00A1CC9C /* ScanInputer.swift */; };
-		4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9769725AFE79F00A1CC9C /* SnapKit */; };
+		4AF9769825AFE79F00A1CC9C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9769725AFE79F00A1CC9C /* SwiftPackageProductDependency */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -89,9 +89,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */,
+				4938EDB725D2605A00E0862E /* BuildFile in Frameworks */,
 				BE18932D05AF67F49E8D109B /* Pods_FunBox_Example.framework in Frameworks */,
-				4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */,
+				4AF9769825AFE79F00A1CC9C /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,8 +329,8 @@
 			);
 			name = FunBox_Example;
 			packageProductDependencies = (
-				4AF9769725AFE79F00A1CC9C /* SnapKit */,
-				4938EDB625D2605A00E0862E /* HandyJSON */,
+				4AF9769725AFE79F00A1CC9C /* SwiftPackageProductDependency */,
+				4938EDB625D2605A00E0862E /* SwiftPackageProductDependency */,
 			);
 			productName = FunBox;
 			productReference = 607FACD01AFB9204008FA782 /* FunBox_Example.app */;
@@ -392,8 +392,8 @@
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
-				4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */,
+				4AF9769625AFE79F00A1CC9C /* RemoteSwiftPackageReference */,
+				4938EDB525D2605A00E0862E /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -600,7 +600,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -649,7 +649,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -804,7 +804,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */ = {
+		4938EDB525D2605A00E0862E /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alibaba/HandyJSON.git";
 			requirement = {
@@ -812,7 +812,7 @@
 				minimumVersion = 5.0.2;
 			};
 		};
-		4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		4AF9769625AFE79F00A1CC9C /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -823,14 +823,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4938EDB625D2605A00E0862E /* HandyJSON */ = {
+		4938EDB625D2605A00E0862E /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */;
+			package = 4938EDB525D2605A00E0862E /* RemoteSwiftPackageReference */;
 			productName = HandyJSON;
 		};
-		4AF9769725AFE79F00A1CC9C /* SnapKit */ = {
+		4AF9769725AFE79F00A1CC9C /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 4AF9769625AFE79F00A1CC9C /* RemoteSwiftPackageReference */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
