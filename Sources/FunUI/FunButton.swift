@@ -27,6 +27,19 @@ open class FunButton: UIButton {
         self.layout = layout
     }
     
+    public var hitTestEdgeInsets: UIEdgeInsets = .zero
+    
+    open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if hitTestEdgeInsets == .zero {
+            return super.point(inside: point, with: event)
+        }
+        
+        let rect = CGRect(x: hitTestEdgeInsets.left, y: hitTestEdgeInsets.top, width: bounds.width - hitTestEdgeInsets.left - hitTestEdgeInsets.right, height: bounds.height - hitTestEdgeInsets.top - hitTestEdgeInsets.bottom)
+        
+        return rect.contains(point)
+    }
+    
+    
     open override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image, for: state)
         
