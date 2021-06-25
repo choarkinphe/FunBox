@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
             # RxFunBox路径
             item.source_files = 'Sources/RxFunBox/**/*'
             # RxFunBox依赖
-#            item.dependency 'FunBox/Core'
+            item.dependency 'FunBox/Box/UI'
             item.dependency 'RxDataSources', '~> 4.0.1'
             item.dependency 'RxSwift', '~> 5.1.1'
             item.dependency 'RxCocoa', '~> 5.1.1'

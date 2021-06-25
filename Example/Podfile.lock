@@ -195,6 +195,7 @@ PODS:
     - FunBox/Core
     - Kingfisher (~> 5.15.0)
   - FunModules/RxFunBox (0.1.0):
+    - FunBox/Box/UI
     - FunBox/Core
     - RxCocoa (~> 5.1.1)
     - RxDataSources (~> 4.0.1)
@@ -283,7 +284,7 @@ SPEC CHECKSUMS:
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   FunAlamofire: db8ef5fa868b36ccb75db179962441fb09885dab
   FunBox: 16f279038bad747eeca56141ec4c00b146afc39d
-  FunModules: 23fd19e493124154a51152187baea696ff8a92d9
+  FunModules: 031d9984127c22b793b216799639d8c0694a7ef9
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
   JXPhotoBrowser: d32e94e1226d43bf5ed83164e3f5b651fed625e0

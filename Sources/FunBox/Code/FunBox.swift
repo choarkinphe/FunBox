@@ -132,14 +132,14 @@ extension String: FunURLConvertable {
             }
         }
         //绝对地址
-        return url.asURL()
+        return url.realURL
         
     }
     
     public func characterSet(_ characterSet: CharacterSet) -> URL? {
         
         if let url = addingPercentEncoding(withAllowedCharacters: characterSet) {
-            return url.asURL()
+            return url.realURL
         }
         
         return nil
@@ -147,7 +147,7 @@ extension String: FunURLConvertable {
     // 从String中截取出参数
     public func query() -> URLParams? {
         
-        return asURL()?.query()
+        return realURL?.query()
         
     }
 }
