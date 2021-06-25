@@ -1,0 +1,6 @@
+framework module FunAlamofire {
+  umbrella header "FunAlamofire-umbrella.h"
+
+  export *
+  module * { export * }
+}

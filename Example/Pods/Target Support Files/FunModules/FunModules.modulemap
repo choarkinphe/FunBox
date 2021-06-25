@@ -1,0 +1,6 @@
+framework module FunModules {
+  umbrella header "FunModules-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -57,14 +57,41 @@ public struct FunNamespaceWrapper<T> {
     }
 }
 
+
+
 public protocol FunURLConvertable {
     
     var realURL: URL? { get }
+    
+    func characterSet(_ characterSet: CharacterSet) -> URL?
+    
+    func appendQuery(_ params: URLParamsConvertable?, characters: CharacterSet?) -> URL?
+    
+    func query() -> URLParams?
 }
 
 extension URL: FunURLConvertable {
     public var realURL: URL? {
         return self
+    }
+    
+    public func appendQuery(_ params: URLParamsConvertable?, characters: CharacterSet?) -> URL? {
+        
+        return absoluteString.appendQuery(params, characters: characters)
+        
+    }
+
+    public func characterSet(_ characterSet: CharacterSet) -> URL? {
+        return absoluteString.characterSet(characterSet)
+    }
+    
+    public func query() -> URLParams? {
+        
+        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: true),
+              let queryItems = components.queryItems else { return nil }
+        return queryItems.reduce(into: URLParams()) { (result, item) in
+            result[item.name] = item.value
+        }
     }
 }
 
@@ -79,7 +106,99 @@ extension String: FunURLConvertable {
         }
         return nil
     }
+    
+    public func appendQuery(_ params: URLParamsConvertable?, characters: CharacterSet?) -> URL? {
+        
+        var url = self
+        
+        if let query = params?.asQuery(characters: characters) {
+            var new_query = true
+            // 解码出url 中已经包含的参数
+            if let url_query = url.query() ?? url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)?.query() {
+                // 如果url结尾与参数值相同，说明原来有参数在结尾
+                url_query.forEach { (item) in
+                    if url.hasSuffix(item.value) {
+                        new_query = false
+                    }
+                }
+            }
+            
+            if new_query {
+                // 新添加的参数用"?"拼接
+                url = url + "?" + query
+            } else {
+                // 继续添加参数用&分割
+                url = url + "&" + query
+            }
+        }
+        //绝对地址
+        return url.asURL()
+        
+    }
+    
+    public func characterSet(_ characterSet: CharacterSet) -> URL? {
+        
+        if let url = addingPercentEncoding(withAllowedCharacters: characterSet) {
+            return url.asURL()
+        }
+        
+        return nil
+    }
+    // 从String中截取出参数
+    public func query() -> URLParams? {
+        
+        return asURL()?.query()
+        
+    }
 }
+
+extension CharacterSet {
+    public static var `default`: CharacterSet {
+        var set = CharacterSet.urlQueryAllowed
+        set.insert("#")
+        set.insert("%")
+        return set
+    }
+    
+    public static let query = CharacterSet(charactersIn: "?!@#$^&%*+,:;='\"`<>()[]{}/\\|")
+}
+
+
+public typealias URLParams = [String: String]
+public protocol URLParamsConvertable {
+    func asQuery(characters: CharacterSet?) -> String?
+}
+extension URLParams: URLParamsConvertable {
+    public func asQuery(characters: CharacterSet?) -> String? {
+        var pairs = [String]()
+        
+        forEach { (item) in
+            
+            if let characters = characters, let escaped_value = item.value.addingPercentEncoding(withAllowedCharacters: characters) {
+            
+                pairs.append("\(item.key)=\(escaped_value)")
+            } else {
+                pairs.append("\(item.key)=\(item.value)")
+            }
+        }
+        
+        if !pairs.isEmpty {
+            return pairs.joined(separator: "&")
+        }
+        
+        return nil
+    }
+}
+
+extension String: URLParamsConvertable {
+    public func asQuery(characters: CharacterSet?) -> String? {
+        if let characters = characters {
+            return addingPercentEncoding(withAllowedCharacters: characters)
+        }
+        return self
+    }
+}
+
 
 /*
     方法交换

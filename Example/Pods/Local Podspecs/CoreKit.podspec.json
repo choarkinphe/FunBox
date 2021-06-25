@@ -1,0 +1,154 @@
+{
+  "name": "CoreKit",
+  "version": "0.1.0",
+  "summary": "基于饭盒(FunBox)的开发框架",
+  "swift_versions": "5.0",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/choarkinphe/FunBox",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "choarkinphe": "choarkinphe@outlook.com"
+  },
+  "source": {
+    "git": "https://github.com/choarkinphe/FunBox.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source_files": "Sources/DevelopKit/CoreKit/Code/CoreKit.swift",
+  "dependencies": {
+    "FunBox/Core": [
+
+    ],
+    "FunModules/FunUI": [
+
+    ],
+    "FunModules/RxFunBox": [
+
+    ],
+    "Hue": [
+      "~> 5.0.0"
+    ],
+    "HandyJSON": [
+      "~> 5.0.2"
+    ],
+    "Kingfisher": [
+      "~> 5.15.0"
+    ],
+    "KingfisherWebP": [
+      "~> 1.0.0"
+    ],
+    "MJRefresh": [
+      "~> 3.5.0"
+    ],
+    "Moya/RxSwift": [
+      "~> 14.0.0"
+    ],
+    "RxAlamofire": [
+      "~> 5.6.0"
+    ],
+    "RxDataSources": [
+      "~> 4.0.1"
+    ],
+    "RxSwift": [
+      "~> 5.1.1"
+    ],
+    "RxCocoa": [
+      "~> 5.1.1"
+    ],
+    "SnapKit": [
+      "~> 5.0.1"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Core",
+      "dependencies": {
+        "CoreKit/Box/Extension": [
+
+        ],
+        "CoreKit/Box/Service": [
+
+        ],
+        "CoreKit/Box/CKUIKit": [
+
+        ],
+        "CoreKit/Box/Utils": [
+
+        ]
+      }
+    },
+    {
+      "name": "Main",
+      "source_files": "Sources/CoreKit/Core/Code/*",
+      "resource_bundles": {
+        "CoreKit": [
+          "Sources/CoreKit/Core/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,md}"
+        ]
+      }
+    },
+    {
+      "name": "Box",
+      "subspecs": [
+        {
+          "name": "CKUIKit",
+          "source_files": "Sources/CoreKit/Core/Code/HZUIKit/**/*",
+          "dependencies": {
+            "CoreKit/Box/Extension": [
+
+            ],
+            "CoreKit/Box/Service": [
+
+            ]
+          }
+        },
+        {
+          "name": "Extension",
+          "source_files": "Sources/CoreKit/Core/Code/Extension/**/*",
+          "dependencies": {
+            "CoreKit/Box/Service": [
+
+            ]
+          }
+        },
+        {
+          "name": "Service",
+          "source_files": "Sources/CoreKit/Core/Code/Service/**/*",
+          "dependencies": {
+            "CoreKit/Main": [
+
+            ]
+          }
+        },
+        {
+          "name": "Utils",
+          "source_files": "Sources/CoreKit/Core/Code/Utils/**/*",
+          "dependencies": {
+            "CoreKit/Box/Extension": [
+
+            ],
+            "CoreKit/Box/Service": [
+
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Modules",
+      "dependencies": {
+        "CoreKit/Core": [
+
+        ]
+      }
+    },
+    {
+      "name": "Core"
+    }
+  ],
+  "swift_version": "5.0"
+}

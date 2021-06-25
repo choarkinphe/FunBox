@@ -8,9 +8,7 @@
 
 import AVFoundation
 import UIKit
-#if !COCOAPODS
 import FunBox
-#endif
 
 public typealias FunScan = FunBox.Scan
 extension FunBox {

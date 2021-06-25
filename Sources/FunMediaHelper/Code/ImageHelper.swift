@@ -1,6 +1,6 @@
 //
 //  ImageHelper.swift
-//  HZCoreKit_Example
+//  CoreKit_Example
 //
 //  Created by choarkinphe on 2020/9/10.
 //  Copyright © 2020 CocoaPods. All rights reserved.

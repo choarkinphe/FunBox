@@ -5,9 +5,8 @@
 //  Created by choarkinphe on 2020/8/27.
 //  Copyright © 2020 hongzheng. All rights reserved.
 //
-#if !COCOAPODS
+
 import FunBox
-#endif
 import UIKit
 import Photos
 extension VideoHelper {

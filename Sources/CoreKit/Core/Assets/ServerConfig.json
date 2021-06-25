@@ -1,0 +1,18 @@
+{
+    "servers":      {
+                        "default":"http://support.hz.com"
+        
+                    },
+    "server":       "default",
+    "status":       {
+                        "notFound":404,
+                        "success":100,
+                        "unauthorized":202,
+                        "error":200
+                    },
+    "keys":         {
+                        "code":"code",
+                        "token":"tokenid"
+                    },
+    "scheme":       "hz",
+}

@@ -1,11 +1,11 @@
 //
 //  PhotoBrowser.swift
-//  HZCoreKit
+//  CoreKit
 //
 //  Created by choarkinphe on 2020/10/30.
 //
-#if !COCOAPODS
 import FunBox
+#if !COCOAPODS
 import FunWebImage
 import FunUI
 #endif

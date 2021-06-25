@@ -8,6 +8,7 @@
 
 import Foundation
 import FunBox
+import CoreKit
 
 typealias Router = FunBox.Router
 extension Service: FunRouterDelegate {
@@ -64,27 +65,27 @@ extension Service.LaunchOptions: APPLaunchable {
 
 }
 
-extension NamespaceWrapper where T : Router {
-    
-    // APP启动或者外部唤醒APP时会走到这里
-    func open(launchOptions: APPLaunchable?, completion: ((FunRouter.Response)->Void)?=nil) {
-        
-        guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
-        
-        wrappedValue.open(url: url, params: nil, animated: true, handler: completion)
-    }
-
-    // 注册本地JSON文件中的路由规则
-    func regist() {
-        
-        if let json = JSONSerialization.fb.json(fileName: "RouterPage.JSON", type: [String: String].self) {
-            for item in json {
-                print(item)
-                wrappedValue.regist(url: item.key, class_name: item.value)
-            }
-        }
-        
-    }
-}
-
-extension Router: NamespaceWrappable {}
+//extension NamespaceWrapper where T : Router {
+//    
+//    // APP启动或者外部唤醒APP时会走到这里
+//    func open(launchOptions: APPLaunchable?, completion: ((FunRouter.Response)->Void)?=nil) {
+//        
+//        guard let launchOptions = launchOptions, let url = launchOptions.url else { return }
+//        
+//        wrappedValue.open(url: url, params: nil, animated: true, handler: completion)
+//    }
+//
+//    // 注册本地JSON文件中的路由规则
+//    func regist() {
+//        
+//        if let json = JSONSerialization.fb.json(fileName: "RouterPage.JSON", type: [String: String].self) {
+//            for item in json {
+//                print(item)
+//                wrappedValue.regist(url: item.key, class_name: item.value)
+//            }
+//        }
+//        
+//    }
+//}
+//
+//extension Router: NamespaceWrappable {}

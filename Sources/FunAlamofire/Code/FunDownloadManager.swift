@@ -7,9 +7,8 @@
 
 import Foundation
 import Alamofire
-#if !COCOAPODS
 import FunBox
-#endif
+
 
 
 fileprivate let FunDownloadLocalResponderPathName = "com.funfreedom.FunDownloadLocalResponderPathName"

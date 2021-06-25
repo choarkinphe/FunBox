@@ -7,9 +7,8 @@
 
 import UIKit
 import Photos
-#if !COCOAPODS
 import FunBox
-#endif
+
 // Photo的相关权限
 public extension FunAuthorize {
     class Photo {

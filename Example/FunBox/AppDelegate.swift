@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+@_exported import FunBox
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

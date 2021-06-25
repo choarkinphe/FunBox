@@ -8,9 +8,8 @@
 
 import AVFoundation
 import UIKit
-#if !COCOAPODS
 import FunBox
-#endif
+
 
 extension FunScan {
     

@@ -3,6 +3,10 @@ use_frameworks!
 target 'FunBox_Example' do
   platform :ios, '11.0'
   pod 'FunBox', :path => '../'
+  pod 'CoreKit', :path => '../'
+  pod 'FunAlamofire', :path => '../'
+  pod 'FunModules', :path => '../'
+  
 #  pod 'Toast-swift'
 
   target 'FunBox_Tests' do

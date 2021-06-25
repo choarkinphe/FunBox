@@ -7,9 +7,8 @@
 //
 import UIKit
 import Kingfisher
-#if !COCOAPODS
 import FunBox
-#endif
+
 
 public protocol FunImageContainer {
     func response(for config: FunWebImage.Config)
@@ -21,7 +20,7 @@ public protocol FunWebImageSource {
 
 extension String: FunWebImageSource {
     public func asSource() -> Source? {
-        var string = self
+        var string = self   
         if !string.hasPrefix("http"), var server = FunWebImage.manager.baseURL {
             if server.hasSuffix("/") {
                 server.removeLast()

@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49031FA326859EE2004E75D7 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49031FA226859EE2004E75D7 /* Router.swift */; };
+		49031FA52685A457004E75D7 /* CoreKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 49031FA42685A457004E75D7 /* CoreKit.podspec */; };
 		4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */; };
 		4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938EDB125D25EC100E0862E /* TestTableViewController.swift */; };
-		4938EDB725D2605A00E0862E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* SwiftPackageProductDependency */; };
+		4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* HandyJSON */; };
 		4938EDBD25D2666300E0862E /* Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4938EDBA25D260C600E0862E /* Test.json */; };
-		49C2937C24FA2B54005880AD /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937B24FA2B54005880AD /* Router.swift */; };
-		49C2937E24FA2BE3005880AD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C2937D24FA2BE3005880AD /* Service.swift */; };
 		49C2938424FBE2F6005880AD /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2938324FBE2F6005880AD /* OCViewController.m */; };
 		4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D78124696BA4002BD04D /* TableViewController.swift */; };
 		4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AD9F4253EC119008B1773 /* WebViewController.swift */; };
@@ -23,9 +23,7 @@
 		4A73E2E325771FC900CD4748 /* WorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A73E2DB25771FC900CD4748 /* WorkViewController.swift */; };
 		4A73E2E425771FC900CD4748 /* RouteTable.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 4A73E2DD25771FC900CD4748 /* RouteTable.JSON */; };
 		4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 4A73E2DE25771FC900CD4748 /* WorkItems.JSON */; };
-		4AF9768F25AFE6ED00A1CC9C /* ScanUnitSwapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9768825AFE6ED00A1CC9C /* ScanUnitSwapController.swift */; };
-		4AF9769125AFE6ED00A1CC9C /* ScanInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9768D25AFE6ED00A1CC9C /* ScanInputer.swift */; };
-		4AF9769825AFE79F00A1CC9C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9769725AFE79F00A1CC9C /* SwiftPackageProductDependency */; };
+		4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9769725AFE79F00A1CC9C /* SnapKit */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -47,11 +45,13 @@
 /* Begin PBXFileReference section */
 		13229E97BF991B9B97ABF914 /* Pods-FunBox_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunBox_Example.release.xcconfig"; path = "Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example.release.xcconfig"; sourceTree = "<group>"; };
 		214F32D937AF825BEA63634D /* Pods_FunBox_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunBox_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49031FA226859EE2004E75D7 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		49031FA42685A457004E75D7 /* CoreKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CoreKit.podspec; path = ../CoreKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		49031FA62685AD59004E75D7 /* FunAlamofire.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = FunAlamofire.podspec; path = ../FunAlamofire.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		49031FA72685AF9E004E75D7 /* FunModules.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = FunModules.podspec; path = ../FunModules.podspec; sourceTree = "<group>"; };
 		4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4938EDB125D25EC100E0862E /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		4938EDBA25D260C600E0862E /* Test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Test.json; sourceTree = "<group>"; };
-		49C2937B24FA2B54005880AD /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		49C2937D24FA2BE3005880AD /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunBox_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		49C2938224FBE2F6005880AD /* OCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
 		49C2938324FBE2F6005880AD /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
@@ -65,8 +65,6 @@
 		4A73E2DB25771FC900CD4748 /* WorkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkViewController.swift; sourceTree = "<group>"; };
 		4A73E2DD25771FC900CD4748 /* RouteTable.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RouteTable.JSON; sourceTree = "<group>"; };
 		4A73E2DE25771FC900CD4748 /* WorkItems.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WorkItems.JSON; sourceTree = "<group>"; };
-		4AF9768825AFE6ED00A1CC9C /* ScanUnitSwapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanUnitSwapController.swift; sourceTree = "<group>"; };
-		4AF9768D25AFE6ED00A1CC9C /* ScanInputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanInputer.swift; sourceTree = "<group>"; };
 		4FEABE8942A550209700BF74 /* FunBox.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FunBox.podspec; path = ../FunBox.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* FunBox_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunBox_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,9 +87,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4938EDB725D2605A00E0862E /* BuildFile in Frameworks */,
+				4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */,
 				BE18932D05AF67F49E8D109B /* Pods_FunBox_Example.framework in Frameworks */,
-				4AF9769825AFE79F00A1CC9C /* BuildFile in Frameworks */,
+				4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,34 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				4938EDAD25D25E9B00E0862E /* Table */,
-				4AF9768525AFE6ED00A1CC9C /* Scan */,
 			);
 			path = Moudules;
-			sourceTree = "<group>";
-		};
-		4AF9768525AFE6ED00A1CC9C /* Scan */ = {
-			isa = PBXGroup;
-			children = (
-				4AF9768625AFE6ED00A1CC9C /* Controller */,
-				4AF9768C25AFE6ED00A1CC9C /* View */,
-			);
-			path = Scan;
-			sourceTree = "<group>";
-		};
-		4AF9768625AFE6ED00A1CC9C /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				4AF9768825AFE6ED00A1CC9C /* ScanUnitSwapController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		4AF9768C25AFE6ED00A1CC9C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4AF9768D25AFE6ED00A1CC9C /* ScanInputer.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -247,6 +219,7 @@
 		607FACD21AFB9204008FA782 /* Example for FunBox */ = {
 			isa = PBXGroup;
 			children = (
+				49031FA226859EE2004E75D7 /* Router.swift */,
 				4AF9768425AFE6D700A1CC9C /* Moudules */,
 				4A73E2D225771FC900CD4748 /* Work */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -256,8 +229,6 @@
 				49C2938224FBE2F6005880AD /* OCViewController.h */,
 				49C2938324FBE2F6005880AD /* OCViewController.m */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				49C2937D24FA2BE3005880AD /* Service.swift */,
-				49C2937B24FA2B54005880AD /* Router.swift */,
 				4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */,
@@ -294,6 +265,9 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				49031FA72685AF9E004E75D7 /* FunModules.podspec */,
+				49031FA62685AD59004E75D7 /* FunAlamofire.podspec */,
+				49031FA42685A457004E75D7 /* CoreKit.podspec */,
 				4FEABE8942A550209700BF74 /* FunBox.podspec */,
 				B73A24511CEE4ABD3EE0758E /* README.md */,
 				6A756AE4A6D475FE08EEE440 /* LICENSE */,
@@ -329,8 +303,8 @@
 			);
 			name = FunBox_Example;
 			packageProductDependencies = (
-				4AF9769725AFE79F00A1CC9C /* SwiftPackageProductDependency */,
-				4938EDB625D2605A00E0862E /* SwiftPackageProductDependency */,
+				4AF9769725AFE79F00A1CC9C /* SnapKit */,
+				4938EDB625D2605A00E0862E /* HandyJSON */,
 			);
 			productName = FunBox;
 			productReference = 607FACD01AFB9204008FA782 /* FunBox_Example.app */;
@@ -392,8 +366,8 @@
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
-				4AF9769625AFE79F00A1CC9C /* RemoteSwiftPackageReference */,
-				4938EDB525D2605A00E0862E /* RemoteSwiftPackageReference */,
+				4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -410,6 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49031FA52685A457004E75D7 /* CoreKit.podspec in Resources */,
 				4A73E2E425771FC900CD4748 /* RouteTable.JSON in Resources */,
 				4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */,
 				4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */,
@@ -480,28 +455,50 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FunBox_Example/Pods-FunBox_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CoreKit/CoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
+				"${BUILT_PRODUCTS_DIR}/FunAlamofire/FunAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FunBox/FunBox.framework",
+				"${BUILT_PRODUCTS_DIR}/FunModules/FunModules.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/JXPhotoBrowser/JXPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/KingfisherWebP/KingfisherWebP.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunBox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunModules.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JXPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KingfisherWebP.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libwebp.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -515,19 +512,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C2937C24FA2B54005880AD /* Router.swift in Sources */,
 				4A73E2E025771FC900CD4748 /* WorkViewModel.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				49C2938424FBE2F6005880AD /* OCViewController.m in Sources */,
-				49C2937E24FA2BE3005880AD /* Service.swift in Sources */,
 				4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */,
-				4AF9769125AFE6ED00A1CC9C /* ScanInputer.swift in Sources */,
+				49031FA326859EE2004E75D7 /* Router.swift in Sources */,
 				4A73E2DF25771FC900CD4748 /* WorkModel.swift in Sources */,
 				4A73E2E125771FC900CD4748 /* WorkItem.swift in Sources */,
 				4A73E2E325771FC900CD4748 /* WorkViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */,
-				4AF9768F25AFE6ED00A1CC9C /* ScanUnitSwapController.swift in Sources */,
 				4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */,
 				4A73E2E225771FC900CD4748 /* WorkHeader.swift in Sources */,
 			);
@@ -604,6 +598,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -653,6 +648,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -804,7 +800,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4938EDB525D2605A00E0862E /* RemoteSwiftPackageReference */ = {
+		4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alibaba/HandyJSON.git";
 			requirement = {
@@ -812,7 +808,7 @@
 				minimumVersion = 5.0.2;
 			};
 		};
-		4AF9769625AFE79F00A1CC9C /* RemoteSwiftPackageReference */ = {
+		4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -823,14 +819,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4938EDB625D2605A00E0862E /* SwiftPackageProductDependency */ = {
+		4938EDB625D2605A00E0862E /* HandyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4938EDB525D2605A00E0862E /* RemoteSwiftPackageReference */;
+			package = 4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */;
 			productName = HandyJSON;
 		};
-		4AF9769725AFE79F00A1CC9C /* SwiftPackageProductDependency */ = {
+		4AF9769725AFE79F00A1CC9C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4AF9769625AFE79F00A1CC9C /* RemoteSwiftPackageReference */;
+			package = 4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -7,9 +7,9 @@
 
 import Photos
 import UIKit
-#if !COCOAPODS
+
 import FunBox
-#endif
+
 
 public typealias FunMediaHelper = FunBox.MediaHelper
 

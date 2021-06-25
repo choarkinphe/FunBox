@@ -55,7 +55,7 @@ struct Test {
     
     class TableView: UITableView {
         
-        var viewModel = ViewModel()
+        var viewModel = ViewModel<String>()
         
         
         func bind(viewModel: Test.ViewModel) {

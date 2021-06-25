@@ -12,16 +12,16 @@ import UIKit
         override func viewDidLoad() {
             super.viewDidLoad()
 
-            FunBox.alert.title("dd").message("aaa").addAction(title: "取消", style: .cancel).addAction(title: "确定", style: .default, color: .red, handler: { (action) in
-                
-            }).present()
+//            FunBox.alert.title("dd").message("aaa").addAction(title: "取消", style: .cancel).addAction(title: "确定", style: .default, color: .red, handler: { (action) in
+//                
+//            }).present()
         
         }
     }
     class WorkViewController: UIViewController {
         
         var viewModel = Work.ViewModel()
-        
+        /*
         func initNavigationBar(navigationBar: FunNavigationBar) {
 //            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
 //            button.setTitle("POP ", for: .normal)
@@ -35,9 +35,9 @@ import UIKit
                 self.popMenu(sender: sender)
             }
         }
-        
+        */
         @objc func popMenu(sender: UIButton) {
-
+/*
             let manager = FunPopMenuManager.default
             // Set actions
 //            manager.actions =
@@ -67,16 +67,16 @@ import UIKit
             manager.present(sourceView: sender)
 
 
-            
+            */
         }
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
             view.backgroundColor = .purple
-//            HZCoreKit.router.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
-            Router.default.scheme = "funbox"
-            Router.default.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
+//            CoreKit.router.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
+//            Router.default.scheme = "funbox"
+//            Router.default.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
             
             title = "工作台"
 //            navigationController?.navigationBar.prefersLargeTitles = true
@@ -95,10 +95,10 @@ import UIKit
             collectionView.rx.itemSelected
 //            collectionView.rx.modelSelected(Work.Tab.self).subscribe(onNext: { (element) in
 //                guard !(element.linkUrl?.isEmpty ?? true) else {
-//                    HZHUD.toast(.error, message: Work.Tips.working)
+//                    CKHUD.toast(.error, message: Work.Tips.working)
 //                    return
 //                }
-//                HZCoreKit.router.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
+//                CoreKit.router.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
 //                    print(action.identifier)
 //                    switch action.identifier {
 ////                    case "popMenu":
@@ -109,10 +109,10 @@ import UIKit
 //                })
 //
 //            }).disposed(by: viewModel.disposeBag)
-            let navigationBar = FunNavigationBar(template: .container)
-            fb.navigationBar = navigationBar
-            
-            initNavigationBar(navigationBar: navigationBar)
+//            let navigationBar = FunNavigationBar(template: .container)
+//            fb.navigationBar = navigationBar
+//
+//            initNavigationBar(navigationBar: navigationBar)
 
         }
         
@@ -134,7 +134,7 @@ import UIKit
         }
         
         @objc private func showMessage(sender: UIBarButtonItem) {
-//            HZHUD.toast(.info, message: Work.Tips.working)
+//            CKHUD.toast(.info, message: Work.Tips.working)
         }
         
         lazy var header: Work.Header = {

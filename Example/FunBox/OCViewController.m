@@ -50,11 +50,11 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    Router *router = [Service router];
-    
-    [router openWithUrl:@"funbox://testOC" params:@"哈哈哈" animated:YES completion:^(NSURL * url, NSString * identifier, UIAlertAction * alert, NSString * error) {
-        
-    }];
+//    Router *router = [Service router];
+//    
+//    [router openWithUrl:@"funbox://testOC" params:@"哈哈哈" animated:YES completion:^(NSURL * url, NSString * identifier, UIAlertAction * alert, NSString * error) {
+//        
+//    }];
 
 }
 /*

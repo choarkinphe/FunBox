@@ -7,9 +7,7 @@
 
 
 import Alamofire
-#if !COCOAPODS
 import FunBox
-#endif
 import UIKit
 
 extension FunAlamofire {
@@ -51,8 +49,8 @@ extension FunAlamofire {
         // encoding
         public var encoding: ParameterEncoding = URLEncoding.default
         // body体
-        public var formDataHandler: ((MultipartFormData)->Void)?
-
+//        public var formDataHandler: ((MultipartFormData)->Void)?
+        
         // 请求配置
         public var options: [FunAlamofire.Option] = [.toast(FunAlamofire.manager.toast)]
         
@@ -245,9 +243,9 @@ extension FunAlamofire {
             guard let url = url else { return nil }
             let formData = MultipartFormData(fileManager: FileManager.default)
             
-            if let formDataHandler = formDataHandler {
-                formDataHandler(formData)
-            }
+//            if let formDataHandler = formDataHandler {
+//                formDataHandler(formData)
+//            }
             return session.upload(multipartFormData: formData, to: url, method: method, headers: headers)
         }
     }
@@ -283,10 +281,10 @@ public extension FunAlamofire.Task {
         self.encoding = encoding
         return self
     }
-    func body(_ body: ((MultipartFormData) -> Void)?) -> Self {
-        self.formDataHandler = body
-        return self
-    }
+//    func body(_ body: ((MultipartFormData) -> Void)?) -> Self {
+//        self.formDataHandler = body
+//        return self
+//    }
 
     
     func options(_ options: [FunAlamofire.Option]) -> Self {

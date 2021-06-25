@@ -9,9 +9,8 @@
 import UIKit
 import AVFoundation
 import Photos
-#if !COCOAPODS
 import FunBox
-#endif
+
 extension FunMediaHelper {
     open class VideoEditor: UIViewController {
         public enum Mode {

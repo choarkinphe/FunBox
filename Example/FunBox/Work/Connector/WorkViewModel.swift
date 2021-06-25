@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FunModules
 
 struct AAA<T> {
     var a: T?
@@ -91,6 +92,7 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                     
                     case "Toast":
+//                        break
 //                        var progress: CGFloat = 0.01
 //                        timer.schedule(deadline: .now(), repeating: .seconds(1), leeway: .microseconds(10))
 //
@@ -98,24 +100,25 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                            progress = progress + 0.01
 //                        FunBox.toast.style(.system).duration(2.5).mode(.progress(0.5)).tapToDismiss(false).title("提示").message("静音模式开启").haptic(true).show()
 //                            FunHUD.toast(.success, message: "dgdgdg")
-                        FunHUD(.loading).style(.system).message("ddd").show()
+//                        FunHUD(.loading).style(.system).message("ddd").show()
 //
 //                        }
 //
 //                        timer.resume()
                         
-//                        FunBox.toast.title("提示").haptic(true).show()
-//                        FunBox.toast.title("提示").haptic(true).show()
-//                        FunBox.toast.title("提示").haptic(true).show()
-//                        FunBox.toast.title("提示").haptic(true).message("哈哈").show()
-//                        FunBox.toast.title("提示").haptic(true).message("哈哈").show()
-//                        FunBox.toast.title("提示").haptic(true).message("呵呵").show()
-//                        FunBox.toast.title("提示").haptic(true).show()
-//                        FunBox.toast.title("提示").haptic(true).message("嘻嘻").show()
-//                        FunBox.toast.title("提示").haptic(true).show()
-//                        FunHUD.toast(.loading, message: "等等等等")
+                        FunBox.toast.title("提示").haptic(true).show()
+                        FunBox.toast.title("提示").haptic(true).show()
+                        FunBox.toast.title("提示").haptic(true).show()
+                        FunBox.toast.title("提示").haptic(true).message("哈哈").show()
+                        FunBox.toast.title("提示").haptic(true).message("哈哈").show()
+                        FunBox.toast.title("提示").haptic(true).message("呵呵").show()
+                        FunBox.toast.title("提示").haptic(true).show()
+                        FunBox.toast.title("提示").haptic(true).message("嘻嘻").show()
+                        FunBox.toast.title("提示").haptic(true).show()
+                        FunHUD.toast(.loading, message: "等等等等")
                         
                     case "扫码":
+//                        break
                         var style = FunScan.Style()
                         style.boardColor = .blue
                         FunScan.default.feed(style: style).response { (navigation) in
@@ -127,10 +130,12 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
                             }
                         }
                     case "Call":
+//                        break
 //                        FunCall.call(nil)
 //                        FunHUD.toast(.success, message: "等等等等")
                         FunBox.datePicker.set(date: "2021/1/24").present()
                 default:
+                    break
                     FunHUD.dismissActivity()
                     Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
                         print(action.identifier)

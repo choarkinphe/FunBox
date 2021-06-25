@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         work.view.frame = view.bounds
         view.addSubview(work.view)
 //        FunRouter.default.regist(url: "funbox://testList", class_name: "TableViewController")
-        FunRouter.default.hz.regist()
+//        FunRouter.default.hz.regist()
         fb.observer.deviceOrientation { (orientation) in
             print(orientation,"AAA")
         }
