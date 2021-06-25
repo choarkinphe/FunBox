@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
             # FunAlamofire路径
             s.source_files = 'Sources/FunAlamofire/Code/**/*'
             # FunAlamofire依赖
-            s.dependency 'FunBox/Core'
+            s.dependency 'FunBox/Core', '~> 1.0.0'
             s.dependency 'Alamofire'#, '~> 5.2.2'
 
 end

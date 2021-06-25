@@ -4,6 +4,7 @@
     "funbox://webView":"WebViewController",
     "funbox://dev/testOC":"OCViewController",
     "funbox://dev/testA":"TestTableViewCController",
-    "funbox://dev/testScan":"ScanUnitSwapController"
+    "funbox://dev/testScan":"ScanUnitSwapController",
+    "funbox://dev/wechat":"WeChatViewController"
     
 }

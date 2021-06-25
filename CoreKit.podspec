@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
     s.source_files = 'Sources/DevelopKit/CoreKit/Code/CoreKit.swift'
     
     #依赖
-    s.dependency 'FunBox/Core'
+    s.dependency 'FunBox/Core', '~> 1.0.0'
     s.dependency 'FunModules/FunUI'
     s.dependency 'FunModules/RxFunBox'
     s.dependency 'Hue', '~> 5.0.0'

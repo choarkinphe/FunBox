@@ -20,7 +20,7 @@ extension Service: FunRouterDelegate {
     @objc static var router: Router {
         let router = Router.default
         router.delegate = Service.manager
-        router.scheme = "funbox://"
+        router.scheme = "funbox"
         return router
     }
     

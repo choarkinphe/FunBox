@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreKit
 //extension Work {
     class NavigationController: UINavigationController {
         override func viewDidLoad() {
@@ -74,7 +75,7 @@ import UIKit
             super.viewDidLoad()
             
             view.backgroundColor = .purple
-//            CoreKit.router.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
+            Service.router.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
 //            Router.default.scheme = "funbox"
 //            Router.default.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
             

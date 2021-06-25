@@ -14,7 +14,7 @@ import Foundation
 public struct API {
     public typealias Paramter = [String: Any]
     public typealias Provider = MoyaProvider
-    private static let cachePathName = "com.hz_tech.core.requestcache"
+    private static let cachePathName = "com.corekit.core.requestcache"
 //    struct PageConfig: HandyJSON, APIPageParamterable {
 //        var limit: Int = 20 // pageSize
 //        var offset: Int = 0 //

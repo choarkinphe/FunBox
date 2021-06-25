@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunModules'
-    s.version          = '0.1.0'
+    s.version          = '1.0.0'
     s.summary          = 'FunBox 外部组件库'
     s.swift_version    = '5.0'
     
@@ -32,15 +32,13 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.0'
     
     # 组件库
-    s.dependency 'FunBox/Core'
+    s.dependency 'FunBox/Core', '~> 1.0.0'
 
         
         # 工具: FunUI
         s.subspec 'FunUI' do |item|
             # FunUI路径
             item.source_files = 'Sources/FunUI/**/*'
-            # FunUI依赖
-#            item.dependency 'FunBox/Core'
         end
         
         # 工具: RxFunBox
@@ -48,7 +46,7 @@ Pod::Spec.new do |s|
             # RxFunBox路径
             item.source_files = 'Sources/RxFunBox/**/*'
             # RxFunBox依赖
-            item.dependency 'FunBox/Box/UI'
+            item.dependency 'FunBox/Box/UI', '~> 1.0.0'
             item.dependency 'RxDataSources', '~> 4.0.1'
             item.dependency 'RxSwift', '~> 5.1.1'
             item.dependency 'RxCocoa', '~> 5.1.1'
@@ -60,7 +58,6 @@ Pod::Spec.new do |s|
             item.source_files = 'Sources/FunWebImage/**/*'
 
             # MediaHelper依赖
-#            item.dependency 'FunBox/Core'
             item.dependency 'Kingfisher', '~> 5.15.0'
 #            s.dependency 'KingfisherWebP', '~> 1.0.0'
         end
@@ -71,13 +68,10 @@ Pod::Spec.new do |s|
             item.source_files = 'Sources/FunScan/Code/**/*'
 
             # FunScan依赖
-#            item.dependency 'FunBox/Core'
             item.resource_bundles = {
                 'FunScan' => ['Sources/FunScan/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,js,gif,md,strings}']
             }
             item.dependency 'FunModules/FunUI'
-#            s.dependency 'Kingfisher', '~> 5.15.0'
-#            s.dependency 'KingfisherWebP', '~> 1.0.0'
         end
         
         # 工具: FunMediaHelper
@@ -89,7 +83,6 @@ Pod::Spec.new do |s|
                 'MediaHelper' => ['Sources/FunMediaHelper/Assets/**/*.{storyboard,xib,xcassets,json,imageset,png,gif,md,strings}']
             }
             # MediaHelper依赖
-#            item.dependency 'FunBox/Core'
             item.dependency 'FunModules/FunWebImage'
             item.dependency 'FunModules/FunUI'
             item.dependency 'JXPhotoBrowser', '~> 3.1.2'

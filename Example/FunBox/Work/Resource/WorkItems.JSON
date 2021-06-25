@@ -10,6 +10,11 @@
                     "icon": "APPkaifa",
                     "linkUrl": "funbox://toast",
                     "name": "Toast"
+                },
+                {
+                    "icon": "APPkaifa",
+                    "linkUrl": "funbox://dev/wechat",
+                    "name": "微信账号"
                 }]
 },
 {

@@ -8,7 +8,7 @@
 
 import UIKit
 import FunModules
-
+import CoreKit
 struct AAA<T> {
     var a: T?
 }
@@ -135,9 +135,9 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                        FunHUD.toast(.success, message: "等等等等")
                         FunBox.datePicker.set(date: "2021/1/24").present()
                 default:
-                    break
+//                    break
                     FunHUD.dismissActivity()
-                    Router.default.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
+                    Service.router.open(url: element.linkUrl, params: nil, animated: true, handler: { (action) in
                         print(action.identifier)
                     })
                 }

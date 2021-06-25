@@ -13,6 +13,7 @@
 		4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938EDB125D25EC100E0862E /* TestTableViewController.swift */; };
 		4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* HandyJSON */; };
 		4938EDBD25D2666300E0862E /* Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4938EDBA25D260C600E0862E /* Test.json */; };
+		496D55E62685D889001CB081 /* WeChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D55E52685D889001CB081 /* WeChatViewController.swift */; };
 		49C2938424FBE2F6005880AD /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2938324FBE2F6005880AD /* OCViewController.m */; };
 		4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D78124696BA4002BD04D /* TableViewController.swift */; };
 		4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AD9F4253EC119008B1773 /* WebViewController.swift */; };
@@ -52,6 +53,7 @@
 		4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4938EDB125D25EC100E0862E /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		4938EDBA25D260C600E0862E /* Test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Test.json; sourceTree = "<group>"; };
+		496D55E52685D889001CB081 /* WeChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatViewController.swift; sourceTree = "<group>"; };
 		49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunBox_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		49C2938224FBE2F6005880AD /* OCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
 		49C2938324FBE2F6005880AD /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		496D55E42685D87D001CB081 /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				496D55E52685D889001CB081 /* WeChatViewController.swift */,
+			);
+			path = WeChat;
+			sourceTree = "<group>";
+		};
 		4A73E2D225771FC900CD4748 /* Work */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +199,7 @@
 		4AF9768425AFE6D700A1CC9C /* Moudules */ = {
 			isa = PBXGroup;
 			children = (
+				496D55E42685D87D001CB081 /* WeChat */,
 				4938EDAD25D25E9B00E0862E /* Table */,
 			);
 			path = Moudules;
@@ -523,6 +534,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */,
 				4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */,
+				496D55E62685D889001CB081 /* WeChatViewController.swift in Sources */,
 				4A73E2E225771FC900CD4748 /* WorkHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
