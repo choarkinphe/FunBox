@@ -49,7 +49,7 @@
 		49031FA226859EE2004E75D7 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		49031FA42685A457004E75D7 /* CoreKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CoreKit.podspec; path = ../CoreKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		49031FA62685AD59004E75D7 /* FunAlamofire.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = FunAlamofire.podspec; path = ../FunAlamofire.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		49031FA72685AF9E004E75D7 /* FunModules.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = FunModules.podspec; path = ../FunModules.podspec; sourceTree = "<group>"; };
+		49031FA72685AF9E004E75D7 /* FunModules.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = FunModules.podspec; path = ../FunModules.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4938EDB125D25EC100E0862E /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		4938EDBA25D260C600E0862E /* Test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Test.json; sourceTree = "<group>"; };
@@ -683,7 +683,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.FunBox-Example.a";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.FunBox-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FunBox/FunBox_Example-Bridging-Header.h";
@@ -710,7 +710,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.FunBox-Example.a";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.FunBox-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FunBox/FunBox_Example-Bridging-Header.h";

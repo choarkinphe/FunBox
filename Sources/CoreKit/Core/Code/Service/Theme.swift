@@ -213,6 +213,19 @@ public class Theme {
             
             return UIImage(named: "ic_sys_close", in: CoreKit.bundle, compatibleWith: nil)
         }
+        public struct Toast {
+            public static var info: UIImage? {
+                UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)
+            }
+            public static var error: UIImage? {
+                UIImage(named: "Toast_tips_error", in: CoreKit.bundle, compatibleWith: nil)
+            }
+            public static var done: UIImage? {
+                UIImage(named: "Toast_tips_done", in: CoreKit.bundle, compatibleWith: nil)
+            }
+            
+        }
+        
     }
     
     public enum Style: String {

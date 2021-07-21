@@ -1,11 +1,11 @@
 PODS:
   - Alamofire (5.2.2)
-  - CoreKit (0.1.0):
-    - CoreKit/Box (= 0.1.0)
-    - CoreKit/Core (= 0.1.0)
-    - CoreKit/Main (= 0.1.0)
-    - CoreKit/Modules (= 0.1.0)
-    - FunBox/Core
+  - CoreKit (1.0.0):
+    - CoreKit/Box (= 1.0.0)
+    - CoreKit/Core (= 1.0.0)
+    - CoreKit/Main (= 1.0.0)
+    - CoreKit/Modules (= 1.0.0)
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -19,12 +19,12 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Box (0.1.0):
-    - CoreKit/Box/CKUIKit (= 0.1.0)
-    - CoreKit/Box/Extension (= 0.1.0)
-    - CoreKit/Box/Service (= 0.1.0)
-    - CoreKit/Box/Utils (= 0.1.0)
-    - FunBox/Core
+  - CoreKit/Box (1.0.0):
+    - CoreKit/Box/CKUIKit (= 1.0.0)
+    - CoreKit/Box/Extension (= 1.0.0)
+    - CoreKit/Box/Service (= 1.0.0)
+    - CoreKit/Box/Utils (= 1.0.0)
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -38,10 +38,10 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Box/CKUIKit (0.1.0):
+  - CoreKit/Box/CKUIKit (1.0.0):
     - CoreKit/Box/Extension
     - CoreKit/Box/Service
-    - FunBox/Core
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -55,9 +55,9 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Box/Extension (0.1.0):
+  - CoreKit/Box/Extension (1.0.0):
     - CoreKit/Box/Service
-    - FunBox/Core
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -71,9 +71,9 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Box/Service (0.1.0):
+  - CoreKit/Box/Service (1.0.0):
     - CoreKit/Main
-    - FunBox/Core
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -87,10 +87,10 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Box/Utils (0.1.0):
+  - CoreKit/Box/Utils (1.0.0):
     - CoreKit/Box/Extension
     - CoreKit/Box/Service
-    - FunBox/Core
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -104,12 +104,12 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Core (0.1.0):
+  - CoreKit/Core (1.0.0):
     - CoreKit/Box/CKUIKit
     - CoreKit/Box/Extension
     - CoreKit/Box/Service
     - CoreKit/Box/Utils
-    - FunBox/Core
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -123,8 +123,8 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Main (0.1.0):
-    - FunBox/Core
+  - CoreKit/Main (1.0.0):
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -138,9 +138,9 @@ PODS:
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
-  - CoreKit/Modules (0.1.0):
+  - CoreKit/Modules (1.0.0):
     - CoreKit/Core
-    - FunBox/Core
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/RxFunBox
     - HandyJSON (~> 5.0.2)
@@ -155,48 +155,48 @@ PODS:
     - RxSwift (~> 5.1.1)
     - SnapKit (~> 5.0.1)
   - Differentiator (4.0.1)
-  - FunAlamofire (0.1.0):
+  - FunAlamofire (1.0.0):
     - Alamofire
-    - FunBox/Core
-  - FunBox (0.5.80):
-    - FunBox/Box (= 0.5.80)
-    - FunBox/Core (= 0.5.80)
-    - FunBox/Fun (= 0.5.80)
-  - FunBox/Box (0.5.80):
-    - FunBox/Box/UI (= 0.5.80)
-    - FunBox/Box/Utils (= 0.5.80)
-  - FunBox/Box/UI (0.5.80):
+    - FunBox/Core (~> 1.0.0)
+  - FunBox (1.0.0):
+    - FunBox/Box (= 1.0.0)
+    - FunBox/Core (= 1.0.0)
+    - FunBox/Fun (= 1.0.0)
+  - FunBox/Box (1.0.0):
+    - FunBox/Box/UI (= 1.0.0)
+    - FunBox/Box/Utils (= 1.0.0)
+  - FunBox/Box/UI (1.0.0):
     - FunBox/Fun
-  - FunBox/Box/Utils (0.5.80):
+  - FunBox/Box/Utils (1.0.0):
     - FunBox/Fun
-  - FunBox/Core (0.5.80):
+  - FunBox/Core (1.0.0):
     - FunBox/Box
     - FunBox/Fun
-  - FunBox/Fun (0.5.80)
-  - FunModules (0.1.0):
-    - FunBox/Core
-    - FunModules/FunMediaHelper (= 0.1.0)
-    - FunModules/FunScan (= 0.1.0)
-    - FunModules/FunUI (= 0.1.0)
-    - FunModules/FunWebImage (= 0.1.0)
-    - FunModules/RxFunBox (= 0.1.0)
-  - FunModules/FunMediaHelper (0.1.0):
-    - FunBox/Core
+  - FunBox/Fun (1.0.0)
+  - FunModules (1.0.0):
+    - FunBox/Core (~> 1.0.0)
+    - FunModules/FunMediaHelper (= 1.0.0)
+    - FunModules/FunScan (= 1.0.0)
+    - FunModules/FunUI (= 1.0.0)
+    - FunModules/FunWebImage (= 1.0.0)
+    - FunModules/RxFunBox (= 1.0.0)
+  - FunModules/FunMediaHelper (1.0.0):
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/FunWebImage
     - JXPhotoBrowser (~> 3.1.2)
     - TZImagePickerController (= 3.4.8)
-  - FunModules/FunScan (0.1.0):
-    - FunBox/Core
+  - FunModules/FunScan (1.0.0):
+    - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
-  - FunModules/FunUI (0.1.0):
-    - FunBox/Core
-  - FunModules/FunWebImage (0.1.0):
-    - FunBox/Core
+  - FunModules/FunUI (1.0.0):
+    - FunBox/Core (~> 1.0.0)
+  - FunModules/FunWebImage (1.0.0):
+    - FunBox/Core (~> 1.0.0)
     - Kingfisher (~> 5.15.0)
-  - FunModules/RxFunBox (0.1.0):
-    - FunBox/Box/UI
-    - FunBox/Core
+  - FunModules/RxFunBox (1.0.0):
+    - FunBox/Box/UI (~> 1.0.0)
+    - FunBox/Core (~> 1.0.0)
     - RxCocoa (~> 5.1.1)
     - RxDataSources (~> 4.0.1)
     - RxSwift (~> 5.1.1)
@@ -280,11 +280,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  CoreKit: 6b2fa83dd26bc43c4aa7a4d2607da93f7b27b3ac
+  CoreKit: c0eabcb01ac915f1b28607c8515e8670d644bcdb
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  FunAlamofire: db8ef5fa868b36ccb75db179962441fb09885dab
-  FunBox: 16f279038bad747eeca56141ec4c00b146afc39d
-  FunModules: 031d9984127c22b793b216799639d8c0694a7ef9
+  FunAlamofire: c6ba332bf20ddfb954cc35f1ee6ac2057951e6ee
+  FunBox: dcfcd3e65bc2699f804c5b9101bfe0592a80eb5b
+  FunModules: d80b29ef69f6d81b113489ce33299c5b551c4ea6
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
   JXPhotoBrowser: d32e94e1226d43bf5ed83164e3f5b651fed625e0

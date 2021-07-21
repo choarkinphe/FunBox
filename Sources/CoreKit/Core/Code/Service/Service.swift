@@ -4,12 +4,11 @@ import Foundation
 @_exported import RxRelay
 @_exported import HandyJSON
 
-public typealias ServerKey = Service.ServerKey
-public typealias ServerList = [ServerKey: String]
-public typealias HZResult = Service.Result
-public typealias HZPageElement = Service.PageElement
-public typealias HZEmpty = Service.Empty
-
+public typealias CKServerKey = Service.ServerKey
+public typealias CKServerList = [CKServerKey: String]
+public typealias CKResult = Service.Result
+public typealias CKPageElement = Service.PageElement
+public typealias CKEmpty = Service.Empty
 
 open class Service: NSObject {
     private var disposeBag = DisposeBag()
@@ -58,6 +57,7 @@ open class Service: NSObject {
             self.token = token
         }
         
+        // 订阅token的变化
         token_observable.bind { [weak self] (token) in
             guard let this = self else { return }
             this.headers[this.tokenKey] = token
@@ -90,10 +90,10 @@ open class Service: NSObject {
     
     @objc public static var manager = Static.instance
     
-    private static let cachePathName = "com.hz_tech.core.servercache"
+    private static let cachePathName = "com.funbox.core.servercache"
     private struct CacheKey {
-        static let token = "com.hz_tech.core.appcache.token"
-        static let config = "com.hz_tech.core.appcache.config"
+        static let token = "com.funbox.core.appcache.token"
+        static let config = "com.funbox.core.appcache.config"
     }
     
     /*
@@ -198,7 +198,7 @@ extension Service {
     public struct Config: HandyJSON {
         public init() {}
         // 服务器列表
-        public var serverList = ServerList()
+        public var serverList = CKServerList()
         fileprivate var servers: [String: String]?
         // 服务器key
         public var serverKey: ServerKey = .default {
@@ -224,10 +224,12 @@ extension Service {
             
             if let servers = servers {
                 servers.forEach { (item) in
-
-                    if item.value.fb.subString(to: 4) == "http" {
+                    if item.value.hasPrefix("http") {
                         serverList[ServerKey(rawValue: item.key)] = item.value
                     }
+//                    if item.value.fb.subString(to: 4) == "http" {
+//                        serverList[ServerKey(rawValue: item.key)] = item.value
+//                    }
                 }
             }
             
@@ -252,10 +254,14 @@ extension Service {
     public func feedServer(_ server: [String: String]) {
         
         server.forEach { (item) in
-            if item.value.fb.subString(to: 4) == "http" {
+            if item.value.hasPrefix("http") {
                 self.config.serverList[ServerKey(rawValue: item.key)] = item.value
                 self.config.servers?[item.key] = item.value
             }
+//            if item.value.fb.subString(to: 4) == "http" {
+//                self.config.serverList[ServerKey(rawValue: item.key)] = item.value
+//                self.config.servers?[item.key] = item.value
+//            }
         }
     }
     
@@ -435,9 +441,11 @@ extension Service {
                 // 全局开关关闭的话，不考略弹窗
                 // 如果开启了请求的错误弹窗
                 if option?.toast == .message {
-                    FunBox.toast.message(message).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)).show()
+//                    FunBox.toast.message(message).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)).show()
+                    FunHUD.toast(.info, message: message)
                 } else if option?.toast == .error, !success {
-                    FunBox.toast.message(message).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)).show()
+//                    FunBox.toast.message(message).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)).show()
+                    FunHUD.toast(.info, message: message)
                 }
             }
             
@@ -466,7 +474,8 @@ extension ObservableType {
                 if let onError = onError {
                     onError(error)
                 } else if Service.manager.config.toast.contains(.response) {
-                    FunBox.toast.message(error.localizedDescription).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_error", in: CoreKit.bundle, compatibleWith: nil)).show()
+//                    FunBox.toast.message(error.localizedDescription).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_error", in: CoreKit.bundle, compatibleWith: nil)).show()
+                    FunHUD.toast(.error, message: error.localizedDescription)
                 }
                 
 

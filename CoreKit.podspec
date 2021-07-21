@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'CoreKit'
-    s.version          = '0.1.0'
+    s.version          = '1.0.1'
     s.summary          = '基于饭盒(FunBox)的开发框架'
     s.swift_version    = '5.0'
     

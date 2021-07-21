@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunModules'
-    s.version          = '1.0.0'
+    s.version          = '1.0.1'
     s.summary          = 'FunBox 外部组件库'
     s.swift_version    = '5.0'
     

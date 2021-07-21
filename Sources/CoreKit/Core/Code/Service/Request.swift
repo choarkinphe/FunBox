@@ -15,10 +15,7 @@ public struct API {
     public typealias Paramter = [String: Any]
     public typealias Provider = MoyaProvider
     private static let cachePathName = "com.corekit.core.requestcache"
-//    struct PageConfig: HandyJSON, APIPageParamterable {
-//        var limit: Int = 20 // pageSize
-//        var offset: Int = 0 //
-//    }
+
     // 方便创建请求实例
     public static func provider<T>(_ type: T.Type) -> Provider<T> where T: TargetType {
         return Provider<T>()
@@ -37,12 +34,12 @@ extension String: HandyJSON {}
 
 extension API.Paramter: APIPageParamterable {
 
-    public var offset: Int {
+    public var index: Int {
         get {
-            return (self["offset"] as? Int) ?? 1
+            return (self["index"] as? Int) ?? 1
         }
         set {
-            self["offset"] = newValue
+            self["index"] = newValue
         }
     }
 
@@ -50,12 +47,12 @@ extension API.Paramter: APIPageParamterable {
 // MARK: - API.公共配置
 // 分页请求数据协议
 public protocol APIPageParamterable: APIParamterable {
-    var limit: Int { get }
-    var offset: Int { get set }
+    var size: Int { get }
+    var index: Int { get set }
 }
 
 extension APIPageParamterable {
-    public var limit: Int {
+    public var size: Int {
         
         return 20
     }
@@ -235,8 +232,8 @@ extension ObservableType where Element == Response {
         }
     }
     
-    public func mapResult<T: HandyJSON>(_ type: T.Type) -> Observable<HZResult<T>> {
-        return flatMap { response -> Observable<HZResult<T>> in
+    public func mapResult<T: HandyJSON>(_ type: T.Type) -> Observable<CKResult<T>> {
+        return flatMap { response -> Observable<CKResult<T>> in
             return Observable.just(try response.mapResult(type))
         }
     }
@@ -264,7 +261,7 @@ extension Response {
         return object
     }
     
-    public func mapResult<T: HandyJSON>(_ type: T.Type) throws -> HZResult<T> {
+    public func mapResult<T: HandyJSON>(_ type: T.Type) throws -> CKResult<T> {
         
         guard let JSON = try mapJSON() as? [String: Any] else {
             throw MoyaError.jsonMapping(self)
@@ -272,7 +269,7 @@ extension Response {
         
 //        JSON["option"] = option?.toJSON()
         
-        guard var object = HZResult<T>.deserialize(from: JSON) else {
+        guard var object = CKResult<T>.deserialize(from: JSON) else {
             throw MoyaError.jsonMapping(self)
         }
         

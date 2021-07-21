@@ -1,6 +1,6 @@
 {
   "name": "CoreKit",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "summary": "基于饭盒(FunBox)的开发框架",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "0.1.0"
+    "tag": "1.0.0"
   },
   "platforms": {
     "ios": "11.0"
@@ -22,7 +22,7 @@
   "source_files": "Sources/DevelopKit/CoreKit/Code/CoreKit.swift",
   "dependencies": {
     "FunBox/Core": [
-
+      "~> 1.0.0"
     ],
     "FunModules/FunUI": [
 

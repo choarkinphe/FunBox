@@ -75,9 +75,9 @@ public extension UILabel {
     }
 }
 
-enum HZType {
-    case back
-}
+//enum CKType {
+//    case back
+//}
 
 public extension UIButton {
     convenience init(_ style: ConstructionElement) {

@@ -23,7 +23,7 @@ extension UIScrollView {
         
         
         public var state: State = .normal
-        public var page = Page(limit: 20) {
+        public var page = Page(size: 20) {
             didSet {
                 // 没有加载出数据时，不现实上拉加载控件
                 isPullUpEnable = page.count > 0
@@ -51,8 +51,8 @@ extension UIScrollView {
         public var tintColor: UIColor? = .darkText
         
         public struct Page {
-            public init(limit: Int) {
-                self.limit = limit
+            public init(size: Int) {
+                self.size = size
             }
             // 当前页
             public var index: Int = 0
@@ -65,7 +65,7 @@ extension UIScrollView {
             // 总数
             public var total: Int = 0
             // 单页个数
-            public var limit: Int = 20
+            public var size: Int = 20
             // other infomation(custom)
             public var options = [String: Any]()
         }
@@ -278,8 +278,8 @@ extension UIScrollView {
 extension UIScrollView.Refresher.Page: APIPageParamterable {
     public func asParams() -> API.Paramter {
         var params = options
-        params["limit"] = limit
-        params["offset"] = offset
+        params["index"] = index
+        params["size"] = size
         return params
     }
 }
