@@ -134,6 +134,8 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                        FunCall.call(nil)
 //                        FunHUD.toast(.success, message: "等等等等")
                         FunBox.datePicker.set(date: "2021/1/24").present()
+                case "VPN":
+                        VPNManager.shared.connect()
                 default:
 //                    break
                     FunHUD.dismissActivity()

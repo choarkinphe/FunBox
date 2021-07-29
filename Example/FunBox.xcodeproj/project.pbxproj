@@ -14,6 +14,10 @@
 		4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* HandyJSON */; };
 		4938EDBD25D2666300E0862E /* Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4938EDBA25D260C600E0862E /* Test.json */; };
 		496D55E62685D889001CB081 /* WeChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D55E52685D889001CB081 /* WeChatViewController.swift */; };
+		4982911B26AA5B640095F7A8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4982911A26AA5B640095F7A8 /* NetworkExtension.framework */; };
+		4982911E26AAB8CD0095F7A8 /* TestVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4982911D26AAB8CD0095F7A8 /* TestVPN.swift */; };
+		4989CEC826B24D86006B36C6 /* VPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989CEC726B24D86006B36C6 /* VPNManager.swift */; };
+		4989CECA26B25CCF006B36C6 /* NEKitRule.conf in Resources */ = {isa = PBXBuildFile; fileRef = 4989CEC926B25CCF006B36C6 /* NEKitRule.conf */; };
 		49C2938424FBE2F6005880AD /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2938324FBE2F6005880AD /* OCViewController.m */; };
 		4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D78124696BA4002BD04D /* TableViewController.swift */; };
 		4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AD9F4253EC119008B1773 /* WebViewController.swift */; };
@@ -54,6 +58,11 @@
 		4938EDB125D25EC100E0862E /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		4938EDBA25D260C600E0862E /* Test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Test.json; sourceTree = "<group>"; };
 		496D55E52685D889001CB081 /* WeChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeChatViewController.swift; sourceTree = "<group>"; };
+		4982911926AA5B640095F7A8 /* FunBox_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FunBox_Example.entitlements; sourceTree = "<group>"; };
+		4982911A26AA5B640095F7A8 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		4982911D26AAB8CD0095F7A8 /* TestVPN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVPN.swift; sourceTree = "<group>"; };
+		4989CEC726B24D86006B36C6 /* VPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNManager.swift; sourceTree = "<group>"; };
+		4989CEC926B25CCF006B36C6 /* NEKitRule.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NEKitRule.conf; sourceTree = "<group>"; };
 		49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunBox_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		49C2938224FBE2F6005880AD /* OCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
 		49C2938324FBE2F6005880AD /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
@@ -90,6 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */,
+				4982911B26AA5B640095F7A8 /* NetworkExtension.framework in Frameworks */,
 				BE18932D05AF67F49E8D109B /* Pods_FunBox_Example.framework in Frameworks */,
 				4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */,
 			);
@@ -140,6 +150,16 @@
 				496D55E52685D889001CB081 /* WeChatViewController.swift */,
 			);
 			path = WeChat;
+			sourceTree = "<group>";
+		};
+		4982911C26AAB85A0095F7A8 /* VPN */ = {
+			isa = PBXGroup;
+			children = (
+				4989CEC926B25CCF006B36C6 /* NEKitRule.conf */,
+				4982911D26AAB8CD0095F7A8 /* TestVPN.swift */,
+				4989CEC726B24D86006B36C6 /* VPNManager.swift */,
+			);
+			path = VPN;
 			sourceTree = "<group>";
 		};
 		4A73E2D225771FC900CD4748 /* Work */ = {
@@ -208,6 +228,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				4982911926AA5B640095F7A8 /* FunBox_Example.entitlements */,
 				4A0D2B6725943353005D590C /* Package.swift */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for FunBox */,
@@ -230,6 +251,7 @@
 		607FACD21AFB9204008FA782 /* Example for FunBox */ = {
 			isa = PBXGroup;
 			children = (
+				4982911C26AAB85A0095F7A8 /* VPN */,
 				49031FA226859EE2004E75D7 /* Router.swift */,
 				4AF9768425AFE6D700A1CC9C /* Moudules */,
 				4A73E2D225771FC900CD4748 /* Work */,
@@ -289,6 +311,7 @@
 		9AF3BD7B31DF53C7056480C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4982911A26AA5B640095F7A8 /* NetworkExtension.framework */,
 				214F32D937AF825BEA63634D /* Pods_FunBox_Example.framework */,
 				A6ED1BDFEA0E3F39F2848A0B /* Pods_FunBox_Tests.framework */,
 			);
@@ -352,7 +375,6 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = RYCBLDQ5JD;
 						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 					};
@@ -400,6 +422,7 @@
 				4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */,
 				4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+				4989CECA26B25CCF006B36C6 /* NEKitRule.conf in Resources */,
 				4938EDBD25D2666300E0862E /* Test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,10 +548,12 @@
 			files = (
 				4A73E2E025771FC900CD4748 /* WorkViewModel.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				4982911E26AAB8CD0095F7A8 /* TestVPN.swift in Sources */,
 				49C2938424FBE2F6005880AD /* OCViewController.m in Sources */,
 				4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */,
 				49031FA326859EE2004E75D7 /* Router.swift in Sources */,
 				4A73E2DF25771FC900CD4748 /* WorkModel.swift in Sources */,
+				4989CEC826B24D86006B36C6 /* VPNManager.swift in Sources */,
 				4A73E2E125771FC900CD4748 /* WorkItem.swift in Sources */,
 				4A73E2E325771FC900CD4748 /* WorkViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
@@ -672,9 +697,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FunBox_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RYCBLDQ5JD;
+				DEVELOPMENT_TEAM = 2LCH74LFMW;
 				EXCLUDED_ARCHS = armv7;
 				INFOPLIST_FILE = FunBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -683,7 +709,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.FunBox-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.wiguo.demo.FunBox-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FunBox/FunBox_Example-Bridging-Header.h";
@@ -699,9 +725,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FunBox_Example.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RYCBLDQ5JD;
+				DEVELOPMENT_TEAM = 2LCH74LFMW;
 				EXCLUDED_ARCHS = armv7;
 				INFOPLIST_FILE = FunBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -710,7 +737,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.FunBox-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.wiguo.demo.FunBox-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FunBox/FunBox_Example-Bridging-Header.h";
