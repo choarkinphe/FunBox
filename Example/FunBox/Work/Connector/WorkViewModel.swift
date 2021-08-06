@@ -135,7 +135,12 @@ extension Work.ViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
 //                        FunHUD.toast(.success, message: "等等等等")
                         FunBox.datePicker.set(date: "2021/1/24").present()
                 case "VPN":
-                        VPNManager.shared.connect()
+//                        VPNManager.shared.connect()
+//                    VPNManager.start()
+                    let credentials = AVVPNCredentials.IPSec(server: "120.78.200.221", username: "vpnuser", password: "6MqwMavJ2HBfAHRz", shared: "zyJVhbYK7DMWksqREcRc")
+                    AVVPNService.shared.connect(credentials: credentials) { error in
+                        print(error)
+                    }
                 default:
 //                    break
                     FunHUD.dismissActivity()
