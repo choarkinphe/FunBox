@@ -6,7 +6,7 @@ target 'FunBox_Example' do
   pod 'CoreKit', :path => '../'
   pod 'FunAlamofire', :path => '../'
   pod 'FunModules', :path => '../'
-  
+  pod 'RAMAnimatedTabBarController'
 #  pod 'Toast-swift'
 
   target 'FunBox_Tests' do

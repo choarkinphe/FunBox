@@ -79,7 +79,7 @@ import CoreKit
 //            Router.default.scheme = "funbox"
 //            Router.default.feedPages(JSON: JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "RouteTable", ofType: "JSON"), type: [String: String].self))
             
-            title = "工作台"
+//            title = "工作台"
 //            navigationController?.navigationBar.prefersLargeTitles = true
 //
 //            navigationItem.largeTitleDisplayMode = .always
@@ -132,6 +132,7 @@ import CoreKit
             super.viewWillDisappear(animated)
             
             navigationController?.setNavigationBarHidden(false, animated: false)
+            tabBarController?.hidesBottomBarWhenPushed = true
         }
         
         @objc private func showMessage(sender: UIBarButtonItem) {

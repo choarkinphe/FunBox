@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,6 @@
 		49031FA52685A457004E75D7 /* CoreKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 49031FA42685A457004E75D7 /* CoreKit.podspec */; };
 		4918B23F25BF04DD00E330CA /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4918B23E25BF04DD00E330CA /* Launch Screen.storyboard */; };
 		4938EDB225D25EC100E0862E /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4938EDB125D25EC100E0862E /* TestTableViewController.swift */; };
-		4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4938EDB625D2605A00E0862E /* HandyJSON */; };
 		4938EDBD25D2666300E0862E /* Test.json in Resources */ = {isa = PBXBuildFile; fileRef = 4938EDBA25D260C600E0862E /* Test.json */; };
 		4948E92126B3EF89008C5A3F /* AVVPNServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4948E91C26B3EF89008C5A3F /* AVVPNServiceDelegate.swift */; };
 		4948E92226B3EF89008C5A3F /* AVVPNUserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4948E91D26B3EF89008C5A3F /* AVVPNUserDefaultsService.swift */; };
@@ -22,6 +21,7 @@
 		4982911B26AA5B640095F7A8 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4982911A26AA5B640095F7A8 /* NetworkExtension.framework */; };
 		4989CEC826B24D86006B36C6 /* VPNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4989CEC726B24D86006B36C6 /* VPNManager.swift */; };
 		4989CECA26B25CCF006B36C6 /* NEKitRule.conf in Resources */ = {isa = PBXBuildFile; fileRef = 4989CEC926B25CCF006B36C6 /* NEKitRule.conf */; };
+		4998E899276B430B00C758D1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998E898276B430B00C758D1 /* MainViewController.swift */; };
 		49C2938424FBE2F6005880AD /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C2938324FBE2F6005880AD /* OCViewController.m */; };
 		4A39D78224696BA4002BD04D /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39D78124696BA4002BD04D /* TableViewController.swift */; };
 		4A6AD9F5253EC119008B1773 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6AD9F4253EC119008B1773 /* WebViewController.swift */; };
@@ -32,7 +32,6 @@
 		4A73E2E325771FC900CD4748 /* WorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A73E2DB25771FC900CD4748 /* WorkViewController.swift */; };
 		4A73E2E425771FC900CD4748 /* RouteTable.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 4A73E2DD25771FC900CD4748 /* RouteTable.JSON */; };
 		4A73E2E525771FC900CD4748 /* WorkItems.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 4A73E2DE25771FC900CD4748 /* WorkItems.JSON */; };
-		4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9769725AFE79F00A1CC9C /* SnapKit */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -71,6 +70,7 @@
 		4982911A26AA5B640095F7A8 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		4989CEC726B24D86006B36C6 /* VPNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPNManager.swift; sourceTree = "<group>"; };
 		4989CEC926B25CCF006B36C6 /* NEKitRule.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NEKitRule.conf; sourceTree = "<group>"; };
+		4998E898276B430B00C758D1 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		49C2938124FBE2F6005880AD /* FunBox_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunBox_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		49C2938224FBE2F6005880AD /* OCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
 		49C2938324FBE2F6005880AD /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
@@ -106,10 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4938EDB725D2605A00E0862E /* HandyJSON in Frameworks */,
 				4982911B26AA5B640095F7A8 /* NetworkExtension.framework in Frameworks */,
 				BE18932D05AF67F49E8D109B /* Pods_FunBox_Example.framework in Frameworks */,
-				4AF9769825AFE79F00A1CC9C /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +261,7 @@
 		607FACD21AFB9204008FA782 /* Example for FunBox */ = {
 			isa = PBXGroup;
 			children = (
+				4998E898276B430B00C758D1 /* MainViewController.swift */,
 				4982911C26AAB85A0095F7A8 /* VPN */,
 				49031FA226859EE2004E75D7 /* Router.swift */,
 				4AF9768425AFE6D700A1CC9C /* Moudules */,
@@ -349,8 +348,6 @@
 			);
 			name = FunBox_Example;
 			packageProductDependencies = (
-				4AF9769725AFE79F00A1CC9C /* SnapKit */,
-				4938EDB625D2605A00E0862E /* HandyJSON */,
 			);
 			productName = FunBox;
 			productReference = 607FACD01AFB9204008FA782 /* FunBox_Example.app */;
@@ -387,6 +384,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 2LCH74LFMW;
 						LastSwiftMigration = 1160;
 						ProvisioningStyle = Automatic;
 					};
@@ -411,8 +409,6 @@
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			packageReferences = (
-				4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */,
 			);
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
 			projectDirPath = "";
@@ -513,6 +509,7 @@
 				"${BUILT_PRODUCTS_DIR}/KingfisherWebP/KingfisherWebP.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/RAMAnimatedTabBarController/RAMAnimatedTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
@@ -537,6 +534,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KingfisherWebP.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RAMAnimatedTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
@@ -577,6 +575,7 @@
 				4948E92526B3EF89008C5A3F /* AVVPNCredentials.swift in Sources */,
 				496D55E62685D889001CB081 /* WeChatViewController.swift in Sources */,
 				4A73E2E225771FC900CD4748 /* WorkHeader.swift in Sources */,
+				4998E899276B430B00C758D1 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,9 +699,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_ENABLE_BATCH_MODE = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -720,10 +718,7 @@
 				EXCLUDED_ARCHS = armv7;
 				INFOPLIST_FILE = FunBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "cn.wiguo.demo.FunBox-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -748,10 +743,7 @@
 				EXCLUDED_ARCHS = armv7;
 				INFOPLIST_FILE = FunBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "cn.wiguo.demo.FunBox-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -779,11 +771,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -807,11 +795,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -853,38 +837,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alibaba/HandyJSON.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.2;
-			};
-		};
-		4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		4938EDB625D2605A00E0862E /* HandyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4938EDB525D2605A00E0862E /* XCRemoteSwiftPackageReference "HandyJSON" */;
-			productName = HandyJSON;
-		};
-		4AF9769725AFE79F00A1CC9C /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4AF9769625AFE79F00A1CC9C /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }

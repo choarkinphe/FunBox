@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            Service.router.hz.open(launchOptions: launchOptions)
 //        }
         window = UIWindow.init(frame: UIScreen.main.bounds)
-        let rootVC = NavigationController.init(rootViewController: WorkViewController())
+//        let rootVC = NavigationController.init(rootViewController: WorkViewController())
+        let rootVC = MainViewController()
         //        rootVC.options = launchOptions
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
