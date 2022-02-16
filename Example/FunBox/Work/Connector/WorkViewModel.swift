@@ -8,7 +8,7 @@
 
 import UIKit
 import FunModules
-import CoreKit
+//import FunCoreKit
 struct AAA<T> {
     var a: T?
 }

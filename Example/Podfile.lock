@@ -1,200 +1,47 @@
 PODS:
   - Alamofire (5.5.0)
-  - CoreKit (1.0.1):
-    - CoreKit/Box (= 1.0.1)
-    - CoreKit/Core (= 1.0.1)
-    - CoreKit/Main (= 1.0.1)
-    - CoreKit/Modules (= 1.0.1)
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Box (1.0.1):
-    - CoreKit/Box/CKUIKit (= 1.0.1)
-    - CoreKit/Box/Extension (= 1.0.1)
-    - CoreKit/Box/Service (= 1.0.1)
-    - CoreKit/Box/Utils (= 1.0.1)
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Box/CKUIKit (1.0.1):
-    - CoreKit/Box/Extension
-    - CoreKit/Box/Service
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Box/Extension (1.0.1):
-    - CoreKit/Box/Service
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Box/Service (1.0.1):
-    - CoreKit/Main
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Box/Utils (1.0.1):
-    - CoreKit/Box/Extension
-    - CoreKit/Box/Service
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Core (1.0.1):
-    - CoreKit/Box/CKUIKit
-    - CoreKit/Box/Extension
-    - CoreKit/Box/Service
-    - CoreKit/Box/Utils
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Main (1.0.1):
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
-  - CoreKit/Modules (1.0.1):
-    - CoreKit/Core
-    - FunBox/Core (~> 1.0.0)
-    - FunModules/FunUI
-    - FunModules/RxFunBox
-    - HandyJSON (~> 5.0.2)
-    - Hue (~> 5.0.0)
-    - Kingfisher (~> 5.15.0)
-    - KingfisherWebP (~> 1.0.0)
-    - MJRefresh (~> 3.5.0)
-    - Moya/RxSwift (~> 14.0.0)
-    - RxAlamofire (~> 5.6.0)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
-    - SnapKit (~> 5.0.1)
   - Differentiator (4.0.1)
-  - FunAlamofire (1.0.1):
+  - Down (0.11.0)
+  - FunAlamofire (1.0.2):
     - Alamofire
     - FunBox/Core (~> 1.0.0)
-  - FunBox (1.0.1):
-    - FunBox/Box (= 1.0.1)
-    - FunBox/Core (= 1.0.1)
-    - FunBox/Fun (= 1.0.1)
-  - FunBox/Box (1.0.1):
-    - FunBox/Box/UI (= 1.0.1)
-    - FunBox/Box/Utils (= 1.0.1)
-  - FunBox/Box/UI (1.0.1):
+  - FunBox (1.0.2):
+    - FunBox/Box (= 1.0.2)
+    - FunBox/Core (= 1.0.2)
+    - FunBox/Fun (= 1.0.2)
+  - FunBox/Box (1.0.2):
+    - FunBox/Box/UI (= 1.0.2)
+    - FunBox/Box/Utils (= 1.0.2)
+  - FunBox/Box/UI (1.0.2):
     - FunBox/Fun
-  - FunBox/Box/Utils (1.0.1):
+  - FunBox/Box/Utils (1.0.2):
     - FunBox/Fun
-  - FunBox/Core (1.0.1):
+  - FunBox/Core (1.0.2):
     - FunBox/Box
     - FunBox/Fun
-  - FunBox/Fun (1.0.1)
-  - FunModules (1.0.1):
+  - FunBox/Fun (1.0.2)
+  - FunModules (1.0.2):
     - FunBox/Core (~> 1.0.0)
-    - FunModules/FunMediaHelper (= 1.0.1)
-    - FunModules/FunScan (= 1.0.1)
-    - FunModules/FunUI (= 1.0.1)
-    - FunModules/FunWebImage (= 1.0.1)
-    - FunModules/RxFunBox (= 1.0.1)
-  - FunModules/FunMediaHelper (1.0.1):
+    - FunModules/FunMediaHelper (= 1.0.2)
+    - FunModules/FunScan (= 1.0.2)
+    - FunModules/FunUI (= 1.0.2)
+    - FunModules/FunWebImage (= 1.0.2)
+    - FunModules/RxFunBox (= 1.0.2)
+  - FunModules/FunMediaHelper (1.0.2):
     - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
     - FunModules/FunWebImage
     - JXPhotoBrowser (~> 3.1.2)
     - TZImagePickerController (= 3.4.8)
-  - FunModules/FunScan (1.0.1):
+  - FunModules/FunScan (1.0.2):
     - FunBox/Core (~> 1.0.0)
     - FunModules/FunUI
-  - FunModules/FunUI (1.0.1):
+  - FunModules/FunUI (1.0.2):
     - FunBox/Core (~> 1.0.0)
-  - FunModules/FunWebImage (1.0.1):
+  - FunModules/FunWebImage (1.0.2):
     - FunBox/Core (~> 1.0.0)
     - Kingfisher (~> 5.15.0)
-  - FunModules/RxFunBox (1.0.1):
+  - FunModules/RxFunBox (1.0.2):
     - FunBox/Box/UI (~> 1.0.0)
     - FunBox/Core (~> 1.0.0)
     - RxCocoa (~> 5.1.1)
@@ -202,11 +49,12 @@ PODS:
     - RxSwift (~> 5.1.1)
   - HandyJSON (5.0.2)
   - Hue (5.0.0)
+  - iosMath (0.9.4)
   - JXPhotoBrowser (3.1.3)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
-  - KingfisherWebP (1.0.0):
+  - KingfisherWebP (1.1.0):
     - Kingfisher (~> 5.8)
     - libwebp (>= 0.5.0)
   - libwebp (1.2.1):
@@ -218,17 +66,20 @@ PODS:
   - libwebp/mux (1.2.1):
     - libwebp/demux
   - libwebp/webp (1.2.1)
-  - MJRefresh (3.5.0)
-  - Moya/Core (14.0.0):
+  - MJRefresh (3.7.5)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
-  - Moya/RxSwift (14.0.0):
-    - Moya/Core
-    - RxSwift (~> 5.0)
   - RAMAnimatedTabBarController (5.2.0)
-  - RxAlamofire (5.6.2):
-    - RxAlamofire/Core (= 5.6.2)
-  - RxAlamofire/Core (5.6.2):
-    - Alamofire (~> 5.2)
+  - RichTextView (3.2.1):
+    - Down
+    - iosMath
+    - SnapKit
+  - RxAlamofire (5.7.1):
+    - RxAlamofire/Core (= 5.7.1)
+  - RxAlamofire/Core (5.7.1):
+    - Alamofire (~> 5.4)
     - RxSwift (~> 5.1)
   - RxCocoa (5.1.3):
     - RxRelay (~> 5)
@@ -244,18 +95,28 @@ PODS:
   - TZImagePickerController (3.4.8)
 
 DEPENDENCIES:
-  - CoreKit (from `../`)
   - FunAlamofire (from `../`)
   - FunBox (from `../`)
   - FunModules (from `../`)
+  - HandyJSON
+  - Hue
+  - KingfisherWebP
+  - libwebp
+  - MJRefresh
+  - Moya
   - RAMAnimatedTabBarController
+  - RichTextView
+  - RxAlamofire
+  - RxRelay
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Differentiator
+    - Down
     - HandyJSON
     - Hue
+    - iosMath
     - JXPhotoBrowser
     - Kingfisher
     - KingfisherWebP
@@ -263,6 +124,7 @@ SPEC REPOS:
     - MJRefresh
     - Moya
     - RAMAnimatedTabBarController
+    - RichTextView
     - RxAlamofire
     - RxCocoa
     - RxDataSources
@@ -272,8 +134,6 @@ SPEC REPOS:
     - TZImagePickerController
 
 EXTERNAL SOURCES:
-  CoreKit:
-    :path: "../"
   FunAlamofire:
     :path: "../"
   FunBox:
@@ -283,21 +143,23 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  CoreKit: abf9537fa059fb0c7c0d824d67f08b9504f827ea
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  FunAlamofire: f8ce2685e3f7fc6b7b9dc25affe1dce25afdb500
-  FunBox: 37803cf1f88ef262c8223e286d5953b834ba2a23
-  FunModules: 7f61c2397f95b5e51495d886b310ad07e608be9a
+  Down: b6ba1bc985c9d2f4e15e3b293d2207766fa12612
+  FunAlamofire: b2490cbe597bac039aa534d0cf80544b52942ad7
+  FunBox: df437e44bbefbead3c9dd5ccf08bccbf462142d4
+  FunModules: 7502a95102dd8ea218e189395f26fe9391e4e865
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
+  iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba
   JXPhotoBrowser: d32e94e1226d43bf5ed83164e3f5b651fed625e0
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
-  KingfisherWebP: b1ed1dbc5e52547c5bf5f583dd5c46346f97320f
+  KingfisherWebP: 0768e0c00bf9746de9ee5b22a795e9504345f258
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
-  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
-  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
-  RxAlamofire: aa949d345b1689eae02b7c7a217518878144f6df
+  RichTextView: 96906735e6f7e81c08403c7711ad908b3cb6ecd1
+  RxAlamofire: 8e144c62dcc01d68dcb366bfc542eb6dd46bab78
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
@@ -305,6 +167,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   TZImagePickerController: 6685e6d81b8fd5453e80ba369dd4ebd6e97276ee
 
-PODFILE CHECKSUM: 7f0690ed776d64ce4b63191a871055b8ee9f7206
+PODFILE CHECKSUM: 1855a196aa60aa06d42c012914eb9b61a92e8dfa
 
 COCOAPODS: 1.11.2

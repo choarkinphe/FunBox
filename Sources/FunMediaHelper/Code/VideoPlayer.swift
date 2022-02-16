@@ -111,7 +111,7 @@ extension VideoHelper {
             // 注册通知
             NotificationCenter.default.addObserver(self, selector: #selector(playing(notic:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(playing(notic:)), name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(playing(notic:)), name: NSNotification.Name.AVPlayerItemTimeJumped, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(playing(notic:)), name: AVPlayerItem.timeJumpedNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(playing(notic:)), name: NSNotification.Name.AVPlayerItemPlaybackStalled, object: nil)
             
             
@@ -223,7 +223,7 @@ extension VideoHelper {
         deinit {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime, object: nil)
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemTimeJumped, object: nil)
+            NotificationCenter.default.removeObserver(self, name: AVPlayerItem.timeJumpedNotification, object: nil)
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemPlaybackStalled, object: nil)
             
             debugPrint("AVPlayer Die")

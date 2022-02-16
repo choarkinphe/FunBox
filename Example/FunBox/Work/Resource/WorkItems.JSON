@@ -15,6 +15,11 @@
                     "icon": "APPkaifa",
                     "linkUrl": "funbox://dev/wechat",
                     "name": "微信账号"
+                },
+                {
+                    "icon": "APPkaifa",
+                    "linkUrl": "funbox://dev/richText",
+                    "name": "富文本demo"
                 }]
 },
 {

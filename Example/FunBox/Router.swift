@@ -8,7 +8,7 @@
 
 import Foundation
 import FunBox
-import CoreKit
+//import FunCoreKit
 
 typealias Router = FunBox.Router
 extension Service: FunRouterDelegate {

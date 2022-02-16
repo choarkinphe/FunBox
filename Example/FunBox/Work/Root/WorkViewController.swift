@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreKit
+//import FunCoreKit
 //extension Work {
     class NavigationController: UINavigationController {
         override func viewDidLoad() {
@@ -20,6 +20,7 @@ import CoreKit
         }
     }
     class WorkViewController: UIViewController {
+        
         
         var viewModel = Work.ViewModel()
         /*

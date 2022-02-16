@@ -3,10 +3,21 @@ use_frameworks!
 target 'FunBox_Example' do
   platform :ios, '11.0'
   pod 'FunBox', :path => '../'
-  pod 'CoreKit', :path => '../'
+#  pod 'FunCoreKit', :path => '../'
   pod 'FunAlamofire', :path => '../'
   pod 'FunModules', :path => '../'
   pod 'RAMAnimatedTabBarController'
+  pod 'RichTextView'
+  # CoreKit
+  pod 'HandyJSON'
+  pod 'Hue'
+  pod 'KingfisherWebP'
+  pod 'Moya'
+  pod 'RxAlamofire'
+  pod 'libwebp'
+  pod 'MJRefresh'
+  pod 'RxRelay'
+  
 #  pod 'Toast-swift'
 
   target 'FunBox_Tests' do

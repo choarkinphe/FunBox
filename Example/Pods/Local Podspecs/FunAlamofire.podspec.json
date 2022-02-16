@@ -1,6 +1,6 @@
 {
   "name": "FunAlamofire",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "summary": "基于FunBox的Alamofire",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "1.0.1"
+    "tag": "1.0.2"
   },
   "platforms": {
     "ios": "11.0"
