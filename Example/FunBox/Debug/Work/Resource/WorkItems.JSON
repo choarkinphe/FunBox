@@ -46,8 +46,8 @@
                 },
                 {
                     "icon": "bug",
-                    "linkUrl": "funbox://dev/testA",
-                    "name": "VPN"
+                    "linkUrl": "funbox://dev/demo",
+                    "name": "Demo"
                 }]
     
     

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import FunCoreKit
+//import CoreKit
 //extension Work {
     class NavigationController: UINavigationController {
         override func viewDidLoad() {
@@ -94,7 +94,7 @@ import UIKit
             
             fb.contentView = collectionView
             
-            collectionView.rx.itemSelected
+//            collectionView.rx.itemSelected
 //            collectionView.rx.modelSelected(Work.Tab.self).subscribe(onNext: { (element) in
 //                guard !(element.linkUrl?.isEmpty ?? true) else {
 //                    CKHUD.toast(.error, message: Work.Tips.working)

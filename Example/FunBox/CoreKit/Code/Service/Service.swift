@@ -1,25 +1,34 @@
 import Foundation
 
-public typealias CKServerKey = Service.ServerKey
-public typealias CKServerList = [CKServerKey: String]
-public typealias CKResult = Service.Result
-public typealias CKPageElement = Service.PageElement
-public typealias CKEmpty = Service.Empty
+//public typealias ServerKey = Service.ServerKey
+public typealias ServerList = [Service.ServerKey: String]
+//public typealias Result = Service.Result
+//public typealias PageElement = Service.PageElement
+//public typealias Empty = Service.Empty
 
-open class Service: NSObject {
+open class Service {
+    
+    // 单列
+    public static var manager = Static.instance
+    private struct Static {
+        // 读取默认的JSON配置（通配）
+        static let instance = Service(config: Config.deserialize(fileName: "ServerConfig.json"))
+    }
+    
     private var disposeBag = DisposeBag()
-    public override init() {
+    
+    public init(config new_config: Service.Config?=nil) {
+        // 创建公共的请求头
         self.headers = [String:String?]()
         // 首先读取项目中的默认配置
-        if let JSON = JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: "APPConfig", ofType: "json"), type: [String: Any].self), let config = Config.deserialize(from: JSON) {
+        if let config = Config.deserialize(fileName: "APPConfig.json") {
             self.config = config // 读取项目的JSON配置
-        } else if let JSON = JSONSerialization.fb.json(filePath: FunCoreKit.bundle?.path(forResource: "ServerConfig", ofType: "json"), type: [String: Any].self), let config = Config.deserialize(from: JSON) {
-            self.config = config // 读取默认的JSON配置（通配）
+        } else if let config = new_config {
+            self.config = config // 读取传入的配置
         } else {
             self.config = Config() // 没有默认配置直接创建配置文件
         }
         
-        super.init()
         
         if let config = Service.cachePool.load(CacheKey.config, type: Config.self) {
             // 如果本地有手动配置过的内容,以手动配置过的为准
@@ -49,7 +58,9 @@ open class Service: NSObject {
             FunCoreKit.router.scheme = scheme
         }
         
-        if let data = Service.cachePool.loadCache(key: CacheKey.token), let token = String(data: data, encoding: .utf8) {
+        // 读取本地缓存的token
+        if let data = Service.cachePool.loadCache(key: CacheKey.token),
+           let token = String(data: data, encoding: .utf8) {
             self.token = token
         }
         
@@ -63,33 +74,32 @@ open class Service: NSObject {
                 // cache可能再某些情况下被系统删除，存储到UserDefaults做一层保险
                 Service.cachePool.cache(key: CacheKey.token, data: string.data(using: String.Encoding.utf8), options: [.memory,.disk,.userDefaults])
             } else {
+                // token被置空的同时，需要移除缓存
                 Service.cachePool.removeCache(key: CacheKey.token)
             }
             
         }.disposed(by: disposeBag)
         
+        // 订阅token键值的变化
         tokenKey_observable.bind { [weak self] (tokenKey) in
             guard let this = self else { return }
+            // 按照token的键值，重新设置token
             this.headers[tokenKey] = this.token
         }.disposed(by: disposeBag)
         
-
+        // 按照配置的token键值，存储本地的token键值
         if let keys = config.keys {
             tokenKey = keys.token
         }
         
     }
     
-    private struct Static {
-        static let instance = Service()
-    }
-    
-    @objc public static var manager = Static.instance
-    
-    private static let cachePathName = "com.funbox.core.servercache"
+    // 缓存路径
+    private static let cachePathName = "com.coreKit.servercache"
     private struct CacheKey {
-        static let token = "com.funbox.core.appcache.token"
-        static let config = "com.funbox.core.appcache.config"
+        // 缓存的键值
+        static let token = "com.coreKit.appcache.token"
+        static let config = "com.coreKit.appcache.config"
     }
     
     /*
@@ -107,11 +117,11 @@ open class Service: NSObject {
     /*
      默认使用的请求地址（baseURL）
      */
-    @objc public var server: String? {
+    public var server: String? {
         let serverKey = config.serverKey
-
+        
         return config.serverList[serverKey]
-
+        
     }
     
     /// 设置当前使用的server
@@ -131,10 +141,19 @@ open class Service: NSObject {
         }
     }
     
+    // 默认的请求头
+    public var headers: [String: String?]
+    
     // default method
     public var method: Moya.Method = .post
     
+    /*
+     Token相关配置
+     */
+    
+    // token键值订阅
     private lazy var tokenKey_observable = BehaviorRelay<String>(value: "tokenid")
+    // token键值
     public var tokenKey: String {
         get {
             return tokenKey_observable.value
@@ -143,13 +162,10 @@ open class Service: NSObject {
             tokenKey_observable.accept(newValue)
         }
     }
-    // 默认的请求头
-    public var headers: [String: String?]
-
-    public lazy var token_observable = BehaviorRelay<String?>(value: nil)
-    
-    // 令牌存储
-    @objc public var token: String? {
+    // token值的订阅
+    private lazy var token_observable = BehaviorRelay<String?>(value: nil)
+    // token值
+    public var token: String? {
         get {
             return token_observable.value
         }
@@ -159,14 +175,15 @@ open class Service: NSObject {
     }
     
     // 是否登陆（依据有无token）
-    @objc public var isLogin: Bool {
+    public var isLogin: Bool {
         
         if let token = token, !token.isEmpty {
             return true
         }
         return false
     }
-
+    
+    
     fileprivate var observe_response: (((status: Service.Status, message: String?))->Void)?
     public func observe_response(_ handle: @escaping (((status: Service.Status, message: String?))->Void)) {
         observe_response = handle
@@ -174,27 +191,45 @@ open class Service: NSObject {
 }
 
 /*
- Server的配置信息
+ Service的配置信息
  */
 
 public typealias ToastOptions = [Service.ToastOption]
 
 extension Service {
-    
+    // Toast的可选项
     public struct ToastOption: Equatable {
         let rawValue: String
         init(rawValue: String) {
             self.rawValue = rawValue
         }
-        
         public static let response = ToastOption(rawValue: "response")
         public static let request = ToastOption(rawValue: "request")
     }
     
+    // Toast的配置
+    public enum Toast: String, HandyJSONEnum {
+        case none = "none"
+        case message = "message"
+        case error = "error"
+    }
+    
+    /*
+     配置信息
+     */
     public struct Config: HandyJSON {
-        public init() {}
+        public init() { }
+        // 从JSON文件读取配置
+        static func deserialize(fileName: String) -> Config? {
+            if let JSON = JSONSerialization.fb.json(filePath: Bundle.main.path(forResource: fileName, ofType: nil), type: [String: Any].self), let config = Config.deserialize(from: JSON) {
+                
+                return config
+            }
+            return nil
+        }
+        
         // 服务器列表
-        public var serverList = CKServerList()
+        public var serverList = ServerList()
         fileprivate var servers: [String: String]?
         // 服务器key
         public var serverKey: ServerKey = .default {
@@ -223,13 +258,10 @@ extension Service {
                     if item.value.hasPrefix("http") {
                         serverList[ServerKey(rawValue: item.key)] = item.value
                     }
-//                    if item.value.fb.subString(to: 4) == "http" {
-//                        serverList[ServerKey(rawValue: item.key)] = item.value
-//                    }
                 }
             }
             
-
+            
         }
         
     }
@@ -237,27 +269,20 @@ extension Service {
     // 喂一组配置(JSON)
     public func feedConfig(_ config: [String: Any]?) {
         if let JSON = config, let config = Config.deserialize(from: JSON) {
-            
-           self.config = config
+            self.config = config
         }
     }
     
     // 添加服务器配置
     public func feedServer(_ server: String, for serverKey: ServerKey) {
-
         feedServer([serverKey.rawValue:server])
     }
     public func feedServer(_ server: [String: String]) {
-        
         server.forEach { (item) in
             if item.value.hasPrefix("http") {
                 self.config.serverList[ServerKey(rawValue: item.key)] = item.value
                 self.config.servers?[item.key] = item.value
             }
-//            if item.value.fb.subString(to: 4) == "http" {
-//                self.config.serverList[ServerKey(rawValue: item.key)] = item.value
-//                self.config.servers?[item.key] = item.value
-//            }
         }
     }
     
@@ -266,21 +291,22 @@ extension Service {
         public static func == (lhs: Service.ServerKey, rhs: Service.ServerKey) -> Bool {
             return lhs.rawValue == rhs.rawValue
         }
-        
         public var rawValue: String
-        
         public init(rawValue: String) {
             self.rawValue = rawValue
         }
         // 默认
         public static var `default` = ServerKey(rawValue: "default")
+        // 本地
+        public static var local = ServerKey(rawValue: "local")
+        // 自定义
         public static var custom = ServerKey(rawValue: "custom")
         
     }
 }
 
 /*
-    请求的结果数据
+ 请求的结果数据
  */
 extension Service {
     /*
@@ -301,7 +327,7 @@ extension Service {
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
-        // 可以自定义success的真实值
+        // 可以自定义状态码的真实值
         public static var notFound = Status(rawValue: 404)
         public static var success = Status(rawValue: 100)
         public static var error = Status(rawValue: 200)
@@ -359,17 +385,12 @@ extension Service {
             if let rowsKey = Service.manager.config.keys?.rows {
                 mapper.specify(property: &rows, name: rowsKey)
             }
-
+            
         }
     }
     
-    // Toast的配置
-    public enum Toast: String, HandyJSONEnum {
-        case none = "none"
-        case message = "message"
-        case error = "error"
-    }
-
+    
+    
     /*
      统一的请求结果
      接口返回的data根据值类型不同，对象分配给object，数组分配给array，方便处理
@@ -382,7 +403,7 @@ extension Service {
             return Status(rawValue: code)
         }
         public private(set) var success: Bool = false
-
+        
         public var message: String?
         private var data: Any?
         public var object: T?
@@ -409,12 +430,12 @@ extension Service {
                 mapper.specify(property: &object, name: "data")
             }
             
-                
+            
             
         }
         
         mutating public func didFinishMapping() {
-
+            
             if !success {
                 // 请求报错，处理异常
                 if let message = message {
@@ -423,7 +444,7 @@ extension Service {
                 
                 // Token过期，跳转到登陆页
                 if status == .unauthorized {
-
+                    
                 }
             }
             
@@ -437,22 +458,19 @@ extension Service {
                 // 全局开关关闭的话，不考略弹窗
                 // 如果开启了请求的错误弹窗
                 if option?.toast == .message {
-//                    FunBox.toast.message(message).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)).show()
                     FunHUD.toast(.info, message: message)
                 } else if option?.toast == .error, !success {
-//                    FunBox.toast.message(message).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_info", in: CoreKit.bundle, compatibleWith: nil)).show()
                     FunHUD.toast(.info, message: message)
                 }
             }
-            
-            
         }
         
     }
 }
 
-// MARK: - RxSwift + HZ
+// MARK: - Extensions
 
+// RxSwift + CK
 extension ObservableType {
     
     public func response(onNext: ((Element) -> Void)? = nil) -> RxSwift.Disposable {
@@ -470,11 +488,11 @@ extension ObservableType {
                 if let onError = onError {
                     onError(error)
                 } else if Service.manager.config.toast.contains(.response) {
-//                    FunBox.toast.message(error.localizedDescription).inView(UIApplication.shared.fb.currentWindow).position(.center).image(UIImage(named: "Toast_tips_error", in: CoreKit.bundle, compatibleWith: nil)).show()
+                    // toast配置中包含有错误提醒
                     FunHUD.toast(.error, message: error.localizedDescription)
                 }
                 
-
+                
             case .completed:
                 break
                 
@@ -484,7 +502,7 @@ extension ObservableType {
 }
 
 extension Response {
-    
+    // 请求响应配置
     struct Option: HandyJSON {
         // toast配置，默认只给错误弹窗
         var toast: Service.Toast = .error
@@ -492,7 +510,7 @@ extension Response {
         var container: UIView?
         // 响应器
         var sender: UIView?
-        
+        // 缓存有效期
         var cache_timeOut: TimeInterval?
         
     }
@@ -500,7 +518,7 @@ extension Response {
 
 
 /*
-    FunCache + HandyJSON
+ FunCache + HandyJSON
  */
 extension FunCache {
     // 缓存
@@ -528,6 +546,60 @@ extension FunCache {
         }
         cache(key: identifier, data: data)
     }
+    
+}
+
+// MARK: - Router
+typealias Router = FunBox.Router
+extension Service: FunRouterDelegate {
+    
+    // APP启动参数
+    typealias LaunchOptions = [UIApplication.LaunchOptionsKey: Any]
+    
+    @objc static var router: Router {
+        let router = Router.default
+        router.delegate = Service.manager
+        router.scheme = "funbox"
+        return router
+    }
+    
+    public func routerWillOpen(viewController: UIViewController, options: FunRouterOptions?) {
+        // 这里可以获取到所有即将通过路由打开的页面
+        
+        
+    }
+//    构造需要跳转的VC，实现了就会走这里
+    public func routerWillBuild(options: FunRouterOptions?) -> UIViewController? {
+        if options?.url?.pathExtension == "message/list" {
+            return UIStoryboard.init(name: "xx", bundle: .main).instantiateInitialViewController()
+        }
+        return nil
+    }
+    
+}
+
+
+extension Router.Page {
+    static var message: Router.Page = Router.Page(rawValue: "message/list")
+}
+
+// APP启动数据协议
+public protocol APPLaunchable {
+    var url: URL? { get }
+}
+
+@available(iOS 13.0, *)
+extension UIScene.ConnectionOptions: APPLaunchable {
+    public var url: URL? {
+        return urlContexts.first?.url
+    }
 
 }
 
+
+extension Service.LaunchOptions: APPLaunchable {
+    public var url: URL? {
+        return self[.url] as? URL
+    }
+
+}

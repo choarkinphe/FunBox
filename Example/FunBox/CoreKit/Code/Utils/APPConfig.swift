@@ -9,9 +9,9 @@ import Foundation
 
 //public let CachePool = APP.cachePool
 public class APP {
-    private static let cachePathName = "com.hz_tech.core.appconfig"
+    private static let cachePathName = "cn.waiguo.core.appconfig"
     private struct CacheKey {
-        static var status = "com.hz_tech.core.appcache.status"
+        static var status = "cn.waiguo.core.appcache.status"
 //        static var token = "com.hz_tech.core.appcache.token"
     }
     /*

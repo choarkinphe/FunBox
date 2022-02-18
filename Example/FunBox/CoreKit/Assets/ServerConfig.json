@@ -1,18 +1,19 @@
 {
     "servers":      {
-                        "default":"http://support.hz.com"
+                        "default":"http://api.wiguo.cn"
         
                     },
     "server":       "default",
     "status":       {
                         "notFound":404,
-                        "success":100,
+                        "success":200,
                         "unauthorized":202,
                         "error":200
                     },
     "keys":         {
                         "code":"code",
-                        "token":"tokenid"
+                        "token":"tokenid",
+                        "data":"result"
                     },
     "scheme":       "funbox",
 }

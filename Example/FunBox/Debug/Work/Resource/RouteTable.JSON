@@ -6,6 +6,7 @@
     "funbox://dev/testA":"TestTableViewCController",
     "funbox://dev/testScan":"ScanUnitSwapController",
     "funbox://dev/wechat":"WeChatViewController",
-    "funbox://dev/richText":"RichTextViewController"
+    "funbox://dev/richText":"RichTextViewController",
+    "funbox://dev/demo":"DemoViewController"
     
 }

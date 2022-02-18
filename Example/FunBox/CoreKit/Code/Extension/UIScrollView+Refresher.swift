@@ -11,65 +11,47 @@ import MJRefresh
 extension UIScrollView {
     public class Refresher: NSObject {
         
-        fileprivate struct Key {
-            static var refresherKey = "com.refresher.scrollView.key"
-        }
-        
+        // 刷新状态
         public enum State {
             case normal
             case refreshing
             case disable
         }
         
-        
+        // 样式
+        public enum Style {
+            case system //使用系统样式
+            case `default` //默认（MJRefresh）
+        }
+        // 主题颜色
+        public var tintColor: UIColor? = .darkText
+        // 状态
         public var state: State = .normal
+        
+        // 分页信息
         public var page = Page(size: 20) {
             didSet {
-                // 没有加载出数据时，不现实上拉加载控件
+                // 没有加载出数据时，不显示上拉加载控件
                 isPullUpEnable = page.count > 0
-
+                
                 if isLoadCompelete, let sender = target?.mj_footer {
                     //加载完全部之后
                     sender.endRefreshingWithNoMoreData()
                 }
             }
         }
+        // 是否加载完全部
         public var isLoadCompelete: Bool {
             // 获取总页数
             // 当前页与总页数相同时，加载完毕
             return page.total > 0 && page.count >= page.total
         }
+        // 刷新中
         public var isRefreshing: Bool {
             return state == .refreshing
         }
         
-        public enum Style {
-            case system
-            case `default`
-        }
-        
-        public var tintColor: UIColor? = .darkText
-        
-        public struct Page {
-            public init(size: Int) {
-                self.size = size
-            }
-            // 当前页
-            public var index: Int = 0
-            // 当前位置
-            public var offset: Int = 0
-            // 当前数量
-            public var count: Int {
-                return offset + 1
-            }
-            // 总数
-            public var total: Int = 0
-            // 单页个数
-            public var size: Int = 20
-            // other infomation(custom)
-            public var options = [String: Any]()
-        }
-        
+        // 是否开启下拉刷新
         public var isPullDownEnable: Bool = true {
             didSet {
                 
@@ -77,6 +59,7 @@ extension UIScrollView {
                 target?.refreshControl?.isHidden = !isPullDownEnable
             }
         }
+        // 是否开启上拉加载
         public var isPullUpEnable: Bool = true {
             didSet {
                 if isPullUpEnable {
@@ -87,14 +70,19 @@ extension UIScrollView {
             }
         }
         
+        // 下拉刷新事件
         private var pullDownHandler: ((Refresher)->Void)?
+        // 上拉加载事件
         private var pullUpHandler: ((Refresher)->Void)?
+        // 内部暂存目标
         private weak var target: UIScrollView?
         init(target: UIScrollView) {
             super.init()
             self.target = target
         }
         
+        
+        // 下拉刷新方法
         public func pullDown(style: Style = .default, _ handler: ((Refresher)->Void)?) {
             
             if style == .default {
@@ -117,6 +105,7 @@ extension UIScrollView {
             
         }
         
+        // 上拉加载方法
         public func pullUp(percent: CGFloat?=nil, _ handler: ((Refresher)->Void)?) {
             
             let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(pullUpAction))
@@ -134,6 +123,7 @@ extension UIScrollView {
             
         }
         
+        // 下拉刷新的响应事件
         @objc private func pullDownAction(sender: Any?) {
             if !isPullDownEnable {
                 return
@@ -159,7 +149,7 @@ extension UIScrollView {
                 footer.state = .idle
                 
                 footer.resetNoMoreData()
-               
+                
             }
             
             // 标记刷新状态
@@ -173,6 +163,7 @@ extension UIScrollView {
             
         }
         
+        // 上拉加载的响应事件
         @objc private func pullUpAction(sender: MJRefreshFooter?) {
             if !isPullUpEnable {
                 sender?.isHidden = true
@@ -253,6 +244,16 @@ extension UIScrollView {
     }
 }
 
+
+// MARK: - UIScrollView添加refresher工具
+extension UIScrollView.Refresher {
+    
+    
+    fileprivate struct Key {
+        static var refresherKey = "com.corekit.refresher.scrollView.key"
+    }
+}
+
 extension UIScrollView {
     
     public var refresher: Refresher {
@@ -275,11 +276,35 @@ extension UIScrollView {
     
 }
 
+// MARK: - 分页相关
+extension UIScrollView.Refresher {
+    
+    public struct Page {
+        public init(size: Int) {
+            self.size = size
+        }
+        // 当前页
+        public var index: Int = 0
+        // 当前位置
+        public var offset: Int = 0
+        // 当前数量
+        public var count: Int {
+            return offset + 1
+        }
+        // 总数
+        public var total: Int = 0
+        // 单页个数
+        public var size: Int = 20
+        // other infomation(custom)
+        public var options = [String: Any]()
+    }
+}
+
 extension UIScrollView.Refresher.Page: APIPageParamterable {
     public func asParams() -> API.Paramter {
         var params = options
-        params["index"] = index
-        params["size"] = size
+        params["page"] = index
+        params["count"] = size
         return params
     }
 }

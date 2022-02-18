@@ -10,16 +10,17 @@ import Foundation
 @_exported import RxSwift
 @_exported import Moya
 
-
 public struct API {
     public typealias Paramter = [String: Any]
     public typealias Provider = MoyaProvider
-    private static let cachePathName = "com.corekit.core.requestcache"
+    // 缓存路径
+    private static let cachePathName = "com.corekit.requestcache"
 
     // 方便创建请求实例
-    public static func provider<T>(_ type: T.Type) -> Provider<T> where T: TargetType {
-        return Provider<T>()
+    public static func provider<T>(_ type: T.Type) -> MoyaProvider<T> where T: TargetType {
+        return MoyaProvider<T>()
     }
+    
     
     fileprivate static var cachePool: FunBox.Cache {
         let directoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
@@ -87,9 +88,11 @@ extension API.Paramter: APIParamterable {
 extension TargetType {
     // default serverURL
     public var baseURL: URL {
+        
         if let urlString = Service.manager.server {
             return URL(string: urlString)!
         }
+        
         return URL(string: "")!
     }
     
@@ -145,6 +148,7 @@ extension APITargetType {
         }
         return .requestPlain
     }
+
 }
 
 // MARK: - Moya+HandyJSON
@@ -232,8 +236,8 @@ extension ObservableType where Element == Response {
         }
     }
     
-    public func mapResult<T: HandyJSON>(_ type: T.Type) -> Observable<CKResult<T>> {
-        return flatMap { response -> Observable<CKResult<T>> in
+    public func mapResult<T: HandyJSON>(_ type: T.Type) -> Observable<Service.Result<T>> {
+        return flatMap { response -> Observable<Service.Result<T>> in
             return Observable.just(try response.mapResult(type))
         }
     }
@@ -261,7 +265,7 @@ extension Response {
         return object
     }
     
-    public func mapResult<T: HandyJSON>(_ type: T.Type) throws -> CKResult<T> {
+    public func mapResult<T: HandyJSON>(_ type: T.Type) throws -> Service.Result<T> {
         
         guard let JSON = try mapJSON() as? [String: Any] else {
             throw MoyaError.jsonMapping(self)
@@ -269,7 +273,7 @@ extension Response {
         
 //        JSON["option"] = option?.toJSON()
         
-        guard var object = CKResult<T>.deserialize(from: JSON) else {
+        guard var object = Service.Result<T>.deserialize(from: JSON) else {
             throw MoyaError.jsonMapping(self)
         }
         
@@ -366,3 +370,23 @@ extension Response.Option {
         return option
     }
 }
+
+
+//public extension URL {
+//
+//    /// Initialize URL from Moya's `TargetType`.
+//    init<T: TargetType>(target: T) {
+//        // When a TargetType's path is empty, URL.appendingPathComponent may introduce trailing /, which may not be wanted in some cases
+//        // See: https://github.com/Moya/Moya/pull/1053
+//        // And: https://github.com/Moya/Moya/issues/1049
+//        let targetPath = target.path
+//        if targetPath.isEmpty {
+//            self = target.baseURL
+//        } else {
+//         //   self = target.baseURL.appendingPathComponent(targetPath)
+//          //修改如下，如果有更好的方法，欢迎补充
+//            let urlWithPath = target.baseURL.absoluteString + targetPath
+//            self = URL(string: urlWithPath) ?? target.baseURL
+//        }
+//    }
+//}

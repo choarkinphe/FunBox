@@ -14,8 +14,8 @@ import FunBox
 import RxDataSources
 import FunModules
 
-typealias HZTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
-typealias HZCollectionViewDataSource<Section, Element> = RxCollectionViewSectionedReloadDataSource<SectionModel<Section, Element>>
+typealias CKTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
+typealias CKCollectionViewDataSource<Section, Element> = RxCollectionViewSectionedReloadDataSource<SectionModel<Section, Element>>
 
 public protocol ViewModelable: AnyObject {
     var disposeBag: DisposeBag { get }
@@ -24,8 +24,8 @@ public protocol ViewModelable: AnyObject {
 open class BaseViewModel<Section,Element>: FunViewModel<Section, Element> where Element: HandyJSON {
 
     // 订阅数据（不建议使用）
-    @available(*, deprecated, message: "use sections instand of it")
-    public private(set) var dataList = BehaviorSubject<[SectionModel<String?,Element>]>(value: [SectionModel(model: "", items: [Element]())])
+//    @available(*, deprecated, message: "use sections instand of it")
+//    public private(set) var dataList = BehaviorSubject<[SectionModel<String?,Element>]>(value: [SectionModel(model: "", items: [Element]())])
 
 }
 
@@ -34,7 +34,7 @@ open class BaseViewModel<Section,Element>: FunViewModel<Section, Element> where 
 extension UIScrollView {
     open class SectionViewModel<Section,Element>: BaseViewModel<Section,Element> where Element: HandyJSON {
         // 分页
-        open var pageSource = BehaviorSubject(value: CKPageElement<Element>())
+        open var pageSource = BehaviorSubject(value: Service.PageElement<Element>())
         
         public override init() {
             super.init()
@@ -51,7 +51,7 @@ extension UIScrollView {
         ///   - pageSource: 页面数据
         ///   - section: 分组
         ///   - offset: 偏移量（可能手动增加、删除过接口返回的数据，加上偏移量修正接口的请求参数）
-        public func feed(pageSource: CKPageElement<Element>, section: Int = 0, offset: Int = 0) {
+        public func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
             
             guard var values = try? sections.value(),
                   values.count > section,
@@ -89,7 +89,7 @@ extension UITableView {
             super.init()
         }
         
-        private var source = BehaviorRelay<HZTableViewDataSource<Section?, Element>?>(value: nil)
+        private var source = BehaviorRelay<CKTableViewDataSource<Section?, Element>?>(value: nil)
         
         public func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<Section?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
             
@@ -115,7 +115,7 @@ extension UITableView {
                                canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath = { _, _ in false },
                                sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles = { _ in nil },
                                sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle = { _, _, index in index }) {
-            let dataSource = HZTableViewDataSource<Section?, Element>(configureCell: configureCell,
+            let dataSource = CKTableViewDataSource<Section?, Element>(configureCell: configureCell,
                                                                       titleForHeaderInSection: titleForHeaderInSection,
                                                                       titleForFooterInSection: titleForFooterInSection,
                                                                       canEditRowAtIndexPath: canEditRowAtIndexPath,
@@ -126,7 +126,7 @@ extension UITableView {
             source.accept(dataSource)
         }
         
-        public override func feed(pageSource: CKPageElement<Element>, section: Int = 0, offset: Int = 0) {
+        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
             super.feed(pageSource: pageSource, section: section, offset: offset)
         }
         
@@ -140,16 +140,16 @@ extension UITableView {
             super.init()
         }
         
-        public override func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-            
-            super.bind(tableView: tableView, dataSource: dataSource, disposeBag: disposeBag)
-            
-            dataList.bind { [weak self] (elements) in
-                //                self?.sections.onNext(elements)
-                self?.accept(elements)
-            }.disposed(by: disposeBag ?? self.disposeBag)
-            
-        }
+//        public override func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+//            
+//            super.bind(tableView: tableView, dataSource: dataSource, disposeBag: disposeBag)
+//            
+//            dataList.bind { [weak self] (elements) in
+//                //                self?.sections.onNext(elements)
+//                self?.accept(elements)
+//            }.disposed(by: disposeBag ?? self.disposeBag)
+//            
+//        }
         
         public override func dataSource(configureCell: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.ConfigureCell,
                                         titleForHeaderInSection: @escaping  TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForHeaderInSection = { _, _ in nil },
@@ -161,7 +161,7 @@ extension UITableView {
             super.dataSource(configureCell: configureCell, titleForHeaderInSection: titleForHeaderInSection, titleForFooterInSection: titleForFooterInSection, canEditRowAtIndexPath: canEditRowAtIndexPath, canMoveRowAtIndexPath: canMoveRowAtIndexPath, sectionIndexTitles: sectionIndexTitles, sectionForSectionIndexTitle: sectionForSectionIndexTitle)
         }
         
-        public override func feed(pageSource: CKPageElement<Element>, section: Int = 0, offset: Int = 0) {
+        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
             super.feed(pageSource: pageSource, section: section, offset: offset)
         }
         
@@ -184,7 +184,7 @@ extension UICollectionView {
             super.init()
         }
         
-        private var source = BehaviorRelay<HZCollectionViewDataSource<Section?, Element>?>(value: nil)
+        private var source = BehaviorRelay<CKCollectionViewDataSource<Section?, Element>?>(value: nil)
         
         public func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<Section?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
 
@@ -207,7 +207,7 @@ extension UICollectionView {
                                configureSupplementaryView: CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.ConfigureSupplementaryView? = nil,
                                moveItem: @escaping CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.MoveItem = { _, _, _ in () },
                                canMoveItemAtIndexPath: @escaping CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.CanMoveItemAtIndexPath = { _, _ in false }) {
-            let dataSource = HZCollectionViewDataSource<Section?, Element>(configureCell: configureCell,
+            let dataSource = CKCollectionViewDataSource<Section?, Element>(configureCell: configureCell,
                                                                            configureSupplementaryView: configureSupplementaryView,
                                                                            moveItem: moveItem,
                                                                            canMoveItemAtIndexPath: canMoveItemAtIndexPath)
@@ -215,7 +215,7 @@ extension UICollectionView {
             source.accept(dataSource)
         }
         
-        public override func feed(pageSource: CKPageElement<Element>, section: Int = 0, offset: Int = 0) {
+        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
             super.feed(pageSource: pageSource, section: section, offset: offset)
         }
         
@@ -224,16 +224,16 @@ extension UICollectionView {
     open class ViewModel<Element>: SectionViewModel<String,Element> where Element: HandyJSON {
         public override init() {}
         
-        public override func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-            
-            super.bind(collectionView: collectionView, dataSource: dataSource, disposeBag: disposeBag)
-            
-            dataList.bind { [weak self] (elements) in
-                //                self?.sections.onNext(elements)
-                self?.accept(elements)
-            }.disposed(by: disposeBag ?? self.disposeBag)
-            
-        }
+//        public override func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+//            
+//            super.bind(collectionView: collectionView, dataSource: dataSource, disposeBag: disposeBag)
+//            
+//            dataList.bind { [weak self] (elements) in
+//                //                self?.sections.onNext(elements)
+//                self?.accept(elements)
+//            }.disposed(by: disposeBag ?? self.disposeBag)
+//            
+//        }
         
         public override func dataSource(configureCell: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureCell,
                                         configureSupplementaryView: CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureSupplementaryView? = nil,
@@ -242,7 +242,7 @@ extension UICollectionView {
             super.dataSource(configureCell: configureCell, configureSupplementaryView: configureSupplementaryView, moveItem: moveItem, canMoveItemAtIndexPath: canMoveItemAtIndexPath)
         }
         
-        public override func feed(pageSource: CKPageElement<Element>, section: Int = 0, offset: Int = 0) {
+        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
             super.feed(pageSource: pageSource, section: section, offset: offset)
         }
         
@@ -261,9 +261,9 @@ extension UICollectionView {
 // MARK: - 绑定分页请求
 extension ObservableType where Element == Response {
     
-    public func sendPage<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((CKResult<CKPageElement<T>>)->Void)?=nil) where T: HandyJSON {
+    public func sendPage<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<Service.PageElement<T>>)->Void)?=nil) where T: HandyJSON {
         
-        mapResult(CKPageElement<T>.self).response { (result) in
+        mapResult(Service.PageElement<T>.self).response { (result) in
             if let page = result.object {
                 viewModel.feed(pageSource: page)
             }
@@ -271,7 +271,7 @@ extension ObservableType where Element == Response {
         }.disposed(by: viewModel.disposeBag)
     }
     
-    public func sendElements<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((CKResult<T>)->Void)?=nil) where T: HandyJSON {
+    public func sendElements<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<T>)->Void)?=nil) where T: HandyJSON {
         
         mapResult(T.self).response { (result) in
             viewModel.replace(elements: result.array)

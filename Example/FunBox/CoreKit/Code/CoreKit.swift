@@ -21,7 +21,7 @@ public class FunCoreKit: NSObject {
     
     fileprivate static var modules: [String] {
         var modules = [String]()
-        modules.append("HZUIKit")
+        modules.append("CKUIKit")
         return modules
     }
     
