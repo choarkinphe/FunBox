@@ -12,6 +12,42 @@ import UIKit
 public protocol FunTaskType {
     func resume(wait: TimeInterval)
 }
+public typealias FunParamter = FunAlamofire.Paramter
+public typealias FunParams = FunAlamofire.Params
+// 请求数据的标准协议
+public protocol FunParamterable {
+    
+    func asFunParams() -> FunParamter
+}
+
+extension FunAlamofire {
+    public typealias Params = [String: Any]
+    
+    public struct Paramter: FunParamterable {
+        public enum Position {
+            case components
+            case body
+        }
+        var body: Params?
+        var components: Params?
+        public init(body: Params?=nil, components: Params?=nil) {
+            self.body = body
+            self.components = components
+        }
+        
+        public func asFunParams() -> FunParamter {
+            return self
+        }
+        
+    }
+}
+
+extension FunParams: FunParamterable {
+    public func asFunParams() -> FunParamter {
+        return FunParamter(body: self)
+    }
+}
+
 extension FunAlamofire {
     // MARK: - 请求任务
     public class Task: FunTaskType {
@@ -43,25 +79,24 @@ extension FunAlamofire {
             self.path = request?.path
             self.method = request?.method ?? .post
             self.headers = request?.headers
-            self.params = request?.params
-            
+            self.params = request?.params?.asFunParams()
         }
         
         // 请求地址
         var path: String?
         // method
-        public var method: HTTPMethod = .post
+        var method: HTTPMethod = .post
         // 请求参数
-        public var params: [String: Any]?
-        public var url_params: [String: Any]?
+        var params: Paramter?
+//        public var url_params: JSONParamter?
         // baseURL
-        public var baseURL: URLConvertible? = FunAlamofire.manager.baseURL
+        var baseURL: URLConvertible? = FunAlamofire.manager.baseURL
         // 请求头
-        public var headers: HTTPHeaders? = FunAlamofire.manager.headers
+        var headers: HTTPHeaders? = FunAlamofire.manager.headers
         // encoding
-        public var encoding: ParameterEncoding = URLEncoding.default
+        var encoding: ParameterEncoding = URLEncoding.default
         // body体
-        public var formDataHandler: ((MultipartFormData)->Void)?
+        var formDataHandler: ((MultipartFormData)->Void)?
         
         // 请求配置
         fileprivate var options: [FunAlamofire.Option] = [.toast(FunAlamofire.manager.toast)]
@@ -82,9 +117,9 @@ extension FunAlamofire {
                     url = baseURL.appendingPathComponent(path)
                 }
                 
-                if let url_params = url_params, let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false) {
-//                    let urlComponents = NSURLComponents(string: urlString)!
-                    url_params.forEach { item in
+                if let components = params?.components, let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false) {
+
+                    components.forEach { item in
                         if urlComponents.queryItems == nil {
                             urlComponents.queryItems = [URLQueryItem(name: item.key, value: "\(item.value)")]
                         } else {
@@ -106,7 +141,7 @@ extension FunAlamofire {
                 
                 return session.request(url_request)
             } else {
-                return session.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
+                return session.request(url, method: method, parameters: params?.body, encoding: encoding, headers: headers)
             }
         }
         
@@ -130,7 +165,7 @@ extension FunAlamofire {
                 if let progress = down_progress {
                     dataRequest.downloadProgress(closure: progress)
                 }
-                
+                // 将请求options转换成真实option对象
                 let option = FunResponse.Option.deserialize(options: options)
                 
                 option.sender?.isUserInteractionEnabled = true
@@ -250,7 +285,7 @@ extension FunAlamofire {
         )
         override var request: Request? {
             guard let url = url else { return nil }
-            return session.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
+            return session.download(url, method: method, parameters: params?.body, encoding: encoding, headers: headers, to: destination)
         }
         
         // 下载任务
@@ -266,9 +301,7 @@ extension FunAlamofire {
             }
             
             downloadRequest.responseData { [weak self] (download_response) in
-                
-//                let response = FunDownloadResponse(request: request.request, response: request.response, fileURL: download_response.fileURL)
-                
+
                 // 内部回调
                 switch download_response.result {
                 case .success(_):
@@ -298,7 +331,7 @@ extension FunAlamofire {
                     debugPrint("FunAlamofire: Task-\(self?.url?.absoluteString ?? "null") is failed")
                 }
                 
-                //                    self?.response_completion?(response)
+                
                 response.callBack?(response)
                 // 请求完成时打开sender事件
                 response.option?.sender?.isUserInteractionEnabled = true
@@ -327,10 +360,7 @@ extension FunAlamofire {
 
 // Task的链式构建方法
 public extension FunAlamofire.Task {
-    enum ParamsType {
-        case url
-        case body
-    }
+
     func path(_ path: String) -> Self {
         self.path = path
         return self
@@ -339,13 +369,12 @@ public extension FunAlamofire.Task {
         self.method = method
         return self
     }
-    func params(_ params: [String: Any]?, type: ParamsType = .body) -> Self {
-        if type == .body {
-            self.params = params
-        } else if type == .url {
-            self.url_params = params
+    func params(_ params: FunParamterable, position: FunParamter.Position = .body) -> Self {
+        if position == .components, let params = params as? FunAlamofire.Params {
+            self.params = FunParamter(components: params)
+        } else {
+            self.params = params.asFunParams()
         }
-        
         return self
     }
     func baseURL(_ baseURL: URLConvertible) -> Self {
@@ -366,8 +395,8 @@ public extension FunAlamofire.Task {
     }
     
     
-    func options(_ options: [FunAlamofire.Option]) -> Self {
-        self.options = options
+    func options(_ options: FunAlamofireOptions) -> Self {
+        self.options = options.asOptions()
         
         return self
     }
@@ -427,6 +456,22 @@ public extension FunAlamofire.Task {
 }
 
 // MARK: - RequestOption
+public protocol FunAlamofireOptions {
+    func asOptions() -> [FunAlamofire.Option]
+}
+private typealias Options = [FunAlamofire.Option]
+
+extension Options: FunAlamofireOptions {
+    public func asOptions() -> [FunAlamofire.Option] {
+        return self
+    }
+}
+
+extension FunAlamofire.Option: FunAlamofireOptions {
+    public func asOptions() -> [FunAlamofire.Option] {
+        return [self]
+    }
+}
 extension FunAlamofire {
     
     // Toast的配置

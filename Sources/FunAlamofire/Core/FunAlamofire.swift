@@ -17,7 +17,7 @@ public typealias FunAlamofire = FunBox.Funfreedom
 public protocol FunRequestable {
     var path: String { get }
     var method: HTTPMethod { get }
-    var params: [String: Any]? { get }
+    var params: FunParams? { get }
     var headers: HTTPHeaders? { get }
     var baseURL: URLConvertible? { get }
 }
@@ -86,56 +86,32 @@ public extension FunBox {
             return Manager.Static.shared
         }
         
-        private var tasks = [String: FunAlamofire.Task]()
-        
-        func add(task: FunAlamofire.Task) {
-            tasks[task.cacheKey] = task
-        }
-        
-//        func pick
+//        private var tasks = [String: FunAlamofire.Task]()
+//        
+//        func add(task: FunAlamofire.Task) {
+//            tasks[task.cacheKey] = task
+//        }
         
         public func request(to request: FunRequestable) -> FunAlamofire.Task {
             // 创建基本的请求任务
-//            if let request = request as? URLRequest {
-//                return FunAlamofire.Task(session: session, request: request)
-//            }
-//            let task = FunAlamofire.Task(session: session, path: request.path)
-//            task.params = request.params
-//            task.headers = request.headers
-//            task.baseURL = request.baseURL
-//            return task
             return FunAlamofire.Task(session: session, request: request)
         }
         
         public func download(to request: FunRequestable) -> FunAlamofire.DownLoadTask {
-            // 创建基本的请求任务
-//            if let request = request as? URLRequest {
-//                return FunAlamofire.DownLoadTask(session: session, request: request)
-//            }
-//            let task = FunAlamofire.DownLoadTask(session: session, path: request.path)
-//            task.params = request.params
-//            task.headers = request.headers
-//            task.baseURL = request.baseURL
-//            return task
+            // 创建下载请求任务
             return FunAlamofire.DownLoadTask(session: session, request: request)
         }
         
         public func upload(to request: FunRequestable) -> FunAlamofire.UpLoadTask {
-            // 创建基本的请求任务
-//            if let request = request as? URLRequest {
-//                return FunAlamofire.UpLoadTask(session: session, request: request)
-//            }
-//            let task = FunAlamofire.UpLoadTask(session: session, path: request.path)
-//            task.params = request.params
-//            task.headers = request.headers
-//            task.baseURL = request.baseURL
-//            return task
+            // 创建上传请求任务
             return FunAlamofire.UpLoadTask(session: session, request: request)
         }
         
     }
     
 }
+
+
 
 
 // MARK: - Manager

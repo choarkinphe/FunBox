@@ -83,7 +83,6 @@ public extension FunAlamofire {
 
 
 
-
 extension FunResponse {
         public struct Option {
             // toast配置，默认只给错误弹窗
@@ -123,3 +122,4 @@ extension FunResponse {
     }
 
 }
+

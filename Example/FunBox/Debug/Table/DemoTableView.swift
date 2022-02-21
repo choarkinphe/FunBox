@@ -60,38 +60,16 @@ extension Demo {
         var provider = API.Provider<News.Provider>()
         
         func reload() {
-            // Moya+rx
-//            provider.rx
-//                .request(to: .news(params: ["page":0,"count":100]))
-//                .mapObject(Service.Result<Demo.News>.self)
-//                .response { [weak self] result in
-//                    if let array = result.array {
-////                        print(array)
-//                        var result = Service.PageElement<Demo.News>()
-//                        result.rows = array
-//                        self?.feed(pageSource: result)
-//                    }
-//                }.disposed(by: self.disposeBag)
-            
-//            FunAlamofire.manager.headers
-            
-//            FunAlamofire.default.request(to: "http://api.apiopen.top/getWangYiNews?page=0&count=100").response { response in
-//
-//                if let data = response.data, let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
-//                    print(json)
-//                }
-////                Service.Result.deserialize(from: response.data, designatedPath: <#T##String?#>)
-//            }.resume()
+
             FunAlamofire.default
                 .request(to: "http://api.apiopen.top/getWangYiNews")
-                .params(["page":0,"count":100], type: .url)
+                .params(["page":0,"count":100])
+                .params(FunParamter(body: nil, components: ["page":0,"count":100]))
+                .params(["page":0,"count":100], position: .components)
                 .options([.cache(timeOut: 5)])
-//                .map([News].self) { result in
-//                print(result)
-//                }
                 .mapObject(Service.Result<News>.self, completion: { [weak self] result in
                     if let array = result.array {
-                        //                        print(array)
+                        
                         var result = Service.PageElement<Demo.News>()
                         result.rows = array
                         self?.feed(pageSource: result)
