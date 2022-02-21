@@ -34,11 +34,12 @@ Pod::Spec.new do |s|
     # FunAlamofire路径
 #    s.source_files = 'Sources/FunAlamofire/Core/**/*'
     # FunAlamofire依赖
-    s.dependency 'FunBox/Core', '~> 1.0.5'
+    
 #    s.dependency 'Alamofire'#, '~> 5.2.2'
     s.subspec "Core" do |ss|
         ss.source_files  = "Sources/FunAlamofire/Core/**/*"
         ss.dependency "Alamofire", "~> 5.0"
+        ss.dependency 'FunBox/Core', '~> 1.0.5'
         ss.framework  = "Foundation"
       end
     s.subspec 'HandyJSON' do |ss|
