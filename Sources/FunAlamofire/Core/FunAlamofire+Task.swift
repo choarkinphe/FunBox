@@ -53,6 +53,7 @@ extension FunAlamofire {
         public var method: HTTPMethod = .post
         // 请求参数
         public var params: [String: Any]?
+        public var url_params: [String: Any]?
         // baseURL
         public var baseURL: URLConvertible? = FunAlamofire.manager.baseURL
         // 请求头
@@ -74,11 +75,23 @@ extension FunAlamofire {
         
         // 请求的真实地址
         fileprivate var url: URL? {
-            if let path = path {
-                var url = URL(string: path)
+            if let path = path, var url = URL(string: path) {
+                
                 
                 if !path.hasPrefix("http"), let baseURL = try? baseURL?.asURL() {
                     url = baseURL.appendingPathComponent(path)
+                }
+                
+                if let url_params = url_params, let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: false) {
+//                    let urlComponents = NSURLComponents(string: urlString)!
+                    url_params.forEach { item in
+                        if urlComponents.queryItems == nil {
+                            urlComponents.queryItems = [URLQueryItem(name: item.key, value: "\(item.value)")]
+                        } else {
+                            urlComponents.queryItems?.append(URLQueryItem(name: item.key, value: "\(item.value)"))
+                        }
+                    }
+                    return urlComponents.url
                 }
                 
                 return url
@@ -314,6 +327,10 @@ extension FunAlamofire {
 
 // Task的链式构建方法
 public extension FunAlamofire.Task {
+    enum ParamsType {
+        case url
+        case body
+    }
     func path(_ path: String) -> Self {
         self.path = path
         return self
@@ -322,8 +339,13 @@ public extension FunAlamofire.Task {
         self.method = method
         return self
     }
-    func params(_ params: [String: Any]?) -> Self {
-        self.params = params
+    func params(_ params: [String: Any]?, type: ParamsType = .body) -> Self {
+        if type == .body {
+            self.params = params
+        } else if type == .url {
+            self.url_params = params
+        }
+        
         return self
     }
     func baseURL(_ baseURL: URLConvertible) -> Self {

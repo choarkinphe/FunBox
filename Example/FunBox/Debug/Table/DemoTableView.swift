@@ -83,7 +83,8 @@ extension Demo {
 ////                Service.Result.deserialize(from: response.data, designatedPath: <#T##String?#>)
 //            }.resume()
             FunAlamofire.default
-                .request(to: "http://api.apiopen.top/getWangYiNews?page=0&count=100")
+                .request(to: "http://api.apiopen.top/getWangYiNews")
+                .params(["page":0,"count":100], type: .url)
                 .options([.cache(timeOut: 5)])
 //                .map([News].self) { result in
 //                print(result)
