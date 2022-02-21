@@ -85,17 +85,17 @@ public extension FunAlamofire {
 
 
 extension FunResponse {
-    struct Option {
-        // toast配置，默认只给错误弹窗
-        var toast: FunAlamofire.Toast = .error
-        // display view
-        var container: UIView?
-        // 响应器
-        var sender: UIView?
-        // 缓存有效期
-        var cache_timeOut: TimeInterval?
-        
-        static func deserialize(options: [FunAlamofire.Option]) -> FunResponse.Option {
+        public struct Option {
+            // toast配置，默认只给错误弹窗
+            public var toast: FunAlamofire.Toast = .error
+            // display view
+            public var container: UIView?
+            // 响应器
+            public var sender: UIView?
+            // 缓存有效期
+            public var cache_timeOut: TimeInterval?
+            
+            public static func deserialize(options: [FunAlamofire.Option]) -> FunResponse.Option {
             // 生成一组option
             var option = FunResponse.Option()
             

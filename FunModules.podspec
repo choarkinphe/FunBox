@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.0'
     
     # 组件库
-    s.dependency 'FunBox/Core', '~> 1.0.5'
+    s.dependency 'FunBox/Core', '~> 1.0.3'
 
         
         # 工具: FunUI
@@ -46,7 +46,7 @@ Pod::Spec.new do |s|
             # RxFunBox路径
             item.source_files = 'Sources/RxFunBox/**/*'
             # RxFunBox依赖
-            item.dependency 'FunBox/Box/UI', '~> 1.0.5'
+            item.dependency 'FunBox/Box/UI', '~> 1.0.3'
             item.dependency 'RxDataSources', '~> 4.0.1'
             item.dependency 'RxSwift', '~> 5.1.1'
             item.dependency 'RxCocoa', '~> 5.1.1'
