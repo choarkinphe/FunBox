@@ -624,21 +624,21 @@ extension FunDownloadManager: URLSessionTaskDelegate, URLSessionDownloadDelegate
 }
 
 
-public extension FunAlamofire {
-    var downloadResponder: FunDownloadManager.Responder? {
-        
-//        if let task = task {
-            
-//            let responder = FunDownloadManager.default.buildResponder(request: request)
-//
-//            responder?.destinationURL = task.destinationURL
-//
-//            return responder
-//        }
-        
-        return nil
-        
-    }
-    
-    
-}
+//public extension FunAlamofire {
+//    var downloadResponder: FunDownloadManager.Responder? {
+//        
+////        if let task = task {
+//            
+////            let responder = FunDownloadManager.default.buildResponder(request: request)
+////
+////            responder?.destinationURL = task.destinationURL
+////
+////            return responder
+////        }
+//        
+//        return nil
+//        
+//    }
+//    
+//    
+//}

@@ -13,104 +13,10 @@ import FunBox
 import UIKit
 // 最终发出请求响应
 public typealias FunResponse = FunAlamofire.Response
-//public typealias FunRequest = FunAlamofire.Request
 public typealias FunDownloadResponse = FunAlamofire.DownloadResponse
-/*
-public class FunRequest: Equatable,FunRequestable {
-    public var path: String
-//    public enum `Type` {
-//        case normal
-//        case download
-//        case upload
-//    }
-//    var type: FunRequest.Type = .normal
-    // 请求地址
-//    public var path: String?
-    // method
-    public var method: HTTPMethod = .post
-    // 请求参数
-    public var params: [String: Any]?
-    // baseURL
-    public var baseURL: URLConvertible? = FunAlamofire.manager.baseURL
-    // 请求头
-    public var headers: HTTPHeaders? = FunAlamofire.manager.headers
-    // encoding
-    public var encoding: ParameterEncoding = URLEncoding.default
-    
-    var url_request: URLRequest?
-    init(path: String?=nil, request: FunRequestable?=nil) {
-        if let request = request as? URLRequest {
-            self.url_request = request
-        }
-        self.baseURL = request?.baseURL
-        self.path = request?.path ?? "error path"
-        self.method = request?.method ?? .post
-        self.headers = request?.headers
-        self.params = request?.params
 
-    }
-    
-//    func asFunRequest() -> FunRequest? {
-//        
-//    }
-    
-    public static func == (lhs: FunRequest, rhs: FunRequest) -> Bool {
-//            return lhs.statusCode == rhs.statusCode
-//                && lhs.data == rhs.data
-//                && lhs.response == rhs.response
-        return true
-    }
-    
-    // 请求的真实地址
-    var url: URL? {
-        
-        var url = URL(string: path)
-        
-        if !path.hasPrefix("http"), let baseURL = try? baseURL?.asURL() {
-            url = baseURL.appendingPathComponent(path)
-        }
-        
-        return url
-        
-        
-    }
-    
-}
-
-//class FunDownloadRequest: FunRequest {
-//
-//}
-
-public extension FunRequest {
-    func path(_ path: String) -> Self {
-        self.path = path
-        return self
-    }
-    func method(_ method: HTTPMethod) -> Self {
-        self.method = method
-        return self
-    }
-    func params(_ params: [String: Any]?) -> Self {
-        self.params = params
-        return self
-    }
-    func baseURL(_ baseURL: URLConvertible) -> Self {
-        self.baseURL = baseURL
-        return self
-    }
-    func headers(_ headers: HTTPHeaders?) -> Self {
-        self.headers = headers
-        return self
-    }
-    func encoding(_ encoding: ParameterEncoding) -> Self {
-        self.encoding = encoding
-        return self
-    }
-}
- */
 public extension FunAlamofire {
 
-    
     class Response: Equatable {
         /// The status code of the response.
         public let statusCode: Int
@@ -129,6 +35,8 @@ public extension FunAlamofire {
         public var error: Error?
         // 回调
         var callBack: ((FunResponse)-> Void)?
+        // 请求的选项
+        var option: Option?
         
         public init(statusCode: Int = 200, data: Data? = nil, request: URLRequest? = nil, response: HTTPURLResponse? = nil) {
             self.statusCode = statusCode
@@ -159,7 +67,7 @@ public extension FunAlamofire {
         // 下载恢复文件
         public let resumeData: Data?
         // 下载任务的地址
-        public let fileURL: URL?
+        public var fileURL: URL?
         
         public init(request: URLRequest?,
                     response: HTTPURLResponse?,
@@ -167,7 +75,6 @@ public extension FunAlamofire {
                     resumeData: Data?=nil) {
             self.fileURL = fileURL
             self.resumeData = resumeData
-//            super.init(request: request, response: response)
             super.init(statusCode: 200, data: nil, request: request, response: response)
             
         }
@@ -185,7 +92,7 @@ extension FunResponse {
         var container: UIView?
         // 响应器
         var sender: UIView?
-        
+        // 缓存有效期
         var cache_timeOut: TimeInterval?
         
         static func deserialize(options: [FunAlamofire.Option]) -> FunResponse.Option {
@@ -216,23 +123,3 @@ extension FunResponse {
     }
 
 }
-//public extension FunAlamofire.Responder {
-    
-//    func request<T>(_ type: T.Type?, _ completion: @escaping Responder<T?>) where T: Codable {
-//        
-//        request { (result) in
-//            if let data = result.data {
-//
-//                let model = try? JSONDecoder().decode(T.self, from: data)
-//                completion((success: result.success, data: model, error: nil))
-//                
-//
-//            } else {
-//                completion((success: result.success, data: nil, error: nil))
-//            }
-//            
-//            
-//        }
-//    }
-
-//}

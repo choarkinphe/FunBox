@@ -84,6 +84,7 @@ extension Demo {
 //            }.resume()
             FunAlamofire.default
                 .request(to: "http://api.apiopen.top/getWangYiNews?page=0&count=100")
+                .options([.cache(timeOut: 5)])
 //                .map([News].self) { result in
 //                print(result)
 //                }
