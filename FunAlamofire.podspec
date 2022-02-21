@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunAlamofire'
-    s.version          = '1.0.3'
+    s.version          = '1.0.5'
     s.summary          = '基于FunBox的Alamofire'
     s.swift_version    = '5.0'
     
@@ -34,8 +34,8 @@ Pod::Spec.new do |s|
     # FunAlamofire路径
 #    s.source_files = 'Sources/FunAlamofire/Core/**/*'
     # FunAlamofire依赖
-    s.dependency 'FunBox/Core', '~> 1.0.4'
-    s.dependency 'Alamofire'#, '~> 5.2.2'
+    s.dependency 'FunBox/Core', '~> 1.0.5'
+#    s.dependency 'Alamofire'#, '~> 5.2.2'
     s.subspec "Core" do |ss|
         ss.source_files  = "Sources/FunAlamofire/Core/**/*"
         ss.dependency "Alamofire", "~> 5.0"
