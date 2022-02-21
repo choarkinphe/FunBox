@@ -1,6 +1,6 @@
 {
   "name": "FunAlamofire",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "summary": "基于FunBox的Alamofire",
   "swift_versions": "5.0",
   "description": "TODO: Add long description of the pod here.",
@@ -14,15 +14,15 @@
   },
   "source": {
     "git": "https://github.com/choarkinphe/FunBox.git",
-    "tag": "1.0.2"
+    "tag": "1.0.3"
   },
   "platforms": {
     "ios": "11.0"
   },
-  "source_files": "Sources/FunAlamofire/Code/**/*",
+  "default_subspecs": "Core",
   "dependencies": {
     "FunBox/Core": [
-      "~> 1.0.0"
+      "~> 1.0.3"
     ],
     "Alamofire": [
 
@@ -30,10 +30,23 @@
   },
   "subspecs": [
     {
-      "name": "FunAlamofire+HandyJSON",
-      "source_files": "Sources/FunAlamofire/Code/FunAlamofire+HandyJSON/**/*",
+      "name": "Core",
+      "source_files": "Sources/FunAlamofire/Core/**/*",
+      "dependencies": {
+        "Alamofire": [
+          "~> 5.0"
+        ]
+      },
+      "frameworks": "Foundation"
+    },
+    {
+      "name": "HandyJSON",
+      "source_files": "Sources/FunAlamofire/HandyJSON/**/*",
       "dependencies": {
         "HandyJSON": [
+
+        ],
+        "FunAlamofire/Core": [
 
         ]
       }

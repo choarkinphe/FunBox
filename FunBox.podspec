@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunBox'
-    s.version          = '1.0.3'
+    s.version          = '1.0.4'
     s.summary          = 'FunBox 饭盒？'
     s.swift_version    = '5.0'
     
@@ -32,8 +32,8 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.0'
     
     # 核心库
-    s.source_files = 'Sources/FunBox/Code/*'
-
+#    s.source_files = 'Sources/FunBox/Code/*'
+    s.default_subspec = "Core"
     s.subspec 'Core' do |ss|
         # 核心库依赖
         ss.dependency 'FunBox/Fun'

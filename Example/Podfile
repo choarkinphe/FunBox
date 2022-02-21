@@ -4,7 +4,7 @@ target 'FunBox_Example' do
   platform :ios, '11.0'
   pod 'FunBox', :path => '../'
 #  pod 'FunCoreKit', :path => '../'
-  pod 'FunAlamofire', :path => '../'
+  pod 'FunAlamofire/HandyJSON', :path => '../'
   pod 'FunModules', :path => '../'
   pod 'RAMAnimatedTabBarController'
   pod 'RichTextView'

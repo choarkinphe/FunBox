@@ -30,17 +30,21 @@ Pod::Spec.new do |s|
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
     
     s.ios.deployment_target = '11.0'
-
-
-            # FunAlamofire路径
-            s.source_files = 'Sources/FunAlamofire/Code/**/*'
-            # FunAlamofire依赖
-            s.dependency 'FunBox/Core', '~> 1.0.0'
-            s.dependency 'Alamofire'#, '~> 5.2.2'
-            
-            s.subspec 'FunAlamofire+HandyJSON' do |ss|
-                ss.source_files = 'Sources/FunAlamofire/Code/FunAlamofire+HandyJSON/**/*'
-                ss.dependency 'HandyJSON'
-            end
-
+    s.default_subspec = "Core"
+    # FunAlamofire路径
+#    s.source_files = 'Sources/FunAlamofire/Core/**/*'
+    # FunAlamofire依赖
+    s.dependency 'FunBox/Core', '~> 1.0.4'
+    s.dependency 'Alamofire'#, '~> 5.2.2'
+    s.subspec "Core" do |ss|
+        ss.source_files  = "Sources/FunAlamofire/Core/**/*"
+        ss.dependency "Alamofire", "~> 5.0"
+        ss.framework  = "Foundation"
+      end
+    s.subspec 'HandyJSON' do |ss|
+        ss.source_files = 'Sources/FunAlamofire/HandyJSON/**/*'
+        ss.dependency 'HandyJSON'
+        ss.dependency 'FunAlamofire/Core'
+    end
+    
 end
