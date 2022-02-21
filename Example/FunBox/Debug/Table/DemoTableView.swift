@@ -61,13 +61,11 @@ extension Demo {
         
         func reload() {
 
-            FunAlamofire.default
-                .request(to: "http://api.apiopen.top/getWangYiNews")
-                .params(["page":0,"count":100])
-                .params(FunParamter(body: nil, components: ["page":0,"count":100]))
-                .params(["page":0,"count":100], position: .components)
-                .options([.cache(timeOut: 5)])
-                .mapObject(Service.Result<News>.self, completion: { [weak self] result in
+            FunAlamofire.default // 默认请求实例
+                .request(to: "http://api.apiopen.top/getWangYiNews")                        // 创建请求任务
+                .params(["page":0,"count":100])                                             // 添加请求参数
+                .options([.cache(timeOut: 5)])                                              // 请求的可选项，是否缓存，绑定响应器（请求期间响应器不响应事件）等
+                .mapObject(Service.Result<News>.self, completion: { [weak self] result in   // 依据HandyJSON或Codable解析返回值
                     if let array = result.array {
                         
                         var result = Service.PageElement<Demo.News>()
@@ -75,7 +73,7 @@ extension Demo {
                         self?.feed(pageSource: result)
                     }
                 })
-                .resume()
+                .resume() // 开启请求任务
                             
         }
     }

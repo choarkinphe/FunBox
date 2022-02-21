@@ -24,7 +24,7 @@ public protocol FunRequestable {
 
 extension FunRequestable {
     public var method: HTTPMethod { return .post }
-    public var params: [String: Any]? { return nil }
+    public var params: FunParams? { return nil }
     public var headers: HTTPHeaders? { return FunAlamofire.manager.headers }
     public var baseURL: URLConvertible? { return FunAlamofire.manager.baseURL }
 }
@@ -43,9 +43,9 @@ extension URLRequest: FunRequestable {
     public var method: HTTPMethod {
         return HTTPMethod(rawValue: httpMethod?.uppercased() ?? "POST")
     }
-    public var params: [String : Any]? {
+    public var params: FunParams? {
         if let httpBody = httpBody {
-            return try? JSONSerialization.jsonObject(with: httpBody, options: .allowFragments) as? [String : Any]
+            return try? JSONSerialization.jsonObject(with: httpBody, options: .allowFragments) as? FunParams
         }
         return nil
     }
