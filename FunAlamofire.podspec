@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunAlamofire'
-    s.version          = '1.0.5'
+    s.version          = '1.0.6'
     s.summary          = '基于FunBox的Alamofire'
     s.swift_version    = '5.0'
     
