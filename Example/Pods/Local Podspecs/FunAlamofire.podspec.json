@@ -28,5 +28,16 @@
 
     ]
   },
+  "subspecs": [
+    {
+      "name": "FunAlamofire+HandyJSON",
+      "source_files": "Sources/FunAlamofire/Code/FunAlamofire+HandyJSON/**/*",
+      "dependencies": {
+        "HandyJSON": [
+
+        ]
+      }
+    }
+  ],
   "swift_version": "5.0"
 }

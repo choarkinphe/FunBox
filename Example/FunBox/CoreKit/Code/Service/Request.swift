@@ -9,7 +9,7 @@ import Foundation
 @_exported import HandyJSON
 @_exported import RxSwift
 @_exported import Moya
-
+import FunAlamofire
 public struct API {
     public typealias Paramter = [String: Any]
     public typealias Provider = MoyaProvider
@@ -243,7 +243,92 @@ extension ObservableType where Element == Response {
     }
 }
 
+public class FunObservable<Element> : FunObservableType {
+    init() {
+#if TRACE_RESOURCES
+        _ = Resources.incrementTotal()
+#endif
+    }
+    
+//    public func subscribe<Observer: ObserverType>(_ observer: Observer) -> Disposable where Observer.Element == Element {
+//        rxAbstractMethod()
+//    }
+    
+    public func asObservable() -> FunObservable<Element> {
+        return self
+    }
+    
+    deinit {
+#if TRACE_RESOURCES
+        _ = Resources.decrementTotal()
+#endif
+    }
+}
 
+public protocol FunObservableType {
+    /// Type of elements in sequence.
+    associatedtype Element
+
+    @available(*, deprecated, renamed: "Element")
+    typealias E = Element
+
+    /// Converts `self` to `Observable` sequence.
+    ///
+    /// - returns: Observable sequence that represents `self`.
+    func asObservable() -> FunObservable<Element>
+}
+
+//extension FunAlamofire {
+//    struct ObservableType<T> {
+//
+//    }
+//}
+//public extension FunAlamofire.Task {
+//
+//    func mapObject<T: HandyJSON>(_ type: T.Type, completion: ((T)-> Void)?) -> FunAlamofire.Task {
+//        return mapJSON { json in
+//            
+//            if let json = json as? [String: Any], let obj = T.deserialize(from: json, designatedPath: nil) {
+//            
+//                completion?(obj)
+//            }
+//        }
+//    }
+//}
+
+extension FunAlamofire.Task {
+//    public typealias Element =
+    
+    func a() {
+//        response { response in
+//            
+//        }
+    }
+//    public func mapObject<T: HandyJSON>(_ type: T.Type) -> FunAlamofire.Task {
+//        return flatMap { response -> Observable<T> in
+//            return Observable.just(try response.mapObject(T.self))
+//        }
+//    }
+//    public typealias Element = <#type#>
+    
+//    public func mapObject<T: HandyJSON>(_ type: T.Type) -> FunAlamofire.Task<T> {
+//
+//        return
+//    }
+}
+//extension ObservableType where Element == Response {
+//    public func mapObject<T: HandyJSON>(_ type: T.Type) -> Observable<T> {
+//        return flatMap { response -> Observable<T> in
+//            return Observable.just(try response.mapObject(T.self))
+//        }
+//    }
+//
+//    public func mapResult<T: HandyJSON>(_ type: T.Type) -> Observable<Service.Result<T>> {
+//        return flatMap { response -> Observable<Service.Result<T>> in
+//            return Observable.just(try response.mapResult(type))
+//        }
+//    }
+//}
 
 private var optionsKey = "com.corekit.response.options"
 extension Response {

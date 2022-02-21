@@ -9,35 +9,35 @@
 import Alamofire
 import FunBox
 import UIKit
-
+public protocol FunTaskType {
+    func resume(wait: TimeInterval)
+}
 extension FunAlamofire {
-    public class Task {
+    // MARK: - 请求任务
+    public class Task: FunTaskType {
         // 管理session
         let session: Session
+
+        // 请求结果
+        public var response: FunResponse?
         
-//        public enum `Type`: String {
-//            case `default` = "default"
-//            case download = "download"
-//            case upload = "upload"
-//        }
+        fileprivate var url_request: URLRequest?
+        
+        init(session: Session, path: String?=nil, request: FunRequestable?=nil) {
+            self.session = session
+            if let request = request as? URLRequest {
+                self.url_request = request
+            }
+            self.baseURL = request?.baseURL
+            self.path = request?.path
+            self.method = request?.method ?? .post
+            self.headers = request?.headers
+            self.params = request?.params
+
+        }
+        
         // 请求地址
         var path: String?
-        fileprivate var url_request: URLRequest?
-        init(session: Session, path: String?=nil, request: URLRequest?=nil) {
-            self.session = session
-            if let request = request {
-                self.url_request = request
-                self.baseURL = request.baseURL
-                self.path = request.path
-                self.method = request.method ?? .post
-                self.headers = request.headers
-                self.params = request.params
-            } else {
-                self.path = path
-            }
-        }
-        // 请求类型
-//        var type: Type = .default
         // method
         public var method: HTTPMethod = .post
         // 请求参数
@@ -49,7 +49,7 @@ extension FunAlamofire {
         // encoding
         public var encoding: ParameterEncoding = URLEncoding.default
         // body体
-//        public var formDataHandler: ((MultipartFormData)->Void)?
+        public var formDataHandler: ((MultipartFormData)->Void)?
         
         // 请求配置
         public var options: [FunAlamofire.Option] = [.toast(FunAlamofire.manager.toast)]
@@ -57,70 +57,76 @@ extension FunAlamofire {
         // 任务进度
         fileprivate var up_progress: ((Progress) -> Void)?
         fileprivate var down_progress: ((Progress) -> Void)?
+        fileprivate var response_completion: ((FunResponse)-> Void)?
         
         // 请求的真实地址
         fileprivate var url: URL? {
             if let path = path {
                 var url = URL(string: path)
-                
-                if !path.hasPrefix("http"), let baseURL = try? baseURL?.asURL() {
-                    url = baseURL.appendingPathComponent(path)
+
+            if !path.hasPrefix("http"), let baseURL = try? baseURL?.asURL() {
+                url = baseURL.appendingPathComponent(path)
                 }
-                
+
                 return url
             }
             return nil
         }
         
-        // 真实请求
+//       //真实请求
         fileprivate var request: Request? {
             guard let url = url else { return nil }
             if let url_request = url_request {
-                
+
                 return session.request(url_request)
             } else {
                 return session.request(url, method: method, parameters: params, encoding: encoding, headers: headers)
             }
-//            switch type {
-//
-//                case .default: // 创建普通请求
-//
-//
-//                case .download: // 创建下载请求
-//                    return session.download(url, method: method, parameters: params, encoding: encoding, headers: headers, to: destination)
-//
-//                case .upload: // 创建上传请求
-//
-//                    return session.upload(multipartFormData: formData, to: url, method: method, headers: headers)
-//
-//            }
-            
+        }
+//        // 请求结果
+//        public var response: FunResponse?
+        
+        // 缓存键值
+        var cacheKey: String {
+            var url = path ?? ""
+            if let baseURL = try? baseURL?.asURL().absoluteString {
+                url = baseURL + url
+            }
+            return url.fb.md5
         }
         
-        open func response(_ completion: ((FunResponse)-> Void)?) {
-            guard let request = request else { return }
-            // 生成响应选项
-            let option = FunResponse.Option.deserialize(options: options)
+        public func response(_ completion: ((FunResponse)-> Void)?=nil) -> Task {
+//            guard let request = request else { return nil }
             
-            // 请求开启关闭响应者事件
-            option.sender?.isUserInteractionEnabled = false
             // 开启缓存时，优先读取缓存的内容
-            /*
-             if element.isCache, let data = manager?.load_request(element: element) {
-             
-             if let result = completion {
-             
-             var response = FunAlamofire.RequestResponse(request: request.request, response: request.response, fileURL: nil, resumeData: nil)
-             response.data = data
-             result(response)
-             }
-             
-             element.sender?.isEnabled = true
-             // 拿到对应的缓存后直接回调，执行真正的请求
-             return
-             }
-             */
             
+//             if element.isCache, let data = manager?.load(to: element) {
+//
+//             if let result = completion {
+//
+//             var response = FunAlamofire.RequestResponse(request: request.request, response: request.response, fileURL: nil, resumeData: nil)
+//             response.data = data
+//             result(response)
+//             }
+//
+//             element.sender?.isEnabled = true
+//             // 拿到对应的缓存后直接回调，执行真正的请求
+//             return
+//             }
+             
+//            let option = Response.Option.deserialize(options: options)
+//            if option.cache_timeOut != nil, let response = load(from: token) {
+//                return Single.create { single in
+//                    single(SingleEvent<Response>.success(response))
+//                    return Disposables.create {
+//                        // 请求释放后开启sender的响应
+//                        option.sender?.isUserInteractionEnabled = true
+//    //                    cancellableToken?.cancel()
+//                    }
+//                }.asObservable()
+//            }
+//            // 关闭sender的响应
+//            option.sender?.isUserInteractionEnabled = false
             
             
             // 普通任务（包含上传）
@@ -132,47 +138,65 @@ extension FunAlamofire {
                 if let progress = down_progress {
                     dataRequest.downloadProgress(closure: progress)
                 }
-                // 开启请求任务
-                dataRequest.responseData { (data_response) in
-                    
-                    let response = FunResponse(request: request.request, response: request.response)
-                    
-                    // 处理结果
-                    switch data_response.result {
-                        case .success(_):
-                            
-                            if let data = data_response.data {
-                                response.data = data
-                                // 开启了缓存,保存请求信息
-                                //                                if element.isCache == true {
-                                //
-                                //                                    self?.manager?.cache_request(element: element, response: data)
-                                //                                }
-                            } else {
-                                response.error = FunError(description: "responseData is empty")
-                            }
-                            
-                        case .failure(let error):
-                            
-                            response.error = error
-                            
-                            // 默认的错误HUD
-                            if option.toast != .none {
-                                FunBox.toast.message(error.localizedDescription).show()
-                            }
-                            
-                    }
-                    completion?(response)
-                    
-                    // 请求完成时打开sender事件
-                    option.sender?.isUserInteractionEnabled = true
-                }
                 
+                response_completion = completion
             }
             
             
-
+            return self
             
+        }
+        
+        // 开启请求任务
+        open func resume(wait: TimeInterval = 0) {
+            guard let request = request else { return }
+            // 生成响应选项
+            let option = FunResponse.Option.deserialize(options: options)
+            
+            let response = FunResponse(request: request.request, response: request.response)
+            
+            // 请求开启关闭响应者事件
+            option.sender?.isUserInteractionEnabled = false
+            
+            response.callBack = response_completion
+            
+            // 开启请求任务
+            if let dataRequest = request as? DataRequest {
+                dataRequest.responseData { (data_response) in
+                    
+                    
+                    // 处理结果
+                    switch data_response.result {
+                    case .success(_):
+                        
+                        if let data = data_response.data {
+                            response.data = data
+                            // 开启了缓存,保存请求信息
+                            //                                if element.isCache == true {
+                            //
+                            //                                    self?.manager?.cache_request(element: element, response: data)
+                            //                                }
+                        } else {
+                            response.error = FunError(description: "responseData is empty")
+                        }
+                        
+                    case .failure(let error):
+                        
+                        response.error = error
+                        
+                        // 默认的错误HUD
+                        if option.toast != .none {
+                            FunBox.toast.message(error.localizedDescription).show()
+                        }
+                        
+                    }
+                    
+                    response.callBack?(response)
+
+                    // 请求完成时打开sender事件
+                    option.sender?.isUserInteractionEnabled = true
+                }
+            }
         }
         
         deinit {
@@ -181,6 +205,7 @@ extension FunAlamofire {
         
     }
     
+    // MARK: - 下载任务
     public class DownLoadTask: FunAlamofire.Task {
         // 储存路径
         public var destinationURL: URL?
@@ -195,7 +220,7 @@ extension FunAlamofire {
         }
         
         // 下载任务
-        public override func response(_ completion: ((FunDownloadResponse) -> Void)?) {
+        public override func resume(wait: TimeInterval = 0) {
             guard let request = request else { return }
             // 生成响应选项
             let option = FunResponse.Option.deserialize(options: options)
@@ -204,13 +229,13 @@ extension FunAlamofire {
             option.sender?.isUserInteractionEnabled = false
             
             if let downloadRequest = request as? DownloadRequest {
-                if let progress = up_progress {
-                    downloadRequest.uploadProgress(closure: progress)
-                }
-                if let progress = down_progress {
-                    downloadRequest.downloadProgress(closure: progress)
-                }
-                downloadRequest.responseData { (download_response) in
+//                if let progress = up_progress {
+//                    downloadRequest.uploadProgress(closure: progress)
+//                }
+//                if let progress = down_progress {
+//                    downloadRequest.downloadProgress(closure: progress)
+//                }
+                downloadRequest.responseData { [weak self] (download_response) in
                     
                     let response = FunDownloadResponse(request: request.request, response: request.response, fileURL: download_response.fileURL)
                     
@@ -229,7 +254,7 @@ extension FunAlamofire {
                             }
                     }
                     
-                    completion?(response)
+                    self?.response_completion?(response)
                     
                     // 请求完成时打开sender事件
                     option.sender?.isUserInteractionEnabled = true
@@ -238,6 +263,8 @@ extension FunAlamofire {
             }
         }
     }
+    
+    // MARK: - 上传任务
     public class UpLoadTask: FunAlamofire.Task {
         override var request: Request? {
             guard let url = url else { return nil }
@@ -257,10 +284,6 @@ public extension FunAlamofire.Task {
         self.path = path
         return self
     }
-//    func taskType(_ type: Type) -> Self {
-//        self.type = type
-//        return self
-//    }
     func method(_ method: HTTPMethod) -> Self {
         self.method = method
         return self
@@ -281,10 +304,10 @@ public extension FunAlamofire.Task {
         self.encoding = encoding
         return self
     }
-//    func body(_ body: ((MultipartFormData) -> Void)?) -> Self {
-//        self.formDataHandler = body
-//        return self
-//    }
+    func body(_ body: ((MultipartFormData) -> Void)?) -> Self {
+        self.formDataHandler = body
+        return self
+    }
 
     
     func options(_ options: [FunAlamofire.Option]) -> Self {
@@ -326,6 +349,37 @@ public extension FunAlamofire.DownLoadTask {
 //public extension FunAlamofire.DownLoadTask {
 //
 //}
+
+// MARK: - Task->Map
+public extension FunAlamofire.Task {
+
+    func mapJSON(_ completion: ((Any)-> Void)?) -> FunAlamofire.Task {
+         
+        return response { response in
+            // 调用通用完整response方法获取请求结果
+            if let data = response.data { // 判断data是否有值
+                do {
+                    // 解析json
+                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                    // 判断解析出来的是否为json对象
+                    if JSONSerialization.isValidJSONObject(json) {
+                        // 抛出解析结果
+                        completion?(json)
+                    } else {
+                        debugPrint("FunAlamofire: isValidJSONObject fail")
+                    }
+                }
+
+                catch{
+                    debugPrint(error.localizedDescription)
+                }
+                
+            } else {
+                debugPrint("FunAlamofire: response data is empty")
+            }
+        }
+    }
+}
 
 // MARK: - RequestOption
 extension FunAlamofire {

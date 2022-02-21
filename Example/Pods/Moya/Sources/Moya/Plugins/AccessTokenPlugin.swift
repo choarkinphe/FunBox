@@ -62,7 +62,7 @@ extension AuthorizationType: Equatable {
  */
 public struct AccessTokenPlugin: PluginType {
 
-    public typealias TokenClosure = (TargetType) -> String
+    public typealias TokenClosure = (AuthorizationType) -> String
 
     /// A closure returning the access token to be applied in the header.
     public let tokenClosure: TokenClosure
@@ -92,8 +92,8 @@ public struct AccessTokenPlugin: PluginType {
             else { return request }
 
         var request = request
-        let realTarget = (target as? MultiTarget)?.target ?? target
-        let authValue = authorizationType.value + " " + tokenClosure(realTarget)
+
+        let authValue = authorizationType.value + " " + tokenClosure(authorizationType)
         request.addValue(authValue, forHTTPHeaderField: "Authorization")
 
         return request

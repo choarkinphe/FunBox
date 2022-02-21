@@ -4,7 +4,12 @@ PODS:
   - Down (0.11.0)
   - FunAlamofire (1.0.2):
     - Alamofire
+    - "FunAlamofire/FunAlamofire+HandyJSON (= 1.0.2)"
     - FunBox/Core (~> 1.0.0)
+  - "FunAlamofire/FunAlamofire+HandyJSON (1.0.2)":
+    - Alamofire
+    - FunBox/Core (~> 1.0.0)
+    - HandyJSON
   - FunBox (1.0.2):
     - FunBox/Box (= 1.0.2)
     - FunBox/Core (= 1.0.2)
@@ -67,10 +72,11 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.2.1)
   - MJRefresh (3.7.5)
-  - Moya (15.0.0):
-    - Moya/Core (= 15.0.0)
-  - Moya/Core (15.0.0):
+  - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
+  - Moya/RxSwift (14.0.0):
+    - Moya/Core
+    - RxSwift (~> 5.0)
   - RAMAnimatedTabBarController (5.2.0)
   - RichTextView (3.2.1):
     - Down
@@ -103,7 +109,7 @@ DEPENDENCIES:
   - KingfisherWebP
   - libwebp
   - MJRefresh
-  - Moya
+  - Moya/RxSwift (~> 14.0.0)
   - RAMAnimatedTabBarController
   - RichTextView
   - RxAlamofire
@@ -145,7 +151,7 @@ SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   Down: b6ba1bc985c9d2f4e15e3b293d2207766fa12612
-  FunAlamofire: b2490cbe597bac039aa534d0cf80544b52942ad7
+  FunAlamofire: a66dd8716fe515e881e4dfb67e6984a995a4d7af
   FunBox: df437e44bbefbead3c9dd5ccf08bccbf462142d4
   FunModules: 7502a95102dd8ea218e189395f26fe9391e4e865
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
@@ -156,7 +162,7 @@ SPEC CHECKSUMS:
   KingfisherWebP: 0768e0c00bf9746de9ee5b22a795e9504345f258
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
-  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   RichTextView: 96906735e6f7e81c08403c7711ad908b3cb6ecd1
   RxAlamofire: 8e144c62dcc01d68dcb366bfc542eb6dd46bab78
@@ -167,6 +173,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   TZImagePickerController: 6685e6d81b8fd5453e80ba369dd4ebd6e97276ee
 
-PODFILE CHECKSUM: 1855a196aa60aa06d42c012914eb9b61a92e8dfa
+PODFILE CHECKSUM: 65b03de67f3a450a49708998b59227f6039123bf
 
 COCOAPODS: 1.11.2

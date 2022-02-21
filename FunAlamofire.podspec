@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunAlamofire'
-    s.version          = '1.0.2'
+    s.version          = '1.0.3'
     s.summary          = '基于FunBox的Alamofire'
     s.swift_version    = '5.0'
     
@@ -37,5 +37,10 @@ Pod::Spec.new do |s|
             # FunAlamofire依赖
             s.dependency 'FunBox/Core', '~> 1.0.0'
             s.dependency 'Alamofire'#, '~> 5.2.2'
+            
+            s.subspec 'FunAlamofire+HandyJSON' do |ss|
+                ss.source_files = 'Sources/FunAlamofire/Code/FunAlamofire+HandyJSON/**/*'
+                ss.dependency 'HandyJSON'
+            end
 
 end

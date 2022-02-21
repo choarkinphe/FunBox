@@ -3,9 +3,13 @@ import Foundation
 // Workaround for new asynchronous handling of Alamofire's request creation.
 struct RequestTypeWrapper: RequestType {
 
-    var request: URLRequest? { _urlRequest }
+    var request: URLRequest? {
+        return _urlRequest
+    }
 
-    var sessionHeaders: [String: String] { _request.sessionHeaders }
+    var sessionHeaders: [String: String] {
+        return _request.sessionHeaders
+    }
 
     private var _request: Request
     private var _urlRequest: URLRequest?

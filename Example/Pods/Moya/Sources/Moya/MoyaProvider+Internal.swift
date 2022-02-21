@@ -31,14 +31,18 @@ public extension MoyaProvider {
         }
 
         if trackInflights {
+            lock.lock()
             var inflightCompletionBlocks = self.inflightRequests[endpoint]
             inflightCompletionBlocks?.append(pluginsWithCompletion)
-            self.internalInflightRequests[endpoint] = inflightCompletionBlocks
+            self.inflightRequests[endpoint] = inflightCompletionBlocks
+            lock.unlock()
 
             if inflightCompletionBlocks != nil {
                 return cancellableToken
             } else {
-                self.internalInflightRequests[endpoint] = [pluginsWithCompletion]
+                lock.lock()
+                self.inflightRequests[endpoint] = [pluginsWithCompletion]
+                lock.unlock()
             }
         }
 
@@ -61,7 +65,10 @@ public extension MoyaProvider {
             let networkCompletion: Moya.Completion = { result in
               if self.trackInflights {
                 self.inflightRequests[endpoint]?.forEach { $0(result) }
-                self.internalInflightRequests.removeValue(forKey: endpoint)
+
+                self.lock.lock()
+                self.inflightRequests.removeValue(forKey: endpoint)
+                self.lock.unlock()
               } else {
                 pluginsWithCompletion(result)
               }
@@ -160,7 +167,7 @@ private extension MoyaProvider {
     private func interceptor(target: Target) -> MoyaRequestInterceptor {
         return MoyaRequestInterceptor(prepare: { [weak self] urlRequest in
             return self?.plugins.reduce(urlRequest) { $1.prepare($0, target: target) } ?? urlRequest
-       })
+        })
     }
 
     private func setup(interceptor: MoyaRequestInterceptor, with target: Target, and request: Request) {
@@ -177,26 +184,18 @@ private extension MoyaProvider {
         formData.applyMoyaMultipartFormData(multipartBody)
 
         let interceptor = self.interceptor(target: target)
-        let uploadRequest: UploadRequest = session.requestQueue.sync {
-            let uploadRequest = session.upload(multipartFormData: formData, with: request, interceptor: interceptor)
-            setup(interceptor: interceptor, with: target, and: uploadRequest)
-
-            return uploadRequest
-        }
+        let request = session.upload(multipartFormData: formData, with: request, interceptor: interceptor)
+        setup(interceptor: interceptor, with: target, and: request)
 
         let validationCodes = target.validationType.statusCodes
-        let validatedRequest = validationCodes.isEmpty ? uploadRequest : uploadRequest.validate(statusCode: validationCodes)
+        let validatedRequest = validationCodes.isEmpty ? request : request.validate(statusCode: validationCodes)
         return sendAlamofireRequest(validatedRequest, target: target, callbackQueue: callbackQueue, progress: progress, completion: completion)
     }
 
     func sendUploadFile(_ target: Target, request: URLRequest, callbackQueue: DispatchQueue?, file: URL, progress: ProgressBlock? = nil, completion: @escaping Completion) -> CancellableToken {
         let interceptor = self.interceptor(target: target)
-        let uploadRequest: UploadRequest = session.requestQueue.sync {
-            let uploadRequest = session.upload(file, with: request, interceptor: interceptor)
-            setup(interceptor: interceptor, with: target, and: uploadRequest)
-
-            return uploadRequest
-        }
+        let uploadRequest = session.upload(file, with: request, interceptor: interceptor)
+        setup(interceptor: interceptor, with: target, and: uploadRequest)
 
         let validationCodes = target.validationType.statusCodes
         let alamoRequest = validationCodes.isEmpty ? uploadRequest : uploadRequest.validate(statusCode: validationCodes)
@@ -205,12 +204,8 @@ private extension MoyaProvider {
 
     func sendDownloadRequest(_ target: Target, request: URLRequest, callbackQueue: DispatchQueue?, destination: @escaping DownloadDestination, progress: ProgressBlock? = nil, completion: @escaping Completion) -> CancellableToken {
         let interceptor = self.interceptor(target: target)
-        let downloadRequest: DownloadRequest = session.requestQueue.sync {
-            let downloadRequest = session.download(request, interceptor: interceptor, to: destination)
-            setup(interceptor: interceptor, with: target, and: downloadRequest)
-
-            return downloadRequest
-        }
+        let downloadRequest = session.download(request, interceptor: interceptor, to: destination)
+        setup(interceptor: interceptor, with: target, and: downloadRequest)
 
         let validationCodes = target.validationType.statusCodes
         let alamoRequest = validationCodes.isEmpty ? downloadRequest : downloadRequest.validate(statusCode: validationCodes)
@@ -219,12 +214,8 @@ private extension MoyaProvider {
 
     func sendRequest(_ target: Target, request: URLRequest, callbackQueue: DispatchQueue?, progress: Moya.ProgressBlock?, completion: @escaping Moya.Completion) -> CancellableToken {
         let interceptor = self.interceptor(target: target)
-        let initialRequest: DataRequest = session.requestQueue.sync {
-            let initialRequest = session.request(request, interceptor: interceptor)
-            setup(interceptor: interceptor, with: target, and: initialRequest)
-
-            return initialRequest
-        }
+        let initialRequest = session.request(request, interceptor: interceptor)
+        setup(interceptor: interceptor, with: target, and: initialRequest)
 
         let validationCodes = target.validationType.statusCodes
         let alamoRequest = validationCodes.isEmpty ? initialRequest : initialRequest.validate(statusCode: validationCodes)

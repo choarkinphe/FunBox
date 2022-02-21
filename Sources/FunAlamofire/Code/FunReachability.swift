@@ -59,7 +59,7 @@ extension FunBox {
             
             return status
         }
-        
+        // 销毁、停止监听网络状态
         public static func release() {
             af_reachability?.stopListening()
         }
@@ -74,7 +74,7 @@ public extension ReachabilityNamespaceWrapper where T : UIView {
     
 }
 
-// 创建一个hz的命名空间，方便扩展方法
+// 创建一个命名空间，方便扩展方法
 public protocol ReachabilityNamespaceWrappable {
     associatedtype ReachabilityWrapperType
     var reachability: ReachabilityWrapperType { get }

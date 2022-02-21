@@ -19,6 +19,28 @@ extension String: FunCacheKey {
     }
 }
 
+public protocol FunCacheable {
+    
+    var diskCachePath: String { get }
+    
+    var pool: FunCache { get }
+    
+}
+
+public extension FunCacheable {
+    var pool: FunCache {
+        if let pool = FunCache.user_pools[diskCachePath] {
+            return pool
+        }
+        
+        let pool = FunCache(path: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + diskCachePath)
+        
+        FunCache.user_pools[diskCachePath] = pool
+        
+        return pool
+    }
+}
+
 public typealias FunCache = FunBox.Cache
 fileprivate let FunCachePathName = "com.FunBox.funcache"
 public extension FunBox {
@@ -27,6 +49,7 @@ public extension FunBox {
         return Cache.default
     }
     class Cache {
+        fileprivate static var user_pools = [String: Cache]()
         
         private struct Static {
             // 生成默认的缓存路径

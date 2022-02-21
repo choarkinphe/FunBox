@@ -8,15 +8,20 @@ target 'FunBox_Example' do
   pod 'FunModules', :path => '../'
   pod 'RAMAnimatedTabBarController'
   pod 'RichTextView'
+  
   # CoreKit
+#  pod 'FunBox'
+#  pod 'FunAlamofire'
+#  pod 'FunModules'
   pod 'HandyJSON'
   pod 'Hue'
   pod 'KingfisherWebP'
-  pod 'Moya'
+#  pod 'Moya', '~> 14.0.0'
   pod 'RxAlamofire'
   pod 'libwebp'
   pod 'MJRefresh'
   pod 'RxRelay'
+  pod 'Moya/RxSwift', '~> 14.0.0'
   
 #  pod 'Toast-swift'
 

@@ -7,11 +7,51 @@
 //
 
 import Foundation
-#if !COCOAPODS
 import FunBox
-#endif
+//import Alamofire
+//#if !COCOAPODS
+//import FunBox
+//#endif
 
-public extension FunAlamofire {
+extension FunAlamofire: FunCacheable {
+//    struct Cache: FunCacheable {
+        
+        // 缓存路径
+        public var diskCachePath: String { return "com.funalamofire.requestcache" }
+        
+//    }
+    
+    func cache(to task: FunAlamofire.Task, timeOut: TimeInterval, response: FunAlamofire.Response) {
+        pool.cache(key: task.cacheKey, data: response.data, options: [.memory, .timeOut(timeOut)])
+    }
+    
+    func remove(from task: FunAlamofire.Task) {
+//        FunAlamofire.manager.request_cache.remove_request(element)
+        pool.removeCache(key: task.cacheKey)
+    }
+    
+    func load(from task: FunAlamofire.Task) -> FunAlamofire.Response? {
+        if let data = pool.loadCache(key: task.cacheKey) {
+            return FunAlamofire.Response(data: data, request: nil, response: nil)
+        }
+        return nil
+    }
+}
+
+public extension FunAlamofire.Task {
+    
+//    fileprivate var cacheKey: String {
+//        var url = path ?? ""
+//        if let baseURL = try? baseURL?.asURL().absoluteString {
+//            url = baseURL + url
+//        }
+//        return url.fb.md5
+////        return ((baseURL?.asURL().absoluteString ?? "") + (path ?? "")).fb.md5
+//    }
+    
+
+    
+
     
 //    func cache_request(element: FunAlamofire.Task, response: Data?) {
 //        FunAlamofire.manager.request_cache.cache_request(element, response: response)

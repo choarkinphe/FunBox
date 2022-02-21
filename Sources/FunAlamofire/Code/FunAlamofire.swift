@@ -11,36 +11,45 @@ import Alamofire
 import FunBox
 
 import UIKit
+import Accelerate
 // 缓存用的线程
-fileprivate let FunNetworkCachePathName = "com.funfreedom.funnetwork.cache"
+//fileprivate let FunNetworkCachePathName = "com.funfreedom.funnetwork.cache"
 public typealias FunAlamofire = FunBox.Funfreedom
-
 public protocol FunRequestable {
     var path: String { get }
-    var methed: HTTPMethod { get }
+    var method: HTTPMethod { get }
     var params: [String: Any]? { get }
     var headers: HTTPHeaders? { get }
     var baseURL: URLConvertible? { get }
+//    func asFunRequest() -> FunRequest?
 }
 
 extension FunRequestable {
-    public var methed: HTTPMethod { return .post }
+    public var method: HTTPMethod { return .post }
     public var params: [String: Any]? { return nil }
     public var headers: HTTPHeaders? { return FunAlamofire.manager.headers }
     public var baseURL: URLConvertible? { return FunAlamofire.manager.baseURL }
+//    public func asFunRequest() -> FunRequest? {
+//        return FunRequest(request: self)
+//    }
 }
 
 extension String: FunRequestable {
     public var path: String {
         return self
     }
+//    public func asFunRequest() -> FunRequest? {
+//        return FunRequest(path: self)
+//    }
 }
 
 extension URLRequest: FunRequestable {
+//    public typealias Element = FunResultable
+    
     public var path: String {
         return url?.relativePath ?? ""
     }
-    public var methed: HTTPMethod {
+    public var method: HTTPMethod {
         return HTTPMethod(rawValue: httpMethod?.uppercased() ?? "POST")
     }
     public var params: [String : Any]? {
@@ -86,40 +95,54 @@ public extension FunBox {
             return Manager.Static.shared
         }
         
+        private var tasks = [String: FunAlamofire.Task]()
+        
+        func add(task: FunAlamofire.Task) {
+            tasks[task.cacheKey] = task
+        }
+        
+//        func pick
+        
         public func request(to request: FunRequestable) -> FunAlamofire.Task {
             // 创建基本的请求任务
-            if let request = request as? URLRequest {
-                return FunAlamofire.Task(session: session, request: request)
-            }
-            let task = FunAlamofire.Task(session: session, path: request.path)
-            task.params = request.params
-            task.headers = request.headers
-            task.baseURL = request.baseURL
-            return task
+//            if let request = request as? URLRequest {
+//                return FunAlamofire.Task(session: session, request: request)
+//            }
+//            let task = FunAlamofire.Task(session: session, path: request.path)
+//            task.params = request.params
+//            task.headers = request.headers
+//            task.baseURL = request.baseURL
+//            return task
+            return FunAlamofire.Task(session: session, request: request)
+//            return FunRequest(request: request)
         }
         
-        public func download(to request: FunRequestable) -> FunAlamofire.DownLoadTask {
+        public func download(to request: FunRequestable) -> FunAlamofire.Task {
             // 创建基本的请求任务
-            if let request = request as? URLRequest {
-                return FunAlamofire.DownLoadTask(session: session, request: request)
-            }
-            let task = FunAlamofire.DownLoadTask(session: session, path: request.path)
-            task.params = request.params
-            task.headers = request.headers
-            task.baseURL = request.baseURL
-            return task
+//            if let request = request as? URLRequest {
+//                return FunAlamofire.DownLoadTask(session: session, request: request)
+//            }
+//            let task = FunAlamofire.DownLoadTask(session: session, path: request.path)
+//            task.params = request.params
+//            task.headers = request.headers
+//            task.baseURL = request.baseURL
+//            return task
+            return FunAlamofire.DownLoadTask(session: session, request: request)
+//            return FunRequest(request: request)
         }
         
-        public func upload(to request: FunRequestable) -> FunAlamofire.UpLoadTask {
+        public func upload(to request: FunRequestable) -> FunAlamofire.Task {
             // 创建基本的请求任务
-            if let request = request as? URLRequest {
-                return FunAlamofire.UpLoadTask(session: session, request: request)
-            }
-            let task = FunAlamofire.UpLoadTask(session: session, path: request.path)
-            task.params = request.params
-            task.headers = request.headers
-            task.baseURL = request.baseURL
-            return task
+//            if let request = request as? URLRequest {
+//                return FunAlamofire.UpLoadTask(session: session, request: request)
+//            }
+//            let task = FunAlamofire.UpLoadTask(session: session, path: request.path)
+//            task.params = request.params
+//            task.headers = request.headers
+//            task.baseURL = request.baseURL
+//            return task
+            return FunAlamofire.UpLoadTask(session: session, request: request)
+//            return FunRequest(request: request)
         }
         
     }
@@ -142,18 +165,18 @@ extension FunAlamofire {
         // 默认显示错误
         public var toast: Toast = .error
         
-        public lazy var cachePool: FunBox.Cache = {
-            
-            // 默认的请求缓存放在temp下（重启或储存空间报警自动移除）
-            // 生成对应的请求缓存工具
-            var request_cache = FunBox.Cache.init(path: NSTemporaryDirectory() + "/\(FunNetworkCachePathName)")
-            // 默认请求缓存的时效为2分钟
-            request_cache.cacheTimeOut = 120
-            
-            return request_cache
-            
-            
-        }()
+//        public lazy var cachePool: FunBox.Cache = {
+//
+//            // 默认的请求缓存放在temp下（重启或储存空间报警自动移除）
+//            // 生成对应的请求缓存工具
+//            var request_cache = FunBox.Cache.init(path: NSTemporaryDirectory() + "/\(FunNetworkCachePathName)")
+//            // 默认请求缓存的时效为2分钟
+//            request_cache.cacheTimeOut = 120
+//
+//            return request_cache
+//
+//
+//        }()
     }
     
     // 用来检测所有请求，方便处理公共事件

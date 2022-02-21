@@ -2,10 +2,10 @@ import Foundation
 import Alamofire
 
 /// Represents "multipart/form-data" for an upload.
-public struct MultipartFormData: Hashable {
+public struct MultipartFormData {
 
     /// Method to provide the form data.
-    public enum FormDataProvider: Hashable {
+    public enum FormDataProvider {
         case data(Foundation.Data)
         case file(URL)
         case stream(InputStream, UInt64)
