@@ -22,7 +22,7 @@ extension Demo {
         var image: String?
         var title: String?
         var passtime: String?
-        
+        /*
         enum Provider: TargetType {
             case news(params: APIParamterable)
 //            var method: Moya.Method {
@@ -51,13 +51,14 @@ extension Demo {
                 return URL(string: "http:/api.apiopen.top")!
             }
         }
+         */
     }
     
 
     
     class ViewModel: UITableView.ViewModel<News> {
      
-        var provider = API.Provider<News.Provider>()
+//        var provider = API.Provider<News.Provider>()
         
         func reload() {
 
@@ -66,11 +67,17 @@ extension Demo {
                 .params(["page":0,"count":100])                                             // 添加请求参数
                 .options([.cache(timeOut: 5)])                                              // 请求的可选项，是否缓存，绑定响应器（请求期间响应器不响应事件）等
                 .mapObject(Service.Result<News>.self, completion: { [weak self] result in   // 依据HandyJSON或Codable解析返回值
+                    
+                    // result就是Service.Result类型，array就是News类型
+                    
                     if let array = result.array {
                         
-                        var result = Service.PageElement<Demo.News>()
-                        result.rows = array
-                        self?.feed(pageSource: result)
+//                        var result = Service.PageElement<Demo.News>()
+//
+//                        result.rows = array
+//                        self?.feed(pageSource: result)
+                        // 把数据添加给viewModel的数据源，tableView就会自动更新数据
+                        self?.append(elements: array)
                     }
                 })
                 .resume() // 开启请求任务

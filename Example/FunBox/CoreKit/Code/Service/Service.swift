@@ -1,5 +1,5 @@
 import Foundation
-
+import FunAlamofire
 //public typealias ServerKey = Service.ServerKey
 public typealias ServerList = [Service.ServerKey: String]
 //public typealias Result = Service.Result
@@ -145,7 +145,7 @@ open class Service {
     public var headers: [String: String?]
     
     // default method
-    public var method: Moya.Method = .post
+//    public var method: Moya.Method = .post
     
     /*
      Token相关配置
@@ -409,7 +409,7 @@ extension Service {
         public var object: T?
         public var array: [T]?
         // 配置信息
-        var option: Response.Option?
+        var option: FunResponse.Option?
         
         mutating public func mapping(mapper: HelpingMapper) {
             // 将code、data、message解析到指定值
@@ -501,20 +501,20 @@ extension ObservableType {
     }
 }
 
-extension Response {
-    // 请求响应配置
-    struct Option: HandyJSON {
-        // toast配置，默认只给错误弹窗
-        var toast: Service.Toast = .error
-        // display view
-        var container: UIView?
-        // 响应器
-        var sender: UIView?
-        // 缓存有效期
-        var cache_timeOut: TimeInterval?
-        
-    }
-}
+//extension Response {
+//    // 请求响应配置
+//    struct Option: HandyJSON {
+//        // toast配置，默认只给错误弹窗
+//        var toast: Service.Toast = .error
+//        // display view
+//        var container: UIView?
+//        // 响应器
+//        var sender: UIView?
+//        // 缓存有效期
+//        var cache_timeOut: TimeInterval?
+//        
+//    }
+//}
 
 
 /*

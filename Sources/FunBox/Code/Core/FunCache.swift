@@ -25,10 +25,17 @@ public protocol FunCacheable {
     
     var pool: FunCache { get }
     
+    func getPool() -> FunCache
 }
 
 public extension FunCacheable {
+    
     var pool: FunCache {
+        
+        return getPool()
+    }
+    
+    func getPool() -> FunCache {
         if let pool = FunCache.user_pools[diskCachePath] {
             return pool
         }

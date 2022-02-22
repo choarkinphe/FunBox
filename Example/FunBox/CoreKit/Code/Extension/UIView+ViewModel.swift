@@ -259,6 +259,7 @@ extension UICollectionView {
 }
 
 // MARK: - 绑定分页请求
+/*
 extension ObservableType where Element == Response {
     
     public func sendPage<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<Service.PageElement<T>>)->Void)?=nil) where T: HandyJSON {
@@ -282,3 +283,4 @@ extension ObservableType where Element == Response {
     }
     
 }
+*/

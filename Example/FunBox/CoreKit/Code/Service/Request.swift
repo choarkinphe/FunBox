@@ -8,18 +8,18 @@
 import Foundation
 @_exported import HandyJSON
 @_exported import RxSwift
-@_exported import Moya
+//@_exported import Moya
 import FunAlamofire
 public struct API {
     public typealias Paramter = [String: Any]
-    public typealias Provider = MoyaProvider
+//    public typealias Provider = MoyaProvider
     // 缓存路径
     private static let cachePathName = "com.corekit.requestcache"
 
     // 方便创建请求实例
-    public static func provider<T>(_ type: T.Type) -> MoyaProvider<T> where T: TargetType {
-        return MoyaProvider<T>()
-    }
+//    public static func provider<T>(_ type: T.Type) -> MoyaProvider<T> where T: TargetType {
+//        return MoyaProvider<T>()
+//    }
     
     
     fileprivate static var cachePool: FunBox.Cache {
@@ -83,8 +83,8 @@ extension API.Paramter: APIParamterable {
         return self
     }
 }
-
-// 默认的公共请求配置
+/*
+ // 默认的公共请求配置
 extension TargetType {
     // default serverURL
     public var baseURL: URL {
@@ -242,7 +242,9 @@ extension ObservableType where Element == Response {
         }
     }
 }
+*/
 
+/*
 public class FunObservable<Element> : FunObservableType {
     init() {
 #if TRACE_RESOURCES
@@ -295,7 +297,9 @@ public protocol FunObservableType {
 //        }
 //    }
 //}
+*/
 
+/*
 extension FunAlamofire.Task {
 //    public typealias Element =
     
@@ -329,7 +333,9 @@ extension FunAlamofire.Task {
 //        }
 //    }
 //}
+*/
 
+/*
 private var optionsKey = "com.corekit.response.options"
 extension Response {
     
@@ -375,9 +381,9 @@ extension Response {
         return object
     }
 }
-
+*/
 // MARK: - RequestOptions
-
+/*
 public typealias RequestOptions = [API.Option]
 
 extension API {
@@ -455,7 +461,7 @@ extension Response.Option {
         return option
     }
 }
-
+ */
 
 //public extension URL {
 //

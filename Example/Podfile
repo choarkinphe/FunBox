@@ -17,11 +17,11 @@ target 'FunBox_Example' do
   pod 'Hue'
   pod 'KingfisherWebP'
 #  pod 'Moya', '~> 14.0.0'
-  pod 'RxAlamofire'
+#  pod 'RxAlamofire'
   pod 'libwebp'
   pod 'MJRefresh'
   pod 'RxRelay'
-  pod 'Moya/RxSwift', '~> 14.0.0'
+#  pod 'Moya/RxSwift', '~> 14.0.0'
   
 #  pod 'Toast-swift'
 

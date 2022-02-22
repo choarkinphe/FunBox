@@ -134,8 +134,8 @@ extension FunLoger {
     }
 }
 
-
 // MARK: - FPS
+public typealias FunFPS = FunBox.Debug.FPS
 public extension FunBox.Debug {
     class FPS: NSObject {
 
