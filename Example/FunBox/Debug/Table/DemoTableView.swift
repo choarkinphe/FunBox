@@ -65,7 +65,7 @@ extension Demo {
             FunAlamofire.default // 默认请求实例
                 .request(to: "http://api.apiopen.top/getWangYiNews")                        // 创建请求任务
                 .params(["page":0,"count":100])                                             // 添加请求参数
-                .options([.cache(timeOut: 5)])                                              // 请求的可选项，是否缓存，绑定响应器（请求期间响应器不响应事件）等
+                .options([.cache(timeOut: 5),.sender(UIView())])                            // 请求的可选项，是否缓存，绑定响应器（请求期间响应器不响应事件）等
                 .mapObject(Service.Result<News>.self, completion: { [weak self] result in   // 依据HandyJSON或Codable解析返回值
                     
                     // result就是Service.Result类型，array就是News类型
@@ -166,6 +166,10 @@ extension Demo {
             viewModel.bind(tableView: self, dataSource: source)
             
             refresher.pullDown { refresher in
+                viewModel.reload()
+            }
+            
+            refresher.pullUp(percent: 20) { refresher in
                 viewModel.reload()
             }
             
