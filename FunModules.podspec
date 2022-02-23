@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunModules'
-    s.version          = '1.0.7'
+    s.version          = '1.0.8'
     s.summary          = 'FunBox 外部组件库'
     s.swift_version    = '5.0'
     
@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.0'
     
     # 组件库
-    s.dependency 'FunBox/Core', '~> 1.0.3'
+    s.dependency 'FunBox/Core', '~> 1.0.8'
 
         
         # 工具: FunUI
@@ -41,15 +41,25 @@ Pod::Spec.new do |s|
             item.source_files = 'Sources/FunUI/**/*'
         end
         
+#        # 工具: RxFunBox
+#        s.subspec 'RxFunBox' do |item|
+#            # RxFunBox路径
+#            item.source_files = 'Sources/RxFunBox/**/*'
+#            # RxFunBox依赖
+#            item.dependency 'FunBox/Box/UI', '~> 1.0.3'
+#            item.dependency 'RxDataSources', '~> 4.0.1'
+#            item.dependency 'RxSwift', '~> 5.1.1'
+#            item.dependency 'RxCocoa', '~> 5.1.1'
+#        end
         # 工具: RxFunBox
-        s.subspec 'RxFunBox' do |item|
-            # RxFunBox路径
-            item.source_files = 'Sources/RxFunBox/**/*'
-            # RxFunBox依赖
-            item.dependency 'FunBox/Box/UI', '~> 1.0.3'
-            item.dependency 'RxDataSources', '~> 4.0.1'
-            item.dependency 'RxSwift', '~> 5.1.1'
-            item.dependency 'RxCocoa', '~> 5.1.1'
+        s.subspec 'FunRefresher' do |item|
+            # FunRefresher路径
+            item.source_files = 'Sources/FunRefresher/**/*'
+            # FunRefresher依赖
+            item.dependency 'FunBox/Fun', '~> 1.0.8'
+#            item.dependency 'RxDataSources', '~> 4.0.1'
+#            item.dependency 'RxSwift', '~> 5.1.1'
+#            item.dependency 'RxCocoa', '~> 5.1.1'
         end
         
         # 工具: FunWebImage

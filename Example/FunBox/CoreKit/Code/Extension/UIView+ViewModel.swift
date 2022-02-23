@@ -14,68 +14,52 @@ import FunBox
 import RxDataSources
 import FunModules
 
-typealias CKTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
-typealias CKCollectionViewDataSource<Section, Element> = RxCollectionViewSectionedReloadDataSource<SectionModel<Section, Element>>
-
-public protocol ViewModelable: AnyObject {
-    var disposeBag: DisposeBag { get }
+protocol PageSourceable: FunViewModelable where Element: HandyJSON {
+    
+//    var pageSource: BehaviorSubject<Service.PageElement<Element>> { get set }
+    
+    /// 添加一条分页数据
+    /// - Parameters:
+    ///   - pageSource: 页面数据
+    ///   - section: 分组
+    ///   - offset: 偏移量（可能手动增加、删除过接口返回的数据，加上偏移量修正接口的请求参数）
+    func feed(pageSource: Service.PageElement<Element>, section: Int, offset: Int)
 }
 
-open class BaseViewModel<Section,Element>: FunViewModel<Section, Element> where Element: HandyJSON {
-
-    // 订阅数据（不建议使用）
-//    @available(*, deprecated, message: "use sections instand of it")
-//    public private(set) var dataList = BehaviorSubject<[SectionModel<String?,Element>]>(value: [SectionModel(model: "", items: [Element]())])
+extension PageSourceable {
+    
+    public func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
+        
+        guard var values = try? sections.value(),
+              values.count > section,
+              let scrollView = container as? UIScrollView else { return  }
+        
+        //模型数据添加新数据
+        if let elements = pageSource.rows {
+            if scrollView.refresher.page.offset == 0 {
+                values[section].items = elements
+            } else {
+                values[section].items.append(contentsOf: elements)
+            }
+            
+            scrollView.refresher.page.offset = scrollView.refresher.page.offset + elements.count - offset
+            scrollView.refresher.page.total = pageSource.total
+            scrollView.refresher.page.index = pageSource.currentPage + 1
+        }
+        
+        accept(values)
+        
+        scrollView.refresher.endRefesh()
+        
+    }
+    
 
 }
-
 
 // MARK: UIScrollViewViewModel
 extension UIScrollView {
-    open class SectionViewModel<Section,Element>: BaseViewModel<Section,Element> where Element: HandyJSON {
-        // 分页
-        open var pageSource = BehaviorSubject(value: Service.PageElement<Element>())
-        
-        public override init() {
-            super.init()
-            
-            pageSource.bind { [weak self] (next) in
-                
-                self?.feed(pageSource: next)
-            }.disposed(by: disposeBag)
-            
-        }
-        
-        /// 添加一条分页数据
-        /// - Parameters:
-        ///   - pageSource: 页面数据
-        ///   - section: 分组
-        ///   - offset: 偏移量（可能手动增加、删除过接口返回的数据，加上偏移量修正接口的请求参数）
-        public func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
-            
-            guard var values = try? sections.value(),
-                  values.count > section,
-                  let scrollView = container as? UIScrollView else { return  }
-            
-            //模型数据添加新数据
-            if let elements = pageSource.rows {
-                if scrollView.refresher.page.offset == 0 {
-                    values[section].items = elements
-                } else {
-                    values[section].items.append(contentsOf: elements)
-                }
-                
-                scrollView.refresher.page.offset = scrollView.refresher.page.offset + elements.count - offset
-                scrollView.refresher.page.total = pageSource.total
-                scrollView.refresher.page.index = pageSource.currentPage + 1
-            }
-            
-            accept(values)
-            
-            scrollView.refresher.endRefesh()
-            
-        }
-        
+    open class SectionViewModel<Section,Element>: FunViewModel<Section,Element>, PageSourceable where Element: HandyJSON {
+
     }
     
 }
@@ -83,178 +67,26 @@ extension UIScrollView {
 // MARK: UITableViewViewModel
 extension UITableView {
     
-    open class SectionViewModel<Section,Element>: UIScrollView.SectionViewModel<Section, Element> where Element: HandyJSON {
-        
-        public override init() {
-            super.init()
-        }
-        
-        private var source = BehaviorRelay<CKTableViewDataSource<Section?, Element>?>(value: nil)
-        
-        public func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<Section?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-            
-            bind(view: tableView)
-            
-            if let dataSource = dataSource {
-                source.accept(dataSource)
-            }
-            
-            source.bind { [weak self] (dataSource) in
-                if let dataSource = dataSource, let this = self {
-                    
-                    this.sections.bind(to: tableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag ?? this.disposeBag)
-                }
-            }.disposed(by: disposeBag ?? self.disposeBag)
-            
-        }
-        
-        public func dataSource(configureCell: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell,
-                               titleForHeaderInSection: @escaping  TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection = { _, _ in nil },
-                               titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection = { _, _ in nil },
-                               canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath = { _, _ in false },
-                               canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath = { _, _ in false },
-                               sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles = { _ in nil },
-                               sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle = { _, _, index in index }) {
-            let dataSource = CKTableViewDataSource<Section?, Element>(configureCell: configureCell,
-                                                                      titleForHeaderInSection: titleForHeaderInSection,
-                                                                      titleForFooterInSection: titleForFooterInSection,
-                                                                      canEditRowAtIndexPath: canEditRowAtIndexPath,
-                                                                      canMoveRowAtIndexPath: canMoveRowAtIndexPath,
-                                                                      sectionIndexTitles: sectionIndexTitles,
-                                                                      sectionForSectionIndexTitle: sectionForSectionIndexTitle)
-            
-            source.accept(dataSource)
-        }
-        
-        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
-            super.feed(pageSource: pageSource, section: section, offset: offset)
-        }
-        
+    open class SectionViewModel<Section,Element>: FunTableViewSectionViewModel<Section, Element>, PageSourceable where Element: HandyJSON {
+     
     }
     
     
     
-    open class ViewModel<Element>: SectionViewModel<String,Element> where Element: HandyJSON {
+    open class ViewModel<Element>: FunTableViewViewModel<Element>, PageSourceable where Element: HandyJSON {
         
-        public override init() {
-            super.init()
-        }
-        
-//        public override func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-//            
-//            super.bind(tableView: tableView, dataSource: dataSource, disposeBag: disposeBag)
-//            
-//            dataList.bind { [weak self] (elements) in
-//                //                self?.sections.onNext(elements)
-//                self?.accept(elements)
-//            }.disposed(by: disposeBag ?? self.disposeBag)
-//            
-//        }
-        
-        public override func dataSource(configureCell: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.ConfigureCell,
-                                        titleForHeaderInSection: @escaping  TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForHeaderInSection = { _, _ in nil },
-                                        titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForFooterInSection = { _, _ in nil },
-                                        canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.CanEditRowAtIndexPath = { _, _ in false },
-                                        canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.CanMoveRowAtIndexPath = { _, _ in false },
-                                        sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.SectionIndexTitles = { _ in nil },
-                                        sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.SectionForSectionIndexTitle = { _, _, index in index }) {
-            super.dataSource(configureCell: configureCell, titleForHeaderInSection: titleForHeaderInSection, titleForFooterInSection: titleForFooterInSection, canEditRowAtIndexPath: canEditRowAtIndexPath, canMoveRowAtIndexPath: canMoveRowAtIndexPath, sectionIndexTitles: sectionIndexTitles, sectionForSectionIndexTitle: sectionForSectionIndexTitle)
-        }
-        
-        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
-            super.feed(pageSource: pageSource, section: section, offset: offset)
-        }
-        
-        open override var isEmpty: Bool {
-            if let items = items(for: 0), items.count > 0 {
-                
-                return false
-            }
-            
-            return true
-        }
     }
 }
 
 
 // MARK: UICollectionViewViewModel
 extension UICollectionView {
-    open class SectionViewModel<Section,Element>: UIScrollView.SectionViewModel<Section,Element> where Element: HandyJSON {
-        public override init() {
-            super.init()
-        }
-        
-        private var source = BehaviorRelay<CKCollectionViewDataSource<Section?, Element>?>(value: nil)
-        
-        public func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<Section?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+    open class SectionViewModel<Section,Element>: FunCollectionSectionViewModel<Section,Element>, PageSourceable where Element: HandyJSON {
 
-            bind(view: collectionView)
-            
-            if let dataSource = dataSource {
-                source.accept(dataSource)
-            }
-            
-            source.bind { [weak self] (dataSource) in
-                if let dataSource = dataSource, let this = self {
-                    
-                    this.sections.bind(to: collectionView.rx.items(dataSource: dataSource)).disposed(by: disposeBag ?? this.disposeBag)
-                }
-            }.disposed(by: disposeBag ?? self.disposeBag)
-            
-        }
-        
-        public func dataSource(configureCell: @escaping CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.ConfigureCell,
-                               configureSupplementaryView: CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.ConfigureSupplementaryView? = nil,
-                               moveItem: @escaping CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.MoveItem = { _, _, _ in () },
-                               canMoveItemAtIndexPath: @escaping CollectionViewSectionedDataSource<SectionModel<Section?,Element>>.CanMoveItemAtIndexPath = { _, _ in false }) {
-            let dataSource = CKCollectionViewDataSource<Section?, Element>(configureCell: configureCell,
-                                                                           configureSupplementaryView: configureSupplementaryView,
-                                                                           moveItem: moveItem,
-                                                                           canMoveItemAtIndexPath: canMoveItemAtIndexPath)
-            
-            source.accept(dataSource)
-        }
-        
-        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
-            super.feed(pageSource: pageSource, section: section, offset: offset)
-        }
-        
     }
     
-    open class ViewModel<Element>: SectionViewModel<String,Element> where Element: HandyJSON {
-        public override init() {}
-        
-//        public override func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-//            
-//            super.bind(collectionView: collectionView, dataSource: dataSource, disposeBag: disposeBag)
-//            
-//            dataList.bind { [weak self] (elements) in
-//                //                self?.sections.onNext(elements)
-//                self?.accept(elements)
-//            }.disposed(by: disposeBag ?? self.disposeBag)
-//            
-//        }
-        
-        public override func dataSource(configureCell: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureCell,
-                                        configureSupplementaryView: CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureSupplementaryView? = nil,
-                                        moveItem: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.MoveItem = { _, _, _ in () },
-                                        canMoveItemAtIndexPath: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.CanMoveItemAtIndexPath = { _, _ in false }) {
-            super.dataSource(configureCell: configureCell, configureSupplementaryView: configureSupplementaryView, moveItem: moveItem, canMoveItemAtIndexPath: canMoveItemAtIndexPath)
-        }
-        
-        public override func feed(pageSource: Service.PageElement<Element>, section: Int = 0, offset: Int = 0) {
-            super.feed(pageSource: pageSource, section: section, offset: offset)
-        }
-        
-        // 是否为空
-        open override var isEmpty: Bool {
-            if let items = items(for: 0), items.count > 0 {
-                
-                return false
-            }
-            
-            return true
-        }
+    open class ViewModel<Element>: FunCollectionViewModel<Element>, PageSourceable where Element: HandyJSON {
+
     }
 }
 
@@ -284,3 +116,49 @@ extension ObservableType where Element == Response {
     
 }
 */
+
+extension UITableView {
+    
+
+
+ public struct SourceConfig<Section,Element> {
+     var configureCell: TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell?
+     var titleForHeaderInSection: TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection? // = { _, _ in nil }
+     var titleForFooterInSection: TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection?// = { _, _ in nil },
+     var canEditRowAtIndexPath: TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath?// = { _, _ in false },
+     var canMoveRowAtIndexPath: TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath?// = { _, _ in false },
+     var sectionIndexTitles: TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles?// = { _ in nil },
+     var sectionForSectionIndexTitle: TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle?// = { _, _, index in index }
+     
+     public mutating func configureCell(_ configureCell: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell) -> SourceConfig {
+         self.configureCell = configureCell
+         return self
+     }
+     public mutating func titleForHeaderInSection(_ titleForHeaderInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection) -> SourceConfig {
+         self.titleForHeaderInSection = titleForHeaderInSection
+         return self
+     }
+     public mutating func titleForFooterInSection(_ titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection) -> SourceConfig {
+         self.titleForFooterInSection = titleForFooterInSection
+         return self
+     }
+     public mutating func canEditRowAtIndexPath(_ canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath) -> SourceConfig {
+         self.canEditRowAtIndexPath = canEditRowAtIndexPath
+         return self
+     }
+     public mutating func canMoveRowAtIndexPath(_ canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath) -> SourceConfig {
+         self.canMoveRowAtIndexPath = canMoveRowAtIndexPath
+         return self
+     }
+     public mutating func sectionIndexTitles(_ sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles) -> SourceConfig {
+         self.sectionIndexTitles = sectionIndexTitles
+         return self
+     }
+     public mutating func sectionForSectionIndexTitle(_ sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle) -> SourceConfig {
+         self.sectionForSectionIndexTitle = sectionForSectionIndexTitle
+         return self
+     }
+
+ }
+}
+ 

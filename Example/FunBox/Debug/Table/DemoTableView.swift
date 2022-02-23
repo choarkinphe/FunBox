@@ -12,6 +12,8 @@ import RxSwift
 import UIKit
 import Alamofire
 import FunAlamofire
+import FunModules
+
 struct Demo {
     
 }
@@ -72,12 +74,12 @@ extension Demo {
                     
                     if let array = result.array {
                         
-//                        var result = Service.PageElement<Demo.News>()
-//
-//                        result.rows = array
-//                        self?.feed(pageSource: result)
+                        var result = Service.PageElement<Demo.News>()
+
+                        result.rows = array
+                        self?.feed(pageSource: result)
                         // 把数据添加给viewModel的数据源，tableView就会自动更新数据
-                        self?.append(elements: array)
+//                        self?.append(elements: array)
                     }
                 })
                 .resume() // 开启请求任务
@@ -149,21 +151,45 @@ extension Demo {
 //            viewModel.dataSource { source, tableView, indexPath, element in
 //
 //            }
-            let source = CKTableViewDataSource<String?,Demo.News>(
-                    
-                    configureCell: { (dataSource, tableView, indexPath, element) in
-                        let cell = tableView.fb.dequeueCell(Cell.self, reuseIdentifier: "Key.cell_id")
-                        
-                        cell.titleLabel.text = element.title
-                        cell.iconView.fb.webImageSource(element.image).response { result in
-                            
-                        }
-                        
-                        return cell
-                        
-            })
+//            let source = FunTableViewDataSource<String?,Demo.News>(
+//
+//                    configureCell: { (dataSource, tableView, indexPath, element) in
+//                        let cell = tableView.fb.dequeueCell(Cell.self, reuseIdentifier: "Key.cell_id")
+//
+//                        cell.titleLabel.text = element.title
+//                        cell.iconView.fb.webImageSource(element.image).response { result in
+//
+//                        }
+//
+//                        return cell
+//
+//            })
             
-            viewModel.bind(tableView: self, dataSource: source)
+//            viewModel.bind(tableView: self, dataSource: source)
+            
+//            viewModel
+//            viewModel.bind(view: self)
+            viewModel.bind(tableView: self).dataSource { dataSource, tableView, indexPath, element in
+                let cell = tableView.fb.dequeueCell(Cell.self, reuseIdentifier: "Key.cell_id")
+                
+                cell.titleLabel.text = element.title
+                cell.iconView.fb.webImageSource(element.image).response { result in
+                    
+                }
+                
+                return cell
+            }
+            
+//            viewModel.dataSource { dataSource, tableView, indexPath, element in
+//                let cell = tableView.fb.dequeueCell(Cell.self, reuseIdentifier: "Key.cell_id")
+//                
+//                cell.titleLabel.text = element.title
+//                cell.iconView.fb.webImageSource(element.image).response { result in
+//                    
+//                }
+//                
+//                return cell
+//            }
             
             refresher.pullDown { refresher in
                 viewModel.reload()

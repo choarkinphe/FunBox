@@ -30,20 +30,11 @@
       "source_files": "Sources/FunUI/**/*"
     },
     {
-      "name": "RxFunBox",
-      "source_files": "Sources/RxFunBox/**/*",
+      "name": "FunRefresher",
+      "source_files": "Sources/FunRefresher/**/*",
       "dependencies": {
-        "FunBox/Box/UI": [
+        "FunBox/Fun": [
           "~> 1.0.3"
-        ],
-        "RxDataSources": [
-          "~> 4.0.1"
-        ],
-        "RxSwift": [
-          "~> 5.1.1"
-        ],
-        "RxCocoa": [
-          "~> 5.1.1"
         ]
       }
     },

@@ -11,7 +11,7 @@ import UIKit
 //#elseif os(macOS)
 //import AppKit
 //#endif
-import FunBox
+//import FunBox
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -19,7 +19,7 @@ import RxDataSources
 typealias FunTableViewDataSource<Section, Element> = RxTableViewSectionedReloadDataSource<SectionModel<Section, Element>>
 typealias FunCollectionViewDataSource<Section, Element> = RxCollectionViewSectionedReloadDataSource<SectionModel<Section, Element>>
 
-fileprivate var ioQueue = DispatchQueue(label: "com.corekit.viewmodel.ioqueue")
+fileprivate var ioQueue = DispatchQueue(label: "com.funbox.viewmodel.ioqueue")
 
 public protocol FunIndexable {
     var indexPath: IndexPath { get }
@@ -372,6 +372,21 @@ extension FunViewModelable {
             dismissHolder()
         }
     }
+    
+    public var isEmpty: Bool {
+        var flag = true // 默认为空
+        
+        if let sections = try? sections.value() {
+            sections.forEach { section in
+                if section.items.count > 0 {
+                    // 任意一组有数据，标记为非空
+                    flag = false
+                }
+            }
+        }
+        
+        return flag
+    }
 }
 
 open class FunViewModel<Section,Element>: FunViewModelable {
@@ -414,14 +429,14 @@ open class FunViewModel<Section,Element>: FunViewModelable {
     // 订阅数据
     public private(set) var sections = BehaviorSubject<[SectionModel<Section?,Element>]>(value: [SectionModel(model: nil, items: [Element]())])
 
-    open var isEmpty: Bool {
-        if let sections = try? sections.value(), sections.count > 0 {
-            
-            return false
-        }
-        
-        return true
-    }
+//    open var isEmpty: Bool {
+//        if let sections = try? sections.value(), sections.count > 0 {
+//
+//            return false
+//        }
+//
+//        return true
+//    }
 }
 
 // MARK: UITableViewViewModel
@@ -440,13 +455,13 @@ extension UITableView.FunViewModel {
         
         private var source = BehaviorRelay<FunTableViewDataSource<Section?, Element>?>(value: nil)
         
-        public func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<Section?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+        public func bind(tableView: UITableView, disposeBag: DisposeBag?=nil) -> FunTableViewSectionViewModel<Section,Element> {
             
             bind(view: tableView)
             
-            if let dataSource = dataSource {
-                source.accept(dataSource)
-            }
+//            if let dataSource = dataSource {
+//                source.accept(dataSource)
+//            }
             
             source.bind { [weak self] (dataSource) in
                 if let dataSource = dataSource, let this = self {
@@ -455,6 +470,7 @@ extension UITableView.FunViewModel {
                 }
             }.disposed(by: disposeBag ?? self.disposeBag)
             
+            return self
         }
         
         public func dataSource(configureCell: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell,
@@ -482,34 +498,34 @@ extension UITableView.FunViewModel {
     
     open class Single<Element>: UITableView.FunViewModel.Section<String,Element> {
         
-        public override init() {
-            super.init()
-        }
+//        public override init() {
+//            super.init()
+//        }
         
-        public override func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-            
-            super.bind(tableView: tableView, dataSource: dataSource, disposeBag: disposeBag)
-            
-        }
+//        public override func bind(tableView: UITableView, dataSource: RxTableViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+//
+//            super.bind(tableView: tableView, dataSource: dataSource, disposeBag: disposeBag)
+//
+//        }
         
-        public override func dataSource(configureCell: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.ConfigureCell,
-                                        titleForHeaderInSection: @escaping  TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForHeaderInSection = { _, _ in nil },
-                                        titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForFooterInSection = { _, _ in nil },
-                                        canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.CanEditRowAtIndexPath = { _, _ in false },
-                                        canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.CanMoveRowAtIndexPath = { _, _ in false },
-                                        sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.SectionIndexTitles = { _ in nil },
-                                        sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.SectionForSectionIndexTitle = { _, _, index in index }) {
-            super.dataSource(configureCell: configureCell, titleForHeaderInSection: titleForHeaderInSection, titleForFooterInSection: titleForFooterInSection, canEditRowAtIndexPath: canEditRowAtIndexPath, canMoveRowAtIndexPath: canMoveRowAtIndexPath, sectionIndexTitles: sectionIndexTitles, sectionForSectionIndexTitle: sectionForSectionIndexTitle)
-        }
-        
-        open override var isEmpty: Bool {
-            if let items = items(for: 0), items.count > 0 {
-                
-                return false
-            }
-            
-            return true
-        }
+//        public override func dataSource(configureCell: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.ConfigureCell,
+//                                        titleForHeaderInSection: @escaping  TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForHeaderInSection = { _, _ in nil },
+//                                        titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.TitleForFooterInSection = { _, _ in nil },
+//                                        canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.CanEditRowAtIndexPath = { _, _ in false },
+//                                        canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.CanMoveRowAtIndexPath = { _, _ in false },
+//                                        sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.SectionIndexTitles = { _ in nil },
+//                                        sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<String?, Element>>.SectionForSectionIndexTitle = { _, _, index in index }) {
+//            super.dataSource(configureCell: configureCell, titleForHeaderInSection: titleForHeaderInSection, titleForFooterInSection: titleForFooterInSection, canEditRowAtIndexPath: canEditRowAtIndexPath, canMoveRowAtIndexPath: canMoveRowAtIndexPath, sectionIndexTitles: sectionIndexTitles, sectionForSectionIndexTitle: sectionForSectionIndexTitle)
+//        }
+//
+//        open override var isEmpty: Bool {
+//            if let items = items(for: 0), items.count > 0 {
+//
+//                return false
+//            }
+//
+//            return true
+//        }
     }
 }
 
@@ -528,13 +544,13 @@ extension UICollectionView.FunViewModel {
         
         private var source = BehaviorRelay<FunCollectionViewDataSource<Section?, Element>?>(value: nil)
         
-        public func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<Section?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+        public func bind(collectionView: UICollectionView, disposeBag: DisposeBag?=nil) -> FunCollectionSectionViewModel<Section,Element> {
 
             bind(view: collectionView)
             
-            if let dataSource = dataSource {
-                source.accept(dataSource)
-            }
+//            if let dataSource = dataSource {
+//                source.accept(dataSource)
+//            }
             
             source.bind { [weak self] (dataSource) in
                 if let dataSource = dataSource, let this = self {
@@ -542,6 +558,8 @@ extension UICollectionView.FunViewModel {
                     this.sections.bind(to: collectionView.rx.items(dataSource: dataSource)).disposed(by: disposeBag ?? this.disposeBag)
                 }
             }.disposed(by: disposeBag ?? self.disposeBag)
+            
+            return self
             
         }
         
@@ -560,30 +578,30 @@ extension UICollectionView.FunViewModel {
     }
     
     open class Single<Element>: UICollectionView.FunViewModel.Section<String,Element> {
-        public override init() {}
+//        public override init() {}
         
-        public override func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
-            
-            super.bind(collectionView: collectionView, dataSource: dataSource, disposeBag: disposeBag)
-            
-        }
+//        public override func bind(collectionView: UICollectionView, dataSource: RxCollectionViewSectionedReloadDataSource<SectionModel<String?,Element>>?=nil, disposeBag: DisposeBag?=nil) {
+//
+//            super.bind(collectionView: collectionView, dataSource: dataSource, disposeBag: disposeBag)
+//
+//        }
         
-        public override func dataSource(configureCell: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureCell,
-                                        configureSupplementaryView: CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureSupplementaryView? = nil,
-                                        moveItem: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.MoveItem = { _, _, _ in () },
-                                        canMoveItemAtIndexPath: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.CanMoveItemAtIndexPath = { _, _ in false }) {
-            super.dataSource(configureCell: configureCell, configureSupplementaryView: configureSupplementaryView, moveItem: moveItem, canMoveItemAtIndexPath: canMoveItemAtIndexPath)
-        }
+//        public override func dataSource(configureCell: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureCell,
+//                                        configureSupplementaryView: CollectionViewSectionedDataSource<SectionModel<String?,Element>>.ConfigureSupplementaryView? = nil,
+//                                        moveItem: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.MoveItem = { _, _, _ in () },
+//                                        canMoveItemAtIndexPath: @escaping CollectionViewSectionedDataSource<SectionModel<String?,Element>>.CanMoveItemAtIndexPath = { _, _ in false }) {
+//            super.dataSource(configureCell: configureCell, configureSupplementaryView: configureSupplementaryView, moveItem: moveItem, canMoveItemAtIndexPath: canMoveItemAtIndexPath)
+//        }
         
         // 是否为空
-        open override var isEmpty: Bool {
-            if let items = items(for: 0), items.count > 0 {
-                
-                return false
-            }
-            
-            return true
-        }
+//        open override var isEmpty: Bool {
+//            if let items = items(for: 0), items.count > 0 {
+//
+//                return false
+//            }
+//
+//            return true
+//        }
     }
 }
 //#endif

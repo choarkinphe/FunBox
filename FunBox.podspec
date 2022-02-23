@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'FunBox'
-    s.version          = '1.0.7'
+    s.version          = '1.0.8'
     s.summary          = 'FunBox 饭盒？'
     s.swift_version    = '5.0'
     
@@ -50,19 +50,33 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'Box' do |ss|
-
-        ss.subspec 'Utils' do |sss|
-            # 路径
-            sss.source_files = 'Sources/FunBox/Code/Utils/**/*'
-            # 依赖
-            sss.dependency 'FunBox/Fun'
-        end
-        ss.subspec 'UI' do |sss|
-            # 路径
-            sss.source_files = 'Sources/FunBox/Code/UI/**/*'
-            # 依赖
-            sss.dependency 'FunBox/Fun'
-        end
+        # 路径
+        ss.source_files = 'Sources/FunBox/Code/Utils/**/*'
+        # 依赖
+        ss.dependency 'FunBox/Fun'
+#        ss.subspec 'Utils' do |sss|
+#            # 路径
+#            sss.source_files = 'Sources/FunBox/Code/Utils/**/*'
+#            # 依赖
+#            sss.dependency 'FunBox/Fun'
+#        end
+#        ss.subspec 'UI' do |sss|
+#            # 路径
+#            sss.source_files = 'Sources/FunBox/Code/UI/**/*'
+#            # 依赖
+#            sss.dependency 'FunBox/Fun'
+#        end
+    end
+    
+    # 工具: RxFunBox
+    s.subspec 'RxFunBox' do |item|
+        # RxFunBox路径
+        item.source_files = 'Sources/RxFunBox/**/*'
+        # RxFunBox依赖
+        item.dependency 'FunBox/Core', '~> 1.0.3'
+        item.dependency 'RxDataSources', '~> 4.0.1'
+        item.dependency 'RxSwift', '~> 5.1.1'
+        item.dependency 'RxCocoa', '~> 5.1.1'
     end
 
     end

@@ -46,26 +46,30 @@
     },
     {
       "name": "Box",
-      "subspecs": [
-        {
-          "name": "Utils",
-          "source_files": "Sources/FunBox/Code/Utils/**/*",
-          "dependencies": {
-            "FunBox/Fun": [
+      "source_files": "Sources/FunBox/Code/Utils/**/*",
+      "dependencies": {
+        "FunBox/Fun": [
 
-            ]
-          }
-        },
-        {
-          "name": "UI",
-          "source_files": "Sources/FunBox/Code/UI/**/*",
-          "dependencies": {
-            "FunBox/Fun": [
-
-            ]
-          }
-        }
-      ]
+        ]
+      }
+    },
+    {
+      "name": "RxFunBox",
+      "source_files": "Sources/RxFunBox/**/*",
+      "dependencies": {
+        "FunBox/Core": [
+          "~> 1.0.3"
+        ],
+        "RxDataSources": [
+          "~> 4.0.1"
+        ],
+        "RxSwift": [
+          "~> 5.1.1"
+        ],
+        "RxCocoa": [
+          "~> 5.1.1"
+        ]
+      }
     }
   ],
   "swift_version": "5.0"

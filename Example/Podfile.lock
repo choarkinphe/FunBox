@@ -12,30 +12,34 @@ PODS:
     - FunBox/Box (= 1.0.7)
     - FunBox/Core (= 1.0.7)
     - FunBox/Fun (= 1.0.7)
+    - FunBox/RxFunBox (= 1.0.7)
   - FunBox/Box (1.0.7):
-    - FunBox/Box/UI (= 1.0.7)
-    - FunBox/Box/Utils (= 1.0.7)
-  - FunBox/Box/UI (1.0.7):
-    - FunBox/Fun
-  - FunBox/Box/Utils (1.0.7):
     - FunBox/Fun
   - FunBox/Core (1.0.7):
     - FunBox/Box
     - FunBox/Fun
   - FunBox/Fun (1.0.7)
+  - FunBox/RxFunBox (1.0.7):
+    - FunBox/Core (~> 1.0.3)
+    - RxCocoa (~> 5.1.1)
+    - RxDataSources (~> 4.0.1)
+    - RxSwift (~> 5.1.1)
   - FunModules (1.0.7):
     - FunBox/Core (~> 1.0.3)
     - FunModules/FunMediaHelper (= 1.0.7)
+    - FunModules/FunRefresher (= 1.0.7)
     - FunModules/FunScan (= 1.0.7)
     - FunModules/FunUI (= 1.0.7)
     - FunModules/FunWebImage (= 1.0.7)
-    - FunModules/RxFunBox (= 1.0.7)
   - FunModules/FunMediaHelper (1.0.7):
     - FunBox/Core (~> 1.0.3)
     - FunModules/FunUI
     - FunModules/FunWebImage
     - JXPhotoBrowser (~> 3.1.2)
     - TZImagePickerController (= 3.4.8)
+  - FunModules/FunRefresher (1.0.7):
+    - FunBox/Core (~> 1.0.3)
+    - FunBox/Fun (~> 1.0.3)
   - FunModules/FunScan (1.0.7):
     - FunBox/Core (~> 1.0.3)
     - FunModules/FunUI
@@ -44,12 +48,6 @@ PODS:
   - FunModules/FunWebImage (1.0.7):
     - FunBox/Core (~> 1.0.3)
     - Kingfisher (~> 5.15.0)
-  - FunModules/RxFunBox (1.0.7):
-    - FunBox/Box/UI (~> 1.0.3)
-    - FunBox/Core (~> 1.0.3)
-    - RxCocoa (~> 5.1.1)
-    - RxDataSources (~> 4.0.1)
-    - RxSwift (~> 5.1.1)
   - HandyJSON (5.0.2)
   - Hue (5.0.0)
   - iosMath (0.9.4)
@@ -136,8 +134,8 @@ SPEC CHECKSUMS:
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   Down: b6ba1bc985c9d2f4e15e3b293d2207766fa12612
   FunAlamofire: 5f91b2ca220c42727639953915678cf3e67ecf13
-  FunBox: 3042c235452971d9555ac6bf23b18b10ad6ae4e5
-  FunModules: 8a5f6a0ac136f4a9691327409039318ff71bc6d7
+  FunBox: 3ec3a586c81fd9dc384f6a8b7e47d18f8bdeeb94
+  FunModules: 6ef27715ca6ceb3b4a555118b56a67bbe254d36e
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
   Hue: c129cb67be7d093a82bbbc30ce8a96757bf6f37a
   iosMath: f7a6cbadf9d836d2149c2a84c435b1effc244cba

@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import FunBox
 // MARK: - Refresher
+public typealias FunRefreshControl = FunBox.RefreshControl
 extension FunBox {
-    public class Refresher: UIRefreshControl {
+    public class RefreshControl: UIRefreshControl {
         private var handler: ((UIRefreshControl)->Void)?
-        private var timeOut: TimeInterval = FunBox.Refresher.Config.timeOut
+        private var timeOut: TimeInterval = FunRefreshControl.Config.timeOut
         public func text(_ text: String) -> Self {
             self.attributedTitle = NSAttributedString(string: text)
             return self
@@ -50,14 +52,14 @@ extension FunBox {
 }
 
 public extension FunNamespaceWrapper where T: UIScrollView {
-    var refresher: FunBox.Refresher {
-        let refresher = FunBox.Refresher()
+    var refresher: FunRefreshControl {
+        let refresher = FunRefreshControl()
         wrappedValue.refreshControl = refresher
         return refresher
     }
 }
 
-extension FunBox.Refresher {
+extension FunRefreshControl {
     struct Config {
         static var timeOut: TimeInterval = 15
     }
