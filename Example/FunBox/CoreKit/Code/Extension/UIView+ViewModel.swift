@@ -16,7 +16,7 @@ import FunModules
 
 protocol PageSourceable: FunViewModelable where Element: HandyJSON {
     
-//    var pageSource: BehaviorSubject<Service.PageElement<Element>> { get set }
+    //    var pageSource: BehaviorSubject<Service.PageElement<Element>> { get set }
     
     /// 添加一条分页数据
     /// - Parameters:
@@ -53,13 +53,13 @@ extension PageSourceable {
         
     }
     
-
+    
 }
 
 // MARK: UIScrollViewViewModel
 extension UIScrollView {
     open class SectionViewModel<Section,Element>: FunViewModel<Section,Element>, PageSourceable where Element: HandyJSON {
-
+        
     }
     
 }
@@ -68,7 +68,7 @@ extension UIScrollView {
 extension UITableView {
     
     open class SectionViewModel<Section,Element>: FunTableViewSectionViewModel<Section, Element>, PageSourceable where Element: HandyJSON {
-     
+        
     }
     
     
@@ -82,83 +82,78 @@ extension UITableView {
 // MARK: UICollectionViewViewModel
 extension UICollectionView {
     open class SectionViewModel<Section,Element>: FunCollectionSectionViewModel<Section,Element>, PageSourceable where Element: HandyJSON {
-
+        
     }
     
     open class ViewModel<Element>: FunCollectionViewModel<Element>, PageSourceable where Element: HandyJSON {
-
+        
     }
 }
 
 // MARK: - 绑定分页请求
 /*
-extension ObservableType where Element == Response {
-    
-    public func sendPage<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<Service.PageElement<T>>)->Void)?=nil) where T: HandyJSON {
-        
-        mapResult(Service.PageElement<T>.self).response { (result) in
-            if let page = result.object {
-                viewModel.feed(pageSource: page)
-            }
-            complete?(result)
-        }.disposed(by: viewModel.disposeBag)
-    }
-    
-    public func sendElements<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<T>)->Void)?=nil) where T: HandyJSON {
-        
-        mapResult(T.self).response { (result) in
-            viewModel.replace(elements: result.array)
-            
-            complete?(result)
-            
-        }.disposed(by: viewModel.disposeBag)
-    }
-    
-}
-*/
-
-extension UITableView {
-    
-
-
- public struct SourceConfig<Section,Element> {
-     var configureCell: TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell?
-     var titleForHeaderInSection: TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection? // = { _, _ in nil }
-     var titleForFooterInSection: TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection?// = { _, _ in nil },
-     var canEditRowAtIndexPath: TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath?// = { _, _ in false },
-     var canMoveRowAtIndexPath: TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath?// = { _, _ in false },
-     var sectionIndexTitles: TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles?// = { _ in nil },
-     var sectionForSectionIndexTitle: TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle?// = { _, _, index in index }
-     
-     public mutating func configureCell(_ configureCell: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell) -> SourceConfig {
-         self.configureCell = configureCell
-         return self
-     }
-     public mutating func titleForHeaderInSection(_ titleForHeaderInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection) -> SourceConfig {
-         self.titleForHeaderInSection = titleForHeaderInSection
-         return self
-     }
-     public mutating func titleForFooterInSection(_ titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection) -> SourceConfig {
-         self.titleForFooterInSection = titleForFooterInSection
-         return self
-     }
-     public mutating func canEditRowAtIndexPath(_ canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath) -> SourceConfig {
-         self.canEditRowAtIndexPath = canEditRowAtIndexPath
-         return self
-     }
-     public mutating func canMoveRowAtIndexPath(_ canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath) -> SourceConfig {
-         self.canMoveRowAtIndexPath = canMoveRowAtIndexPath
-         return self
-     }
-     public mutating func sectionIndexTitles(_ sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles) -> SourceConfig {
-         self.sectionIndexTitles = sectionIndexTitles
-         return self
-     }
-     public mutating func sectionForSectionIndexTitle(_ sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle) -> SourceConfig {
-         self.sectionForSectionIndexTitle = sectionForSectionIndexTitle
-         return self
-     }
-
- }
-}
+ extension ObservableType where Element == Response {
  
+ public func sendPage<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<Service.PageElement<T>>)->Void)?=nil) where T: HandyJSON {
+ 
+ mapResult(Service.PageElement<T>.self).response { (result) in
+ if let page = result.object {
+ viewModel.feed(pageSource: page)
+ }
+ complete?(result)
+ }.disposed(by: viewModel.disposeBag)
+ }
+ 
+ public func sendElements<T>(to viewModel: UIScrollView.SectionViewModel<String, T>, complete: ((Service.Result<T>)->Void)?=nil) where T: HandyJSON {
+ 
+ mapResult(T.self).response { (result) in
+ viewModel.replace(elements: result.array)
+ 
+ complete?(result)
+ 
+ }.disposed(by: viewModel.disposeBag)
+ }
+ 
+ }
+ */
+
+public struct SourceConfig<Section,Element> {
+    var configureCell: TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell?
+    var titleForHeaderInSection: TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection? // = { _, _ in nil }
+    var titleForFooterInSection: TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection?// = { _, _ in nil },
+    var canEditRowAtIndexPath: TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath?// = { _, _ in false },
+    var canMoveRowAtIndexPath: TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath?// = { _, _ in false },
+    var sectionIndexTitles: TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles?// = { _ in nil },
+    var sectionForSectionIndexTitle: TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle?// = { _, _, index in index }
+    
+    public mutating func configureCell(_ configureCell: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.ConfigureCell) -> SourceConfig {
+        self.configureCell = configureCell
+        return self
+    }
+    public mutating func titleForHeaderInSection(_ titleForHeaderInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForHeaderInSection) -> SourceConfig {
+        self.titleForHeaderInSection = titleForHeaderInSection
+        return self
+    }
+    public mutating func titleForFooterInSection(_ titleForFooterInSection: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.TitleForFooterInSection) -> SourceConfig {
+        self.titleForFooterInSection = titleForFooterInSection
+        return self
+    }
+    public mutating func canEditRowAtIndexPath(_ canEditRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanEditRowAtIndexPath) -> SourceConfig {
+        self.canEditRowAtIndexPath = canEditRowAtIndexPath
+        return self
+    }
+    public mutating func canMoveRowAtIndexPath(_ canMoveRowAtIndexPath: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.CanMoveRowAtIndexPath) -> SourceConfig {
+        self.canMoveRowAtIndexPath = canMoveRowAtIndexPath
+        return self
+    }
+    public mutating func sectionIndexTitles(_ sectionIndexTitles: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionIndexTitles) -> SourceConfig {
+        self.sectionIndexTitles = sectionIndexTitles
+        return self
+    }
+    public mutating func sectionForSectionIndexTitle(_ sectionForSectionIndexTitle: @escaping TableViewSectionedDataSource<SectionModel<Section?, Element>>.SectionForSectionIndexTitle) -> SourceConfig {
+        self.sectionForSectionIndexTitle = sectionForSectionIndexTitle
+        return self
+    }
+    
+}
+

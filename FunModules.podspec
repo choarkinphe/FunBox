@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.0'
     
     # 组件库
-    s.dependency 'FunBox/Core', '~> 1.0.9'
+    s.dependency 'FunBox/Core'#, '~> 1.0.9'
 
         
         # 工具: FunUI
@@ -56,7 +56,7 @@ Pod::Spec.new do |s|
             # FunRefresher路径
             item.source_files = 'Sources/FunRefresher/**/*'
             # FunRefresher依赖
-            item.dependency 'FunBox/Fun', '~> 1.0.9'
+#            item.dependency 'FunBox/Fun', '~> 1.0.9'
 #            item.dependency 'RxDataSources', '~> 4.0.1'
 #            item.dependency 'RxSwift', '~> 5.1.1'
 #            item.dependency 'RxCocoa', '~> 5.1.1'

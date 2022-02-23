@@ -14,7 +14,7 @@ public struct API {
     public typealias Paramter = [String: Any]
 //    public typealias Provider = MoyaProvider
     // 缓存路径
-    private static let cachePathName = "com.corekit.requestcache"
+//    private static let cachePathName = "com.corekit.requestcache"
 
     // 方便创建请求实例
 //    public static func provider<T>(_ type: T.Type) -> MoyaProvider<T> where T: TargetType {
@@ -22,13 +22,13 @@ public struct API {
 //    }
     
     
-    fileprivate static var cachePool: FunBox.Cache {
-        let directoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
-        // 指定缓存路径
-        let cachePool = FunBox.Cache(path: directoryPath! + "/\(API.cachePathName)")
-        
-        return cachePool
-    }
+//    fileprivate static var cachePool: FunBox.Cache {
+//        let directoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
+//        // 指定缓存路径
+//        let cachePool = FunBox.Cache(path: directoryPath! + "/\(API.cachePathName)")
+//
+//        return cachePool
+//    }
 }
 
 extension String: HandyJSON {}

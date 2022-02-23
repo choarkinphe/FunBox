@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
     s.subspec "Core" do |ss|
         ss.source_files  = "Sources/FunAlamofire/Core/**/*"
         ss.dependency "Alamofire", "~> 5.0"
-        ss.dependency 'FunBox/Core', '~> 1.0.9'
+        ss.dependency 'FunBox/Core'#, '~> 1.0.9'
         ss.framework  = "Foundation"
       end
     s.subspec 'HandyJSON' do |ss|
